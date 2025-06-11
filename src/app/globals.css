@@ -218,6 +218,30 @@ body::before {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
+/* Rainbow Title Animation */
+@keyframes rainbow-shift {
+  0% {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  }
+  25% {
+    background: linear-gradient(135deg, #4facfe 0%, #667eea 25%, #764ba2 50%, #f093fb 75%, #f5576c 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, #f5576c 0%, #4facfe 25%, #667eea 50%, #764ba2 75%, #f093fb 100%);
+  }
+  75% {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #4facfe 50%, #667eea 75%, #764ba2 100%);
+  }
+  100% {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  }
+}
+
+.rainbow-title {
+  animation: rainbow-shift 4s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
 /* Progress Bar Glassmorphism */
 .glass-progress {
   background: rgba(255, 255, 255, 0.1);

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "hard1-001",
+    "english": "perspicacious",
+    "japanese": "洞察力のある、鋭敏な",
+    "phonetic": "ˌpɜːrspɪˈkeɪʃəs",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "hard1-001-ex1",
+        "english": "Her perspicacious analysis revealed the underlying problem.",
+        "japanese": "彼女の洞察力のある分析が根本的な問題を明らかにした。",
+        "difficulty": 4,
+        "context": "analytical thinking"
+      },
+      {
+        "id": "hard1-001-ex2",
+        "english": "A perspicacious observer would notice the subtle changes.",
+        "japanese": "洞察力のある観察者なら微妙な変化に気づくでしょう。",
+        "difficulty": 5,
+        "context": "observation"
+      }
+    ]
+  },
+  {
+    "id": "hard1-002",
+    "english": "obfuscate",
+    "japanese": "混乱させる、曖昧にする",
+    "phonetic": "ˈɒbfʌskeɪt",
+    "partOfSpeech": "verb",
+    "frequency": 40,
+    "examples": [
+      {
+        "id": "hard1-002-ex1",
+        "english": "The politician tried to obfuscate the real issues.",
+        "japanese": "その政治家は本当の問題を曖昧にしようとした。",
+        "difficulty": 4,
+        "context": "politics"
+      },
+      {
+        "id": "hard1-002-ex2",
+        "english": "Complex jargon can obfuscate simple concepts.",
+        "japanese": "複雑な専門用語は単純な概念を混乱させることがある。",
+        "difficulty": 5,
+        "context": "communication"
+      }
+    ]
+  },
+  {
+    "id": "hard1-003",
+    "english": "sycophantic",
+    "japanese": "へつらう、おべっかを使う",
+    "phonetic": "ˌsɪkəˈfæntɪk",
+    "partOfSpeech": "adjective",
+    "frequency": 30,
+    "examples": [
+      {
+        "id": "hard1-003-ex1",
+        "english": "His sycophantic behavior annoyed his colleagues.",
+        "japanese": "彼のへつらう行動は同僚たちを苛立たせた。",
+        "difficulty": 4,
+        "context": "workplace behavior"
+      },
+      {
+        "id": "hard1-003-ex2",
+        "english": "The sycophantic praise felt insincere.",
+        "japanese": "そのおべっかの賞賛は不誠実に感じられた。",
+        "difficulty": 5,
+        "context": "social interaction"
+      }
+    ]
+  },
+  {
+    "id": "hard1-004",
+    "english": "ephemeral",
+    "japanese": "一時的な、短命な",
+    "phonetic": "ɪˈfem(ə)rəl",
+    "partOfSpeech": "adjective",
+    "frequency": 80,
+    "examples": [
+      {
+        "id": "hard1-004-ex1",
+        "english": "The ephemeral nature of digital art challenges preservation.",
+        "japanese": "デジタルアートの一時的な性質は保存に課題をもたらす。",
+        "difficulty": 4,
+        "context": "art and technology"
+      },
+      {
+        "id": "hard1-004-ex2",
+        "english": "Fame can be ephemeral in the modern world.",
+        "japanese": "現代世界では名声は短命である可能性がある。",
+        "difficulty": 3,
+        "context": "celebrity culture"
+      }
+    ]
+  },
+  {
+    "id": "hard1-005",
+    "english": "recalcitrant",
+    "japanese": "反抗的な、手に負えない",
+    "phonetic": "rɪˈkælsɪtrənt",
+    "partOfSpeech": "adjective",
+    "frequency": 35,
+    "examples": [
+      {
+        "id": "hard1-005-ex1",
+        "english": "The recalcitrant student refused to follow the rules.",
+        "japanese": "その反抗的な生徒は規則に従うことを拒否した。",
+        "difficulty": 4,
+        "context": "education"
+      },
+      {
+        "id": "hard1-005-ex2",
+        "english": "Dealing with recalcitrant employees requires patience.",
+        "japanese": "手に負えない従業員への対処には忍耐が必要です。",
+        "difficulty": 5,
+        "context": "management"
+      }
+    ]
+  }
+]

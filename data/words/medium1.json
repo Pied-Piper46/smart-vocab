@@ -1,0 +1,122 @@
+[
+  {
+    "id": "medium1-001",
+    "english": "serendipity",
+    "japanese": "偶然の幸運",
+    "phonetic": "ˌserənˈdipədē",
+    "partOfSpeech": "noun",
+    "frequency": 150,
+    "examples": [
+      {
+        "id": "medium1-001-ex1",
+        "english": "Finding that book was pure serendipity.",
+        "japanese": "その本を見つけたのは純粋に偶然の幸運でした。",
+        "difficulty": 2,
+        "context": "discovery"
+      },
+      {
+        "id": "medium1-001-ex2",
+        "english": "Their meeting was a moment of serendipity.",
+        "japanese": "彼らの出会いは偶然の幸運な瞬間でした。",
+        "difficulty": 3,
+        "context": "relationship"
+      }
+    ]
+  },
+  {
+    "id": "medium1-002",
+    "english": "ephemeral",
+    "japanese": "短命な、はかない",
+    "phonetic": "əˈfem(ə)rəl",
+    "partOfSpeech": "adjective",
+    "frequency": 120,
+    "examples": [
+      {
+        "id": "medium1-002-ex1",
+        "english": "The beauty of cherry blossoms is ephemeral.",
+        "japanese": "桜の美しさははかないものです。",
+        "difficulty": 3,
+        "context": "nature"
+      },
+      {
+        "id": "medium1-002-ex2",
+        "english": "Youth is ephemeral, so enjoy it while you can.",
+        "japanese": "青春は短いものなので、できる間に楽しんでください。",
+        "difficulty": 2,
+        "context": "philosophy"
+      }
+    ]
+  },
+  {
+    "id": "medium1-003",
+    "english": "ubiquitous",
+    "japanese": "至る所にある、遍在する",
+    "phonetic": "yo͞oˈbikwədəs",
+    "partOfSpeech": "adjective",
+    "frequency": 180,
+    "examples": [
+      {
+        "id": "medium1-003-ex1",
+        "english": "Smartphones have become ubiquitous in modern society.",
+        "japanese": "スマートフォンは現代社会において至る所にあるものとなった。",
+        "difficulty": 2,
+        "context": "technology"
+      },
+      {
+        "id": "medium1-003-ex2",
+        "english": "Coffee shops are ubiquitous in this city.",
+        "japanese": "この街にはコーヒーショップが至る所にあります。",
+        "difficulty": 2,
+        "context": "urban life"
+      }
+    ]
+  },
+  {
+    "id": "medium1-004",
+    "english": "paradigm",
+    "japanese": "パラダイム、規範",
+    "phonetic": "ˈpærəˌdaɪm",
+    "partOfSpeech": "noun",
+    "frequency": 200,
+    "examples": [
+      {
+        "id": "medium1-004-ex1",
+        "english": "The new technology represents a paradigm shift.",
+        "japanese": "その新技術はパラダイムシフトを表しています。",
+        "difficulty": 3,
+        "context": "business"
+      },
+      {
+        "id": "medium1-004-ex2",
+        "english": "We need to change our paradigm of thinking.",
+        "japanese": "私たちは思考のパラダイムを変える必要があります。",
+        "difficulty": 2,
+        "context": "philosophy"
+      }
+    ]
+  },
+  {
+    "id": "medium1-005",
+    "english": "meticulous",
+    "japanese": "細心な、几帳面な",
+    "phonetic": "məˈtɪkjələs",
+    "partOfSpeech": "adjective",
+    "frequency": 160,
+    "examples": [
+      {
+        "id": "medium1-005-ex1",
+        "english": "She is meticulous about her work.",
+        "japanese": "彼女は仕事に対して細心です。",
+        "difficulty": 2,
+        "context": "work quality"
+      },
+      {
+        "id": "medium1-005-ex2",
+        "english": "The research required meticulous attention to detail.",
+        "japanese": "その研究には細部への細心な注意が必要でした。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  }
+]

@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { Play, Pause, Square, Timer, Target, TrendingUp, BookOpen } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
 import { calculateOptimalSessionComposition } from '@/lib/spaced-repetition';
+import { getSessionWords, getWordDataStats } from '@/lib/word-data-loader';
+import { SessionWord } from '@/types/word-data';
 
 interface SessionManagerProps {
   userId: string;
@@ -20,28 +22,8 @@ interface SessionStats {
   sessionType: string;
 }
 
-interface Word {
-  id: string;
-  english: string;
-  japanese: string;
-  phonetic?: string;
-  partOfSpeech: string;
-  examples: Array<{
-    id: string;
-    english: string;
-    japanese: string;
-    difficulty: number;
-  }>;
-  progress?: {
-    easeFactor: number;
-    interval: number;
-    repetitions: number;
-    nextReviewDate: Date;
-    streak: number;
-    totalReviews: number;
-    correctAnswers: number;
-  };
-}
+// Use SessionWord type from word-data.ts
+type Word = SessionWord;
 
 export default function SessionManager({ 
   userId, 
@@ -105,65 +87,27 @@ export default function SessionManager({
 
   const loadSessionData = useCallback(async () => {
     try {
-      // Mock data for now - in real app, fetch from API
-      const mockWords: Word[] = [
-        {
-          id: '1',
-          english: 'serendipity',
-          japanese: '偶然の幸運',
-          phonetic: 'ˌserənˈdipədē',
-          partOfSpeech: 'noun',
-          examples: [
-            {
-              id: '1',
-              english: 'Finding that book was pure serendipity.',
-              japanese: 'その本を見つけたのは純粋に偶然の幸運でした。',
-              difficulty: 2
-            }
-          ]
-        },
-        {
-          id: '2',
-          english: 'ephemeral',
-          japanese: '短命な、はかない',
-          phonetic: 'əˈfem(ə)rəl',
-          partOfSpeech: 'adjective',
-          examples: [
-            {
-              id: '2',
-              english: 'The beauty of cherry blossoms is ephemeral.',
-              japanese: '桜の美しさははかないものです。',
-              difficulty: 3
-            }
-          ]
-        },
-        {
-          id: '3',
-          english: 'ubiquitous',
-          japanese: '至る所にある、遍在する',
-          phonetic: 'yo͞oˈbikwədəs',
-          partOfSpeech: 'adjective',
-          examples: [
-            {
-              id: '3',
-              english: 'Smartphones have become ubiquitous in modern society.',
-              japanese: 'スマートフォンは現代社会において至る所にあるものとなった。',
-              difficulty: 2
-            }
-          ]
-        }
-      ];
-
-      setSessionWords(mockWords);
+      // Load words from JSON data files
+      const words = getSessionWords(undefined, 10); // Mixed difficulty, 10 words
+      setSessionWords(words);
       
-      // Calculate optimal session composition
+      // Get word data statistics
+      const stats = getWordDataStats();
+      
+      // Calculate optimal session composition using real data
       const composition = calculateOptimalSessionComposition(
-        10, // available new words
-        15, // due reviews
-        3, // user level
+        stats.total, // available total words
+        0, // due reviews (no progress tracking yet)
+        3, // user level (hardcoded for now)
         sessionDuration
       );
       setSessionComposition(composition);
+      
+      console.log('Loaded session data:', {
+        wordsCount: words.length,
+        wordStats: stats,
+        composition
+      });
       
     } catch (error) {
       console.error('Failed to load session data:', error);

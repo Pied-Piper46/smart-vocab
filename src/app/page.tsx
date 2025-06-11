@@ -21,9 +21,10 @@ export default function Home() {
             <div className="p-3 glass rounded-2xl glow pulse-glow">
               <Brain className="text-white" size={56} />
             </div>
-            <h1 className="text-5xl font-bold text-white" style={{ 
-              textShadow: '0 4px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1)',
-              WebkitTextStroke: '1px rgba(255, 255, 255, 0.2)'
+            <h1 className="text-5xl font-bold" style={{ 
+              color: 'white',
+              textShadow: '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 30px rgba(102, 126, 234, 0.3), 0 2px 4px rgba(118, 75, 162, 0.2)',
+              WebkitTextStroke: '1px rgba(102, 126, 234, 0.2)'
             }}>Smart Vocab App</h1>
           </div>
           <p className="text-2xl text-white font-medium mt-8 mb-4">
