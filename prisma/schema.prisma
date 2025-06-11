@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./vocab.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Learning preferences
+  dailyGoal          Int     @default(20) // words per day
+  sessionDuration    Int     @default(10) // minutes
+  preferredLanguage  String  @default("ja") // ja for Japanese
+  
+  // Progress tracking
+  totalWordsLearned  Int     @default(0)
+  currentStreak      Int     @default(0)
+  longestStreak      Int     @default(0)
+  totalStudyTime     Int     @default(0) // minutes
+
+  // Relations
+  progress    WordProgress[]
+  sessions    LearningSession[]
+  achievements UserAchievement[]
+
+  @@map("users")
+}
+
+model Word {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Word data
+  english     String   @unique
+  japanese    String
+  phonetic    String?  // pronunciation
+  partOfSpeech String  // noun, verb, adjective, etc.
+  difficulty  Int      @default(1) // 1-5 scale
+  frequency   Int      @default(1) // usage frequency ranking
+
+  // Learning context
+  examples    WordExample[]
+  progress    WordProgress[]
+
+  @@map("words")
+}
+
+model WordExample {
+  id        String @id @default(cuid())
+  wordId    String
+  english   String
+  japanese  String
+  difficulty Int   @default(1) // 1-3 (beginner, intermediate, advanced)
+  context   String @default("general") // general, business, academic, etc.
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@map("word_examples")
+}
+
+model WordProgress {
+  id       String   @id @default(cuid())
+  userId   String
+  wordId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Spaced repetition data
+  easeFactor      Float   @default(2.5) // SuperMemo algorithm
+  interval        Int     @default(1)   // days until next review
+  repetitions     Int     @default(0)
+  nextReviewDate  DateTime @default(now())
+  
+  // Performance tracking
+  totalReviews    Int     @default(0)
+  correctAnswers  Int     @default(0)
+  streak          Int     @default(0)
+  lastAnswerCorrect Boolean @default(false)
+  
+  // Learning modes performance
+  engToJpnCorrect Int     @default(0)
+  engToJpnTotal   Int     @default(0)
+  jpnToEngCorrect Int     @default(0) 
+  jpnToEngTotal   Int     @default(0)
+  audioCorrect    Int     @default(0)
+  audioTotal      Int     @default(0)
+  contextCorrect  Int     @default(0)
+  contextTotal    Int     @default(0)
+
+  // Status
+  status          String  @default("new") // new, learning, reviewing, mastered
+  difficultyRating Int?   // user's subjective difficulty (1-5)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, wordId])
+  @@map("word_progress")
+}
+
+model LearningSession {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Session metadata
+  duration       Int      @default(0) // seconds
+  wordsStudied   Int      @default(0)
+  wordsCorrect   Int      @default(0)
+  sessionType    String   @default("mixed") // mixed, review, new_words
+  completedAt    DateTime?
+
+  // Performance metrics
+  averageResponseTime Int @default(0) // milliseconds
+  focusScore         Int @default(100) // 0-100, decreases with interruptions
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviews SessionReview[]
+
+  @@map("learning_sessions")
+}
+
+model SessionReview {
+  id              String   @id @default(cuid())
+  sessionId       String
+  wordId          String
+  createdAt       DateTime @default(now())
+
+  // Review data
+  learningMode    String   // eng_to_jpn, jpn_to_eng, audio, context
+  isCorrect       Boolean
+  responseTime    Int      // milliseconds
+  difficulty      Int      // 1-5 user rating after answer
+  hintsUsed       Int      @default(0)
+
+  session LearningSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("session_reviews")
+}
+
+model Achievement {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String
+  icon        String
+  category    String // streak, volume, accuracy, speed, etc.
+  requirement Int    // threshold value
+  isActive    Boolean @default(true)
+
+  users UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id           String   @id @default(cuid())
+  userId       String
+  achievementId String
+  unlockedAt   DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
