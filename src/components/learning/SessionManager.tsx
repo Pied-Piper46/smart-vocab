@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Play, Pause, Square, Timer, Target, TrendingUp } from 'lucide-react';
+import { Play, Pause, Square, Timer, Target, TrendingUp, BookOpen } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
 import { calculateOptimalSessionComposition } from '@/lib/spaced-repetition';
 
@@ -228,89 +228,110 @@ export default function SessionManager({
   };
 
   const renderSetup = () => (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-2">学習セッション</h2>
-        <p className="text-gray-600">科学的根拠に基づく効率的な10分間学習</p>
-      </div>
+    <div className="max-w-3xl mx-auto">
+      <div className="glass-strong rounded-3xl p-10 mb-8">
+        <div className="text-center mb-10">
+          <h2 className="text-4xl font-bold mb-4 text-white">学習セッション</h2>
+          <p className="text-xl text-white/80">科学的根拠に基づく効率的な10分間学習</p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="bg-blue-50 p-4 rounded-lg text-center">
-          <Timer className="mx-auto mb-2 text-blue-600" size={24} />
-          <div className="font-bold text-blue-800">{sessionDuration}分</div>
-          <div className="text-sm text-blue-600">集中学習時間</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
+            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
+              <Timer className="text-white" size={32} />
+            </div>
+            <div className="text-2xl font-bold text-white mb-2">{sessionDuration}分</div>
+            <div className="text-sm text-white/80">集中学習時間</div>
+          </div>
+          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
+            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
+              <Target className="text-white" size={32} />
+            </div>
+            <div className="text-2xl font-bold text-white mb-2">{sessionComposition.totalWords}語</div>
+            <div className="text-sm text-white/80">予定学習語数</div>
+          </div>
+          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
+            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
+              <TrendingUp className="text-white" size={32} />
+            </div>
+            <div className="text-2xl font-bold text-white mb-2">混合モード</div>
+            <div className="text-sm text-white/80">学習パターン</div>
+          </div>
         </div>
-        <div className="bg-green-50 p-4 rounded-lg text-center">
-          <Target className="mx-auto mb-2 text-green-600" size={24} />
-          <div className="font-bold text-green-800">{sessionComposition.totalWords}語</div>
-          <div className="text-sm text-green-600">予定学習語数</div>
-        </div>
-        <div className="bg-purple-50 p-4 rounded-lg text-center">
-          <TrendingUp className="mx-auto mb-2 text-purple-600" size={24} />
-          <div className="font-bold text-purple-800">混合モード</div>
-          <div className="text-sm text-purple-600">学習パターン</div>
-        </div>
-      </div>
 
-      <div className="bg-gray-50 p-4 rounded-lg mb-6">
-        <h3 className="font-bold mb-2">今回のセッション構成</h3>
-        <div className="text-sm text-gray-600">
-          <div>• 新しい単語: {sessionComposition.newWords}語</div>
-          <div>• 復習単語: {sessionComposition.reviews}語</div>
-          <div>• 学習モード: 英→日、日→英、音声認識、文脈推測</div>
+        <div className="glass-light rounded-2xl p-6 mb-8">
+          <h3 className="text-xl font-bold mb-4 text-white">今回のセッション構成</h3>
+          <div className="text-white/80 space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"></div>
+              <span>新しい単語: {sessionComposition.newWords}語</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-green-400 to-cyan-400"></div>
+              <span>復習単語: {sessionComposition.reviews}語</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-pink-400 to-yellow-400"></div>
+              <span>学習モード: 英→日、日→英、音声認識、文脈推測</span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <button
-        onClick={startSession}
-        disabled={sessionWords.length === 0}
-        className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 font-medium"
-      >
-        <Play size={20} />
-        学習開始
-      </button>
+        <button
+          onClick={startSession}
+          disabled={sessionWords.length === 0}
+          className="w-full glass-button flex items-center justify-center gap-4 px-8 py-6 rounded-2xl text-xl font-bold text-white glow disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <Play size={28} />
+          学習開始
+        </button>
+      </div>
     </div>
   );
 
   const renderActive = () => (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-5xl mx-auto">
       {/* Session Header */}
-      <div className="bg-white rounded-xl shadow-lg p-4 mb-6">
+      <div className="glass-strong rounded-2xl p-6 mb-8">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="text-2xl font-bold text-blue-600">
-              {formatTime(timeRemaining)}
+          <div className="flex items-center gap-6">
+            <div className="glass rounded-xl p-4">
+              <div className="text-3xl font-bold text-white">
+                {formatTime(timeRemaining)}
+              </div>
             </div>
-            <div className="text-sm text-gray-600">
-              {currentWordIndex + 1} / {sessionWords.length}
+            <div className="glass-light rounded-xl p-3">
+              <div className="text-lg text-white font-medium">
+                {currentWordIndex + 1} / {sessionWords.length}
+              </div>
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               onClick={pauseSession}
-              className="p-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+              className="glass-button p-3 rounded-xl text-white hover:scale-105 transition-all duration-300"
             >
-              <Pause size={16} />
+              <Pause size={20} />
             </button>
             <button
               onClick={completeSession}
-              className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+              className="glass-button p-3 rounded-xl text-white hover:scale-105 transition-all duration-300"
             >
-              <Square size={16} />
+              <Square size={20} />
             </button>
           </div>
         </div>
         
         {/* Progress Bar */}
-        <div className="mt-3">
-          <div className="flex justify-between text-xs text-gray-500 mb-1">
-            <span>進捗</span>
-            <span>{Math.round((currentWordIndex / sessionWords.length) * 100)}%</span>
+        <div className="mt-6">
+          <div className="flex justify-between text-sm text-white/80 mb-3">
+            <span className="font-medium">進捗</span>
+            <span className="font-bold">{Math.round((currentWordIndex / sessionWords.length) * 100)}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="glass-progress rounded-full h-3">
             <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              className="glass-progress-fill h-full rounded-full transition-all duration-500"
               style={{ width: `${(currentWordIndex / sessionWords.length) * 100}%` }}
             />
           </div>
@@ -330,64 +351,86 @@ export default function SessionManager({
   );
 
   const renderPaused = () => (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg text-center">
-      <h2 className="text-2xl font-bold mb-4">セッション一時停止</h2>
-      <div className="text-lg mb-6">残り時間: {formatTime(timeRemaining)}</div>
-      <div className="flex justify-center gap-4">
-        <button
-          onClick={resumeSession}
-          className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700"
-        >
-          <Play size={20} />
-          再開
-        </button>
-        <button
-          onClick={completeSession}
-          className="flex items-center gap-2 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700"
-        >
-          <Square size={20} />
-          終了
-        </button>
+    <div className="max-w-2xl mx-auto">
+      <div className="glass-strong rounded-3xl p-10 text-center">
+        <h2 className="text-3xl font-bold mb-6 text-white">セッション一時停止</h2>
+        <div className="glass rounded-2xl p-6 mb-8 inline-block">
+          <div className="text-2xl font-bold text-white">残り時間: {formatTime(timeRemaining)}</div>
+        </div>
+        <div className="flex justify-center gap-6">
+          <button
+            onClick={resumeSession}
+            className="glass-button flex items-center gap-3 px-8 py-4 rounded-2xl text-lg font-bold text-white hover:scale-105 transition-all duration-300"
+          >
+            <Play size={24} />
+            再開
+          </button>
+          <button
+            onClick={completeSession}
+            className="glass-button flex items-center gap-3 px-8 py-4 rounded-2xl text-lg font-bold text-white hover:scale-105 transition-all duration-300"
+          >
+            <Square size={24} />
+            終了
+          </button>
+        </div>
       </div>
     </div>
   );
 
   const renderCompleted = () => (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-2 text-green-600">セッション完了！</h2>
-        <p className="text-gray-600">お疲れさまでした</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-blue-50 p-4 rounded-lg text-center">
-          <div className="text-2xl font-bold text-blue-800">{sessionStats.wordsStudied}</div>
-          <div className="text-sm text-blue-600">学習語数</div>
-        </div>
-        <div className="bg-green-50 p-4 rounded-lg text-center">
-          <div className="text-2xl font-bold text-green-800">
-            {Math.round((sessionStats.wordsCorrect / sessionStats.wordsStudied) * 100)}%
+    <div className="max-w-4xl mx-auto">
+      <div className="glass-strong rounded-3xl p-12">
+        <div className="text-center mb-12">
+          <div className="glass rounded-2xl p-6 mb-6 inline-block glow">
+            <h2 className="text-4xl font-bold text-white">🎉 セッション完了！</h2>
           </div>
-          <div className="text-sm text-green-600">正答率</div>
+          <p className="text-xl text-white/80">お疲れさまでした</p>
         </div>
-        <div className="bg-purple-50 p-4 rounded-lg text-center">
-          <div className="text-2xl font-bold text-purple-800">
-            {Math.round(sessionStats.averageResponseTime / 1000)}s
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
+            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
+              <BookOpen className="text-white" size={24} />
+            </div>
+            <div className="text-3xl font-bold text-white mb-2">{sessionStats.wordsStudied}</div>
+            <div className="text-sm text-white/80">学習語数</div>
           </div>
-          <div className="text-sm text-purple-600">平均回答時間</div>
+          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
+            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
+              <Target className="text-white" size={24} />
+            </div>
+            <div className="text-3xl font-bold text-white mb-2">
+              {Math.round((sessionStats.wordsCorrect / sessionStats.wordsStudied) * 100)}%
+            </div>
+            <div className="text-sm text-white/80">正答率</div>
+          </div>
+          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
+            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
+              <Timer className="text-white" size={24} />
+            </div>
+            <div className="text-3xl font-bold text-white mb-2">
+              {Math.round(sessionStats.averageResponseTime / 1000)}s
+            </div>
+            <div className="text-sm text-white/80">平均回答時間</div>
+          </div>
+          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
+            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
+              <TrendingUp className="text-white" size={24} />
+            </div>
+            <div className="text-3xl font-bold text-white mb-2">{Math.round(sessionStats.focusScore)}</div>
+            <div className="text-sm text-white/80">集中度スコア</div>
+          </div>
         </div>
-        <div className="bg-yellow-50 p-4 rounded-lg text-center">
-          <div className="text-2xl font-bold text-yellow-800">{Math.round(sessionStats.focusScore)}</div>
-          <div className="text-sm text-yellow-600">集中度スコア</div>
+
+        <div className="text-center">
+          <button
+            onClick={() => window.location.reload()}
+            className="glass-button px-12 py-6 rounded-2xl text-xl font-bold text-white glow hover:scale-105 transition-all duration-300"
+          >
+            新しいセッションを開始
+          </button>
         </div>
       </div>
-
-      <button
-        onClick={() => window.location.reload()}
-        className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
-      >
-        新しいセッションを開始
-      </button>
     </div>
   );
 
