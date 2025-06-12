@@ -68,7 +68,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
               <div className="text-5xl font-bold text-white">{word.english}</div>
               <div className="w-10"></div> {/* Spacer to keep text centered */}
             </div>
-            <div className="text-lg text-white/70 font-bold">({word.partOfSpeech})</div>
+            <div className="text-lg text-white/70">({word.partOfSpeech})</div>
           </div>
         );
       
@@ -133,21 +133,21 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
     return (
       <div className="text-center">
         <div className="mb-8">
-          <div className="flex items-center justify-center gap-4 mb-3">
+          <div className="flex items-center justify-center gap-4">
             <button
               onClick={playAudio}
               className="glass-button p-2.5 rounded-xl text-white hover:scale-101 transition-all duration-300"
             >
               <Volume2 size={24} />
             </button>
-            <div className="text-4xl font-bold text-white">{word.english}</div>
+            <div className="text-5xl font-bold text-white mb-1">{word.english}</div>
             <div className="w-10"></div> {/* Spacer to keep text centered */}
           </div>
-          <div className="text-3xl text-gradient mb-3">{word.japanese}</div>
-          <div className="text-lg text-white/70 mb-2">({word.partOfSpeech})</div>
+          <div className="text-base text-white/70 mb-1">({word.partOfSpeech})</div>
           {word.phonetic && (
-            <div className="text-xl text-white/60 font-mono">/{word.phonetic}/</div>
+            <div className="text-base text-white/60 font-mono mb-6">/{word.phonetic}/</div>
           )}
+          <div className="text-4xl text-gradient mb-6">{word.japanese}</div>
         </div>
 
         {word.examples.length > 0 && (
