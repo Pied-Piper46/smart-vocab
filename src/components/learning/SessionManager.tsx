@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Play, Pause, Square, Timer, Target, BookOpen, TrendingUp } from 'lucide-react';
+import { Play, BookOpen, TrendingUp, Target, Timer } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
 import { getSessionWords } from '@/lib/word-data-loader';
 import { SessionWord, DifficultyLevel } from '@/types/word-data';
@@ -29,11 +29,10 @@ export default function SessionManager({
   initialDifficulty = null,
   onSessionComplete 
 }: SessionManagerProps) {
-  const [sessionState, setSessionState] = useState<'setup' | 'active' | 'paused' | 'completed'>('setup');
+  const [sessionState, setSessionState] = useState<'setup' | 'active' | 'completed'>('setup');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [sessionWords, setSessionWords] = useState<Word[]>([]);
   const [currentMode, setCurrentMode] = useState<LearningMode>('eng_to_jpn');
-  const [timeRemaining, setTimeRemaining] = useState(sessionDuration * 60); // seconds
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | null>(initialDifficulty);
   const [sessionStats, setSessionStats] = useState<SessionStats>({
     duration: 0,
@@ -49,7 +48,7 @@ export default function SessionManager({
     setSessionState('completed');
     
     const finalStats: SessionStats = {
-      duration: sessionDuration * 60 - timeRemaining,
+      duration: 0, // No time tracking
       wordsStudied: sessionStats.wordsStudied,
       wordsCorrect: sessionStats.wordsCorrect,
       averageResponseTime: responseTimes.length > 0 
@@ -61,28 +60,8 @@ export default function SessionManager({
     
     setSessionStats(finalStats);
     onSessionComplete?.(finalStats);
-  }, [sessionDuration, timeRemaining, sessionStats, responseTimes, onSessionComplete]);
+  }, [sessionStats, responseTimes, selectedDifficulty, onSessionComplete]);
 
-  // Timer effect
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    
-    if (sessionState === 'active' && timeRemaining > 0) {
-      interval = setInterval(() => {
-        setTimeRemaining(prev => {
-          if (prev <= 1) {
-            completeSession();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [sessionState, timeRemaining, completeSession]);
 
   const loadSessionData = useCallback(async () => {
     try {
@@ -117,16 +96,8 @@ export default function SessionManager({
   const startSession = () => {
     setSessionState('active');
     setCurrentWordIndex(0);
-    setTimeRemaining(sessionDuration * 60);
   };
 
-  const pauseSession = () => {
-    setSessionState('paused');
-  };
-
-  const resumeSession = () => {
-    setSessionState('active');
-  };
 
   const handleWordAnswer = async (correct: boolean, userDifficulty: number, responseTime: number, hintsUsed: number) => {
     // Update session stats
@@ -163,11 +134,6 @@ export default function SessionManager({
     }
   };
 
-  const formatTime = (seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
 
   const renderSetup = () => (
     <div className="max-w-3xl mx-auto">
@@ -206,11 +172,7 @@ export default function SessionManager({
         </div>
 
         <div className="glass-light rounded-2xl p-6 text-center">
-          <div className="text-white/80 space-y-3">
-            <div className="flex items-center justify-center gap-3">
-              <Timer className="text-white" size={20} />
-              <span>学習時間: {sessionDuration}分間の集中学習</span>
-            </div>
+          <div className="text-white/80">
             <div className="flex items-center justify-center gap-3">
               <Target className="text-white" size={20} />
               <span>学習モード: 英→日、日→英、音声認識、文脈推測</span>
@@ -223,50 +185,18 @@ export default function SessionManager({
 
   const renderActive = () => (
     <div className="max-w-5xl mx-auto">
-      {/* Session Header */}
-      <div className="glass-strong rounded-2xl p-6 mb-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className="glass rounded-xl p-4">
-              <div className="text-3xl font-bold text-white">
-                {formatTime(timeRemaining)}
-              </div>
-            </div>
-            <div className="glass-light rounded-xl p-3">
-              <div className="text-lg text-white font-medium">
-                {currentWordIndex + 1} / {sessionWords.length}
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <button
-              onClick={pauseSession}
-              className="glass-button p-3 rounded-xl text-white hover:scale-105 transition-all duration-300"
-            >
-              <Pause size={20} />
-            </button>
-            <button
-              onClick={completeSession}
-              className="glass-button p-3 rounded-xl text-white hover:scale-105 transition-all duration-300"
-            >
-              <Square size={20} />
-            </button>
-          </div>
+      {/* Progress Bar */}
+      <div className="mb-10">
+        <div className="flex justify-between text-sm text-white/80 mb-3">
+          <span className="font-medium">学習進捗</span>
+          {/* <span className="font-bold">{Math.round((currentWordIndex / sessionWords.length) * 100)}%</span> */}
+          <span className="text-bold">{currentWordIndex + 1} / {sessionWords.length}</span>
         </div>
-        
-        {/* Progress Bar */}
-        <div className="mt-6">
-          <div className="flex justify-between text-sm text-white/80 mb-3">
-            <span className="font-medium">進捗</span>
-            <span className="font-bold">{Math.round((currentWordIndex / sessionWords.length) * 100)}%</span>
-          </div>
-          <div className="glass-progress rounded-full h-3">
-            <div 
-              className="glass-progress-fill h-full rounded-full transition-all duration-500"
-              style={{ width: `${(currentWordIndex / sessionWords.length) * 100}%` }}
-            />
-          </div>
+        <div className="glass-progress rounded-full h-4">
+          <div 
+            className="glass-progress-fill h-full rounded-full transition-all duration-500"
+            style={{ width: `${(currentWordIndex / sessionWords.length) * 100}%` }}
+          />
         </div>
       </div>
 
@@ -276,38 +206,11 @@ export default function SessionManager({
           word={sessionWords[currentWordIndex]}
           mode={currentMode}
           onAnswer={handleWordAnswer}
-          showHint={true}
         />
       )}
     </div>
   );
 
-  const renderPaused = () => (
-    <div className="max-w-2xl mx-auto">
-      <div className="glass-strong rounded-3xl p-10 text-center">
-        <h2 className="text-3xl font-bold mb-6 text-white">セッション一時停止</h2>
-        <div className="glass rounded-2xl p-6 mb-8 inline-block">
-          <div className="text-2xl font-bold text-white">残り時間: {formatTime(timeRemaining)}</div>
-        </div>
-        <div className="flex justify-center gap-6">
-          <button
-            onClick={resumeSession}
-            className="glass-button flex items-center gap-3 px-8 py-4 rounded-2xl text-lg font-bold text-white hover:scale-105 transition-all duration-300"
-          >
-            <Play size={24} />
-            再開
-          </button>
-          <button
-            onClick={completeSession}
-            className="glass-button flex items-center gap-3 px-8 py-4 rounded-2xl text-lg font-bold text-white hover:scale-105 transition-all duration-300"
-          >
-            <Square size={24} />
-            終了
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 
   const renderCompleted = () => (
     <div className="max-w-4xl mx-auto">
@@ -387,8 +290,6 @@ export default function SessionManager({
       return renderSetup();
     case 'active':
       return renderActive();
-    case 'paused':
-      return renderPaused();
     case 'completed':
       return renderCompleted();
     default:
