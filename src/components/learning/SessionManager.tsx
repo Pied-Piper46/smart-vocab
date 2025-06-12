@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Play, BookOpen, TrendingUp, Target, Timer } from 'lucide-react';
+import { Play, Target } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
 import { getSessionWords } from '@/lib/word-data-loader';
 import { SessionWord, DifficultyLevel } from '@/types/word-data';
@@ -13,11 +13,8 @@ interface SessionManagerProps {
 }
 
 interface SessionStats {
-  duration: number; // seconds
   wordsStudied: number;
   wordsCorrect: number;
-  averageResponseTime: number;
-  focusScore: number;
   sessionType: string;
 }
 
@@ -35,38 +32,29 @@ export default function SessionManager({
   const [currentMode, setCurrentMode] = useState<LearningMode>('eng_to_jpn');
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | null>(initialDifficulty);
   const [sessionStats, setSessionStats] = useState<SessionStats>({
-    duration: 0,
     wordsStudied: 0,
     wordsCorrect: 0,
-    averageResponseTime: 0,
-    focusScore: 100,
     sessionType: 'single_difficulty'
   });
-  const [responseTimes, setResponseTimes] = useState<number[]>([]);
 
   const completeSession = useCallback(() => {
     setSessionState('completed');
     
     const finalStats: SessionStats = {
-      duration: 0, // No time tracking
       wordsStudied: sessionStats.wordsStudied,
       wordsCorrect: sessionStats.wordsCorrect,
-      averageResponseTime: responseTimes.length > 0 
-        ? responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length 
-        : 0,
-      focusScore: sessionStats.focusScore,
       sessionType: selectedDifficulty || 'single_difficulty'
     };
     
     setSessionStats(finalStats);
     onSessionComplete?.(finalStats);
-  }, [sessionStats, responseTimes, selectedDifficulty, onSessionComplete]);
+  }, [sessionStats, selectedDifficulty, onSessionComplete]);
 
 
   const loadSessionData = useCallback(async () => {
     try {
       // Load words from JSON data files
-      const words = getSessionWords(selectedDifficulty!, 10);
+      const words = getSessionWords(selectedDifficulty!, 15);
       setSessionWords(words);
       
       console.log('Loaded session data:', {
@@ -105,22 +93,6 @@ export default function SessionManager({
       ...prev,
       wordsStudied: prev.wordsStudied + 1,
       wordsCorrect: prev.wordsCorrect + (correct ? 1 : 0)
-    }));
-
-    setResponseTimes(prev => [...prev, responseTime]);
-
-    // Calculate focus score based on response time and hints
-    const expectedTime = 5000; // 5 seconds expected
-    const timeScore = Math.max(0, 100 - (responseTime - expectedTime) / 100);
-    const hintPenalty = hintsUsed * 10;
-    const focusAdjustment = Math.max(0, timeScore - hintPenalty) / 100;
-    
-    // Use userDifficulty for future spaced repetition calculations
-    console.log('User difficulty rating:', userDifficulty);
-    
-    setSessionStats(prev => ({
-      ...prev,
-      focusScore: Math.max(0, prev.focusScore - (100 - focusAdjustment))
     }));
 
     // Move to next word or complete session
@@ -213,57 +185,23 @@ export default function SessionManager({
 
 
   const renderCompleted = () => (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-3xl mx-auto">
       <div className="glass-strong rounded-3xl p-12">
         <div className="text-center mb-12">
-          <div className="glass rounded-2xl p-6 mb-6 inline-block glow">
-            <h2 className="text-4xl font-bold text-white">🎉 セッション完了！</h2>
-          </div>
-          <p className="text-xl text-white/80">お疲れさまでした</p>
+          <h2 className="text-4xl font-bold text-white mb-8">🎉 セッション完了！</h2>
+          <p className="text-xl text-white/80">お疲れさまでした。</p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <BookOpen className="text-white" size={24} />
-            </div>
-            <div className="text-3xl font-bold text-white mb-2">{sessionStats.wordsStudied}</div>
-            <div className="text-sm text-white/80">学習語数</div>
-          </div>
-          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <Target className="text-white" size={24} />
-            </div>
-            <div className="text-3xl font-bold text-white mb-2">
+        {/* Accuracy Result */}
+        <div className="text-center mb-10">
+          <div className="glass rounded-2xl p-8 inline-block">
+            <div className="text-6xl font-bold text-gradient mb-4">
               {Math.round((sessionStats.wordsCorrect / sessionStats.wordsStudied) * 100)}%
             </div>
-            <div className="text-sm text-white/80">正答率</div>
-          </div>
-          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <Timer className="text-white" size={24} />
+            <div className="text-4xl font-bold text-white">
+              {sessionStats.wordsCorrect} / {sessionStats.wordsStudied}
             </div>
-            <div className="text-3xl font-bold text-white mb-2">
-              {Math.round(sessionStats.averageResponseTime / 1000)}s
-            </div>
-            <div className="text-sm text-white/80">平均回答時間</div>
           </div>
-          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <TrendingUp className="text-white" size={24} />
-            </div>
-            <div className="text-3xl font-bold text-white mb-2">{Math.round(sessionStats.focusScore)}</div>
-            <div className="text-sm text-white/80">集中度スコア</div>
-          </div>
-        </div>
-
-        <div className="text-center">
-          <button
-            onClick={() => window.location.reload()}
-            className="glass-button px-12 py-6 rounded-2xl text-xl font-bold text-white glow hover:scale-105 transition-all duration-300"
-          >
-            新しいセッションを開始
-          </button>
         </div>
       </div>
     </div>
