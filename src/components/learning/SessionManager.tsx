@@ -1,15 +1,14 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Play, Pause, Square, Timer, Target, TrendingUp, BookOpen } from 'lucide-react';
+import { Play, Pause, Square, Timer, Target, BookOpen, TrendingUp } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
-import { calculateOptimalSessionComposition } from '@/lib/spaced-repetition';
-import { getSessionWords, getWordDataStats } from '@/lib/word-data-loader';
-import { SessionWord } from '@/types/word-data';
+import { getSessionWords } from '@/lib/word-data-loader';
+import { SessionWord, DifficultyLevel } from '@/types/word-data';
 
 interface SessionManagerProps {
-  userId: string;
   sessionDuration?: number; // minutes
+  initialDifficulty?: DifficultyLevel | null;
   onSessionComplete?: (stats: SessionStats) => void;
 }
 
@@ -26,8 +25,8 @@ interface SessionStats {
 type Word = SessionWord;
 
 export default function SessionManager({ 
-  userId, 
-  sessionDuration = 10, 
+  sessionDuration = 10,
+  initialDifficulty = null,
   onSessionComplete 
 }: SessionManagerProps) {
   const [sessionState, setSessionState] = useState<'setup' | 'active' | 'paused' | 'completed'>('setup');
@@ -35,16 +34,16 @@ export default function SessionManager({
   const [sessionWords, setSessionWords] = useState<Word[]>([]);
   const [currentMode, setCurrentMode] = useState<LearningMode>('eng_to_jpn');
   const [timeRemaining, setTimeRemaining] = useState(sessionDuration * 60); // seconds
+  const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | null>(initialDifficulty);
   const [sessionStats, setSessionStats] = useState<SessionStats>({
     duration: 0,
     wordsStudied: 0,
     wordsCorrect: 0,
     averageResponseTime: 0,
     focusScore: 100,
-    sessionType: 'mixed'
+    sessionType: 'single_difficulty'
   });
   const [responseTimes, setResponseTimes] = useState<number[]>([]);
-  const [sessionComposition, setSessionComposition] = useState({ newWords: 0, reviews: 0, totalWords: 0 });
 
   const completeSession = useCallback(() => {
     setSessionState('completed');
@@ -57,7 +56,7 @@ export default function SessionManager({
         ? responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length 
         : 0,
       focusScore: sessionStats.focusScore,
-      sessionType: 'mixed'
+      sessionType: selectedDifficulty || 'single_difficulty'
     };
     
     setSessionStats(finalStats);
@@ -88,36 +87,32 @@ export default function SessionManager({
   const loadSessionData = useCallback(async () => {
     try {
       // Load words from JSON data files
-      const words = getSessionWords(undefined, 10); // Mixed difficulty, 10 words
+      const words = getSessionWords(selectedDifficulty!, 10);
       setSessionWords(words);
       
-      // Get word data statistics
-      const stats = getWordDataStats();
-      
-      // Calculate optimal session composition using real data
-      const composition = calculateOptimalSessionComposition(
-        stats.total, // available total words
-        0, // due reviews (no progress tracking yet)
-        3, // user level (hardcoded for now)
-        sessionDuration
-      );
-      setSessionComposition(composition);
-      
       console.log('Loaded session data:', {
-        wordsCount: words.length,
-        wordStats: stats,
-        composition
+        difficulty: selectedDifficulty,
+        wordsCount: words.length
       });
       
     } catch (error) {
       console.error('Failed to load session data:', error);
     }
-  }, [sessionDuration]);
+  }, [sessionDuration, selectedDifficulty]);
 
-  // Load session data on mount
+  // Load session data when difficulty is selected
   useEffect(() => {
-    loadSessionData();
-  }, [userId, loadSessionData]);
+    if (selectedDifficulty) {
+      loadSessionData();
+    }
+  }, [selectedDifficulty, loadSessionData]);
+
+  // Auto start session if initial difficulty is provided
+  useEffect(() => {
+    if (initialDifficulty && sessionWords.length > 0) {
+      startSession();
+    }
+  }, [sessionWords, initialDifficulty]);
 
   const startSession = () => {
     setSessionState('active');
@@ -133,7 +128,7 @@ export default function SessionManager({
     setSessionState('active');
   };
 
-  const handleWordAnswer = async (correct: boolean, difficulty: number, responseTime: number, hintsUsed: number) => {
+  const handleWordAnswer = async (correct: boolean, userDifficulty: number, responseTime: number, hintsUsed: number) => {
     // Update session stats
     setSessionStats(prev => ({
       ...prev,
@@ -148,6 +143,9 @@ export default function SessionManager({
     const timeScore = Math.max(0, 100 - (responseTime - expectedTime) / 100);
     const hintPenalty = hintsUsed * 10;
     const focusAdjustment = Math.max(0, timeScore - hintPenalty) / 100;
+    
+    // Use userDifficulty for future spaced repetition calculations
+    console.log('User difficulty rating:', userDifficulty);
     
     setSessionStats(prev => ({
       ...prev,
@@ -179,56 +177,46 @@ export default function SessionManager({
           <p className="text-xl text-white/80">科学的根拠に基づく効率的な10分間学習</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <Timer className="text-white" size={32} />
-            </div>
-            <div className="text-2xl font-bold text-white mb-2">{sessionDuration}分</div>
-            <div className="text-sm text-white/80">集中学習時間</div>
-          </div>
-          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <Target className="text-white" size={32} />
-            </div>
-            <div className="text-2xl font-bold text-white mb-2">{sessionComposition.totalWords}語</div>
-            <div className="text-sm text-white/80">予定学習語数</div>
-          </div>
-          <div className="glass rounded-2xl p-6 text-center hover:glass-strong transition-all duration-300">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <TrendingUp className="text-white" size={32} />
-            </div>
-            <div className="text-2xl font-bold text-white mb-2">混合モード</div>
-            <div className="text-sm text-white/80">学習パターン</div>
+        {/* Difficulty Selection */}
+        <div className="glass-light rounded-2xl p-6 mb-8">
+          <h3 className="text-xl font-bold mb-6 text-white text-center">学習難易度を選択</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button
+              onClick={() => { setSelectedDifficulty('easy'); startSession(); }}
+              className="p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 glass text-white/80 hover:glass-strong"
+            >
+              <div className="text-2xl font-bold mb-2">初級</div>
+              <div className="text-sm text-white/70">基本単語・日常会話</div>
+            </button>
+            <button
+              onClick={() => { setSelectedDifficulty('medium'); startSession(); }}
+              className="p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 glass text-white/80 hover:glass-strong"
+            >
+              <div className="text-2xl font-bold mb-2">中級</div>
+              <div className="text-sm text-white/70">応用単語・ビジネス</div>
+            </button>
+            <button
+              onClick={() => { setSelectedDifficulty('hard'); startSession(); }}
+              className="p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 glass text-white/80 hover:glass-strong"
+            >
+              <div className="text-2xl font-bold mb-2">上級</div>
+              <div className="text-sm text-white/70">高度単語・学術的</div>
+            </button>
           </div>
         </div>
 
-        <div className="glass-light rounded-2xl p-6 mb-8">
-          <h3 className="text-xl font-bold mb-4 text-white">今回のセッション構成</h3>
-          <div className="text-white/80 space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"></div>
-              <span>新しい単語: {sessionComposition.newWords}語</span>
+        <div className="glass-light rounded-2xl p-6 text-center">
+          <div className="text-white/80 space-y-3">
+            <div className="flex items-center justify-center gap-3">
+              <Timer className="text-white" size={20} />
+              <span>学習時間: {sessionDuration}分間の集中学習</span>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-green-400 to-cyan-400"></div>
-              <span>復習単語: {sessionComposition.reviews}語</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-pink-400 to-yellow-400"></div>
+            <div className="flex items-center justify-center gap-3">
+              <Target className="text-white" size={20} />
               <span>学習モード: 英→日、日→英、音声認識、文脈推測</span>
             </div>
           </div>
         </div>
-
-        <button
-          onClick={startSession}
-          disabled={sessionWords.length === 0}
-          className="w-full glass-button flex items-center justify-center gap-4 px-8 py-6 rounded-2xl text-xl font-bold text-white glow disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <Play size={28} />
-          学習開始
-        </button>
       </div>
     </div>
   );
@@ -377,6 +365,22 @@ export default function SessionManager({
       </div>
     </div>
   );
+
+  // Skip setup if initial difficulty is provided
+  if (initialDifficulty && sessionState === 'setup') {
+    return (
+      <div className="max-w-3xl mx-auto">
+        <div className="glass-strong rounded-3xl p-10 text-center">
+          <div className="text-2xl font-bold text-white mb-4">学習セッションを準備中...</div>
+          <div className="glass-light rounded-xl p-4 inline-block">
+            <div className="text-lg text-white">
+              難易度: {selectedDifficulty === 'easy' ? '初級' : selectedDifficulty === 'medium' ? '中級' : '上級'}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   switch (sessionState) {
     case 'setup':

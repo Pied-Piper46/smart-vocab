@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { Brain, BookOpen, TrendingUp, Target, Clock, Award } from 'lucide-react';
 import SessionManager from '@/components/learning/SessionManager';
+import { DifficultyLevel } from '@/types/word-data';
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<'home' | 'learning'>('home');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | null>(null);
 
   const renderHome = () => (
     <div className="min-h-screen relative overflow-hidden">
@@ -25,7 +27,7 @@ export default function Home() {
               color: 'white',
               textShadow: '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 30px rgba(102, 126, 234, 0.3), 0 2px 4px rgba(118, 75, 162, 0.2)',
               WebkitTextStroke: '1px rgba(102, 126, 234, 0.2)'
-            }}>Smart Vocab App</h1>
+            }}>Smart Vocab</h1>
           </div>
           <p className="text-2xl text-white font-medium mt-8 mb-4">
             科学的根拠に基づくTOEIC & IELTS対策英単語アプリ
@@ -158,17 +160,79 @@ export default function Home() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <p className="p-6 text-white/80 font-medium">
-            今すぐ科学的英単語学習を体験しましょう
-          </p>
-          <button
-            onClick={() => setCurrentView('learning')}
-            className="glass-button inline-flex items-center gap-4 mb-12 px-12 py-6 rounded-2xl text-xl font-bold text-white glow pulse-glow relative overflow-hidden group"
-          >
-            <Brain size={32} />
-            学習を開始する
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          </button>
+          <div className="flex items-center justify-center gap-4 mb-10">
+            <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
+            <p className="text-white text-xl">
+              難易度を選択して科学的英単語学習を体験してみましょう
+            </p>
+            <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
+          </div>
+          
+          {/* Difficulty Selection Buttons */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+            <button
+              onClick={() => { setSelectedDifficulty('easy'); setCurrentView('learning'); }}
+              className="glass-button p-8 rounded-2xl text-center transition-all duration-300 hover:scale-110 hover:glow border-2 border-transparent hover:border-green-400/50 relative overflow-hidden group"
+            >
+              {/* Action Indicator */}
+              <div className="absolute top-3 right-3 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="text-white text-xs font-bold">▶</div>
+              </div>
+              
+              {/* Level Badge */}
+              <div className="inline-flex items-center gap-2 glass-light rounded-full px-4 py-2 mb-4">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-sm text-white font-medium">BEGINNER</span>
+              </div>
+              
+              <div className="text-2xl font-bold mb-3 text-white">初級</div>
+              <div className="text-lg text-white/80 mb-4">基本単語・日常会話</div>
+              
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </button>
+            
+            <button
+              onClick={() => { setSelectedDifficulty('medium'); setCurrentView('learning'); }}
+              className="glass-button p-8 rounded-2xl text-center transition-all duration-300 hover:scale-110 hover:glow border-2 border-transparent hover:border-blue-400/50 relative overflow-hidden group"
+            >
+              {/* Action Indicator */}
+              <div className="absolute top-3 right-3 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="text-white text-xs font-bold">▶</div>
+              </div>
+              
+              {/* Level Badge */}
+              <div className="inline-flex items-center gap-2 glass-light rounded-full px-4 py-2 mb-4">
+                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                <span className="text-sm text-white font-medium">INTERMEDIATE</span>
+              </div>
+              
+              <div className="text-2xl font-bold mb-3 text-white">中級</div>
+              <div className="text-lg text-white/80 mb-4">応用単語・ビジネス</div>
+              
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </button>
+            
+            <button
+              onClick={() => { setSelectedDifficulty('hard'); setCurrentView('learning'); }}
+              className="glass-button p-8 rounded-2xl text-center transition-all duration-300 hover:scale-110 hover:glow border-2 border-transparent hover:border-purple-400/50 relative overflow-hidden group"
+            >
+              {/* Action Indicator */}
+              <div className="absolute top-3 right-3 w-6 h-6 bg-purple-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="text-white text-xs font-bold">▶</div>
+              </div>
+              
+              {/* Level Badge */}
+              <div className="inline-flex items-center gap-2 glass-light rounded-full px-4 py-2 mb-4">
+                <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                <span className="text-sm text-white font-medium">ADVANCED</span>
+              </div>
+              
+              <div className="text-2xl font-bold mb-3 text-white">上級</div>
+              <div className="text-lg text-white/80 mb-4">高度単語・学術的</div>
+              
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -190,8 +254,8 @@ export default function Home() {
           </button>
         </div>
         <SessionManager 
-          userId="demo-user" 
           sessionDuration={10}
+          initialDifficulty={selectedDifficulty}
           onSessionComplete={(stats) => {
             console.log('Session completed:', stats);
           }}
