@@ -84,6 +84,10 @@ export default function SessionManager({
   const startSession = () => {
     setSessionState('active');
     setCurrentWordIndex(0);
+    // Set random initial learning mode
+    const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
+    const randomMode = modes[Math.floor(Math.random() * modes.length)];
+    setCurrentMode(randomMode);
   };
 
 
@@ -98,9 +102,10 @@ export default function SessionManager({
     // Move to next word or complete session
     if (currentWordIndex < sessionWords.length - 1) {
       setCurrentWordIndex(prev => prev + 1);
-      // Rotate learning modes for variety
+      // Randomly select learning mode for variety
       const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
-      setCurrentMode(modes[(currentWordIndex + 1) % modes.length]);
+      const randomMode = modes[Math.floor(Math.random() * modes.length)];
+      setCurrentMode(randomMode);
     } else {
       completeSession();
     }

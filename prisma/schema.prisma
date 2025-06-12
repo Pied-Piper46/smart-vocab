@@ -1,10 +1,12 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./vocab.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["smart-vocab"]
 }
 
 model User {
@@ -29,6 +31,7 @@ model User {
   achievements UserAchievement[]
 
   @@map("users")
+  @@schema("smart-vocab")
 }
 
 model Word {
@@ -49,6 +52,7 @@ model Word {
   progress    WordProgress[]
 
   @@map("words")
+  @@schema("smart-vocab")
 }
 
 model WordExample {
@@ -62,6 +66,7 @@ model WordExample {
   word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
 
   @@map("word_examples")
+  @@schema("smart-vocab")
 }
 
 model WordProgress {
@@ -102,6 +107,7 @@ model WordProgress {
 
   @@unique([userId, wordId])
   @@map("word_progress")
+  @@schema("smart-vocab")
 }
 
 model LearningSession {
@@ -125,6 +131,7 @@ model LearningSession {
   reviews SessionReview[]
 
   @@map("learning_sessions")
+  @@schema("smart-vocab")
 }
 
 model SessionReview {
@@ -143,6 +150,7 @@ model SessionReview {
   session LearningSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
   @@map("session_reviews")
+  @@schema("smart-vocab")
 }
 
 model Achievement {
@@ -157,6 +165,7 @@ model Achievement {
   users UserAchievement[]
 
   @@map("achievements")
+  @@schema("smart-vocab")
 }
 
 model UserAchievement {
@@ -170,4 +179,5 @@ model UserAchievement {
 
   @@unique([userId, achievementId])
   @@map("user_achievements")
+  @@schema("smart-vocab")
 }
