@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Play, Target } from 'lucide-react';
+import { Target } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
-import { getSessionWords } from '@/lib/word-data-loader';
-import { SessionWord, DifficultyLevel } from '@/types/word-data';
+import { fetchSessionWords, createSession, updateWordProgress, WordData } from '@/lib/api-client';
+import { DifficultyLevel } from '@/types/word-data';
 
 interface SessionManagerProps {
-  sessionDuration?: number; // minutes
   initialDifficulty?: DifficultyLevel | null;
   onSessionComplete?: (stats: SessionStats) => void;
 }
@@ -18,11 +17,10 @@ interface SessionStats {
   sessionType: string;
 }
 
-// Use SessionWord type from word-data.ts
-type Word = SessionWord;
+// Use WordData type from API client
+type Word = WordData;
 
 export default function SessionManager({ 
-  sessionDuration = 10,
   initialDifficulty = null,
   onSessionComplete 
 }: SessionManagerProps) {
@@ -37,7 +35,7 @@ export default function SessionManager({
     sessionType: 'single_difficulty'
   });
 
-  const completeSession = useCallback(() => {
+  const completeSession = useCallback(async () => {
     setSessionState('completed');
     
     const finalStats: SessionStats = {
@@ -47,14 +45,27 @@ export default function SessionManager({
     };
     
     setSessionStats(finalStats);
+    
+    // Save session to database
+    try {
+      await createSession(
+        finalStats.wordsStudied,
+        finalStats.wordsCorrect,
+        selectedDifficulty || 'mixed'
+      );
+      console.log('Session saved to database');
+    } catch (error) {
+      console.error('Failed to save session:', error);
+    }
+    
     onSessionComplete?.(finalStats);
   }, [sessionStats, selectedDifficulty, onSessionComplete]);
 
 
   const loadSessionData = useCallback(async () => {
     try {
-      // Load words from JSON data files
-      const words = getSessionWords(selectedDifficulty!, 15);
+      // Load words from API
+      const words = await fetchSessionWords(selectedDifficulty!, 15);
       setSessionWords(words);
       
       console.log('Loaded session data:', {
@@ -65,7 +76,7 @@ export default function SessionManager({
     } catch (error) {
       console.error('Failed to load session data:', error);
     }
-  }, [sessionDuration, selectedDifficulty]);
+  }, [selectedDifficulty]);
 
   // Load session data when difficulty is selected
   useEffect(() => {
@@ -91,7 +102,17 @@ export default function SessionManager({
   };
 
 
-  const handleWordAnswer = async (correct: boolean, userDifficulty: number, responseTime: number, hintsUsed: number) => {
+  const handleWordAnswer = async (correct: boolean) => {
+    const currentWord = sessionWords[currentWordIndex];
+    
+    // Update word progress in database
+    try {
+      await updateWordProgress(currentWord.id, correct, currentMode);
+      console.log('Word progress updated:', { wordId: currentWord.id, correct, mode: currentMode });
+    } catch (error) {
+      console.error('Failed to update word progress:', error);
+    }
+    
     // Update session stats
     setSessionStats(prev => ({
       ...prev,
@@ -107,7 +128,7 @@ export default function SessionManager({
       const randomMode = modes[Math.floor(Math.random() * modes.length)];
       setCurrentMode(randomMode);
     } else {
-      completeSession();
+      await completeSession();
     }
   };
 

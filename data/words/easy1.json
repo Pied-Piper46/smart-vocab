@@ -13,13 +13,6 @@
         "japanese": "私は毎日りんごを食べます。",
         "difficulty": 1,
         "context": "daily life"
-      },
-      {
-        "id": "easy1-001-ex2",
-        "english": "The red apple is sweet.",
-        "japanese": "その赤いりんごは甘いです。",
-        "difficulty": 1,
-        "context": "description"
       }
     ]
   },
@@ -37,13 +30,6 @@
         "japanese": "私は良い本を読んでいます。",
         "difficulty": 1,
         "context": "education"
-      },
-      {
-        "id": "easy1-002-ex2",
-        "english": "This book is very interesting.",
-        "japanese": "この本はとても面白いです。",
-        "difficulty": 1,
-        "context": "opinion"
       }
     ]
   },
@@ -61,13 +47,6 @@
         "japanese": "私は毎朝水を飲みます。",
         "difficulty": 1,
         "context": "daily routine"
-      },
-      {
-        "id": "easy1-003-ex2",
-        "english": "Cold water is refreshing.",
-        "japanese": "冷たい水は爽やかです。",
-        "difficulty": 1,
-        "context": "sensation"
       }
     ]
   },
@@ -85,13 +64,6 @@
         "japanese": "私の家は駅の近くです。",
         "difficulty": 1,
         "context": "location"
-      },
-      {
-        "id": "easy1-004-ex2",
-        "english": "The house has a big garden.",
-        "japanese": "その家には大きな庭があります。",
-        "difficulty": 1,
-        "context": "description"
       }
     ]
   },
@@ -109,13 +81,6 @@
         "japanese": "彼女は私の親友です。",
         "difficulty": 1,
         "context": "relationship"
-      },
-      {
-        "id": "easy1-005-ex2",
-        "english": "I met my friend yesterday.",
-        "japanese": "私は昨日友達に会いました。",
-        "difficulty": 1,
-        "context": "social"
       }
     ]
   }

@@ -5,31 +5,19 @@ import { Volume2 } from 'lucide-react';
 
 export type LearningMode = 'eng_to_jpn' | 'jpn_to_eng' | 'audio_recognition' | 'context_fill';
 
+import { WordData } from '@/lib/api-client';
+
 interface WordCardProps {
-  word: {
-    id: string;
-    english: string;
-    japanese: string;
-    phonetic?: string;
-    partOfSpeech: string;
-    examples: Array<{
-      id: string;
-      english: string;
-      japanese: string;
-      difficulty: number;
-    }>;
-  };
+  word: WordData;
   mode: LearningMode;
-  onAnswer: (correct: boolean, difficulty: number, responseTime: number, hintsUsed: number) => void;
+  onAnswer: (correct: boolean) => void;
 }
 
 export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
   const [phase, setPhase] = useState<'question' | 'thinking' | 'answer'>('question');
-  const [startTime, setStartTime] = useState<number>(0);
   const [userAnswer, setUserAnswer] = useState('');
 
   useEffect(() => {
-    setStartTime(Date.now());
     setPhase('question');
     setUserAnswer('');
   }, [word, mode]);
@@ -39,8 +27,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
   };
 
   const handleAnswer = (correct: boolean) => {
-    const responseTime = Date.now() - startTime;
-    onAnswer(correct, 3, responseTime, 0); // No hints used
+    onAnswer(correct);
   };
 
 
@@ -98,7 +85,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
                 onChange={(e) => setUserAnswer(e.target.value)}
                 placeholder="英単語を入力..."
                 className="glass-input w-full max-w-md p-4 rounded-xl text-center text-lg font-medium"
-                onKeyPress={(e) => e.key === 'Enter' && handleShowAnswer()}
+                onKeyDown={(e) => e.key === 'Enter' && handleShowAnswer()}
               />
             </div>
           </div>
@@ -122,7 +109,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
               onChange={(e) => setUserAnswer(e.target.value)}
               placeholder="単語を入力..."
               className="glass-input w-full max-w-md p-4 rounded-xl text-center text-lg font-medium"
-              onKeyPress={(e) => e.key === 'Enter' && handleShowAnswer()}
+              onKeyDown={(e) => e.key === 'Enter' && handleShowAnswer()}
             />
           </div>
         );

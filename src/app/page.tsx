@@ -1,13 +1,45 @@
 'use client';
 
-import { useState } from 'react';
-import { Brain, BookOpen, TrendingUp, Target, Clock, Award } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { signOut } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
+import { Brain, BookOpen, TrendingUp, Target, Clock, Award, LogOut, User } from 'lucide-react';
 import SessionManager from '@/components/learning/SessionManager';
 import { DifficultyLevel } from '@/types/word-data';
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<'home' | 'learning'>('home');
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | null>(null);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // Redirect to signin if not authenticated
+  useEffect(() => {
+    if (status === 'loading') return; // Still loading
+    if (!session) {
+      router.push('/auth/signin');
+    }
+  }, [session, status, router]);
+
+  // Show loading while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center">
+        <div className="glass-strong rounded-3xl p-10">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
+            <p className="text-white text-xl">読み込み中...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Redirect to signin if not authenticated
+  if (!session) {
+    return null;
+  }
 
   const renderHome = () => (
     <div className="min-h-screen relative overflow-hidden">
@@ -17,6 +49,29 @@ export default function Home() {
       <div className="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-green-400/30 to-blue-400/30 blur-xl float-animation" style={{ animationDelay: '2s' }}></div>
       
       <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* User Bar */}
+        <div className="flex justify-between items-center mb-8">
+          <button
+            onClick={() => router.push('/profile')}
+            className="flex items-center gap-3 glass-light p-3 rounded-xl hover:scale-101 transition-all duration-300 text-left"
+          >
+            <div className="p-2 glass-light rounded-xl">
+              <User className="text-white" size={20} />
+            </div>
+            <div>
+              <p className="text-white font-medium">{session.user?.name}</p>
+              <p className="text-white/70 text-sm">{session.user?.email}</p>
+            </div>
+          </button>
+          <button
+            onClick={() => signOut()}
+            className="flex items-center gap-2 glass-button px-4 py-2 rounded-xl text-white hover:scale-101 transition-all duration-300"
+          >
+            <LogOut size={16} />
+            ログアウト
+          </button>
+        </div>
+
         {/* Header */}
         <header className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-6">
@@ -254,7 +309,6 @@ export default function Home() {
           </button>
         </div>
         <SessionManager 
-          sessionDuration={10}
           initialDifficulty={selectedDifficulty}
           onSessionComplete={(stats) => {
             console.log('Session completed:', stats);

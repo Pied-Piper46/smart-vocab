@@ -13,13 +13,6 @@
         "japanese": "その本を見つけたのは純粋に偶然の幸運でした。",
         "difficulty": 2,
         "context": "discovery"
-      },
-      {
-        "id": "medium1-001-ex2",
-        "english": "Their meeting was a moment of serendipity.",
-        "japanese": "彼らの出会いは偶然の幸運な瞬間でした。",
-        "difficulty": 3,
-        "context": "relationship"
       }
     ]
   },
@@ -37,13 +30,6 @@
         "japanese": "桜の美しさははかないものです。",
         "difficulty": 3,
         "context": "nature"
-      },
-      {
-        "id": "medium1-002-ex2",
-        "english": "Youth is ephemeral, so enjoy it while you can.",
-        "japanese": "青春は短いものなので、できる間に楽しんでください。",
-        "difficulty": 2,
-        "context": "philosophy"
       }
     ]
   },
@@ -61,13 +47,6 @@
         "japanese": "スマートフォンは現代社会において至る所にあるものとなった。",
         "difficulty": 2,
         "context": "technology"
-      },
-      {
-        "id": "medium1-003-ex2",
-        "english": "Coffee shops are ubiquitous in this city.",
-        "japanese": "この街にはコーヒーショップが至る所にあります。",
-        "difficulty": 2,
-        "context": "urban life"
       }
     ]
   },
@@ -85,13 +64,6 @@
         "japanese": "その新技術はパラダイムシフトを表しています。",
         "difficulty": 3,
         "context": "business"
-      },
-      {
-        "id": "medium1-004-ex2",
-        "english": "We need to change our paradigm of thinking.",
-        "japanese": "私たちは思考のパラダイムを変える必要があります。",
-        "difficulty": 2,
-        "context": "philosophy"
       }
     ]
   },
@@ -109,13 +81,6 @@
         "japanese": "彼女は仕事に対して細心です。",
         "difficulty": 2,
         "context": "work quality"
-      },
-      {
-        "id": "medium1-005-ex2",
-        "english": "The research required meticulous attention to detail.",
-        "japanese": "その研究には細部への細心な注意が必要でした。",
-        "difficulty": 3,
-        "context": "academic"
       }
     ]
   }
