@@ -13,28 +13,34 @@ export type MasteryStatus = 'new' | 'learning' | 'reviewing' | 'mastered';
 
 /**
  * Calculate mastery status based on performance metrics
+ * Flow: new → learning → reviewing → mastered
  */
 export function calculateMasteryStatus(progress: WordProgressData): MasteryStatus {
   const { totalReviews, correctAnswers, streak } = progress;
   
-  // New words (less than 3 reviews)
-  if (totalReviews < 3) {
+  // New words (first time appearance only)
+  if (totalReviews === 0) {
     return 'new';
   }
   
   const accuracy = correctAnswers / totalReviews;
   
   // Mastered: High accuracy + consistent performance
-  if (accuracy >= 0.85 && streak >= 4) {
+  if (accuracy >= 0.85 && streak >= 3) {
     return 'mastered';
   }
   
-  // Learning: Good progress with some consistency
-  if (accuracy >= 0.7 && streak >= 2) {
+  // Learning: Initial learning phase (first few attempts)
+  if (totalReviews <= 3) {
     return 'learning';
   }
   
-  // Reviewing: Needs more practice
+  // Reviewing: Established word needing reinforcement
+  if (accuracy < 0.85 || streak < 3) {
+    return 'reviewing';
+  }
+  
+  // Default fallback
   return 'reviewing';
 }
 
@@ -55,12 +61,12 @@ export function getOptimalSessionComposition(
   learning: number;
   mastered: number;
 } {
-  // Ideal ratios for effective learning
+  // Ideal ratios for effective learning (optimized for new flow)
   const idealRatios = {
-    new: 0.20,        // 20% - New vocabulary introduction
-    reviewing: 0.50,  // 50% - Reinforcement of difficult words
-    learning: 0.25,   // 25% - Progressive improvement
-    mastered: 0.05    // 5% - Retention maintenance
+    new: 0.30,
+    learning: 0.40,
+    reviewing: 0.20,
+    mastered: 0.10
   };
   
   const composition = {
@@ -75,24 +81,24 @@ export function getOptimalSessionComposition(
   const remaining = sessionSize - totalAllocated;
   
   if (remaining > 0) {
-    // Prioritize reviewing > learning > new > mastered
+    // Prioritize learning > reviewing > new > mastered (optimized for new flow)
     const remainingSlots = Math.min(remaining, 
-      (available.reviewing - composition.reviewing) +
       (available.learning - composition.learning) +
+      (available.reviewing - composition.reviewing) +
       (available.new - composition.new) +
       (available.mastered - composition.mastered)
     );
     
-    // Add extra reviewing words first
-    const extraReviewing = Math.min(remainingSlots, available.reviewing - composition.reviewing);
-    composition.reviewing += extraReviewing;
+    // Add extra learning words first (highest priority)
+    const extraLearning = Math.min(remainingSlots, available.learning - composition.learning);
+    composition.learning += extraLearning;
     
-    const stillRemaining = remainingSlots - extraReviewing;
+    const stillRemaining = remainingSlots - extraLearning;
     if (stillRemaining > 0) {
-      const extraLearning = Math.min(stillRemaining, available.learning - composition.learning);
-      composition.learning += extraLearning;
+      const extraReviewing = Math.min(stillRemaining, available.reviewing - composition.reviewing);
+      composition.reviewing += extraReviewing;
       
-      const finalRemaining = stillRemaining - extraLearning;
+      const finalRemaining = stillRemaining - extraReviewing;
       if (finalRemaining > 0) {
         composition.new += Math.min(finalRemaining, available.new - composition.new);
       }
@@ -115,7 +121,7 @@ export function calculateReviewDebt(nextReviewDate: Date): number {
 }
 
 /**
- * Calculate word priority for session selection
+ * Calculate word priority for session selection within same mastery status
  */
 export function calculateWordPriority(
   word: {
@@ -127,24 +133,8 @@ export function calculateWordPriority(
   const reviewDebt = calculateReviewDebt(word.nextReviewDate);
   const difficultyScore = (1 / word.easeFactor) * 5; // Higher = more difficult
   
-  let statusMultiplier = 1;
-  switch (word.status) {
-    case 'reviewing':
-      statusMultiplier = 3; // Highest priority
-      break;
-    case 'learning':
-      statusMultiplier = 2;
-      break;
-    case 'new':
-      statusMultiplier = 1.5;
-      break;
-    case 'mastered':
-      statusMultiplier = 0.5; // Lowest priority
-      break;
-  }
-  
-  // Priority formula: debt weight + difficulty + status importance
-  return (reviewDebt * 10) + difficultyScore + statusMultiplier;
+  // Priority formula: debt weight + difficulty (status multiplier removed as unnecessary)
+  return (reviewDebt * 10) + difficultyScore;
 }
 
 /**
@@ -239,13 +229,13 @@ export function getMasteryDisplayInfo(status: MasteryStatus): {
       return {
         label: '学習中',
         color: 'bg-yellow-500', 
-        description: '習得進行中'
+        description: '初期学習段階'
       };
     case 'reviewing':
       return {
         label: '復習中',
         color: 'bg-orange-500',
-        description: '要復習強化'
+        description: '定着段階'
       };
     case 'mastered':
       return {
