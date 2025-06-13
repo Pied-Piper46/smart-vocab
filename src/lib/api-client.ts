@@ -125,8 +125,7 @@ export async function createSession(
  */
 export async function updateWordProgress(
   wordId: string,
-  isCorrect: boolean,
-  learningMode: string
+  isCorrect: boolean
 ): Promise<WordProgress> {
   try {
     const response = await fetch(`${API_BASE}/progress`, {
@@ -137,7 +136,6 @@ export async function updateWordProgress(
       body: JSON.stringify({
         wordId,
         isCorrect,
-        learningMode,
       }),
     });
     

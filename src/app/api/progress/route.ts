@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
     }
     
     const body = await request.json();
-    const { wordId, isCorrect, learningMode } = body;
+    const { wordId, isCorrect } = body;
     const userId = currentUser.id;
     
     // Validate required fields

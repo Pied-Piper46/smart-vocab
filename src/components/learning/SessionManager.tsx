@@ -10,7 +10,6 @@ import { DifficultyLevel } from '@/types/word-data';
 interface ProgressUpdate {
   wordId: string;
   correct: boolean;
-  mode: LearningMode;
   timestamp: number;
 }
 
@@ -27,11 +26,10 @@ async function updateWordProgressWithRetry(
   const retryDelay = Math.pow(2, retryCount) * 1000; // Exponential backoff
   
   try {
-    await updateWordProgress(update.wordId, update.correct, update.mode);
+    await updateWordProgress(update.wordId, update.correct);
     console.log('✅ Word progress updated:', { 
       wordId: update.wordId, 
-      correct: update.correct, 
-      mode: update.mode,
+      correct: update.correct,
       retryCount 
     });
   } catch (error) {
@@ -64,7 +62,7 @@ async function processProgressQueue(): Promise<void> {
   // Process updates sequentially to avoid overwhelming the server
   for (const update of updates) {
     try {
-      await updateWordProgress(update.wordId, update.correct, update.mode);
+      await updateWordProgress(update.wordId, update.correct);
       console.log('✅ Queued progress update completed:', update.wordId);
     } catch (error) {
       console.error('❌ Queued progress update failed:', error);
@@ -202,7 +200,6 @@ export default function SessionManager({
     const progressUpdate: ProgressUpdate = {
       wordId: currentWord.id,
       correct,
-      mode: currentMode,
       timestamp: Date.now()
     };
 
