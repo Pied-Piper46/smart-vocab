@@ -37,6 +37,7 @@ export interface WordProgress {
   streak: number;
   totalReviews: number;
   correctAnswers: number;
+  status?: string; // Mastery status
 }
 
 export interface SessionData {

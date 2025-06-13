@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getCurrentUser, createUnauthorizedResponse } from '@/lib/auth-utils';
+import { getOptimalSessionComposition, selectOptimalWords, type MasteryStatus } from '@/lib/mastery';
 
 const prisma = new PrismaClient();
 
@@ -35,8 +36,8 @@ export async function GET(request: NextRequest) {
       hard: 3,
     };
     
-    // Get words for the specified difficulty
-    const words = await prisma.word.findMany({
+    // Get all words for the specified difficulty with progress data
+    const allWords = await prisma.word.findMany({
       where: {
         difficulty: difficultyMap[difficulty],
       },
@@ -48,14 +49,69 @@ export async function GET(request: NextRequest) {
           },
         },
       },
-      take: limit,
       orderBy: {
         frequency: 'desc',
       },
     });
+
+    // Categorize words by mastery status
+    const categorizedWords: Record<MasteryStatus, typeof allWords> = {
+      new: [],
+      reviewing: [],
+      learning: [],
+      mastered: []
+    };
+
+    allWords.forEach(word => {
+      const progress = word.progress[0]; // Get user's progress for this word
+      
+      if (!progress) {
+        // No progress = new word
+        categorizedWords.new.push(word);
+      } else {
+        const status = progress.status as MasteryStatus || 'new';
+        categorizedWords[status].push(word);
+      }
+    });
+
+    // Get optimal composition
+    const available = {
+      new: categorizedWords.new.length,
+      reviewing: categorizedWords.reviewing.length,
+      learning: categorizedWords.learning.length,
+      mastered: categorizedWords.mastered.length
+    };
+
+    const composition = getOptimalSessionComposition(available, limit);
+
+    // Select words using advanced priority-based algorithm
+    const wordsWithProgress = Object.entries(categorizedWords).flatMap(([status, words]) =>
+      words.map(word => ({
+        ...word,
+        status,
+        nextReviewDate: word.progress[0]?.nextReviewDate || new Date(),
+        easeFactor: word.progress[0]?.easeFactor || 2.5
+      }))
+    );
+
+    // Re-categorize with typed data
+    const typedCategorizedWords: Record<MasteryStatus, typeof wordsWithProgress> = {
+      new: [],
+      reviewing: [],
+      learning: [],
+      mastered: []
+    };
+
+    wordsWithProgress.forEach(word => {
+      const status = word.status as MasteryStatus;
+      typedCategorizedWords[status].push(word);
+    });
+
+    // Use advanced selection algorithm
+    const shuffledWords = selectOptimalWords(typedCategorizedWords, composition);
     
     // Transform data to match frontend expectations
-    const sessionWords = words.map(word => ({
+    const sessionWords = shuffledWords.map(word => ({
       id: word.id,
       english: word.english,
       japanese: word.japanese,
@@ -72,6 +128,7 @@ export async function GET(request: NextRequest) {
         streak: word.progress[0].streak,
         totalReviews: word.progress[0].totalReviews,
         correctAnswers: word.progress[0].correctAnswers,
+        status: word.progress[0].status,
       } : undefined,
     }));
     

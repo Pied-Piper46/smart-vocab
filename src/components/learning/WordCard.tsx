@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Volume2 } from 'lucide-react';
+import { getMasteryDisplayInfo, type MasteryStatus } from '@/lib/mastery';
 
 export type LearningMode = 'eng_to_jpn' | 'jpn_to_eng' | 'audio_recognition' | 'context_fill';
 
@@ -38,6 +39,20 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
       utterance.rate = 0.8;
       speechSynthesis.speak(utterance);
     }
+  };
+
+  const renderMasteryBadge = () => {
+    if (!word.progress?.status) return null;
+    
+    const masteryInfo = getMasteryDisplayInfo(word.progress.status as MasteryStatus);
+    
+    return (
+      <div className="absolute top-4 right-4">
+        <div className={`px-3 py-1 rounded-full text-xs font-medium text-white ${masteryInfo.color.replace('bg-', 'bg-')}`}>
+          {masteryInfo.label}
+        </div>
+      </div>
+    );
   };
 
   const renderQuestion = () => {
@@ -163,7 +178,8 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="glass-strong rounded-3xl p-10">
+      <div className="glass-strong rounded-3xl p-10 relative">
+        {renderMasteryBadge()}
         {phase === 'question' && (
           <>
             {renderQuestion()}

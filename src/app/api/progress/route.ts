@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getCurrentUser, createUnauthorizedResponse } from '@/lib/auth-utils';
+import { calculateMasteryStatus } from '@/lib/mastery';
 
 const prisma = new PrismaClient();
 
@@ -147,38 +148,28 @@ export async function POST(request: NextRequest) {
         newInterval = Math.round(newInterval * newEaseFactor);
       }
       
-      // Update status based on accuracy and repetitions
-      if (accuracy >= 0.8 && newRepetitions >= 3) {
-        newStatus = 'mastered';
-      } else if (newRepetitions >= 1) {
-        newStatus = 'learning';
-      }
+      // Calculate mastery status using optimized algorithm
+      newStatus = calculateMasteryStatus({
+        totalReviews: newTotalReviews,
+        correctAnswers: newCorrectAnswers,
+        streak: newRepetitions // Using repetitions as streak proxy
+      });
     } else {
       newRepetitions = 0;
       newInterval = 1;
       newEaseFactor = Math.max(1.3, newEaseFactor - 0.2);
-      newStatus = newTotalReviews >= 3 ? 'learning' : 'new';
+      newStatus = calculateMasteryStatus({
+        totalReviews: newTotalReviews,
+        correctAnswers: newCorrectAnswers,
+        streak: 0 // Reset streak for incorrect answer
+      });
     }
     
     // Calculate next review date
     const nextReviewDate = new Date();
     nextReviewDate.setDate(nextReviewDate.getDate() + newInterval);
     
-    // Update learning mode specific stats
-    const modeUpdates: Record<string, { increment: number }> = {};
-    if (learningMode === 'eng_to_jpn') {
-      modeUpdates.engToJpnTotal = { increment: 1 };
-      if (isCorrect) modeUpdates.engToJpnCorrect = { increment: 1 };
-    } else if (learningMode === 'jpn_to_eng') {
-      modeUpdates.jpnToEngTotal = { increment: 1 };
-      if (isCorrect) modeUpdates.jpnToEngCorrect = { increment: 1 };
-    } else if (learningMode === 'audio_recognition') {
-      modeUpdates.audioTotal = { increment: 1 };
-      if (isCorrect) modeUpdates.audioCorrect = { increment: 1 };
-    } else if (learningMode === 'context_fill') {
-      modeUpdates.contextTotal = { increment: 1 };
-      if (isCorrect) modeUpdates.contextCorrect = { increment: 1 };
-    }
+    // Note: Learning mode specific stats removed for performance optimization
     
     // Update progress
     const updatedProgress = await prisma.wordProgress.update({
@@ -198,7 +189,6 @@ export async function POST(request: NextRequest) {
         status: newStatus,
         lastAnswerCorrect: isCorrect,
         updatedAt: new Date(),
-        ...modeUpdates,
       },
       include: {
         word: {

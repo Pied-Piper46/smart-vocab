@@ -140,19 +140,8 @@ model WordProgress {
   streak          Int     @default(0)
   lastAnswerCorrect Boolean @default(false)
   
-  // Learning modes performance
-  engToJpnCorrect Int     @default(0)
-  engToJpnTotal   Int     @default(0)
-  jpnToEngCorrect Int     @default(0) 
-  jpnToEngTotal   Int     @default(0)
-  audioCorrect    Int     @default(0)
-  audioTotal      Int     @default(0)
-  contextCorrect  Int     @default(0)
-  contextTotal    Int     @default(0)
-
   // Status
   status          String  @default("new") // new, learning, reviewing, mastered
-  difficultyRating Int?   // user's subjective difficulty (1-5)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade) 
   word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)

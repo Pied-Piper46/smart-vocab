@@ -11,9 +11,6 @@
 
 export interface ReviewResult {
   wasCorrect: boolean;
-  difficulty: number; // 1-5 scale (1=very easy, 5=very hard)
-  responseTime: number; // milliseconds
-  hintsUsed: number;
 }
 
 export interface SpacedRepetitionData {
@@ -33,7 +30,7 @@ export function calculateNextReview(
   current: SpacedRepetitionData,
   result: ReviewResult
 ): SpacedRepetitionData {
-  const { wasCorrect, difficulty, responseTime, hintsUsed } = result;
+  const { wasCorrect } = result;
   
   let newEaseFactor = current.easeFactor;
   let newInterval = current.interval;
@@ -46,20 +43,8 @@ export function calculateNextReview(
     newRepetitions += 1;
     newStreak += 1;
     
-    // Adjust ease factor based on user's difficulty rating
-    // Lower difficulty (easier) = increase ease factor
-    // Higher difficulty (harder) = decrease ease factor
-    const difficultyAdjustment = (3 - difficulty) * 0.1; // Range: -0.2 to +0.2
-    
-    // Response time adjustment (faster = easier)
-    const responseTimeAdjustment = responseTime > 5000 ? -0.05 : 0.05;
-    
-    // Hints penalty
-    const hintsAdjustment = hintsUsed * -0.1;
-    
-    newEaseFactor = Math.max(1.3, Math.min(2.5, 
-      current.easeFactor + difficultyAdjustment + responseTimeAdjustment + hintsAdjustment
-    ));
+    // Maintain ease factor for correct answers
+    // (Simplified version - no dynamic adjustments)
 
     // Calculate interval based on repetition number
     if (newRepetitions === 1) {

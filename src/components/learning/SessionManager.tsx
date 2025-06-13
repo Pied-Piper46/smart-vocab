@@ -6,6 +6,76 @@ import WordCard, { LearningMode } from './WordCard';
 import { fetchSessionWords, createSession, updateWordProgress, WordData } from '@/lib/api-client';
 import { DifficultyLevel } from '@/types/word-data';
 
+// Queue for failed progress updates
+interface ProgressUpdate {
+  wordId: string;
+  correct: boolean;
+  mode: LearningMode;
+  timestamp: number;
+}
+
+let progressUpdateQueue: ProgressUpdate[] = [];
+
+/**
+ * Advanced async progress update with retry mechanism
+ */
+async function updateWordProgressWithRetry(
+  update: ProgressUpdate, 
+  retryCount: number = 0
+): Promise<void> {
+  const maxRetries = 3;
+  const retryDelay = Math.pow(2, retryCount) * 1000; // Exponential backoff
+  
+  try {
+    await updateWordProgress(update.wordId, update.correct, update.mode);
+    console.log('✅ Word progress updated:', { 
+      wordId: update.wordId, 
+      correct: update.correct, 
+      mode: update.mode,
+      retryCount 
+    });
+  } catch (error) {
+    console.warn(`⚠️ Progress update failed (attempt ${retryCount + 1}/${maxRetries + 1}):`, error);
+    
+    if (retryCount < maxRetries) {
+      // Retry with exponential backoff
+      setTimeout(() => {
+        updateWordProgressWithRetry(update, retryCount + 1);
+      }, retryDelay);
+    } else {
+      // Final failure - add to queue for batch processing
+      console.error('❌ Progress update failed permanently, adding to queue:', update);
+      progressUpdateQueue.push(update);
+    }
+  }
+}
+
+/**
+ * Process queued progress updates in batch
+ */
+async function processProgressQueue(): Promise<void> {
+  if (progressUpdateQueue.length === 0) return;
+  
+  console.log(`🔄 Processing ${progressUpdateQueue.length} queued progress updates...`);
+  
+  const updates = [...progressUpdateQueue];
+  progressUpdateQueue = []; // Clear queue
+  
+  // Process updates sequentially to avoid overwhelming the server
+  for (const update of updates) {
+    try {
+      await updateWordProgress(update.wordId, update.correct, update.mode);
+      console.log('✅ Queued progress update completed:', update.wordId);
+    } catch (error) {
+      console.error('❌ Queued progress update failed:', error);
+      // Could implement more sophisticated failure handling here
+    }
+    
+    // Small delay between requests
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+}
+
 interface SessionManagerProps {
   initialDifficulty?: DifficultyLevel | null;
   onSessionComplete?: (stats: SessionStats) => void;
@@ -46,6 +116,10 @@ export default function SessionManager({
     
     setSessionStats(finalStats);
     
+    // 🔄 Process any remaining progress updates before session completion
+    console.log('🏁 Session completing, processing remaining progress updates...');
+    await processProgressQueue();
+    
     // Save session to database
     try {
       await createSession(
@@ -53,9 +127,9 @@ export default function SessionManager({
         finalStats.wordsCorrect,
         selectedDifficulty || 'mixed'
       );
-      console.log('Session saved to database');
+      console.log('✅ Session saved to database');
     } catch (error) {
-      console.error('Failed to save session:', error);
+      console.error('❌ Failed to save session:', error);
     }
     
     onSessionComplete?.(finalStats);
@@ -105,22 +179,15 @@ export default function SessionManager({
   const handleWordAnswer = async (correct: boolean) => {
     const currentWord = sessionWords[currentWordIndex];
     
-    // Update word progress in database
-    try {
-      await updateWordProgress(currentWord.id, correct, currentMode);
-      console.log('Word progress updated:', { wordId: currentWord.id, correct, mode: currentMode });
-    } catch (error) {
-      console.error('Failed to update word progress:', error);
-    }
-    
-    // Update session stats
+    // 🚀 IMMEDIATE UI UPDATE - No waiting for API
+    // Update session stats instantly
     setSessionStats(prev => ({
       ...prev,
       wordsStudied: prev.wordsStudied + 1,
       wordsCorrect: prev.wordsCorrect + (correct ? 1 : 0)
     }));
 
-    // Move to next word or complete session
+    // Move to next word or complete session IMMEDIATELY
     if (currentWordIndex < sessionWords.length - 1) {
       setCurrentWordIndex(prev => prev + 1);
       // Randomly select learning mode for variety
@@ -130,6 +197,16 @@ export default function SessionManager({
     } else {
       await completeSession();
     }
+
+    // 🔄 BACKGROUND API UPDATE - Non-blocking with retry mechanism
+    const progressUpdate: ProgressUpdate = {
+      wordId: currentWord.id,
+      correct,
+      mode: currentMode,
+      timestamp: Date.now()
+    };
+
+    updateWordProgressWithRetry(progressUpdate);
   };
 
 
