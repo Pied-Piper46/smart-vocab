@@ -136,6 +136,7 @@ export async function POST(request: NextRequest) {
     let newInterval = progress.interval;
     let newRepetitions = progress.repetitions;
     let newStatus = progress.status;
+    const previousStatus = progress.status;
     
     if (isCorrect) {
       newRepetitions += 1;
@@ -186,6 +187,7 @@ export async function POST(request: NextRequest) {
         repetitions: newRepetitions,
         nextReviewDate,
         status: newStatus,
+        previousStatus: previousStatus,
         lastAnswerCorrect: isCorrect,
         updatedAt: new Date(),
       },
@@ -198,9 +200,24 @@ export async function POST(request: NextRequest) {
       },
     });
     
+    // Calculate status change information
+    const statusChanged = previousStatus !== newStatus;
+    const statusHierarchy: Record<string, number> = { 'new': 0, 'learning': 1, 'reviewing': 2, 'mastered': 3 };
+    const isUpgrade = statusChanged && statusHierarchy[newStatus] > statusHierarchy[previousStatus];
+    const isDowngrade = statusChanged && statusHierarchy[newStatus] < statusHierarchy[previousStatus];
+
     return NextResponse.json({
       success: true,
-      data: updatedProgress,
+      data: {
+        ...updatedProgress,
+        statusChange: {
+          changed: statusChanged,
+          from: previousStatus,
+          to: newStatus,
+          isUpgrade,
+          isDowngrade,
+        }
+      },
     });
   } catch (error) {
     console.error('Error updating progress:', error);

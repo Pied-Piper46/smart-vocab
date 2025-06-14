@@ -38,6 +38,13 @@ export interface WordProgress {
   totalReviews: number;
   correctAnswers: number;
   status?: string; // Mastery status
+  statusChange?: {
+    changed: boolean;
+    from: string;
+    to: string;
+    isUpgrade: boolean;
+    isDowngrade: boolean;
+  };
 }
 
 
@@ -140,6 +147,81 @@ export async function fetchUserProgress(): Promise<UserProgressData[]> {
     return result.data;
   } catch (error) {
     console.error('Error fetching progress:', error);
+    throw error;
+  }
+}
+
+/**
+ * Record session completion
+ */
+export async function recordSessionCompletion(
+  wordsStudied: number
+): Promise<{ sessionId: string; completedAt: Date; wordsStudied: number }> {
+  try {
+    const response = await fetch(`${API_BASE}/sessions/complete`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        wordsStudied,
+      }),
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const result: ApiResponse<{ sessionId: string; completedAt: Date; wordsStudied: number }> = await response.json();
+    
+    if (!result.success || !result.data) {
+      throw new Error(result.error || 'Failed to record session completion');
+    }
+    
+    return result.data;
+  } catch (error) {
+    console.error('Error recording session completion:', error);
+    throw error;
+  }
+}
+
+/**
+ * Fetch session history and statistics
+ */
+export interface SessionHistoryData {
+  totalSessions: number;
+  recentSessions: Array<{
+    id: string;
+    completedAt: Date;
+    wordsStudied: number;
+  }>;
+  thisWeek: number;
+  thisMonth: number;
+  streak: number;
+}
+
+export async function fetchSessionHistory(
+  limit?: number
+): Promise<SessionHistoryData> {
+  try {
+    const params = new URLSearchParams();
+    if (limit) params.append('limit', limit.toString());
+    
+    const response = await fetch(`${API_BASE}/sessions/history?${params}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const result: ApiResponse<SessionHistoryData> = await response.json();
+    
+    if (!result.success || !result.data) {
+      throw new Error(result.error || 'Failed to fetch session history');
+    }
+    
+    return result.data;
+  } catch (error) {
+    console.error('Error fetching session history:', error);
     throw error;
   }
 }

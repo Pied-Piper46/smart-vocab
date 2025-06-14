@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Target } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
-import { fetchSessionWords, updateWordProgress, WordData } from '@/lib/api-client';
+import { fetchSessionWords, updateWordProgress, recordSessionCompletion, WordData } from '@/lib/api-client';
+import SessionFeedbackComponent from './SessionFeedback';
 import { DifficultyLevel } from '@/types/word-data';
 
 // Queue for failed progress updates
@@ -13,6 +14,32 @@ interface ProgressUpdate {
   timestamp: number;
 }
 
+// Status change tracking
+interface WordStatusChange {
+  wordId: string;
+  english: string;
+  japanese: string;
+  from: string;
+  to: string;
+  isUpgrade: boolean;
+  isDowngrade: boolean;
+}
+
+export interface SessionFeedback {
+  totalWords: number;
+  correctAnswers: number;
+  accuracy: number;
+  statusChanges: {
+    upgrades: WordStatusChange[];
+    downgrades: WordStatusChange[];
+    maintained: WordStatusChange[];
+  };
+  totalUpgrades: number;
+  totalDowngrades: number;
+  newWordsLearned: number;
+  wordsReinforced: number;
+}
+
 let progressUpdateQueue: ProgressUpdate[] = [];
 
 /**
@@ -20,30 +47,52 @@ let progressUpdateQueue: ProgressUpdate[] = [];
  */
 async function updateWordProgressWithRetry(
   update: ProgressUpdate, 
+  onStatusChange?: (change: WordStatusChange) => void,
+  word?: WordData,
   retryCount: number = 0
-): Promise<void> {
+): Promise<WordStatusChange | null> {
   const maxRetries = 3;
   const retryDelay = Math.pow(2, retryCount) * 1000; // Exponential backoff
   
   try {
-    await updateWordProgress(update.wordId, update.correct);
+    const result = await updateWordProgress(update.wordId, update.correct);
     console.log('✅ Word progress updated:', { 
       wordId: update.wordId, 
       correct: update.correct,
       retryCount 
     });
+    
+    // Track status changes if callback provided
+    if (onStatusChange && word && result.statusChange?.changed) {
+      const statusChange: WordStatusChange = {
+        wordId: update.wordId,
+        english: word.english,
+        japanese: word.japanese,
+        from: result.statusChange.from,
+        to: result.statusChange.to,
+        isUpgrade: result.statusChange.isUpgrade,
+        isDowngrade: result.statusChange.isDowngrade,
+      };
+      onStatusChange(statusChange);
+      return statusChange;
+    }
+    return null;
   } catch (error) {
     console.warn(`⚠️ Progress update failed (attempt ${retryCount + 1}/${maxRetries + 1}):`, error);
     
     if (retryCount < maxRetries) {
       // Retry with exponential backoff
-      setTimeout(() => {
-        updateWordProgressWithRetry(update, retryCount + 1);
-      }, retryDelay);
+      return new Promise((resolve) => {
+        setTimeout(async () => {
+          const result = await updateWordProgressWithRetry(update, onStatusChange, word, retryCount + 1);
+          resolve(result);
+        }, retryDelay);
+      });
     } else {
       // Final failure - add to queue for batch processing
       console.error('❌ Progress update failed permanently, adding to queue:', update);
       progressUpdateQueue.push(update);
+      return null;
     }
   }
 }
@@ -76,7 +125,7 @@ async function processProgressQueue(): Promise<void> {
 
 interface SessionManagerProps {
   initialDifficulty?: DifficultyLevel | null;
-  onSessionComplete?: (stats: SessionStats) => void;
+  onSessionComplete?: (stats: SessionStats, feedback?: SessionFeedback) => void;
 }
 
 interface SessionStats {
@@ -102,13 +151,15 @@ export default function SessionManager({
     wordsCorrect: 0,
     sessionType: 'single_difficulty'
   });
+  const [statusChanges, setStatusChanges] = useState<WordStatusChange[]>([]);
+  const [sessionFeedback, setSessionFeedback] = useState<SessionFeedback | null>(null);
 
-  const completeSession = useCallback(async () => {
+  const completeSession = useCallback(async (finalWordsStudied?: number, finalWordsCorrect?: number) => {
     setSessionState('completed');
     
     const finalStats: SessionStats = {
-      wordsStudied: sessionStats.wordsStudied,
-      wordsCorrect: sessionStats.wordsCorrect,
+      wordsStudied: finalWordsStudied ?? sessionStats.wordsStudied,
+      wordsCorrect: finalWordsCorrect ?? sessionStats.wordsCorrect,
       sessionType: selectedDifficulty || 'single_difficulty'
     };
     
@@ -118,9 +169,64 @@ export default function SessionManager({
     console.log('🏁 Session completing, processing remaining progress updates...');
     await processProgressQueue();
     
-    onSessionComplete?.(finalStats);
-  }, [sessionStats, selectedDifficulty, onSessionComplete]);
+    // Record session completion in backend
+    try {
+      await recordSessionCompletion(finalStats.wordsStudied);
+      console.log('✅ Session completion recorded');
+    } catch (error) {
+      console.error('❌ Failed to record session completion:', error);
+    }
+    
+    // Generate session feedback
+    console.log('📊 Status changes at session completion:', statusChanges);
+    const feedback: SessionFeedback = generateSessionFeedback(finalStats, statusChanges);
+    console.log('📋 Generated feedback:', feedback);
+    setSessionFeedback(feedback);
+    
+    onSessionComplete?.(finalStats, feedback);
+  }, [sessionStats, selectedDifficulty, statusChanges, onSessionComplete]);
 
+  // Handle feedback actions
+  const handleStartNewSession = () => {
+    setSessionState('setup');
+    setCurrentWordIndex(0);
+    setSessionWords([]);
+    setSessionStats({
+      wordsStudied: 0,
+      wordsCorrect: 0,
+      sessionType: 'single_difficulty'
+    });
+    setStatusChanges([]);
+    setSessionFeedback(null);
+    setSelectedDifficulty(null);
+  };
+
+  const handleGoHome = () => {
+    // This will be handled by parent component through onSessionComplete
+    window.location.href = '/';
+  };
+
+  // Generate session feedback from collected data
+  const generateSessionFeedback = (stats: SessionStats, changes: WordStatusChange[]): SessionFeedback => {
+    const upgrades = changes.filter(c => c.isUpgrade);
+    const downgrades = changes.filter(c => c.isDowngrade);
+    const maintained = changes.filter(c => !c.isUpgrade && !c.isDowngrade);
+    
+    return {
+      totalWords: stats.wordsStudied,
+      correctAnswers: stats.wordsCorrect,
+      accuracy: stats.wordsStudied > 0 ? (stats.wordsCorrect / stats.wordsStudied) * 100 : 0,
+      statusChanges: {
+        upgrades,
+        downgrades,
+        maintained,
+      },
+      totalUpgrades: upgrades.length,
+      totalDowngrades: downgrades.length,
+      newWordsLearned: upgrades.filter(c => c.from === 'new' && c.to === 'learning').length,
+      wordsReinforced: upgrades.filter(c => c.from === 'learning' && c.to === 'reviewing').length,
+    };
+  };
 
   const loadSessionData = useCallback(async () => {
     try {
@@ -173,25 +279,50 @@ export default function SessionManager({
       wordsCorrect: prev.wordsCorrect + (correct ? 1 : 0)
     }));
 
-    // Move to next word or complete session IMMEDIATELY
-    if (currentWordIndex < sessionWords.length - 1) {
-      setCurrentWordIndex(prev => prev + 1);
-      // Randomly select learning mode for variety
-      const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
-      const randomMode = modes[Math.floor(Math.random() * modes.length)];
-      setCurrentMode(randomMode);
-    } else {
-      await completeSession();
-    }
-
-    // 🔄 BACKGROUND API UPDATE - Non-blocking with retry mechanism
+    // 🔄 API UPDATE - Different behavior for last word vs others
     const progressUpdate: ProgressUpdate = {
       wordId: currentWord.id,
       correct,
       timestamp: Date.now()
     };
 
-    updateWordProgressWithRetry(progressUpdate);
+    if (currentWordIndex < sessionWords.length - 1) {
+      // Not the last word - move to next immediately, update progress in background
+      setCurrentWordIndex(prev => prev + 1);
+      // Randomly select learning mode for variety
+      const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
+      const randomMode = modes[Math.floor(Math.random() * modes.length)];
+      setCurrentMode(randomMode);
+
+      // Background API update
+      updateWordProgressWithRetry(
+        progressUpdate, 
+        (change) => {
+          setStatusChanges(prev => [...prev, change]);
+        },
+        currentWord
+      );
+    } else {
+      // Last word - wait for API response to get status change, then complete session
+      console.log('🏁 Processing last word, waiting for status change...');
+      
+      const statusChange = await updateWordProgressWithRetry(
+        progressUpdate, 
+        (change) => {
+          setStatusChanges(prev => [...prev, change]);
+        },
+        currentWord
+      );
+      
+      if (statusChange) {
+        console.log('📊 Status change received for last word:', statusChange);
+      }
+
+      // Calculate final stats including current word
+      const finalWordsStudied = sessionStats.wordsStudied + 1;
+      const finalWordsCorrect = sessionStats.wordsCorrect + (correct ? 1 : 0);
+      await completeSession(finalWordsStudied, finalWordsCorrect);
+    }
   };
 
 
@@ -272,28 +403,27 @@ export default function SessionManager({
   );
 
 
-  const renderCompleted = () => (
-    <div className="max-w-3xl mx-auto">
-      <div className="glass-strong rounded-3xl p-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white mb-8">🎉 セッション完了！</h2>
-          <p className="text-xl text-white/80">お疲れさまでした。</p>
-        </div>
-
-        {/* Accuracy Result */}
-        <div className="text-center mb-10">
-          <div className="glass rounded-2xl p-8 inline-block">
-            <div className="text-6xl font-bold text-gradient mb-4">
-              {Math.round((sessionStats.wordsCorrect / sessionStats.wordsStudied) * 100)}%
-            </div>
-            <div className="text-4xl font-bold text-white">
-              {sessionStats.wordsCorrect} / {sessionStats.wordsStudied}
-            </div>
+  const renderCompleted = () => {
+    if (!sessionFeedback) {
+      // Loading state while feedback is being generated
+      return (
+        <div className="max-w-3xl mx-auto">
+          <div className="glass-strong rounded-3xl p-12 text-center">
+            <div className="text-2xl font-bold text-white mb-4">結果を集計中...</div>
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto"></div>
           </div>
         </div>
-      </div>
-    </div>
-  );
+      );
+    }
+
+    return (
+      <SessionFeedbackComponent
+        feedback={sessionFeedback}
+        onStartNewSession={handleStartNewSession}
+        onGoHome={handleGoHome}
+      />
+    );
+  };
 
   // Skip setup if initial difficulty is provided
   if (initialDifficulty && sessionState === 'setup') {

@@ -60,7 +60,6 @@ async function main() {
     console.log('🧹 Clearing existing data...');
     await prisma.wordExample.deleteMany();
     await prisma.wordProgress.deleteMany();
-    await prisma.sessionReview.deleteMany();
     await prisma.learningSession.deleteMany();
     await prisma.userAchievement.deleteMany();
     await prisma.word.deleteMany();

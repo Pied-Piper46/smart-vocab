@@ -142,6 +142,7 @@ model WordProgress {
   
   // Status
   status          String  @default("new") // new, learning, reviewing, mastered
+  previousStatus  String? // previous status for change detection
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade) 
   word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
@@ -155,42 +156,14 @@ model LearningSession {
   id        String   @id @default(cuid())
   userId    String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
-  // Session metadata
-  duration       Int      @default(0) // seconds
-  wordsStudied   Int      @default(0)
-  wordsCorrect   Int      @default(0)
-  sessionType    String   @default("mixed") // mixed, review, new_words
-  completedAt    DateTime?
-
-  // Performance metrics
-  averageResponseTime Int @default(0) // milliseconds
-  focusScore         Int @default(100) // 0-100, decreases with interruptions
+  // Minimal session info
+  wordsStudied   Int      @default(15) // typically 15 words per session
+  completedAt    DateTime // session completion time (required)
   
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reviews SessionReview[]
 
   @@map("learning_sessions")
-  @@schema("smart-vocab")
-}
-
-model SessionReview {
-  id              String   @id @default(cuid())
-  sessionId       String
-  wordId          String
-  createdAt       DateTime @default(now())
-
-  // Review data
-  learningMode    String   // eng_to_jpn, jpn_to_eng, audio, context
-  isCorrect       Boolean
-  responseTime    Int      // milliseconds
-  difficulty      Int      // 1-5 user rating after answer
-  hintsUsed       Int      @default(0)
-
-  session LearningSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-
-  @@map("session_reviews")
   @@schema("smart-vocab")
 }
 

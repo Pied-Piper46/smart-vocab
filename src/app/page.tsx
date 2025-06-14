@@ -310,8 +310,13 @@ export default function Home() {
         </div>
         <SessionManager 
           initialDifficulty={selectedDifficulty}
-          onSessionComplete={(stats) => {
+          onSessionComplete={(stats, feedback) => {
             console.log('Session completed:', stats);
+            if (feedback) {
+              console.log('Session feedback:', feedback);
+            }
+            // Note: UI feedback is handled within SessionManager itself
+            // Parent component just receives the completion notification
           }}
         />
       </div>
