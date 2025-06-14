@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Target } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
-import { fetchSessionWords, createSession, updateWordProgress, WordData } from '@/lib/api-client';
+import { fetchSessionWords, updateWordProgress, WordData } from '@/lib/api-client';
 import { DifficultyLevel } from '@/types/word-data';
 
 // Queue for failed progress updates
@@ -117,18 +117,6 @@ export default function SessionManager({
     // 🔄 Process any remaining progress updates before session completion
     console.log('🏁 Session completing, processing remaining progress updates...');
     await processProgressQueue();
-    
-    // Save session to database
-    try {
-      await createSession(
-        finalStats.wordsStudied,
-        finalStats.wordsCorrect,
-        selectedDifficulty || 'mixed'
-      );
-      console.log('✅ Session saved to database');
-    } catch (error) {
-      console.error('❌ Failed to save session:', error);
-    }
     
     onSessionComplete?.(finalStats);
   }, [sessionStats, selectedDifficulty, onSessionComplete]);

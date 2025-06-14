@@ -130,7 +130,6 @@ export async function POST(request: NextRequest) {
     // Update progress based on answer
     const newTotalReviews = progress.totalReviews + 1;
     const newCorrectAnswers = progress.correctAnswers + (isCorrect ? 1 : 0);
-    const accuracy = newCorrectAnswers / newTotalReviews;
     
     // Simple spaced repetition logic
     let newEaseFactor = progress.easeFactor;

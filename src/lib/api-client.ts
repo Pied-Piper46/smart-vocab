@@ -40,15 +40,6 @@ export interface WordProgress {
   status?: string; // Mastery status
 }
 
-export interface SessionData {
-  id: string;
-  userId: string;
-  createdAt: string;
-  wordsStudied: number;
-  wordsCorrect: number;
-  difficulty: string;
-  completedAt?: string;
-}
 
 // Base URL for API calls
 const API_BASE = '/api';
@@ -82,43 +73,6 @@ export async function fetchSessionWords(
   }
 }
 
-/**
- * Create a new learning session
- */
-export async function createSession(
-  wordsStudied: number,
-  wordsCorrect: number,
-  difficulty: string
-): Promise<SessionData> {
-  try {
-    const response = await fetch(`${API_BASE}/sessions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        wordsStudied,
-        wordsCorrect,
-        difficulty,
-      }),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const result: ApiResponse<SessionData> = await response.json();
-    
-    if (!result.success || !result.data) {
-      throw new Error(result.error || 'Failed to create session');
-    }
-    
-    return result.data;
-  } catch (error) {
-    console.error('Error creating session:', error);
-    throw error;
-  }
-}
 
 /**
  * Update word progress
@@ -156,34 +110,6 @@ export async function updateWordProgress(
   }
 }
 
-/**
- * Fetch user's learning sessions
- */
-export async function fetchUserSessions(
-  limit?: number
-): Promise<SessionData[]> {
-  try {
-    const params = new URLSearchParams();
-    if (limit) params.append('limit', limit.toString());
-    
-    const response = await fetch(`${API_BASE}/sessions?${params}`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const result: ApiResponse<SessionData[]> = await response.json();
-    
-    if (!result.success || !result.data) {
-      throw new Error(result.error || 'Failed to fetch sessions');
-    }
-    
-    return result.data;
-  } catch (error) {
-    console.error('Error fetching sessions:', error);
-    throw error;
-  }
-}
 
 /**
  * Fetch user's word progress

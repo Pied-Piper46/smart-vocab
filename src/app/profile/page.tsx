@@ -100,7 +100,7 @@ export default function ProfilePage() {
       } else {
         setError(data.error || '保存に失敗しました');
       }
-    } catch (error) {
+    } catch {
       setError('保存に失敗しました');
     } finally {
       setIsSaving(false);
@@ -142,8 +142,9 @@ export default function ProfilePage() {
         newPassword: '',
         confirmPassword: ''
       });
-    } catch (error: any) {
-      setPasswordError(error.message || 'パスワードの変更に失敗しました');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'パスワードの変更に失敗しました';
+      setPasswordError(errorMessage);
     } finally {
       setIsChangingPassword(false);
     }

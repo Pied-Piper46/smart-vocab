@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getCurrentUser, createUnauthorizedResponse } from '@/lib/auth-utils';
-import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -23,7 +22,6 @@ export async function GET() {
         dailyGoal: true,
         sessionDuration: true,
         preferredLanguage: true,
-        totalWordsLearned: true,
         currentStreak: true,
         longestStreak: true,
         totalStudyTime: true,
@@ -37,9 +35,22 @@ export async function GET() {
       );
     }
 
+    // Calculate totalWordsLearned from WordProgress
+    const wordProgressCount = await prisma.wordProgress.count({
+      where: {
+        userId: currentUser.id,
+        correctAnswers: {
+          gt: 0
+        }
+      }
+    });
+
     return NextResponse.json({
       success: true,
-      data: user,
+      data: {
+        ...user,
+        totalWordsLearned: wordProgressCount
+      },
     });
   } catch (error) {
     console.error('Error fetching user profile:', error);
@@ -91,7 +102,6 @@ export async function PUT(request: NextRequest) {
         dailyGoal: true,
         sessionDuration: true,
         preferredLanguage: true,
-        totalWordsLearned: true,
         currentStreak: true,
         longestStreak: true,
         totalStudyTime: true,
