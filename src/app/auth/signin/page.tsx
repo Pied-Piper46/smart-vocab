@@ -27,7 +27,7 @@ export default function SignInPage() {
       if (result?.error) {
         setError('メールアドレスまたはパスワードが正しくありません');
       } else if (result?.ok) {
-        router.push('/');
+        router.push('/dashboard');
       }
     } catch {
       setError('ログインに失敗しました');
@@ -37,12 +37,12 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="glass-strong rounded-3xl p-10 w-full max-w-md">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-white mb-4">VocabMaster</h1>
-          <h2 className="text-2xl font-bold text-white mb-2">ログイン</h2>
-          <p className="text-white/80">アカウントにサインインしてください</p>
+          <h1 className="text-4xl font-bold text-white mb-4 smart-vocab-title">Smart Vocab</h1>
+          <h2 className="text-2xl text-white mb-2 font-bold">ログイン</h2>
+          <p className="text-sm text-white/80">アカウントにサインインしてください</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -71,8 +71,7 @@ export default function SignInPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
-              placeholder="••••••••"
+              className="glass-input w-full p-4 rounded-xl text-white mb-4"
             />
           </div>
 

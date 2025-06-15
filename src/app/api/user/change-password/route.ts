@@ -24,9 +24,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (newPassword.length < 6) {
+    if (newPassword.length < 8) {
       return NextResponse.json(
-        { success: false, error: 'New password must be at least 6 characters long' },
+        { success: false, error: 'New password must be at least 8 characters long' },
+        { status: 400 }
+      );
+    }
+
+    // Check if password contains both letters and numbers
+    const hasLetter = /[a-zA-Z]/.test(newPassword);
+    const hasNumber = /[0-9]/.test(newPassword);
+    if (!hasLetter || !hasNumber) {
+      return NextResponse.json(
+        { success: false, error: 'New password must contain both letters and numbers' },
         { status: 400 }
       );
     }

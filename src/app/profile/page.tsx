@@ -129,6 +129,14 @@ export default function ProfilePage() {
       return;
     }
 
+    // Check if password contains both letters and numbers
+    const hasLetter = /[a-zA-Z]/.test(passwordData.newPassword);
+    const hasNumber = /[0-9]/.test(passwordData.newPassword);
+    if (!hasLetter || !hasNumber) {
+      setPasswordError('パスワードは英字と数字の両方を含む必要があります');
+      return;
+    }
+
     try {
       setIsChangingPassword(true);
       setPasswordError('');
@@ -159,7 +167,7 @@ export default function ProfilePage() {
   // Show loading while checking authentication or fetching data
   if (status === 'loading' || isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="glass-strong rounded-3xl p-10">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
@@ -175,12 +183,12 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <div className="min-h-screen relative overflow-hidden">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/dashboard')}
             className="glass-button p-3 rounded-xl text-white hover:scale-101 transition-all duration-300"
           >
             <ArrowLeft size={20} />
@@ -351,7 +359,7 @@ export default function ProfilePage() {
                   value={passwordData.newPassword}
                   onChange={(e) => handlePasswordInputChange('newPassword', e.target.value)}
                   className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
-                  placeholder="新しいパスワードを入力（8文字以上）"
+                  placeholder="新しいパスワードを入力（8文字以上、英字と数字を含む）"
                 />
               </div>
 

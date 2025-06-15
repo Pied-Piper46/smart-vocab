@@ -33,11 +33,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate password strength
-    if (password.length < 6) {
+    if (password.length < 8) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Password must be at least 6 characters long',
+          error: 'Password must be at least 8 characters long',
+        },
+        { status: 400 }
+      );
+    }
+
+    // Check if password contains both letters and numbers
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    if (!hasLetter || !hasNumber) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Password must contain both letters and numbers',
         },
         { status: 400 }
       );

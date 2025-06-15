@@ -202,8 +202,8 @@ export default function SessionManager({
   };
 
   const handleGoHome = () => {
-    // This will be handled by parent component through onSessionComplete
-    window.location.href = '/';
+    // Navigate back to dashboard
+    window.location.href = '/dashboard';
   };
 
   // Generate session feedback from collected data

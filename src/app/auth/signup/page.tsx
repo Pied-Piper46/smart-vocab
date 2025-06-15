@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function SignUpPage() {
+  const { data: session } = useSession();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +14,18 @@ export default function SignUpPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  // Handle login link click
+  const handleLoginClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (session) {
+      // User is already logged in, go directly to dashboard
+      router.push('/dashboard');
+    } else {
+      // User not logged in, go to login page
+      router.push('/auth/signin');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,8 +37,16 @@ export default function SignUpPage() {
       return;
     }
 
-    if (password.length < 6) {
-      setError('パスワードは6文字以上で入力してください');
+    if (password.length < 8) {
+      setError('パスワードは8文字以上で入力してください');
+      return;
+    }
+
+    // Check if password contains both letters and numbers
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    if (!hasLetter || !hasNumber) {
+      setError('パスワードは英字と数字の両方を含む必要があります');
       return;
     }
 
@@ -58,12 +80,12 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="glass-strong rounded-3xl p-10 w-full max-w-md">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-white mb-4">VocabMaster</h1>
-          <h2 className="text-2xl font-bold text-white mb-2">新規登録</h2>
-          <p className="text-white/80">新しいアカウントを作成してください</p>
+          <h1 className="text-4xl font-bold text-white mb-4 smart-vocab-title">Smart Vocab</h1>
+          <h2 className="text-2xl text-white mb-2 font-bold">新規登録</h2>
+          <p className="text-sm text-white/80">新しいアカウントを作成して下さい</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -108,7 +130,7 @@ export default function SignUpPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
-              placeholder="••••••••"
+              placeholder="8文字以上、英字と数字を含む"
             />
           </div>
 
@@ -122,8 +144,7 @@ export default function SignUpPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
-              placeholder="••••••••"
+              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50 mb-4"
             />
           </div>
 
@@ -145,9 +166,12 @@ export default function SignUpPage() {
         <div className="mt-8 text-center">
           <p className="text-white/70">
             すでにアカウントをお持ちですか？{' '}
-            <Link href="/auth/signin" className="text-blue-300 hover:text-blue-200 font-medium">
+            <button 
+              onClick={handleLoginClick}
+              className="text-blue-300 hover:text-blue-200 font-medium underline bg-transparent border-none cursor-pointer"
+            >
               ログイン
-            </Link>
+            </button>
           </p>
         </div>
       </div>

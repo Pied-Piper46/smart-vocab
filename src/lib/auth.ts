@@ -77,5 +77,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      // Always allow same origin URLs
+      if (url.startsWith(baseUrl)) {
+        return url;
+      }
+      // For external URLs, redirect to home page
+      return baseUrl;
+    },
   },
 });
