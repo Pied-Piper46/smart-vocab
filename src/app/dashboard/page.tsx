@@ -135,7 +135,7 @@ export default function Dashboard() {
           {/* Right profile button */}
           <div className="flex-1 sm:flex-1 flex justify-end ml-4">
             <button
-              onClick={() => router.push('/profile')}
+              onClick={() => router.push('/progress')}
               className="flex items-center gap-3 glass-light p-3 rounded-xl hover:scale-101 transition-all duration-300 text-left"
             >
               <User className="text-white/70" size={30} />
