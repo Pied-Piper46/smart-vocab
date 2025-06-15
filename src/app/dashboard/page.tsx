@@ -112,7 +112,7 @@ export default function Dashboard() {
       
       <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
-        <div className="flex items-center mb-15 sm:mb-50">
+        <div className="flex items-center mb-30 sm:mb-50">
           {/* Left spacer - invisible but takes same space as profile button on desktop */}
           <div className="hidden sm:flex flex-1 justify-start">
             <div className="invisible flex items-center gap-3 p-3">
@@ -128,12 +128,8 @@ export default function Dashboard() {
           
           {/* Title - centered on desktop, right-aligned on mobile */}
           <div className="flex-1 sm:flex-none flex items-center justify-end sm:justify-center gap-2 sm:gap-2">
-            <Brain className="text-white w-8 h-8 sm:w-10 sm:h-10" />
-            <h1 className="text-3xl sm:text-4xl font-bold smart-vocab-title whitespace-nowrap ml-2" style={{ 
-              color: 'white',
-              textShadow: '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 30px rgba(102, 126, 234, 0.3), 0 2px 4px rgba(118, 75, 162, 0.2)',
-              WebkitTextStroke: '1px rgba(102, 126, 234, 0.2)'
-            }}>Smart Vocab</h1>
+            <Brain className="text-white/70 w-8 h-8 sm:w-10 sm:h-10" />
+            <h1 className="text-white/70 text-3xl sm:text-4xl font-bold smart-vocab-title whitespace-nowrap ml-2">Smart Vocab</h1>
           </div>
           
           {/* Right profile button */}
@@ -142,9 +138,9 @@ export default function Dashboard() {
               onClick={() => router.push('/profile')}
               className="flex items-center gap-3 glass-light p-3 rounded-xl hover:scale-101 transition-all duration-300 text-left"
             >
-              <User className="text-white" size={30} />
+              <User className="text-white/70" size={30} />
               <div className="hidden sm:block">
-                <p className="text-white font-bold">{session.user?.name}</p>
+                <p className="text-white/70 font-bold">{session.user?.name}</p>
               </div>
             </button>
           </div>
@@ -152,8 +148,43 @@ export default function Dashboard() {
 
         {/* Welcome Header */}
         <header className="text-center mb-15 sm:mb-5">
-          <h1 className="text-xl sm:text-2xl text-white mb-2 whitespace-nowrap">
-            おかえりなさい、{profile.name}さん
+          <h1 className="text-xl sm:text-2xl text-white/70 mb-2 whitespace-nowrap">
+            {/* Animated welcome text */}
+            <span className="inline-block">
+              {'おかえりなさい、'.split('').map((char, index) => (
+                <span
+                  key={index}
+                  className="inline-block animate-fade-in-up opacity-0"
+                  style={{
+                    animationDelay: `${index * 0.1}s`,
+                    animationFillMode: 'forwards'
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
+              <span
+                className="inline-block animate-fade-in-up opacity-0"
+                style={{
+                  animationDelay: `${'おかえりなさい、'.length * 0.1}s`,
+                  animationFillMode: 'forwards'
+                }}
+              >
+                {profile.name}
+              </span>
+              {'さん'.split('').map((char, index) => (
+                <span
+                  key={index + 100}
+                  className="inline-block animate-fade-in-up opacity-0"
+                  style={{
+                    animationDelay: `${('おかえりなさい、'.length + 1 + index) * 0.1}s`,
+                    animationFillMode: 'forwards'
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
           </h1>
         </header>
 
@@ -193,10 +224,10 @@ export default function Dashboard() {
         </div> */}
 
         {/* Today's Progress */}
-        <div className="mb-20">
+        <div className="mb-30 sm:mb-40">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-white">今日の進捗</span>
+              <span className="text-white/70">今日の進捗</span>
               <span className="text-white/70">
                 {dailyProgress.wordsStudiedToday} / {dailyProgress.dailyGoal}語
                 {dailyProgress.isGoalReached && <span className="ml-2 text-green-400">🎉 達成!</span>}
@@ -220,69 +251,36 @@ export default function Dashboard() {
         <div className="text-center">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
-            <p className="text-white text-lg">
-              難易度を選択して学習を開始しましょう
+            <p className="text-white/70 text-lg sm:text-xl">
+              さっそく学習を開始しましょう
             </p>
             <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
           </div>
           
           {/* Difficulty Selection Buttons */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-2xl mx-auto mb-12">
             <button
               onClick={() => router.push('/learning?difficulty=easy')}
-              className="glass-button p-8 rounded-2xl text-center transition-all duration-300 hover:scale-110 hover:glow border-2 border-transparent hover:border-green-400/50 relative overflow-hidden group"
+              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50"
             >
-              <div className="absolute top-3 right-3 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <Play className="text-white" size={12} />
-              </div>
-              
-              <div className="inline-flex items-center gap-2 glass-light rounded-full px-4 py-2 mb-4">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm text-white font-medium">BEGINNER</span>
-              </div>
-              
-              <div className="text-2xl font-bold mb-3 text-white">初級</div>
-              <div className="text-lg text-white/80 mb-4">基本単語・日常会話</div>
-              
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+              <span className="text-sm text-white/70 font-medium">ELEMENTARY</span>
             </button>
-            
+
             <button
               onClick={() => router.push('/learning?difficulty=medium')}
-              className="glass-button p-8 rounded-2xl text-center transition-all duration-300 hover:scale-110 hover:glow border-2 border-transparent hover:border-blue-400/50 relative overflow-hidden group"
+              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50"
             >
-              <div className="absolute top-3 right-3 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <Play className="text-white" size={12} />
-              </div>
-              
-              <div className="inline-flex items-center gap-2 glass-light rounded-full px-4 py-2 mb-4">
-                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                <span className="text-sm text-white font-medium">INTERMEDIATE</span>
-              </div>
-              
-              <div className="text-2xl font-bold mb-3 text-white">中級</div>
-              <div className="text-lg text-white/80 mb-4">応用単語・ビジネス</div>
-              
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+              <span className="text-sm text-white/70 font-medium">INTERMEDIATE</span>
             </button>
-            
+
             <button
               onClick={() => router.push('/learning?difficulty=hard')}
-              className="glass-button p-8 rounded-2xl text-center transition-all duration-300 hover:scale-110 hover:glow border-2 border-transparent hover:border-purple-400/50 relative overflow-hidden group"
+              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50"
             >
-              <div className="absolute top-3 right-3 w-6 h-6 bg-purple-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <Play className="text-white" size={12} />
-              </div>
-              
-              <div className="inline-flex items-center gap-2 glass-light rounded-full px-4 py-2 mb-4">
-                <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                <span className="text-sm text-white font-medium">ADVANCED</span>
-              </div>
-              
-              <div className="text-2xl font-bold mb-3 text-white">上級</div>
-              <div className="text-lg text-white/80 mb-4">高度単語・学術的</div>
-              
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
+              <span className="text-sm text-white/70 font-medium">ADVANCED</span>
             </button>
           </div>
         </div>

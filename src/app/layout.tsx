@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, Roboto } from "next/font/google";
+import { Noto_Sans_JP, Roboto } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/providers/SessionProvider";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "700"],
   display: "swap",
 });
 
@@ -36,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${notoSansJP.variable} ${roboto.variable} antialiased`}
+        className={`${notoSansJP.variable} ${roboto.variable} antialiased`}
       >
         <SessionProvider>
           {children}
