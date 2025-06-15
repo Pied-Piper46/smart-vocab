@@ -5,6 +5,7 @@ import { Target } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
 import { fetchSessionWords, updateWordProgress, recordSessionCompletion, WordData } from '@/lib/api-client';
 import SessionFeedbackComponent from './SessionFeedback';
+import ExitConfirmationDialog from './ExitConfirmationDialog';
 import { DifficultyLevel } from '@/types/word-data';
 
 // Queue for failed progress updates
@@ -153,6 +154,7 @@ export default function SessionManager({
   });
   const [statusChanges, setStatusChanges] = useState<WordStatusChange[]>([]);
   const [sessionFeedback, setSessionFeedback] = useState<SessionFeedback | null>(null);
+  const [showExitDialog, setShowExitDialog] = useState(false);
 
   const completeSession = useCallback(async (finalWordsStudied?: number, finalWordsCorrect?: number) => {
     setSessionState('completed');
@@ -202,8 +204,26 @@ export default function SessionManager({
   };
 
   const handleGoHome = () => {
-    // Navigate back to dashboard
+    if (sessionState === 'active') {
+      setShowExitDialog(true);
+    } else {
+      // Navigate back to dashboard
+      window.location.href = '/dashboard';
+    }
+  };
+
+  const handleConfirmExit = async () => {
+    // Process any remaining progress updates before exit
+    console.log('🚪 User confirmed exit, processing remaining progress updates...');
+    await processProgressQueue();
+    
+    setShowExitDialog(false);
+    // Navigate directly to dashboard after confirmation
     window.location.href = '/dashboard';
+  };
+
+  const handleCancelExit = () => {
+    setShowExitDialog(false);
   };
 
   // Generate session feedback from collected data
@@ -376,11 +396,23 @@ export default function SessionManager({
 
   const renderActive = () => (
     <div className="max-w-5xl mx-auto">
+      {/* Header with Return Button */}
+      <div className="flex justify-between items-center mb-6">
+        <button
+          onClick={handleGoHome}
+          className="px-6 py-3 rounded-xl text-white/80 glass hover:glass-strong transition-all duration-300 hover:scale-105"
+        >
+          ダッシュボードに戻る
+        </button>
+        <div className="text-sm text-white/60">
+          セッション進行中
+        </div>
+      </div>
+
       {/* Progress Bar */}
       <div className="mb-10">
-        <div className="flex justify-between text-sm text-white/80 mb-3">
+        <div className="flex justify-between items-center text-sm text-white/80 mb-3">
           <span className="font-medium">学習進捗</span>
-          {/* <span className="font-bold">{Math.round((currentWordIndex / sessionWords.length) * 100)}%</span> */}
           <span className="text-bold">{currentWordIndex + 1} / {sessionWords.length}</span>
         </div>
         <div className="glass-progress rounded-full h-4">
@@ -399,6 +431,15 @@ export default function SessionManager({
           onAnswer={handleWordAnswer}
         />
       )}
+
+      {/* Exit Confirmation Dialog */}
+      <ExitConfirmationDialog
+        isOpen={showExitDialog}
+        wordsStudied={currentWordIndex}
+        totalWords={sessionWords.length}
+        onConfirmExit={handleConfirmExit}
+        onCancel={handleCancelExit}
+      />
     </div>
   );
 

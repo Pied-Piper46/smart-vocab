@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Brain, BookOpen, Target, Clock, Award, LogOut, User, Play, BarChart3 } from 'lucide-react';
+import { Brain, BookOpen, Target, Clock, Award, User, Play, BarChart3 } from 'lucide-react';
 
 interface UserProfile {
   name: string;
@@ -17,10 +17,19 @@ interface UserProfile {
   totalStudyTime: number;
 }
 
+interface DailyProgress {
+  dailyGoal: number;
+  wordsStudiedToday: number;
+  sessionsToday: number;
+  progressPercentage: number;
+  isGoalReached: boolean;
+}
+
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [dailyProgress, setDailyProgress] = useState<DailyProgress | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Redirect to signin if not authenticated
@@ -31,28 +40,45 @@ export default function Dashboard() {
     }
   }, [session, status, router]);
 
-  // Fetch user profile
+  // Fetch user profile and daily progress
   useEffect(() => {
     if (session?.user?.id) {
-      fetchProfile();
+      fetchData();
     }
   }, [session]);
 
-  const fetchProfile = async () => {
+  const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/user/profile');
       
-      if (!response.ok) {
+      // Fetch profile and daily progress in parallel
+      const [profileResponse, progressResponse] = await Promise.all([
+        fetch('/api/user/profile'),
+        fetch('/api/progress/daily')
+      ]);
+      
+      if (!profileResponse.ok) {
         throw new Error('Failed to fetch profile');
       }
       
-      const data = await response.json();
-      if (data.success) {
-        setProfile(data.data);
+      if (!progressResponse.ok) {
+        throw new Error('Failed to fetch daily progress');
+      }
+      
+      const [profileData, progressData] = await Promise.all([
+        profileResponse.json(),
+        progressResponse.json()
+      ]);
+      
+      if (profileData.success) {
+        setProfile(profileData.data);
+      }
+      
+      if (progressData.success) {
+        setDailyProgress(progressData.data);
       }
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.error('Error fetching data:', error);
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +99,7 @@ export default function Dashboard() {
   }
 
   // Redirect to signin if not authenticated
-  if (!session || !profile) {
+  if (!session || !profile || !dailyProgress) {
     return null;
   }
 
@@ -85,46 +111,54 @@ export default function Dashboard() {
       <div className="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-green-400/30 to-blue-400/30 blur-xl float-animation" style={{ animationDelay: '2s' }}></div>
       
       <div className="container mx-auto px-4 py-8 relative z-10">
-        {/* User Bar */}
-        <div className="flex justify-between items-center mb-8">
-          <button
-            onClick={() => router.push('/profile')}
-            className="flex items-center gap-3 glass-light p-3 rounded-xl hover:scale-101 transition-all duration-300 text-left"
-          >
-            <div className="p-2 glass-light rounded-xl">
-              <User className="text-white" size={20} />
+        {/* Header */}
+        <div className="flex items-center mb-15 sm:mb-50">
+          {/* Left spacer - invisible but takes same space as profile button on desktop */}
+          <div className="hidden sm:flex flex-1 justify-start">
+            <div className="invisible flex items-center gap-3 p-3">
+              <div className="p-2 rounded-xl">
+                <User size={20} />
+              </div>
+              <div>
+                <p className="font-medium">placeholder</p>
+                <p className="text-sm">placeholder@email.com</p>
+              </div>
             </div>
-            <div>
-              <p className="text-white font-medium">{session.user?.name}</p>
-              <p className="text-white/70 text-sm">{session.user?.email}</p>
-            </div>
-          </button>
-          <button
-            onClick={() => signOut({ callbackUrl: '/' })}
-            className="flex items-center gap-2 glass-button px-4 py-2 rounded-xl text-white hover:scale-101 transition-all duration-300"
-          >
-            <LogOut size={16} />
-            ログアウト
-          </button>
+          </div>
+          
+          {/* Title - centered on desktop, right-aligned on mobile */}
+          <div className="flex-1 sm:flex-none flex items-center justify-end sm:justify-center gap-2 sm:gap-2">
+            <Brain className="text-white w-8 h-8 sm:w-10 sm:h-10" />
+            <h1 className="text-3xl sm:text-4xl font-bold smart-vocab-title whitespace-nowrap ml-2" style={{ 
+              color: 'white',
+              textShadow: '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 30px rgba(102, 126, 234, 0.3), 0 2px 4px rgba(118, 75, 162, 0.2)',
+              WebkitTextStroke: '1px rgba(102, 126, 234, 0.2)'
+            }}>Smart Vocab</h1>
+          </div>
+          
+          {/* Right profile button */}
+          <div className="flex-1 sm:flex-1 flex justify-end ml-4">
+            <button
+              onClick={() => router.push('/profile')}
+              className="flex items-center gap-3 glass-light p-3 rounded-xl hover:scale-101 transition-all duration-300 text-left"
+            >
+              <User className="text-white" size={30} />
+              <div className="hidden sm:block">
+                <p className="text-white font-bold">{session.user?.name}</p>
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* Welcome Header */}
-        <header className="text-center mb-8">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="p-3 glass rounded-2xl glow pulse-glow">
-              <Brain className="text-white" size={40} />
-            </div>
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-2">
-            おかえりなさい、{profile.name}さん！
+        <header className="text-center mb-15 sm:mb-5">
+          <h1 className="text-xl sm:text-2xl text-white mb-2 whitespace-nowrap">
+            おかえりなさい、{profile.name}さん
           </h1>
-          <p className="text-lg text-white/80">
-            今日も科学的英単語学習を続けましょう
-          </p>
         </header>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="glass rounded-2xl p-6 text-center">
             <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
               <BookOpen className="text-blue-300" size={24} />
@@ -156,27 +190,29 @@ export default function Dashboard() {
             <div className="text-2xl font-bold text-white mb-1">{profile.longestStreak}</div>
             <div className="text-sm text-white/70">最長連続記録</div>
           </div>
-        </div>
+        </div> */}
 
         {/* Today's Progress */}
-        <div className="glass-strong rounded-3xl p-8 mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white">今日の進捗</h2>
-            <div className="flex items-center gap-2 glass-light px-4 py-2 rounded-xl">
-              <BarChart3 className="text-white" size={16} />
-              <span className="text-white text-sm">目標: {profile.dailyGoal}語</span>
-            </div>
-          </div>
-          
+        <div className="mb-20">
           <div className="space-y-4">
-            {/* Progress bar placeholder - would be dynamic in real implementation */}
             <div className="flex items-center justify-between">
-              <span className="text-white">学習進捗</span>
-              <span className="text-white/70">0 / {profile.dailyGoal}語</span>
+              <span className="text-white">今日の進捗</span>
+              <span className="text-white/70">
+                {dailyProgress.wordsStudiedToday} / {dailyProgress.dailyGoal}語
+                {dailyProgress.isGoalReached && <span className="ml-2 text-green-400">🎉 達成!</span>}
+              </span>
             </div>
             <div className="w-full bg-white/10 rounded-full h-3">
-              <div className="bg-gradient-to-r from-blue-400 to-purple-400 h-3 rounded-full" style={{ width: '0%' }}></div>
+              <div 
+                className="bg-gradient-to-r from-blue-400 to-purple-400 h-3 rounded-full transition-all duration-500 ease-out" 
+                style={{ width: `${dailyProgress.progressPercentage}%` }}
+              ></div>
             </div>
+            {dailyProgress.sessionsToday > 0 && (
+              <div className="text-center text-white/60 text-sm">
+                完了セッション数: {dailyProgress.sessionsToday} 回
+              </div>
+            )}
           </div>
         </div>
 
@@ -184,7 +220,7 @@ export default function Dashboard() {
         <div className="text-center">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
-            <p className="text-white text-xl">
+            <p className="text-white text-lg">
               難易度を選択して学習を開始しましょう
             </p>
             <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>

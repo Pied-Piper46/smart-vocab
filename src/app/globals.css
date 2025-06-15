@@ -34,10 +34,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto-sans-jp);
-  --font-mono: var(--font-jetbrains-mono);
   --font-inter: var(--font-inter);
   --font-roboto: var(--font-roboto);
-  --font-open-sans: var(--font-open-sans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -334,10 +332,6 @@ html {
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.font-mono {
-  font-family: var(--font-jetbrains-mono), 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-}
-
 /* Enhanced Japanese Typography */
 .text-japanese {
   font-family: var(--font-noto-sans-jp), 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Meiryo, sans-serif;
@@ -354,25 +348,6 @@ html {
   line-height: 1.4;
 }
 
-/* Logo & Brand Fonts - Classic & Modern */
-.font-logo {
-  font-family: var(--font-roboto), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  text-rendering: optimizeLegibility;
-}
-
-.font-brand {
-  font-family: var(--font-open-sans), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0em;
-}
-
-.font-display {
-  font-family: var(--font-open-sans), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
 
 /* App Title Specific - Clean & Professional */
 .smart-vocab-title {
@@ -383,9 +358,3 @@ html {
   font-feature-settings: "liga" 1, "kern" 1;
 }
 
-/* Clean accent for display text */
-.text-clean {
-  font-family: var(--font-open-sans), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0em;
-}

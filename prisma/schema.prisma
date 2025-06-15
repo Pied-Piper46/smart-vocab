@@ -22,7 +22,7 @@ model User {
   hashedPassword String?
 
   // Learning preferences
-  dailyGoal          Int     @default(20) // words per day
+  dailyGoal          Int     @default(15) // words per day
   sessionDuration    Int     @default(10) // minutes
   preferredLanguage  String  @default("ja") // ja for Japanese
   

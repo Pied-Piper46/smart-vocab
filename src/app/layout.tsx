@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, JetBrains_Mono, Roboto, Open_Sans } from "next/font/google";
+import { Inter, Noto_Sans_JP, Roboto } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/providers/SessionProvider";
 
@@ -16,23 +16,10 @@ const notoSansJP = Noto_Sans_JP({
   display: "swap",
 });
 
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700", "900"],
-  display: "swap",
-});
-
-const openSans = Open_Sans({
-  variable: "--font-open-sans",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -49,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${notoSansJP.variable} ${jetBrainsMono.variable} ${roboto.variable} ${openSans.variable} antialiased`}
+        className={`${inter.variable} ${notoSansJP.variable} ${roboto.variable} antialiased`}
       >
         <SessionProvider>
           {children}
