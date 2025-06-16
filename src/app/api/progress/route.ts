@@ -130,13 +130,21 @@ export async function POST(request: NextRequest) {
     // Update progress based on answer
     const newTotalReviews = progress.totalReviews + 1;
     const newCorrectAnswers = progress.correctAnswers + (isCorrect ? 1 : 0);
+    const previousStatus = progress.status;
+    
+    // Calculate streak (consecutive correct answers)
+    let newStreak = progress.streak;
+    if (isCorrect) {
+      newStreak += 1;
+    } else {
+      newStreak = 0; // Reset streak on incorrect answer
+    }
     
     // Simple spaced repetition logic
     let newEaseFactor = progress.easeFactor;
     let newInterval = progress.interval;
     let newRepetitions = progress.repetitions;
     let newStatus = progress.status;
-    const previousStatus = progress.status;
     
     if (isCorrect) {
       newRepetitions += 1;
@@ -148,11 +156,11 @@ export async function POST(request: NextRequest) {
         newInterval = Math.round(newInterval * newEaseFactor);
       }
       
-      // Calculate mastery status using optimized algorithm
+      // Calculate mastery status using actual streak
       newStatus = calculateMasteryStatus({
         totalReviews: newTotalReviews,
         correctAnswers: newCorrectAnswers,
-        streak: newRepetitions // Using repetitions as streak proxy
+        streak: newStreak
       });
     } else {
       newRepetitions = 0;
@@ -161,7 +169,7 @@ export async function POST(request: NextRequest) {
       newStatus = calculateMasteryStatus({
         totalReviews: newTotalReviews,
         correctAnswers: newCorrectAnswers,
-        streak: 0 // Reset streak for incorrect answer
+        streak: newStreak // This will be 0 for incorrect answers
       });
     }
     
@@ -182,6 +190,7 @@ export async function POST(request: NextRequest) {
       data: {
         totalReviews: newTotalReviews,
         correctAnswers: newCorrectAnswers,
+        streak: newStreak, // Save the updated streak
         easeFactor: newEaseFactor,
         interval: newInterval,
         repetitions: newRepetitions,

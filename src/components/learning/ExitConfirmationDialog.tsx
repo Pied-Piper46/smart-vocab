@@ -1,6 +1,6 @@
 'use client';
 
-import { AlertTriangle, ArrowLeft, BookOpen, CheckCircle, XCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle, XCircle, LogOut, Play } from 'lucide-react';
 
 interface ExitConfirmationDialogProps {
   isOpen: boolean;
@@ -44,7 +44,7 @@ export default function ExitConfirmationDialog({
           </div>
 
           {/* Progress Summary */}
-          <div className="glass-light rounded-2xl p-4 mb-6">
+          <div className="rounded-2xl p-4 mb-6">
             <div className="flex items-center justify-between mb-3">
               <span className="text-white/80 font-medium">現在の進捗</span>
               <span className="text-white/70">{wordsStudied} / {totalWords}語</span>
@@ -80,19 +80,18 @@ export default function ExitConfirmationDialog({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-3">
+          <div className="flex justify-center gap-6">
             <button
               onClick={onCancel}
-              className="flex-1 glass-light py-3 px-4 rounded-xl text-white/80 font-medium hover:scale-101 transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-12 h-12 rounded-full bg-white/10 hover:bg-green-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110"
             >
-              学習を続ける
+              <Play size={24} />
             </button>
             <button
               onClick={onConfirmExit}
-              className="flex-1 bg-red-500/20 backdrop-blur border border-red-400/30 py-3 px-4 rounded-xl text-red-200 font-bold hover:bg-red-500/30 hover:scale-101 transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-12 h-12 rounded-full bg-white/10 hover:bg-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110"
             >
-              <ArrowLeft size={16} />
-              終了する
+              <LogOut size={24} />
             </button>
           </div>
         </div>

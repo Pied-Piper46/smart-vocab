@@ -5,7 +5,7 @@ import { calculateMasteryStatus } from '@/lib/mastery';
 
 const prisma = new PrismaClient();
 
-// POST /api/sessions/complete - Record session completion
+// POST /api/progress/batch - Update multiple word progress (without session record)
 export async function POST(request: NextRequest) {
   try {
     const currentUser = await getCurrentUser();
@@ -14,27 +14,10 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { wordsStudied, answers } = body;
+    const { answers } = body;
     const userId = currentUser.id;
 
-    // 🔍 Debug: Log received data for final word investigation
-    console.log('🔍 Session completion API received:', {
-      wordsStudied,
-      answersCount: answers?.length,
-      expectedMatch: wordsStudied === answers?.length
-    });
-
     // Validate required fields
-    if (wordsStudied === undefined || wordsStudied <= 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid wordsStudied value',
-        },
-        { status: 400 }
-      );
-    }
-
     if (!answers || !Array.isArray(answers)) {
       return NextResponse.json(
         {
@@ -45,25 +28,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Transaction to create session and update user statistics
+    // Process answers in transaction (but don't create session record)
     const result = await prisma.$transaction(async (prisma) => {
-      // Create session record
-      const session = await prisma.learningSession.create({
-        data: {
-          userId,
-          wordsStudied,
-          completedAt: new Date(),
-        },
-      });
-
-      // Process all answers in batch
       const statusChanges = {
         upgrades: [] as any[],
         downgrades: [] as any[],
         maintained: [] as any[]
       };
 
-      // Fetch word data for all words in the session
+      // Fetch word data for all words
       const wordIds = answers.map((answer: any) => answer.wordId);
       const words = await prisma.word.findMany({
         where: { id: { in: wordIds } },
@@ -73,20 +46,9 @@ export async function POST(request: NextRequest) {
       const wordMap = new Map(words.map(word => [word.id, word]));
 
       // Process each answer
-      console.log('🔄 Processing answers in batch:', answers.length);
-      for (let i = 0; i < answers.length; i++) {
-        const answer = answers[i];
-        console.log(`🔍 Processing answer ${i + 1}/${answers.length}:`, {
-          wordId: answer.wordId,
-          isCorrect: answer.isCorrect,
-          mode: answer.mode
-        });
-        
+      for (const answer of answers) {
         const word = wordMap.get(answer.wordId);
-        if (!word) {
-          console.warn(`⚠️ Word not found for ID: ${answer.wordId}`);
-          continue;
-        }
+        if (!word) continue;
 
         // Get or create word progress
         let progress = await prisma.wordProgress.findUnique({
@@ -188,13 +150,6 @@ export async function POST(request: NextRequest) {
           },
         });
 
-        console.log(`✅ Progress updated for word ${answer.wordId}:`, {
-          status: `${previousStatus} → ${newStatus}`,
-          streak: newStreak,
-          totalReviews: newTotalReviews,
-          correctAnswers: newCorrectAnswers
-        });
-
         // Track status changes
         const statusChanged = previousStatus !== newStatus;
         if (statusChanged) {
@@ -222,103 +177,22 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Calculate new streak based on consecutive daily sessions
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      const yesterday = new Date(today);
-      yesterday.setDate(yesterday.getDate() - 1);
-
-      // Get recent sessions to calculate streak
-      const recentSessions = await prisma.learningSession.findMany({
-        where: {
-          userId,
-          completedAt: {
-            gte: new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000), // Last 30 days
-          },
-        },
-        select: {
-          completedAt: true,
-        },
-        orderBy: {
-          completedAt: 'desc',
-        },
-      });
-
-      // Group sessions by date to calculate streak
-      const sessionDates = new Set();
-      recentSessions.forEach(session => {
-        if (session.completedAt) {
-          const date = new Date(session.completedAt);
-          date.setHours(0, 0, 0, 0);
-          sessionDates.add(date.getTime());
-        }
-      });
-
-      // Calculate current streak
-      let currentStreak = 0;
-      const currentDate = new Date(today);
-      
-      while (sessionDates.has(currentDate.getTime())) {
-        currentStreak++;
-        currentDate.setDate(currentDate.getDate() - 1);
-      }
-
-      // Calculate total words learned (words with progress)
-      const totalWordsLearned = await prisma.wordProgress.count({
-        where: {
-          userId,
-          correctAnswers: {
-            gt: 0,
-          },
-        },
-      });
-
-      // Get current user stats to compare with longest streak
-      const currentUser = await prisma.user.findUnique({
-        where: { id: userId },
-        select: { longestStreak: true },
-      });
-
-      const longestStreak = Math.max(currentStreak, currentUser?.longestStreak || 0);
-
-      // Update user statistics
-      await prisma.user.update({
-        where: { id: userId },
-        data: {
-          currentStreak,
-          longestStreak,
-          totalWordsLearned,
-        },
-      });
-
       return {
-        session,
+        wordsProcessed: answers.length,
         statusChanges,
-        stats: {
-          currentStreak,
-          longestStreak,
-          totalWordsLearned,
-        },
       };
     });
 
     return NextResponse.json({
       success: true,
-      data: {
-        sessionId: result.session.id,
-        completedAt: result.session.completedAt,
-        wordsStudied: result.session.wordsStudied,
-        statusChanges: result.statusChanges,
-        updatedStats: result.stats,
-      },
+      data: result,
     });
   } catch (error) {
-    console.error('Error recording session completion:', error);
+    console.error('Error updating batch progress:', error);
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to record session completion',
+        error: 'Failed to update progress',
       },
       { status: 500 }
     );

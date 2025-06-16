@@ -152,11 +152,54 @@ export async function fetchUserProgress(): Promise<UserProgressData[]> {
 }
 
 /**
- * Record session completion
+ * Session answer data
+ */
+export interface SessionAnswer {
+  wordId: string;
+  isCorrect: boolean;
+  timestamp: number;
+  mode: string;
+}
+
+/**
+ * Word status change data
+ */
+export interface WordStatusChange {
+  wordId: string;
+  english: string;
+  japanese: string;
+  from: string;
+  to: string;
+  isUpgrade: boolean;
+  isDowngrade: boolean;
+}
+
+/**
+ * Session completion response
+ */
+export interface SessionCompletionData {
+  sessionId: string;
+  completedAt: Date;
+  wordsStudied: number;
+  statusChanges: {
+    upgrades: WordStatusChange[];
+    downgrades: WordStatusChange[];
+    maintained: WordStatusChange[];
+  };
+  updatedStats: {
+    currentStreak: number;
+    longestStreak: number;
+    totalWordsLearned: number;
+  };
+}
+
+/**
+ * Record session completion with batch processing
  */
 export async function recordSessionCompletion(
-  wordsStudied: number
-): Promise<{ sessionId: string; completedAt: Date; wordsStudied: number }> {
+  wordsStudied: number,
+  answers: SessionAnswer[]
+): Promise<SessionCompletionData> {
   try {
     const response = await fetch(`${API_BASE}/sessions/complete`, {
       method: 'POST',
@@ -165,6 +208,7 @@ export async function recordSessionCompletion(
       },
       body: JSON.stringify({
         wordsStudied,
+        answers,
       }),
     });
     
@@ -172,7 +216,7 @@ export async function recordSessionCompletion(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const result: ApiResponse<{ sessionId: string; completedAt: Date; wordsStudied: number }> = await response.json();
+    const result: ApiResponse<SessionCompletionData> = await response.json();
     
     if (!result.success || !result.data) {
       throw new Error(result.error || 'Failed to record session completion');

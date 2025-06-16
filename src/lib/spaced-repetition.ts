@@ -101,24 +101,6 @@ export function getWordsDueForReview(
     .map(word => word.id);
 }
 
-/**
- * Calculate word mastery status
- */
-export function calculateMasteryStatus(progress: SpacedRepetitionData): string {
-  const { streak, totalReviews, correctAnswers, interval } = progress;
-  
-  if (totalReviews < 3) return 'new';
-  
-  const accuracy = correctAnswers / totalReviews;
-  
-  if (accuracy >= 0.95 && streak >= 5 && interval >= 30) {
-    return 'mastered';
-  } else if (accuracy >= 0.8 && streak >= 3) {
-    return 'reviewing';
-  } else {
-    return 'learning';
-  }
-}
 
 /**
  * Optimize learning sequence to minimize interference

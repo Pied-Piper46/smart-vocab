@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Brain, User } from 'lucide-react';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 interface UserProfile {
   name: string;
@@ -101,20 +102,7 @@ export default function Dashboard() {
 
   // Show loading while checking authentication
   if (status === 'loading' || isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="rounded-3xl p-10">
-          <div className="text-center">
-            <div className="relative w-8 h-8 mx-auto mb-3">
-              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-transparent border-t-white/70 rounded-full animate-spin"></div>
-            </div>
-            {/* <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div> */}
-            <p className="text-white/70 text-sm sm:text-base">読み込み中...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   // Redirect to signin if not authenticated

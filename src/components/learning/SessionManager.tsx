@@ -3,28 +3,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Target } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
-import { fetchSessionWords, updateWordProgress, recordSessionCompletion, WordData } from '@/lib/api-client';
+import { fetchSessionWords, recordSessionCompletion, WordData, SessionAnswer, WordStatusChange } from '@/lib/api-client';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import SessionFeedbackComponent from './SessionFeedback';
 import ExitConfirmationDialog from './ExitConfirmationDialog';
 import { DifficultyLevel } from '@/types/word-data';
 
-// Queue for failed progress updates
-interface ProgressUpdate {
-  wordId: string;
-  correct: boolean;
-  timestamp: number;
-}
-
-// Status change tracking
-interface WordStatusChange {
-  wordId: string;
-  english: string;
-  japanese: string;
-  from: string;
-  to: string;
-  isUpgrade: boolean;
-  isDowngrade: boolean;
-}
+// Remove unused interfaces since they're now imported from api-client
 
 export interface SessionFeedback {
   totalWords: number;
@@ -41,88 +26,7 @@ export interface SessionFeedback {
   wordsReinforced: number;
 }
 
-let progressUpdateQueue: ProgressUpdate[] = [];
-
-/**
- * Advanced async progress update with retry mechanism
- */
-async function updateWordProgressWithRetry(
-  update: ProgressUpdate, 
-  onStatusChange?: (change: WordStatusChange) => void,
-  word?: WordData,
-  retryCount: number = 0
-): Promise<WordStatusChange | null> {
-  const maxRetries = 3;
-  const retryDelay = Math.pow(2, retryCount) * 1000; // Exponential backoff
-  
-  try {
-    const result = await updateWordProgress(update.wordId, update.correct);
-    console.log('✅ Word progress updated:', { 
-      wordId: update.wordId, 
-      correct: update.correct,
-      retryCount 
-    });
-    
-    // Track status changes if callback provided
-    if (onStatusChange && word && result.statusChange?.changed) {
-      const statusChange: WordStatusChange = {
-        wordId: update.wordId,
-        english: word.english,
-        japanese: word.japanese,
-        from: result.statusChange.from,
-        to: result.statusChange.to,
-        isUpgrade: result.statusChange.isUpgrade,
-        isDowngrade: result.statusChange.isDowngrade,
-      };
-      onStatusChange(statusChange);
-      return statusChange;
-    }
-    return null;
-  } catch (error) {
-    console.warn(`⚠️ Progress update failed (attempt ${retryCount + 1}/${maxRetries + 1}):`, error);
-    
-    if (retryCount < maxRetries) {
-      // Retry with exponential backoff
-      return new Promise((resolve) => {
-        setTimeout(async () => {
-          const result = await updateWordProgressWithRetry(update, onStatusChange, word, retryCount + 1);
-          resolve(result);
-        }, retryDelay);
-      });
-    } else {
-      // Final failure - add to queue for batch processing
-      console.error('❌ Progress update failed permanently, adding to queue:', update);
-      progressUpdateQueue.push(update);
-      return null;
-    }
-  }
-}
-
-/**
- * Process queued progress updates in batch
- */
-async function processProgressQueue(): Promise<void> {
-  if (progressUpdateQueue.length === 0) return;
-  
-  console.log(`🔄 Processing ${progressUpdateQueue.length} queued progress updates...`);
-  
-  const updates = [...progressUpdateQueue];
-  progressUpdateQueue = []; // Clear queue
-  
-  // Process updates sequentially to avoid overwhelming the server
-  for (const update of updates) {
-    try {
-      await updateWordProgress(update.wordId, update.correct);
-      console.log('✅ Queued progress update completed:', update.wordId);
-    } catch (error) {
-      console.error('❌ Queued progress update failed:', error);
-      // Could implement more sophisticated failure handling here
-    }
-    
-    // Small delay between requests
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-}
+// Batch processing - collect all answers during session
 
 interface SessionManagerProps {
   initialDifficulty?: DifficultyLevel | null;
@@ -152,7 +56,7 @@ export default function SessionManager({
     wordsCorrect: 0,
     sessionType: 'single_difficulty'
   });
-  const [statusChanges, setStatusChanges] = useState<WordStatusChange[]>([]);
+  const [sessionAnswers, setSessionAnswers] = useState<SessionAnswer[]>([]);
   const [sessionFeedback, setSessionFeedback] = useState<SessionFeedback | null>(null);
   const [showExitDialog, setShowExitDialog] = useState(false);
 
@@ -167,26 +71,90 @@ export default function SessionManager({
     
     setSessionStats(finalStats);
     
-    // 🔄 Process any remaining progress updates before session completion
-    console.log('🏁 Session completing, processing remaining progress updates...');
-    await processProgressQueue();
+    // 🚀 Batch process all answers at session completion
+    console.log('🏁 Session completing, processing all answers in batch...');
+    console.log('📊 Session answers:', sessionAnswers);
     
-    // Record session completion in backend
     try {
-      await recordSessionCompletion(finalStats.wordsStudied);
-      console.log('✅ Session completion recorded');
+      // Send all answers to backend for batch processing
+      const result = await recordSessionCompletion(finalStats.wordsStudied, sessionAnswers);
+      console.log('✅ Session completion with batch processing completed:', result);
+      
+      // Generate session feedback from batch result
+      const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, result.statusChanges);
+      console.log('📋 Generated feedback from batch result:', feedback);
+      setSessionFeedback(feedback);
+      
+      onSessionComplete?.(finalStats, feedback);
     } catch (error) {
-      console.error('❌ Failed to record session completion:', error);
+      console.error('❌ Failed to complete session with batch processing:', error);
+      // Fallback: generate basic feedback without status changes
+      const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, {
+        upgrades: [],
+        downgrades: [],
+        maintained: []
+      });
+      setSessionFeedback(feedback);
     }
+  }, [sessionStats, selectedDifficulty, sessionAnswers, onSessionComplete]);
+
+  // 🔥 NEW: Complete session with final answer passed directly to avoid state race condition
+  const completeSessionWithFinalAnswer = useCallback(async (
+    finalWordsStudied: number, 
+    finalWordsCorrect: number, 
+    finalAnswers: SessionAnswer[]
+  ) => {
+    setSessionState('completed');
     
-    // Generate session feedback
-    console.log('📊 Status changes at session completion:', statusChanges);
-    const feedback: SessionFeedback = generateSessionFeedback(finalStats, statusChanges);
-    console.log('📋 Generated feedback:', feedback);
-    setSessionFeedback(feedback);
+    const finalStats: SessionStats = {
+      wordsStudied: finalWordsStudied,
+      wordsCorrect: finalWordsCorrect,
+      sessionType: selectedDifficulty || 'single_difficulty'
+    };
     
-    onSessionComplete?.(finalStats, feedback);
-  }, [sessionStats, selectedDifficulty, statusChanges, onSessionComplete]);
+    setSessionStats(finalStats);
+    
+    // 🚀 Batch process all answers at session completion with final answer included
+    console.log('🏁 Session completing with final answer, processing all answers in batch...');
+    console.log('📊 Final batch answers:', finalAnswers);
+    console.log('🔍 Final answer count verification:', finalAnswers.length, 'vs expected:', finalWordsStudied);
+    
+    try {
+      // Send all answers (including final answer) to backend for batch processing
+      const result = await recordSessionCompletion(finalStats.wordsStudied, finalAnswers);
+      console.log('✅ Session completion with final answer batch processing completed:', result);
+      
+      // Generate session feedback from batch result
+      const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, result.statusChanges);
+      console.log('📋 Generated feedback from batch result:', feedback);
+      setSessionFeedback(feedback);
+      
+      onSessionComplete?.(finalStats, feedback);
+    } catch (error) {
+      console.error('❌ Failed to complete session with final answer batch processing:', error);
+      // Fallback: generate basic feedback without status changes
+      const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, {
+        upgrades: [],
+        downgrades: [],
+        maintained: []
+      });
+      setSessionFeedback(feedback);
+    }
+  }, [sessionStats, selectedDifficulty, onSessionComplete]);
+
+  // Generate session feedback from batch result
+  const generateSessionFeedbackFromBatch = (stats: SessionStats, statusChanges: { upgrades: WordStatusChange[]; downgrades: WordStatusChange[]; maintained: WordStatusChange[]; }): SessionFeedback => {
+    return {
+      totalWords: stats.wordsStudied,
+      correctAnswers: stats.wordsCorrect,
+      accuracy: stats.wordsStudied > 0 ? (stats.wordsCorrect / stats.wordsStudied) * 100 : 0,
+      statusChanges,
+      totalUpgrades: statusChanges.upgrades.length,
+      totalDowngrades: statusChanges.downgrades.length,
+      newWordsLearned: statusChanges.upgrades.filter(c => c.from === 'new' && c.to === 'learning').length,
+      wordsReinforced: statusChanges.upgrades.filter(c => c.from === 'learning' && c.to === 'reviewing').length,
+    };
+  };
 
   // Handle feedback actions
   const handleStartNewSession = () => {
@@ -198,9 +166,12 @@ export default function SessionManager({
       wordsCorrect: 0,
       sessionType: 'single_difficulty'
     });
-    setStatusChanges([]);
+    setSessionAnswers([]);
     setSessionFeedback(null);
-    setSelectedDifficulty(null);
+    // Keep the same difficulty for new session and reload data
+    if (selectedDifficulty) {
+      loadSessionData();
+    }
   };
 
   const handleGoHome = () => {
@@ -213,12 +184,33 @@ export default function SessionManager({
   };
 
   const handleConfirmExit = async () => {
-    // Process any remaining progress updates before exit
-    console.log('🚪 User confirmed exit, processing remaining progress updates...');
-    await processProgressQueue();
+    console.log('🚪 User confirmed exit, saving progress for answered words...');
+    
+    // Save progress for answered words only (no session record)
+    if (sessionAnswers.length > 0) {
+      try {
+        // Create a batch progress update API call (without session completion)
+        const response = await fetch('/api/progress/batch', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            answers: sessionAnswers,
+          }),
+        });
+        
+        if (response.ok) {
+          console.log(`✅ Progress saved for ${sessionAnswers.length} answered words`);
+        } else {
+          console.warn('⚠️ Failed to save progress, but continuing exit');
+        }
+      } catch (error) {
+        console.warn('⚠️ Error saving progress on exit:', error);
+      }
+    }
     
     setShowExitDialog(false);
-    // Navigate directly to dashboard after confirmation
     window.location.href = '/dashboard';
   };
 
@@ -226,27 +218,6 @@ export default function SessionManager({
     setShowExitDialog(false);
   };
 
-  // Generate session feedback from collected data
-  const generateSessionFeedback = (stats: SessionStats, changes: WordStatusChange[]): SessionFeedback => {
-    const upgrades = changes.filter(c => c.isUpgrade);
-    const downgrades = changes.filter(c => c.isDowngrade);
-    const maintained = changes.filter(c => !c.isUpgrade && !c.isDowngrade);
-    
-    return {
-      totalWords: stats.wordsStudied,
-      correctAnswers: stats.wordsCorrect,
-      accuracy: stats.wordsStudied > 0 ? (stats.wordsCorrect / stats.wordsStudied) * 100 : 0,
-      statusChanges: {
-        upgrades,
-        downgrades,
-        maintained,
-      },
-      totalUpgrades: upgrades.length,
-      totalDowngrades: downgrades.length,
-      newWordsLearned: upgrades.filter(c => c.from === 'new' && c.to === 'learning').length,
-      wordsReinforced: upgrades.filter(c => c.from === 'learning' && c.to === 'reviewing').length,
-    };
-  };
 
   const loadSessionData = useCallback(async () => {
     try {
@@ -288,60 +259,49 @@ export default function SessionManager({
   };
 
 
-  const handleWordAnswer = async (correct: boolean) => {
+  const handleWordAnswer = (correct: boolean) => {
     const currentWord = sessionWords[currentWordIndex];
     
-    // 🚀 IMMEDIATE UI UPDATE - No waiting for API
-    // Update session stats instantly
+    // 🚀 BATCH PROCESSING - Collect answer for later processing
+    const sessionAnswer: SessionAnswer = {
+      wordId: currentWord.id,
+      isCorrect: correct,
+      timestamp: Date.now(),
+      mode: currentMode
+    };
+    
+    // Update session stats instantly for UI
     setSessionStats(prev => ({
       ...prev,
       wordsStudied: prev.wordsStudied + 1,
       wordsCorrect: prev.wordsCorrect + (correct ? 1 : 0)
     }));
 
-    // 🔄 API UPDATE - Different behavior for last word vs others
-    const progressUpdate: ProgressUpdate = {
-      wordId: currentWord.id,
-      correct,
-      timestamp: Date.now()
-    };
-
     if (currentWordIndex < sessionWords.length - 1) {
-      // Not the last word - move to next immediately, update progress in background
+      // Not the last word - move to next immediately
+      // Add answer to batch collection
+      setSessionAnswers(prev => [...prev, sessionAnswer]);
+      console.log('📝 Answer collected for batch processing:', sessionAnswer);
+      
       setCurrentWordIndex(prev => prev + 1);
       // Randomly select learning mode for variety
       const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
       const randomMode = modes[Math.floor(Math.random() * modes.length)];
       setCurrentMode(randomMode);
-
-      // Background API update
-      updateWordProgressWithRetry(
-        progressUpdate, 
-        (change) => {
-          setStatusChanges(prev => [...prev, change]);
-        },
-        currentWord
-      );
     } else {
-      // Last word - wait for API response to get status change, then complete session
-      console.log('🏁 Processing last word, waiting for status change...');
+      // Last word - complete session with batch processing
+      console.log('🏁 Last word answered, completing session with batch processing...');
       
-      const statusChange = await updateWordProgressWithRetry(
-        progressUpdate, 
-        (change) => {
-          setStatusChanges(prev => [...prev, change]);
-        },
-        currentWord
-      );
-      
-      if (statusChange) {
-        console.log('📊 Status change received for last word:', statusChange);
-      }
-
       // Calculate final stats including current word
       const finalWordsStudied = sessionStats.wordsStudied + 1;
       const finalWordsCorrect = sessionStats.wordsCorrect + (correct ? 1 : 0);
-      await completeSession(finalWordsStudied, finalWordsCorrect);
+      
+      // 🔥 CRITICAL: Pass the final answer directly to avoid React state race condition
+      const updatedAnswers = [...sessionAnswers, sessionAnswer];
+      console.log('📝 Final answer included in batch:', sessionAnswer);
+      console.log('📊 Complete batch for processing:', updatedAnswers);
+      
+      completeSessionWithFinalAnswer(finalWordsStudied, finalWordsCorrect, updatedAnswers);
     }
   };
 
@@ -444,14 +404,7 @@ export default function SessionManager({
   const renderCompleted = () => {
     if (!sessionFeedback) {
       // Loading state while feedback is being generated
-      return (
-        <div className="max-w-3xl mx-auto">
-          <div className="glass-strong rounded-3xl p-12 text-center">
-            <div className="text-2xl font-bold text-white mb-4">結果を集計中...</div>
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto"></div>
-          </div>
-        </div>
-      );
+      return <LoadingSpinner text="結果を集計中..." absolute />;
     }
 
     return (
@@ -465,18 +418,7 @@ export default function SessionManager({
 
   // Skip setup if initial difficulty is provided
   if (initialDifficulty && sessionState === 'setup') {
-    return (
-      <div className="min-h-screen flex items-center justify-center pb-100">
-        <div className="text-center">
-          <div className="relative w-8 h-8 mx-auto mb-3">
-            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-transparent border-t-white/70 rounded-full animate-spin"></div>
-          </div>
-          {/* <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div> */}
-          <p className="text-white/70 text-sm sm:text-base">学習セッションを準備しています...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner text="学習セッションを準備しています..." absolute />;
   }
 
   switch (sessionState) {

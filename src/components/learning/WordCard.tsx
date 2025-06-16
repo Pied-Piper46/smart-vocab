@@ -85,7 +85,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
       case 'audio_recognition':
         return (
           <div className="text-center">
-            <div className="text-xl text-white/80 mb-8">音声を聞いて、英単語と意味を答えてください</div>
+            <div className="text-xl text-white/80 mb-8">音声を聞いてください</div>
             <div className="flex items-center justify-center gap-6 max-w-lg mx-auto">
               <button
                 onClick={playAudio}

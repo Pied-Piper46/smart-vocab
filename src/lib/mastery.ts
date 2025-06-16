@@ -25,22 +25,18 @@ export function calculateMasteryStatus(progress: WordProgressData): MasteryStatu
   
   const accuracy = correctAnswers / totalReviews;
   
-  // Mastered: High accuracy + consistent performance
-  if (accuracy >= 0.85 && streak >= 3) {
-    return 'mastered';
-  }
-  
   // Learning: Initial learning phase (first few attempts)
   if (totalReviews <= 3) {
     return 'learning';
   }
   
-  // Reviewing: Established word needing reinforcement
-  if (accuracy < 0.85 || streak < 3) {
-    return 'reviewing';
+  // Mastered: High accuracy + consistent performance (streak is critical)
+  if (accuracy >= 0.80 && streak >= 3) {
+    return 'mastered';
   }
   
-  // Default fallback
+  // Reviewing: Established word needing reinforcement
+  // This catches all cases where streak < 3 OR accuracy < 0.80
   return 'reviewing';
 }
 

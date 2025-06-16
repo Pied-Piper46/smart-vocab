@@ -22,6 +22,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 interface AnalyticsData {
   streaks: {
@@ -256,16 +257,7 @@ export default function ProgressPage() {
   };
 
   if (status === 'loading' || isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="glass-strong rounded-3xl p-10">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-            <p className="text-white text-xl">読み込み中...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (!session || !analytics) {
@@ -673,10 +665,7 @@ export default function ProgressPage() {
             <History className="text-white/80 w-8 h-8" />
             <h2 className="text-white/80 text-3xl font-bold">セッション学習記録</h2>
           </div>
-          <div className="glass rounded-2xl p-12 text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-            <p className="text-white text-xl">読み込み中...</p>
-          </div>
+          <LoadingSpinner fullScreen={false} />
         </div>
       );
     }
@@ -778,10 +767,7 @@ export default function ProgressPage() {
             <User className="text-white/80 w-8 h-8" />
             <h2 className="text-white/80 text-3xl font-bold">プロフィール</h2>
           </div>
-          <div className="glass rounded-2xl p-12 text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-            <p className="text-white/80 text-xl">読み込み中...</p>
-          </div>
+          <LoadingSpinner fullScreen={false} />
         </div>
       );
     }
