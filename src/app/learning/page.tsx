@@ -32,7 +32,7 @@ export default function LearningPage() {
   if (status === 'loading') {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="glass-strong rounded-3xl p-10">
+        <div className="rounded-3xl p-10">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
             <p className="text-white text-xl">読み込み中...</p>

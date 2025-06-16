@@ -206,13 +206,13 @@ export default function SessionFeedbackComponent({
       </div>
 
       {/* Encouragement Message */}
-      <div className="glass rounded-2xl p-6 text-center">
+      <div className="text-center">
         <p className="text-white/80">
           {feedback.accuracy >= 90 
-            ? '完璧です！この調子で続けていきましょう 🌟'
+            ? '素晴らしい内容です。この調子で続けていきましょう。'
             : feedback.accuracy >= 70
-            ? 'よく頑張りました！継続が力になります 💪'
-            : '学習は積み重ねです。一歩ずつ前進していきましょう 🚀'
+            ? 'よく頑張りました。継続が力になります。'
+            : '学習は積み重ねです。一歩ずつ前進していきましょう。'
           }
         </p>
       </div>

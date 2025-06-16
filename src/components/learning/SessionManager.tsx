@@ -400,13 +400,10 @@ export default function SessionManager({
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={handleGoHome}
-          className="px-6 py-3 rounded-xl text-white/80 glass hover:glass-strong transition-all duration-300 hover:scale-105"
+          className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
         >
-          ダッシュボードに戻る
+          ×
         </button>
-        <div className="text-sm text-white/60">
-          セッション進行中
-        </div>
       </div>
 
       {/* Progress Bar */}
@@ -469,14 +466,14 @@ export default function SessionManager({
   // Skip setup if initial difficulty is provided
   if (initialDifficulty && sessionState === 'setup') {
     return (
-      <div className="max-w-3xl mx-auto">
-        <div className="glass-strong rounded-3xl p-10 text-center">
-          <div className="text-2xl font-bold text-white mb-4">学習セッションを準備中...</div>
-          <div className="glass-light rounded-xl p-4 inline-block">
-            <div className="text-lg text-white">
-              難易度: {selectedDifficulty === 'easy' ? '初級' : selectedDifficulty === 'medium' ? '中級' : '上級'}
-            </div>
+      <div className="min-h-screen flex items-center justify-center pb-100">
+        <div className="text-center">
+          <div className="relative w-8 h-8 mx-auto mb-3">
+            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-transparent border-t-white/70 rounded-full animate-spin"></div>
           </div>
+          {/* <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div> */}
+          <p className="text-white/70 text-sm sm:text-base">学習セッションを準備しています...</p>
         </div>
       </div>
     );

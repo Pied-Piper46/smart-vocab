@@ -103,10 +103,14 @@ export default function Dashboard() {
   if (status === 'loading' || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="glass-strong rounded-3xl p-10">
+        <div className="rounded-3xl p-10">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-            <p className="text-white text-xl">読み込み中...</p>
+            <div className="relative w-8 h-8 mx-auto mb-3">
+              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-transparent border-t-white/70 rounded-full animate-spin"></div>
+            </div>
+            {/* <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div> */}
+            <p className="text-white/70 text-sm sm:text-base">読み込み中...</p>
           </div>
         </div>
       </div>
@@ -143,8 +147,8 @@ export default function Dashboard() {
           
           {/* Title - centered on desktop, right-aligned on mobile */}
           <div className="flex-1 sm:flex-none flex items-center justify-end sm:justify-center gap-2 sm:gap-2">
-            <Brain className="text-white/70 w-8 h-8 sm:w-10 sm:h-10" />
-            <h1 className="text-white/70 text-3xl sm:text-4xl font-bold smart-vocab-title whitespace-nowrap ml-2">Smart Vocab</h1>
+            {/* <Brain className="text-white/80 w-8 h-8 sm:w-10 sm:h-10" />
+            <h1 className="text-white/80 text-3xl sm:text-4xl font-bold smart-vocab-title whitespace-nowrap ml-2">Smart Vocab</h1> */}
           </div>
           
           {/* Right profile button */}
@@ -216,7 +220,7 @@ export default function Dashboard() {
               <span className="text-white/70">今日の進捗</span>
               <span className="text-white/70">
                 {dailyProgress.wordsStudiedToday} / {dailyProgress.dailyGoal}語
-                {dailyProgress.isGoalReached && <span className="ml-2 text-green-400">🎉 達成!</span>}
+                {dailyProgress.isGoalReached && <span className="ml-2 text-green-400">✔︎</span>}
               </span>
             </div>
             <div className="w-full bg-white/10 rounded-full h-3">
