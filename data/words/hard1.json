@@ -13,6 +13,20 @@
         "japanese": "スマートフォンは現代社会において遍在する存在となった。",
         "difficulty": 3,
         "context": "general"
+      },
+      {
+        "id": "hard_001_ex2",
+        "english": "Coffee shops are ubiquitous in this city.",
+        "japanese": "この街ではコーヒーショップがどこにでもある。",
+        "difficulty": 3,
+        "context": "general"
+      },
+      {
+        "id": "hard_001_ex3",
+        "english": "Mobile phones are ubiquitous nowadays.",
+        "japanese": "携帯電話は今日ではどこにでもある。",
+        "difficulty": 3,
+        "context": "general"
       }
     ]
   },
@@ -368,23 +382,6 @@
         "id": "hard_022_ex1",
         "english": "He was a taciturn man who rarely spoke.",
         "japanese": "彼はめったに話さない無口な男だった。",
-        "difficulty": 3,
-        "context": "general"
-      }
-    ]
-  },
-  {
-    "id": "hard_023",
-    "english": "ubiquitous",
-    "japanese": "どこにでもある、遍在する",
-    "phonetic": "/juːˈbɪkwɪtəs/",
-    "partOfSpeech": "adjective",
-    "frequency": 8,
-    "examples": [
-      {
-        "id": "hard_023_ex1",
-        "english": "Coffee shops are ubiquitous in this city.",
-        "japanese": "この街ではコーヒーショップがどこにでもある。",
         "difficulty": 3,
         "context": "general"
       }
@@ -1439,23 +1436,6 @@
         "id": "hard_085_ex1",
         "english": "The beauty of cherry blossoms is transient.",
         "japanese": "桜の美しさははかない。",
-        "difficulty": 3,
-        "context": "general"
-      }
-    ]
-  },
-  {
-    "id": "hard_086",
-    "english": "ubiquitous",
-    "japanese": "どこにでもある、遍在する",
-    "phonetic": "/juːˈbɪkwɪtəs/",
-    "partOfSpeech": "adjective",
-    "frequency": 5,
-    "examples": [
-      {
-        "id": "hard_086_ex1",
-        "english": "Mobile phones are ubiquitous nowadays.",
-        "japanese": "携帯電話は今日ではどこにでもある。",
         "difficulty": 3,
         "context": "general"
       }

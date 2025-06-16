@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Transaction to create session and update user statistics
+    // Transaction to create session and update user statistics with extended timeout
     const result = await prisma.$transaction(async (prisma) => {
       // Create session record
       const session = await prisma.learningSession.create({
@@ -301,6 +301,8 @@ export async function POST(request: NextRequest) {
           totalWordsLearned,
         },
       };
+    }, {
+      timeout: 20000, // 15 seconds timeout
     });
 
     return NextResponse.json({

@@ -59,10 +59,10 @@ export function getOptimalSessionComposition(
 } {
   // Ideal ratios for effective learning (optimized for new flow)
   const idealRatios = {
-    new: 0.30,
-    learning: 0.40,
-    reviewing: 0.20,
-    mastered: 0.10
+    new: 0.70,
+    learning: 0.15,
+    reviewing: 0.10,
+    mastered: 0.05
   };
   
   const composition = {
@@ -96,7 +96,13 @@ export function getOptimalSessionComposition(
       
       const finalRemaining = stillRemaining - extraReviewing;
       if (finalRemaining > 0) {
-        composition.new += Math.min(finalRemaining, available.new - composition.new);
+        const extraNew = Math.min(finalRemaining, available.new - composition.new);
+        composition.new += extraNew;
+        
+        const veryFinalRemaining = finalRemaining - extraNew;
+        if (veryFinalRemaining > 0) {
+          composition.mastered += Math.min(veryFinalRemaining, available.mastered - composition.mastered);
+        }
       }
     }
   }

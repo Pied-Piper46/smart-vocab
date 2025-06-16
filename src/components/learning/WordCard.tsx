@@ -86,19 +86,20 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
         return (
           <div className="text-center">
             <div className="text-xl text-white/80 mb-8">音声を聞いてください</div>
-            <div className="flex items-center justify-center gap-6 max-w-lg mx-auto">
+            <div className="mb-6">
               <button
                 onClick={playAudio}
-                className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
+                className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110 mx-auto"
               >
                 <Volume2 size={24} />
               </button>
+            </div>
+            <div className="max-w-lg mx-auto">
               <input
                 type="text"
                 value={userAnswer}
                 onChange={(e) => setUserAnswer(e.target.value)}
-                placeholder="英単語を入力..."
-                className="flex-1 bg-transparent border-0 border-b-2 border-white/30 focus:border-white/70 outline-none px-2 py-3 text-white text-lg font-medium text-center placeholder-white/50 transition-colors duration-300"
+                className="w-full bg-transparent border-0 border-b-2 border-white/30 focus:border-white/70 outline-none px-2 py-3 text-white text-lg font-medium text-center placeholder-white/50 transition-colors duration-300"
                 onKeyDown={(e) => e.key === 'Enter' && handleShowAnswer()}
               />
             </div>
@@ -120,7 +121,6 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
               type="text"
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
-              placeholder="単語を入力..."
               className="bg-transparent border-0 border-b-2 border-white/30 focus:border-white/70 outline-none px-2 py-3 text-white text-lg font-medium text-center placeholder-white/50 transition-colors duration-300 max-w-md w-full"
               onKeyDown={(e) => e.key === 'Enter' && handleShowAnswer()}
             />
