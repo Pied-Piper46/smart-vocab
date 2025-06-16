@@ -16,7 +16,7 @@ model User {
 
   // Authentication fields
   name          String?
-  email         String?   @unique
+  email         String   @unique
   emailVerified DateTime?
   image         String?
   hashedPassword String?
