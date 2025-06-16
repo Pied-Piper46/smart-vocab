@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Brain, BookOpen, Target, Clock, Award, User, Play, BarChart3 } from 'lucide-react';
+import { Brain, User } from 'lucide-react';
 
 interface UserProfile {
   name: string;
@@ -31,6 +31,7 @@ export default function Dashboard() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [dailyProgress, setDailyProgress] = useState<DailyProgress | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showProgressAnimation, setShowProgressAnimation] = useState(false);
 
   // Redirect to signin if not authenticated
   useEffect(() => {
@@ -46,6 +47,20 @@ export default function Dashboard() {
       fetchData();
     }
   }, [session]);
+
+  // Start progress bar animation after component mounts and data is loaded
+  useEffect(() => {
+    if (profile && dailyProgress && !isLoading) {
+      const welcomeTextLength = ('おかえりなさい、' + profile.name + 'さん').length;
+      const progressBarDelay = welcomeTextLength * 0.05 + 0.1 + 0.5; // Progress bar fade-in delay + extra time for animation start
+      
+      const timer = setTimeout(() => {
+        setShowProgressAnimation(true);
+      }, progressBarDelay * 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [profile, dailyProgress, isLoading]);
 
   const fetchData = async () => {
     try {
@@ -136,11 +151,11 @@ export default function Dashboard() {
           <div className="flex-1 sm:flex-1 flex justify-end ml-4">
             <button
               onClick={() => router.push('/progress')}
-              className="flex items-center gap-3 glass-light p-3 rounded-xl hover:scale-101 transition-all duration-300 text-left"
+              className="flex items-center gap-3 p-3 rounded-xl hover:scale-104 transition-all duration-300 text-left"
             >
-              <User className="text-white/70" size={30} />
+              <User className="text-white/70 hover:text-white/80" size={30} />
               <div className="hidden sm:block">
-                <p className="text-white/70 font-bold">{session.user?.name}</p>
+                <p className="text-white/70 hover:text-white/80 font-bold">{session.user?.name}</p>
               </div>
             </button>
           </div>
@@ -156,7 +171,7 @@ export default function Dashboard() {
                   key={index}
                   className="inline-block animate-fade-in-up opacity-0"
                   style={{
-                    animationDelay: `${index * 0.1}s`,
+                    animationDelay: `${index * 0.05}s`,
                     animationFillMode: 'forwards'
                   }}
                 >
@@ -166,7 +181,7 @@ export default function Dashboard() {
               <span
                 className="inline-block animate-fade-in-up opacity-0"
                 style={{
-                  animationDelay: `${'おかえりなさい、'.length * 0.1}s`,
+                  animationDelay: `${'おかえりなさい、'.length * 0.05}s`,
                   animationFillMode: 'forwards'
                 }}
               >
@@ -177,7 +192,7 @@ export default function Dashboard() {
                   key={index + 100}
                   className="inline-block animate-fade-in-up opacity-0"
                   style={{
-                    animationDelay: `${('おかえりなさい、'.length + 1 + index) * 0.1}s`,
+                    animationDelay: `${('おかえりなさい、'.length + 1 + index) * 0.05}s`,
                     animationFillMode: 'forwards'
                   }}
                 >
@@ -188,43 +203,14 @@ export default function Dashboard() {
           </h1>
         </header>
 
-        {/* Quick Stats */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="glass rounded-2xl p-6 text-center">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <BookOpen className="text-blue-300" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-white mb-1">{profile.totalWordsLearned}</div>
-            <div className="text-sm text-white/70">学習した単語</div>
-          </div>
-          
-          <div className="glass rounded-2xl p-6 text-center">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <Target className="text-green-300" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-white mb-1">{profile.currentStreak}</div>
-            <div className="text-sm text-white/70">連続学習日数</div>
-          </div>
-          
-          <div className="glass rounded-2xl p-6 text-center">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <Clock className="text-purple-300" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-white mb-1">{Math.floor(profile.totalStudyTime / 60)}</div>
-            <div className="text-sm text-white/70">総学習時間（時）</div>
-          </div>
-          
-          <div className="glass rounded-2xl p-6 text-center">
-            <div className="p-3 glass-light rounded-xl mx-auto mb-4 w-fit">
-              <Award className="text-yellow-300" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-white mb-1">{profile.longestStreak}</div>
-            <div className="text-sm text-white/70">最長連続記録</div>
-          </div>
-        </div> */}
-
         {/* Today's Progress */}
-        <div className="mb-30 sm:mb-40">
+        <div 
+          className="mb-30 sm:mb-40 opacity-0 animate-fade-in-up"
+          style={{
+            animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.3}s`,
+            animationFillMode: 'forwards'
+          }}
+        >
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-white/70">今日の進捗</span>
@@ -235,8 +221,10 @@ export default function Dashboard() {
             </div>
             <div className="w-full bg-white/10 rounded-full h-3">
               <div 
-                className="bg-gradient-to-r from-blue-400 to-purple-400 h-3 rounded-full transition-all duration-500 ease-out" 
-                style={{ width: `${dailyProgress.progressPercentage}%` }}
+                className="bg-gradient-to-r from-blue-400 to-purple-400 h-3 rounded-full transition-all duration-1000 ease-out" 
+                style={{ 
+                  width: showProgressAnimation ? `${dailyProgress.progressPercentage}%` : '0%' 
+                }}
               ></div>
             </div>
             {dailyProgress.sessionsToday > 0 && (
@@ -249,7 +237,13 @@ export default function Dashboard() {
 
         {/* Learning Action */}
         <div className="text-center">
-          <div className="flex items-center justify-center gap-4 mb-8">
+          <div 
+            className="flex items-center justify-center gap-4 mb-8 opacity-0 animate-fade-in-up"
+            style={{
+              animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.5}s`,
+              animationFillMode: 'forwards'
+            }}
+          >
             <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
             <p className="text-white/70 text-lg sm:text-xl">
               さっそく学習を開始しましょう
@@ -261,7 +255,11 @@ export default function Dashboard() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-2xl mx-auto mb-12">
             <button
               onClick={() => router.push('/learning?difficulty=easy')}
-              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50"
+              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 opacity-0 animate-fade-in-up"
+              style={{
+                animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.7}s`,
+                animationFillMode: 'forwards'
+              }}
             >
               <div className="w-3 h-3 bg-green-400 rounded-full"></div>
               <span className="text-sm text-white/70 font-medium">ELEMENTARY</span>
@@ -269,7 +267,11 @@ export default function Dashboard() {
 
             <button
               onClick={() => router.push('/learning?difficulty=medium')}
-              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50"
+              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 opacity-0 animate-fade-in-up"
+              style={{
+                animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.8}s`,
+                animationFillMode: 'forwards'
+              }}
             >
               <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
               <span className="text-sm text-white/70 font-medium">INTERMEDIATE</span>
@@ -277,7 +279,11 @@ export default function Dashboard() {
 
             <button
               onClick={() => router.push('/learning?difficulty=hard')}
-              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50"
+              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 opacity-0 animate-fade-in-up"
+              style={{
+                animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.9}s`,
+                animationFillMode: 'forwards'
+              }}
             >
               <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
               <span className="text-sm text-white/70 font-medium">ADVANCED</span>

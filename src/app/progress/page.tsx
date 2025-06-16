@@ -326,9 +326,10 @@ export default function ProgressPage() {
                     onClick={() => handleMenuClick(item.id)}
                     className={`
                       w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 text-left
+                      border
                       ${isActive 
-                        ? 'glass-light border border-white/20 text-white' 
-                        : 'hover:glass-light text-white/70 hover:text-white'
+                        ? 'glass-light border-white/20 text-white' 
+                        : 'border-transparent hover:glass-light text-white/70 hover:text-white'
                       }
                     `}
                   >
