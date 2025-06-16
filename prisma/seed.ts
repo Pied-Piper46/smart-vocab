@@ -4,6 +4,12 @@ import fs from 'fs';
 
 const prisma = new PrismaClient();
 
+// Command line options
+const args = process.argv.slice(2);
+const forceUpdate = args.includes('--force');
+const verbose = args.includes('--verbose');
+const clearAll = args.includes('--clear');
+
 interface JsonWordExample {
   id: string;
   english: string;
@@ -49,43 +55,210 @@ function getDifficultyFromId(id: string): number {
 }
 
 async function main() {
-  console.log('🌱 Starting database seeding...');
+  console.log('📚 Starting word data management...');
+  
+  if (clearAll) {
+    console.log('🚨 Clear mode: Will delete ALL existing word data and start fresh');
+  } else if (forceUpdate) {
+    console.log('⚠️  Force update mode: Will update existing word data');
+  }
   
   try {
     // Load JSON data
     const jsonWords = await loadJsonData();
-    console.log(`📚 Loaded ${jsonWords.length} words from JSON files`);
+    console.log(`📖 Loaded ${jsonWords.length} words from JSON files`);
     
-    // Clear existing data
-    console.log('🧹 Clearing existing data...');
-    await prisma.wordExample.deleteMany();
-    await prisma.wordProgress.deleteMany();
-    await prisma.learningSession.deleteMany();
-    await prisma.userAchievement.deleteMany();
-    await prisma.word.deleteMany();
-    await prisma.user.deleteMany();
-    await prisma.achievement.deleteMany();
+    if (jsonWords.length === 0) {
+      console.log('ℹ️  No word data found in JSON files. Nothing to process.');
+      return;
+    }
     
-    // Create demo user
-    console.log('👤 Creating demo user...');
-    const demoUser = await prisma.user.create({
-      data: {
-        id: 'demo-user',
-        dailyGoal: 20,
-        sessionDuration: 10,
-        preferredLanguage: 'ja',
-        totalWordsLearned: 0,
-        currentStreak: 0,
-        longestStreak: 0,
-        totalStudyTime: 0,
-      },
+    // Handle clear mode - delete all existing data
+    if (clearAll) {
+      console.log('🧹 Clearing all existing word data...');
+      await clearAllWordData();
+      console.log('✨ All existing word data has been cleared');
+      
+      // Add all words as new
+      console.log('📝 Adding all words as new data...');
+      await addAllWordsAsNew(jsonWords);
+      console.log('✅ Word data management completed successfully!');
+      console.log(`📊 Summary:`);
+      console.log(`   - All previous data: CLEARED`);
+      console.log(`   - New words added: ${jsonWords.length}`);
+      console.log(`   - New examples added: ${jsonWords.reduce((sum, word) => sum + word.examples.length, 0)}`);
+      console.log(`   - Total words in database: ${jsonWords.length}`);
+      return;
+    }
+    
+    // Check existing words in database (for normal mode)
+    const existingWords = await prisma.word.findMany({
+      select: { id: true, english: true }
     });
+    const existingWordIds = new Set(existingWords.map(w => w.id));
     
-    // Seed words and examples
-    console.log('📝 Seeding words and examples...');
-    for (const jsonWord of jsonWords) {
+    if (verbose) {
+      console.log(`📋 Found ${existingWords.length} existing words in database`);
+    }
+    
+    // Filter new words (not yet in database)
+    const newWords = jsonWords.filter(word => !existingWordIds.has(word.id));
+    const existingNewWords = jsonWords.filter(word => existingWordIds.has(word.id));
+    
+    console.log(`✨ New words to add: ${newWords.length}`);
+    console.log(`♻️  Existing words (will skip): ${existingNewWords.length}`);
+    
+    if (forceUpdate && existingNewWords.length > 0) {
+      console.log('🔄 Force update mode: Updating existing words...');
+      await updateExistingWords(existingNewWords);
+    }
+    
+    if (newWords.length === 0 && !forceUpdate) {
+      console.log('✅ All words already exist in database. Nothing to add.');
+      return;
+    }
+    
+    // Add new words and examples
+    console.log('📝 Adding new words and examples...');
+    let addedWords = 0;
+    let addedExamples = 0;
+    
+    for (const jsonWord of newWords) {
+      try {
+        // Create word
+        await prisma.word.create({
+          data: {
+            id: jsonWord.id,
+            english: jsonWord.english,
+            japanese: jsonWord.japanese,
+            phonetic: jsonWord.phonetic,
+            partOfSpeech: jsonWord.partOfSpeech,
+            difficulty: getDifficultyFromId(jsonWord.id),
+            frequency: jsonWord.frequency,
+          },
+        });
+        addedWords++;
+        
+        // Create examples (all examples, not just first one)
+        for (const example of jsonWord.examples) {
+          await prisma.wordExample.create({
+            data: {
+              id: example.id,
+              wordId: jsonWord.id,
+              english: example.english,
+              japanese: example.japanese,
+              difficulty: example.difficulty,
+              context: example.context,
+            },
+          });
+          addedExamples++;
+        }
+        
+        if (verbose) {
+          console.log(`  ✓ Added word: ${jsonWord.english} (${jsonWord.examples.length} examples)`);
+        }
+        
+      } catch (error) {
+        console.error(`❌ Error adding word ${jsonWord.english}:`, error);
+      }
+    }
+    
+    console.log('✅ Word data management completed successfully!');
+    console.log(`📊 Summary:`);
+    console.log(`   - New words added: ${addedWords}`);
+    console.log(`   - New examples added: ${addedExamples}`);
+    console.log(`   - Total words in database: ${existingWords.length + addedWords}`);
+    
+    if (forceUpdate) {
+      const updatedWords = existingNewWords.length;
+      console.log(`   - Updated existing words: ${updatedWords}`);
+    }
+    
+  } catch (error) {
+    console.error('❌ Error during word data management:', error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+async function updateExistingWords(words: JsonWord[]) {
+  let updatedWords = 0;
+  let updatedExamples = 0;
+  
+  for (const jsonWord of words) {
+    try {
+      // Update word data
+      await prisma.word.update({
+        where: { id: jsonWord.id },
+        data: {
+          english: jsonWord.english,
+          japanese: jsonWord.japanese,
+          phonetic: jsonWord.phonetic,
+          partOfSpeech: jsonWord.partOfSpeech,
+          difficulty: getDifficultyFromId(jsonWord.id),
+          frequency: jsonWord.frequency,
+        },
+      });
+      updatedWords++;
+      
+      // Delete existing examples and recreate
+      await prisma.wordExample.deleteMany({
+        where: { wordId: jsonWord.id }
+      });
+      
+      // Create new examples
+      for (const example of jsonWord.examples) {
+        await prisma.wordExample.create({
+          data: {
+            id: example.id,
+            wordId: jsonWord.id,
+            english: example.english,
+            japanese: example.japanese,
+            difficulty: example.difficulty,
+            context: example.context,
+          },
+        });
+        updatedExamples++;
+      }
+      
+      if (verbose) {
+        console.log(`  🔄 Updated word: ${jsonWord.english} (${jsonWord.examples.length} examples)`);
+      }
+      
+    } catch (error) {
+      console.error(`❌ Error updating word ${jsonWord.english}:`, error);
+    }
+  }
+  
+  console.log(`🔄 Updated ${updatedWords} existing words with ${updatedExamples} examples`);
+}
+
+async function clearAllWordData() {
+  // Delete in order to respect foreign key constraints
+  console.log('  🗑️  Deleting word examples...');
+  await prisma.wordExample.deleteMany();
+  
+  console.log('  🗑️  Deleting word progress data...');
+  await prisma.wordProgress.deleteMany();
+  
+  console.log('  🗑️  Deleting learning sessions...');
+  await prisma.learningSession.deleteMany();
+  
+  console.log('  🗑️  Deleting words...');
+  await prisma.word.deleteMany();
+  
+  console.log('  ✅ All word-related data cleared');
+}
+
+async function addAllWordsAsNew(jsonWords: JsonWord[]) {
+  let addedWords = 0;
+  let addedExamples = 0;
+  
+  for (const jsonWord of jsonWords) {
+    try {
       // Create word
-      const word = await prisma.word.create({
+      await prisma.word.create({
         data: {
           id: jsonWord.id,
           english: jsonWord.english,
@@ -96,86 +269,33 @@ async function main() {
           frequency: jsonWord.frequency,
         },
       });
+      addedWords++;
       
-      // Create single example (first one only)
-      if (jsonWord.examples.length > 0) {
-        const example = jsonWord.examples[0];
+      // Create examples
+      for (const example of jsonWord.examples) {
         await prisma.wordExample.create({
           data: {
             id: example.id,
-            wordId: word.id,
+            wordId: jsonWord.id,
             english: example.english,
             japanese: example.japanese,
             difficulty: example.difficulty,
             context: example.context,
           },
         });
+        addedExamples++;
       }
       
-      // Initialize word progress for demo user
-      await prisma.wordProgress.create({
-        data: {
-          userId: demoUser.id,
-          wordId: word.id,
-          easeFactor: 2.5,
-          interval: 1,
-          repetitions: 0,
-          nextReviewDate: new Date(),
-          totalReviews: 0,
-          correctAnswers: 0,
-          streak: 0,
-          lastAnswerCorrect: false,
-          status: 'new',
-        },
-      });
+      if (verbose) {
+        console.log(`  ✓ Added word: ${jsonWord.english} (${jsonWord.examples.length} examples)`);
+      }
+      
+    } catch (error) {
+      console.error(`❌ Error adding word ${jsonWord.english}:`, error);
     }
-    
-    // Create some basic achievements
-    console.log('🏆 Creating achievements...');
-    const achievements = [
-      {
-        name: 'First Steps',
-        description: 'Complete your first learning session',
-        icon: '🎯',
-        category: 'milestone',
-        requirement: 1,
-      },
-      {
-        name: 'Quick Learner',
-        description: 'Learn 10 words correctly',
-        icon: '⚡',
-        category: 'accuracy',
-        requirement: 10,
-      },
-      {
-        name: 'Dedicated Student',
-        description: 'Maintain a 7-day learning streak',
-        icon: '🔥',
-        category: 'streak',
-        requirement: 7,
-      },
-    ];
-    
-    for (const achievement of achievements) {
-      await prisma.achievement.create({
-        data: achievement,
-      });
-    }
-    
-    console.log('✅ Database seeding completed successfully!');
-    console.log(`📊 Summary:`);
-    console.log(`   - Users: 1 (demo user)`);
-    console.log(`   - Words: ${jsonWords.length}`);
-    console.log(`   - Examples: ${jsonWords.reduce((sum, word) => sum + word.examples.length, 0)}`);
-    console.log(`   - Word Progress: ${jsonWords.length} (initialized for demo user)`);
-    console.log(`   - Achievements: ${achievements.length}`);
-    
-  } catch (error) {
-    console.error('❌ Error during seeding:', error);
-    throw error;
-  } finally {
-    await prisma.$disconnect();
   }
+  
+  console.log(`✅ Added ${addedWords} words with ${addedExamples} examples`);
 }
 
 main()

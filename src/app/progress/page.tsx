@@ -10,7 +10,6 @@ import {
   TrendingUp, 
   BookOpen, 
   AlertTriangle, 
-  Calendar,
   Home,
   Star,
   History,

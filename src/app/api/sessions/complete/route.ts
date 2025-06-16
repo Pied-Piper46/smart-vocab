@@ -58,13 +58,13 @@ export async function POST(request: NextRequest) {
 
       // Process all answers in batch
       const statusChanges = {
-        upgrades: [] as any[],
-        downgrades: [] as any[],
-        maintained: [] as any[]
+        upgrades: [] as Array<{wordId: string; english: string; japanese: string; from: string; to: string}>,
+        downgrades: [] as Array<{wordId: string; english: string; japanese: string; from: string; to: string}>,
+        maintained: [] as Array<{wordId: string; english: string; japanese: string; from: string; to: string}>
       };
 
       // Fetch word data for all words in the session
-      const wordIds = answers.map((answer: any) => answer.wordId);
+      const wordIds = answers.map((answer: {wordId: string; isCorrect: boolean}) => answer.wordId);
       const words = await prisma.word.findMany({
         where: { id: { in: wordIds } },
         include: { examples: true }

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "easy_101",
+    "english": "computer",
+    "japanese": "コンピューター",
+    "phonetic": "/kəmˈpjuːtər/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "easy_101_ex1",
+        "english": "I use a computer for work.",
+        "japanese": "私は仕事でコンピューターを使います。",
+        "difficulty": 1,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "easy_102",
+    "english": "phone",
+    "japanese": "電話",
+    "phonetic": "/foʊn/",
+    "partOfSpeech": "noun",
+    "frequency": 49,
+    "examples": [
+      {
+        "id": "easy_102_ex1",
+        "english": "My phone is ringing.",
+        "japanese": "私の電話が鳴っています。",
+        "difficulty": 1,
+        "context": "general"
+      }
+    ]
+  }
+]

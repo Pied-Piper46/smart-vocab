@@ -1,86 +1,1701 @@
 [
   {
-    "id": "medium1-001",
-    "english": "serendipity",
-    "japanese": "偶然の幸運",
-    "phonetic": "ˌserənˈdipədē",
-    "partOfSpeech": "noun",
-    "frequency": 150,
+    "id": "medium_001",
+    "english": "acquire",
+    "japanese": "習得する、獲得する",
+    "phonetic": "/əˈkwaɪər/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
     "examples": [
       {
-        "id": "medium1-001-ex1",
-        "english": "Finding that book was pure serendipity.",
-        "japanese": "その本を見つけたのは純粋に偶然の幸運でした。",
+        "id": "medium_001_ex1",
+        "english": "She hopes to acquire new skills in her new job.",
+        "japanese": "彼女は新しい仕事で新しいスキルを習得したいと考えている。",
         "difficulty": 2,
-        "context": "discovery"
-      }
-    ]
-  },
-  {
-    "id": "medium1-002",
-    "english": "ephemeral",
-    "japanese": "短命な、はかない",
-    "phonetic": "əˈfem(ə)rəl",
-    "partOfSpeech": "adjective",
-    "frequency": 120,
-    "examples": [
-      {
-        "id": "medium1-002-ex1",
-        "english": "The beauty of cherry blossoms is ephemeral.",
-        "japanese": "桜の美しさははかないものです。",
-        "difficulty": 3,
-        "context": "nature"
-      }
-    ]
-  },
-  {
-    "id": "medium1-003",
-    "english": "ubiquitous",
-    "japanese": "至る所にある、遍在する",
-    "phonetic": "yo͞oˈbikwədəs",
-    "partOfSpeech": "adjective",
-    "frequency": 180,
-    "examples": [
-      {
-        "id": "medium1-003-ex1",
-        "english": "Smartphones have become ubiquitous in modern society.",
-        "japanese": "スマートフォンは現代社会において至る所にあるものとなった。",
-        "difficulty": 2,
-        "context": "technology"
-      }
-    ]
-  },
-  {
-    "id": "medium1-004",
-    "english": "paradigm",
-    "japanese": "パラダイム、規範",
-    "phonetic": "ˈpærəˌdaɪm",
-    "partOfSpeech": "noun",
-    "frequency": 200,
-    "examples": [
-      {
-        "id": "medium1-004-ex1",
-        "english": "The new technology represents a paradigm shift.",
-        "japanese": "その新技術はパラダイムシフトを表しています。",
-        "difficulty": 3,
         "context": "business"
       }
     ]
   },
   {
-    "id": "medium1-005",
-    "english": "meticulous",
-    "japanese": "細心な、几帳面な",
-    "phonetic": "məˈtɪkjələs",
-    "partOfSpeech": "adjective",
-    "frequency": 160,
+    "id": "medium_002",
+    "english": "analyze",
+    "japanese": "分析する",
+    "phonetic": "/ˈænəlaɪz/",
+    "partOfSpeech": "verb",
+    "frequency": 49,
     "examples": [
       {
-        "id": "medium1-005-ex1",
-        "english": "She is meticulous about her work.",
-        "japanese": "彼女は仕事に対して細心です。",
+        "id": "medium_002_ex1",
+        "english": "We need to analyze the data carefully.",
+        "japanese": "データを慎重に分析する必要がある。",
         "difficulty": 2,
-        "context": "work quality"
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_003",
+    "english": "approach",
+    "japanese": "接近する、取り組む",
+    "phonetic": "/əˈproʊtʃ/",
+    "partOfSpeech": "verb",
+    "frequency": 48,
+    "examples": [
+      {
+        "id": "medium_003_ex1",
+        "english": "The company is trying a new approach to marketing.",
+        "japanese": "その会社はマーケティングに新しいアプローチを試みている。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_004",
+    "english": "assess",
+    "japanese": "評価する、査定する",
+    "phonetic": "/əˈses/",
+    "partOfSpeech": "verb",
+    "frequency": 47,
+    "examples": [
+      {
+        "id": "medium_004_ex1",
+        "english": "It's important to assess the risks before starting a project.",
+        "japanese": "プロジェクトを開始する前にリスクを評価することが重要だ。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_005",
+    "english": "assume",
+    "japanese": "仮定する、思い込む",
+    "phonetic": "/əˈsuːm/",
+    "partOfSpeech": "verb",
+    "frequency": 46,
+    "examples": [
+      {
+        "id": "medium_005_ex1",
+        "english": "Don't assume anything; always check the facts.",
+        "japanese": "何も仮定せず、常に事実を確認しなさい。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_006",
+    "english": "achieve",
+    "japanese": "達成する",
+    "phonetic": "/əˈtʃiːv/",
+    "partOfSpeech": "verb",
+    "frequency": 45,
+    "examples": [
+      {
+        "id": "medium_006_ex1",
+        "english": "She worked hard to achieve her goals.",
+        "japanese": "彼女は目標を達成するために一生懸命働いた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_007",
+    "english": "benefit",
+    "japanese": "利益、恩恵",
+    "phonetic": "/ˈbenɪfɪt/",
+    "partOfSpeech": "noun",
+    "frequency": 44,
+    "examples": [
+      {
+        "id": "medium_007_ex1",
+        "english": "The new policy will bring many benefits to the community.",
+        "japanese": "新しい政策は地域社会に多くの利益をもたらすだろう。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_008",
+    "english": "concept",
+    "japanese": "概念、考え",
+    "phonetic": "/ˈkɑːnsept/",
+    "partOfSpeech": "noun",
+    "frequency": 43,
+    "examples": [
+      {
+        "id": "medium_008_ex1",
+        "english": "It's a difficult concept to grasp.",
+        "japanese": "それは理解するのが難しい概念だ。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_009",
+    "english": "consistent",
+    "japanese": "一貫した、矛盾のない",
+    "phonetic": "/kənˈsɪstənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 42,
+    "examples": [
+      {
+        "id": "medium_009_ex1",
+        "english": "We need to maintain consistent quality in our products.",
+        "japanese": "製品の一貫した品質を維持する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_010",
+    "english": "context",
+    "japanese": "文脈、状況",
+    "phonetic": "/ˈkɑːntekst/",
+    "partOfSpeech": "noun",
+    "frequency": 41,
+    "examples": [
+      {
+        "id": "medium_010_ex1",
+        "english": "You need to understand the historical context of the event.",
+        "japanese": "その出来事の歴史的文脈を理解する必要がある。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_011",
+    "english": "create",
+    "japanese": "創造する、作成する",
+    "phonetic": "/kriˈeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 40,
+    "examples": [
+      {
+        "id": "medium_011_ex1",
+        "english": "The artist created a beautiful sculpture.",
+        "japanese": "その芸術家は美しい彫刻を創造した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_012",
+    "english": "demonstrate",
+    "japanese": "実証する、示す",
+    "phonetic": "/ˈdemənstreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 39,
+    "examples": [
+      {
+        "id": "medium_012_ex1",
+        "english": "The experiment demonstrated the theory.",
+        "japanese": "その実験は理論を実証した。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_013",
+    "english": "derive",
+    "japanese": "引き出す、由来する",
+    "phonetic": "/dɪˈraɪv/",
+    "partOfSpeech": "verb",
+    "frequency": 38,
+    "examples": [
+      {
+        "id": "medium_013_ex1",
+        "english": "Many English words derive from Latin.",
+        "japanese": "多くの英単語はラテン語に由来する。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_014",
+    "english": "distribute",
+    "japanese": "配布する、分配する",
+    "phonetic": "/dɪˈstrɪbjuːt/",
+    "partOfSpeech": "verb",
+    "frequency": 37,
+    "examples": [
+      {
+        "id": "medium_014_ex1",
+        "english": "The company distributes its products worldwide.",
+        "japanese": "その会社は製品を世界中に配布している。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_015",
+    "english": "economy",
+    "japanese": "経済",
+    "phonetic": "/ɪˈkɑːnəmi/",
+    "partOfSpeech": "noun",
+    "frequency": 36,
+    "examples": [
+      {
+        "id": "medium_015_ex1",
+        "english": "The global economy is facing challenges.",
+        "japanese": "世界経済は課題に直面している。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_016",
+    "english": "efficient",
+    "japanese": "効率的な",
+    "phonetic": "/ɪˈfɪʃənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 35,
+    "examples": [
+      {
+        "id": "medium_016_ex1",
+        "english": "We need to find more efficient ways to work.",
+        "japanese": "もっと効率的な働き方を見つける必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_017",
+    "english": "establish",
+    "japanese": "設立する、確立する",
+    "phonetic": "/ɪˈstæblɪʃ/",
+    "partOfSpeech": "verb",
+    "frequency": 34,
+    "examples": [
+      {
+        "id": "medium_017_ex1",
+        "english": "The company was established in 1990.",
+        "japanese": "その会社は1990年に設立された。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_018",
+    "english": "evaluate",
+    "japanese": "評価する",
+    "phonetic": "/ɪˈvæljueɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 33,
+    "examples": [
+      {
+        "id": "medium_018_ex1",
+        "english": "We need to evaluate the effectiveness of the program.",
+        "japanese": "そのプログラムの効果を評価する必要がある。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_019",
+    "english": "evidence",
+    "japanese": "証拠、根拠",
+    "phonetic": "/ˈevɪdəns/",
+    "partOfSpeech": "noun",
+    "frequency": 32,
+    "examples": [
+      {
+        "id": "medium_019_ex1",
+        "english": "There is no evidence to support his claim.",
+        "japanese": "彼の主張を裏付ける証拠はない。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_020",
+    "english": "factor",
+    "japanese": "要因、要素",
+    "phonetic": "/ˈfæktər/",
+    "partOfSpeech": "noun",
+    "frequency": 31,
+    "examples": [
+      {
+        "id": "medium_020_ex1",
+        "english": "Cost is a major factor in our decision.",
+        "japanese": "費用は私たちの決定における主要な要因だ。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_021",
+    "english": "feature",
+    "japanese": "特徴、機能",
+    "phonetic": "/ˈfiːtʃər/",
+    "partOfSpeech": "noun",
+    "frequency": 30,
+    "examples": [
+      {
+        "id": "medium_021_ex1",
+        "english": "The new phone has many advanced features.",
+        "japanese": "新しい電話には多くの高度な機能がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_022",
+    "english": "generate",
+    "japanese": "生成する、生み出す",
+    "phonetic": "/ˈdʒenəreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 29,
+    "examples": [
+      {
+        "id": "medium_022_ex1",
+        "english": "The wind turbine generates electricity.",
+        "japanese": "風力タービンは電力を生成する。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_023",
+    "english": "identify",
+    "japanese": "特定する、識別する",
+    "phonetic": "/aɪˈdentɪfaɪ/",
+    "partOfSpeech": "verb",
+    "frequency": 28,
+    "examples": [
+      {
+        "id": "medium_023_ex1",
+        "english": "We need to identify the root cause of the problem.",
+        "japanese": "問題の根本原因を特定する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_024",
+    "english": "imply",
+    "japanese": "暗示する、ほのめかす",
+    "phonetic": "/ɪmˈplaɪ/",
+    "partOfSpeech": "verb",
+    "frequency": 27,
+    "examples": [
+      {
+        "id": "medium_024_ex1",
+        "english": "His silence implied agreement.",
+        "japanese": "彼の沈黙は同意を暗示していた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_025",
+    "english": "indicate",
+    "japanese": "示す、指摘する",
+    "phonetic": "/ˈɪndɪkeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 26,
+    "examples": [
+      {
+        "id": "medium_025_ex1",
+        "english": "The survey results indicate a growing trend.",
+        "japanese": "調査結果は増加傾向を示している。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_026",
+    "english": "individual",
+    "japanese": "個々の、個人",
+    "phonetic": "/ˌɪndɪˈvɪdʒuəl/",
+    "partOfSpeech": "adjective",
+    "frequency": 25,
+    "examples": [
+      {
+        "id": "medium_026_ex1",
+        "english": "Each individual has unique talents.",
+        "japanese": "各個人は独自の才能を持っている。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_027",
+    "english": "interpret",
+    "japanese": "解釈する",
+    "phonetic": "/ɪnˈtɜːrprɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 24,
+    "examples": [
+      {
+        "id": "medium_027_ex1",
+        "english": "It's difficult to interpret these complex regulations.",
+        "japanese": "これらの複雑な規制を解釈するのは難しい。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_028",
+    "english": "involve",
+    "japanese": "含む、関与する",
+    "phonetic": "/ɪnˈvɑːlv/",
+    "partOfSpeech": "verb",
+    "frequency": 23,
+    "examples": [
+      {
+        "id": "medium_028_ex1",
+        "english": "The project involves many different departments.",
+        "japanese": "そのプロジェクトには多くの異なる部署が関与している。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_029",
+    "english": "issue",
+    "japanese": "問題、課題",
+    "phonetic": "/ˈɪʃuː/",
+    "partOfSpeech": "noun",
+    "frequency": 22,
+    "examples": [
+      {
+        "id": "medium_029_ex1",
+        "english": "We need to address this urgent issue.",
+        "japanese": "この緊急の課題に対処する必要がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_030",
+    "english": "major",
+    "japanese": "主要な、大きな",
+    "phonetic": "/ˈmeɪdʒər/",
+    "partOfSpeech": "adjective",
+    "frequency": 21,
+    "examples": [
+      {
+        "id": "medium_030_ex1",
+        "english": "Climate change is a major global concern.",
+        "japanese": "気候変動は主要な地球規模の懸念事項だ。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_031",
+    "english": "method",
+    "japanese": "方法、手法",
+    "phonetic": "/ˈmeθəd/",
+    "partOfSpeech": "noun",
+    "frequency": 20,
+    "examples": [
+      {
+        "id": "medium_031_ex1",
+        "english": "We are developing a new method for data analysis.",
+        "japanese": "データ分析のための新しい方法を開発している。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_032",
+    "english": "occur",
+    "japanese": "起こる、発生する",
+    "phonetic": "/əˈkɜːr/",
+    "partOfSpeech": "verb",
+    "frequency": 19,
+    "examples": [
+      {
+        "id": "medium_032_ex1",
+        "english": "The event occurred unexpectedly.",
+        "japanese": "その出来事は予期せず発生した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_033",
+    "english": "option",
+    "japanese": "選択肢",
+    "phonetic": "/ˈɑːpʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 18,
+    "examples": [
+      {
+        "id": "medium_033_ex1",
+        "english": "We have several options to consider.",
+        "japanese": "検討すべきいくつかの選択肢がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_034",
+    "english": "outcome",
+    "japanese": "結果、成果",
+    "phonetic": "/ˈaʊtkʌm/",
+    "partOfSpeech": "noun",
+    "frequency": 17,
+    "examples": [
+      {
+        "id": "medium_034_ex1",
+        "english": "The outcome of the negotiation was positive.",
+        "japanese": "交渉の結果は肯定的だった。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_035",
+    "english": "overall",
+    "japanese": "全体の、総合的な",
+    "phonetic": "/ˈoʊvərɔːl/",
+    "partOfSpeech": "adjective",
+    "frequency": 16,
+    "examples": [
+      {
+        "id": "medium_035_ex1",
+        "english": "The overall performance of the team was excellent.",
+        "japanese": "チームの総合的なパフォーマンスは素晴らしかった。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_036",
+    "english": "participate",
+    "japanese": "参加する",
+    "phonetic": "/pɑːrˈtɪsɪpeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 15,
+    "examples": [
+      {
+        "id": "medium_036_ex1",
+        "english": "Everyone is encouraged to participate in the discussion.",
+        "japanese": "全員が議論に参加することが奨励されている。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_037",
+    "english": "period",
+    "japanese": "期間",
+    "phonetic": "/ˈpɪriəd/",
+    "partOfSpeech": "noun",
+    "frequency": 14,
+    "examples": [
+      {
+        "id": "medium_037_ex1",
+        "english": "The study was conducted over a long period.",
+        "japanese": "その研究は長期間にわたって行われた。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_038",
+    "english": "positive",
+    "japanese": "肯定的な、積極的な",
+    "phonetic": "/ˈpɑːzətɪv/",
+    "partOfSpeech": "adjective",
+    "frequency": 13,
+    "examples": [
+      {
+        "id": "medium_038_ex1",
+        "english": "We received positive feedback from our customers.",
+        "japanese": "顧客から肯定的なフィードバックを得た。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_039",
+    "english": "potential",
+    "japanese": "潜在的な、可能性",
+    "phonetic": "/pəˈtenʃl/",
+    "partOfSpeech": "adjective",
+    "frequency": 12,
+    "examples": [
+      {
+        "id": "medium_039_ex1",
+        "english": "The company has great potential for growth.",
+        "japanese": "その会社には大きな成長の可能性がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_040",
+    "english": "previous",
+    "japanese": "以前の",
+    "phonetic": "/ˈpriːviəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 11,
+    "examples": [
+      {
+        "id": "medium_040_ex1",
+        "english": "Please refer to the previous report.",
+        "japanese": "以前の報告書を参照してください。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_041",
+    "english": "primary",
+    "japanese": "主要な、第一の",
+    "phonetic": "/ˈpraɪmeri/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_041_ex1",
+        "english": "Our primary concern is safety.",
+        "japanese": "私たちの主要な関心事は安全性だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_042",
+    "english": "process",
+    "japanese": "過程、処理する",
+    "phonetic": "/ˈprɑːses/",
+    "partOfSpeech": "noun",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "medium_042_ex1",
+        "english": "The hiring process is very competitive.",
+        "japanese": "採用プロセスは非常に競争が激しい。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_043",
+    "english": "provide",
+    "japanese": "提供する",
+    "phonetic": "/prəˈvaɪd/",
+    "partOfSpeech": "verb",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "medium_043_ex1",
+        "english": "We provide various services to our clients.",
+        "japanese": "私たちはクライアントに様々なサービスを提供している。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_044",
+    "english": "range",
+    "japanese": "範囲",
+    "phonetic": "/reɪndʒ/",
+    "partOfSpeech": "noun",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "medium_044_ex1",
+        "english": "The product comes in a wide range of colors.",
+        "japanese": "その製品は幅広い色で提供されている。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_045",
+    "english": "reduce",
+    "japanese": "減らす、削減する",
+    "phonetic": "/rɪˈduːs/",
+    "partOfSpeech": "verb",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "medium_045_ex1",
+        "english": "We need to reduce our carbon footprint.",
+        "japanese": "私たちは二酸化炭素排出量を削減する必要がある。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_046",
+    "english": "require",
+    "japanese": "必要とする",
+    "phonetic": "/rɪˈkwaɪər/",
+    "partOfSpeech": "verb",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "medium_046_ex1",
+        "english": "This position requires strong leadership skills.",
+        "japanese": "この職位には強力なリーダーシップスキルが必要だ。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_047",
+    "english": "research",
+    "japanese": "研究、調査",
+    "phonetic": "/rɪˈsɜːrtʃ/",
+    "partOfSpeech": "noun",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "medium_047_ex1",
+        "english": "She is conducting research on renewable energy.",
+        "japanese": "彼女は再生可能エネルギーについて研究を行っている。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_048",
+    "english": "resource",
+    "japanese": "資源",
+    "phonetic": "/ˈriːsɔːrs/",
+    "partOfSpeech": "noun",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "medium_048_ex1",
+        "english": "Natural resources are limited.",
+        "japanese": "天然資源は限られている。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_049",
+    "english": "response",
+    "japanese": "返答、反応",
+    "phonetic": "/rɪˈspɑːns/",
+    "partOfSpeech": "noun",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "medium_049_ex1",
+        "english": "We are awaiting your prompt response.",
+        "japanese": "迅速なご返答をお待ちしております。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_050",
+    "english": "section",
+    "japanese": "部分、区分",
+    "phonetic": "/ˈsekʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "medium_050_ex1",
+        "english": "Please refer to the relevant section of the document.",
+        "japanese": "文書の関連するセクションを参照してください。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_051",
+    "english": "significant",
+    "japanese": "重要な、かなりの",
+    "phonetic": "/sɪɡˈnɪfɪkənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_051_ex1",
+        "english": "There was a significant improvement in performance.",
+        "japanese": "パフォーマンスに著しい改善が見られた。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_052",
+    "english": "similar",
+    "japanese": "似ている、同様の",
+    "phonetic": "/ˈsɪmələr/",
+    "partOfSpeech": "adjective",
+    "frequency": 49,
+    "examples": [
+      {
+        "id": "medium_052_ex1",
+        "english": "Our products are similar in quality but differ in price.",
+        "japanese": "当社の製品は品質は似ているが、価格が異なる。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_053",
+    "english": "solution",
+    "japanese": "解決策",
+    "phonetic": "/səˈluːʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 48,
+    "examples": [
+      {
+        "id": "medium_053_ex1",
+        "english": "We are looking for a practical solution to the problem.",
+        "japanese": "私たちはその問題に対する実用的な解決策を探している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_054",
+    "english": "source",
+    "japanese": "源、情報源",
+    "phonetic": "/sɔːrs/",
+    "partOfSpeech": "noun",
+    "frequency": 47,
+    "examples": [
+      {
+        "id": "medium_054_ex1",
+        "english": "What is the primary source of this information?",
+        "japanese": "この情報の主要な情報源は何ですか？",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_055",
+    "english": "specific",
+    "japanese": "特定の、具体的な",
+    "phonetic": "/spəˈsɪfɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 46,
+    "examples": [
+      {
+        "id": "medium_055_ex1",
+        "english": "Please provide specific examples.",
+        "japanese": "具体的な例を挙げてください。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_056",
+    "english": "strategy",
+    "japanese": "戦略",
+    "phonetic": "/ˈstrætədʒi/",
+    "partOfSpeech": "noun",
+    "frequency": 45,
+    "examples": [
+      {
+        "id": "medium_056_ex1",
+        "english": "The company developed a new marketing strategy.",
+        "japanese": "その会社は新しいマーケティング戦略を開発した。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_057",
+    "english": "structure",
+    "japanese": "構造",
+    "phonetic": "/ˈstrʌktʃər/",
+    "partOfSpeech": "noun",
+    "frequency": 44,
+    "examples": [
+      {
+        "id": "medium_057_ex1",
+        "english": "The organizational structure needs to be reviewed.",
+        "japanese": "組織構造を見直す必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_058",
+    "english": "suggest",
+    "japanese": "提案する",
+    "phonetic": "/səˈdʒest/",
+    "partOfSpeech": "verb",
+    "frequency": 43,
+    "examples": [
+      {
+        "id": "medium_058_ex1",
+        "english": "I suggest we postpone the meeting.",
+        "japanese": "会議を延期することを提案します。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_059",
+    "english": "support",
+    "japanese": "支持する、支援する",
+    "phonetic": "/səˈpɔːrt/",
+    "partOfSpeech": "verb",
+    "frequency": 42,
+    "examples": [
+      {
+        "id": "medium_059_ex1",
+        "english": "We need to support our employees.",
+        "japanese": "私たちは従業員を支援する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_060",
+    "english": "system",
+    "japanese": "システム",
+    "phonetic": "/ˈsɪstəm/",
+    "partOfSpeech": "noun",
+    "frequency": 41,
+    "examples": [
+      {
+        "id": "medium_060_ex1",
+        "english": "The new accounting system is very efficient.",
+        "japanese": "新しい会計システムは非常に効率的だ。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_061",
+    "english": "technology",
+    "japanese": "技術",
+    "phonetic": "/tekˈnɑːlədʒi/",
+    "partOfSpeech": "noun",
+    "frequency": 40,
+    "examples": [
+      {
+        "id": "medium_061_ex1",
+        "english": "Advancements in technology have changed our lives.",
+        "japanese": "技術の進歩は私たちの生活を変えた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_062",
+    "english": "theory",
+    "japanese": "理論",
+    "phonetic": "/ˈθiːəri/",
+    "partOfSpeech": "noun",
+    "frequency": 39,
+    "examples": [
+      {
+        "id": "medium_062_ex1",
+        "english": "His theory is widely accepted in the scientific community.",
+        "japanese": "彼の理論は科学界で広く受け入れられている。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_063",
+    "english": "various",
+    "japanese": "様々な",
+    "phonetic": "/ˈveriəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 38,
+    "examples": [
+      {
+        "id": "medium_063_ex1",
+        "english": "The report covers various aspects of the issue.",
+        "japanese": "その報告書は問題の様々な側面を扱っている。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_064",
+    "english": "whereas",
+    "japanese": "〜である一方、〜だが",
+    "phonetic": "/ˌwerˈæz/",
+    "partOfSpeech": "conjunction",
+    "frequency": 37,
+    "examples": [
+      {
+        "id": "medium_064_ex1",
+        "english": "Some people prefer coffee, whereas others prefer tea.",
+        "japanese": "コーヒーを好む人もいれば、紅茶を好む人もいる。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_065",
+    "english": "achieve",
+    "japanese": "達成する",
+    "phonetic": "/əˈtʃiːv/",
+    "partOfSpeech": "verb",
+    "frequency": 36,
+    "examples": [
+      {
+        "id": "medium_065_ex1",
+        "english": "It takes time to achieve true mastery.",
+        "japanese": "真の熟練を達成するには時間がかかる。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_066",
+    "english": "alternative",
+    "japanese": "代替の、選択肢",
+    "phonetic": "/ɔːlˈtɜːrnətɪv/",
+    "partOfSpeech": "adjective",
+    "frequency": 35,
+    "examples": [
+      {
+        "id": "medium_066_ex1",
+        "english": "We need to find an alternative solution.",
+        "japanese": "代替の解決策を見つける必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_067",
+    "english": "component",
+    "japanese": "構成要素、部品",
+    "phonetic": "/kəmˈpoʊnənt/",
+    "partOfSpeech": "noun",
+    "frequency": 34,
+    "examples": [
+      {
+        "id": "medium_067_ex1",
+        "english": "Each component plays a vital role in the system.",
+        "japanese": "各構成要素がシステムにおいて重要な役割を果たす。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_068",
+    "english": "consequence",
+    "japanese": "結果、影響",
+    "phonetic": "/ˈkɑːnsəkwens/",
+    "partOfSpeech": "noun",
+    "frequency": 33,
+    "examples": [
+      {
+        "id": "medium_068_ex1",
+        "english": "The decision had serious consequences.",
+        "japanese": "その決定は深刻な結果をもたらした。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_069",
+    "english": "considerable",
+    "japanese": "かなりの、相当な",
+    "phonetic": "/kənˈsɪdərəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 32,
+    "examples": [
+      {
+        "id": "medium_069_ex1",
+        "english": "There was a considerable amount of damage.",
+        "japanese": "かなりの損害があった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_070",
+    "english": "constitute",
+    "japanese": "構成する、設立する",
+    "phonetic": "/ˈkɑːnstɪtuːt/",
+    "partOfSpeech": "verb",
+    "frequency": 31,
+    "examples": [
+      {
+        "id": "medium_070_ex1",
+        "english": "These elements constitute the core of the system.",
+        "japanese": "これらの要素がシステムの核を構成している。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_071",
+    "english": "distinction",
+    "japanese": "区別、相違",
+    "phonetic": "/dɪˈstɪŋkʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 30,
+    "examples": [
+      {
+        "id": "medium_071_ex1",
+        "english": "It's important to draw a clear distinction between the two.",
+        "japanese": "その2つの間に明確な区別をつけることが重要だ。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_072",
+    "english": "emphasize",
+    "japanese": "強調する",
+    "phonetic": "/ˈemfəsaɪz/",
+    "partOfSpeech": "verb",
+    "frequency": 29,
+    "examples": [
+      {
+        "id": "medium_072_ex1",
+        "english": "The speaker emphasized the need for change.",
+        "japanese": "講演者は変化の必要性を強調した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_073",
+    "english": "ensure",
+    "japanese": "確実にする、保証する",
+    "phonetic": "/ɪnˈʃʊr/",
+    "partOfSpeech": "verb",
+    "frequency": 28,
+    "examples": [
+      {
+        "id": "medium_073_ex1",
+        "english": "We must ensure the safety of our employees.",
+        "japanese": "従業員の安全を確保しなければならない。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_074",
+    "english": "establish",
+    "japanese": "設立する、確立する",
+    "phonetic": "/ɪˈstæblɪʃ/",
+    "partOfSpeech": "verb",
+    "frequency": 27,
+    "examples": [
+      {
+        "id": "medium_074_ex1",
+        "english": "The research aims to establish a causal link.",
+        "japanese": "その研究は因果関係を確立することを目指している。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_075",
+    "english": "evident",
+    "japanese": "明白な、明らかな",
+    "phonetic": "/ˈevɪdənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 26,
+    "examples": [
+      {
+        "id": "medium_075_ex1",
+        "english": "It was evident that she was upset.",
+        "japanese": "彼女が動揺しているのは明らかだった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_076",
+    "english": "exclude",
+    "japanese": "除外する",
+    "phonetic": "/ɪkˈskluːd/",
+    "partOfSpeech": "verb",
+    "frequency": 25,
+    "examples": [
+      {
+        "id": "medium_076_ex1",
+        "english": "The price excludes taxes and shipping.",
+        "japanese": "価格には税金と送料は含まれていない。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_077",
+    "english": "expose",
+    "japanese": "さらす、暴露する",
+    "phonetic": "/ɪkˈspoʊz/",
+    "partOfSpeech": "verb",
+    "frequency": 24,
+    "examples": [
+      {
+        "id": "medium_077_ex1",
+        "english": "The report exposed the corruption.",
+        "japanese": "その報告書は汚職を暴露した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_078",
+    "english": "external",
+    "japanese": "外部の",
+    "phonetic": "/ɪkˈstɜːrnl/",
+    "partOfSpeech": "adjective",
+    "frequency": 23,
+    "examples": [
+      {
+        "id": "medium_078_ex1",
+        "english": "We need to consider external factors.",
+        "japanese": "外部要因を考慮する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_079",
+    "english": "facilitate",
+    "japanese": "促進する、容易にする",
+    "phonetic": "/fəˈsɪlɪteɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 22,
+    "examples": [
+      {
+        "id": "medium_079_ex1",
+        "english": "The new system will facilitate communication.",
+        "japanese": "新しいシステムはコミュニケーションを促進するだろう。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_080",
+    "english": "framework",
+    "japanese": "枠組み、骨組み",
+    "phonetic": "/ˈfreɪmwɜːrk/",
+    "partOfSpeech": "noun",
+    "frequency": 21,
+    "examples": [
+      {
+        "id": "medium_080_ex1",
+        "english": "We need to develop a legal framework for this.",
+        "japanese": "これには法的枠組みを開発する必要がある。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_081",
+    "english": "generate",
+    "japanese": "生成する、生み出す",
+    "phonetic": "/ˈdʒenəreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 20,
+    "examples": [
+      {
+        "id": "medium_081_ex1",
+        "english": "The new marketing campaign generated a lot of interest.",
+        "japanese": "新しいマーケティングキャンペーンは多くの関心を生み出した。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_082",
+    "english": "hypothesis",
+    "japanese": "仮説",
+    "phonetic": "/haɪˈpɑːθəsɪs/",
+    "partOfSpeech": "noun",
+    "frequency": 19,
+    "examples": [
+      {
+        "id": "medium_082_ex1",
+        "english": "The experiment tested the hypothesis.",
+        "japanese": "その実験は仮説を検証した。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_083",
+    "english": "illustrate",
+    "japanese": "説明する、例証する",
+    "phonetic": "/ˈɪləstreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 18,
+    "examples": [
+      {
+        "id": "medium_083_ex1",
+        "english": "The graph illustrates the sales trend.",
+        "japanese": "そのグラフは売上傾向を示している。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_084",
+    "english": "implication",
+    "japanese": "暗示、影響",
+    "phonetic": "/ˌɪmplɪˈkeɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 17,
+    "examples": [
+      {
+        "id": "medium_084_ex1",
+        "english": "The new policy has significant implications for the economy.",
+        "japanese": "新しい政策は経済に大きな影響を与える。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_085",
+    "english": "implement",
+    "japanese": "実行する、実施する",
+    "phonetic": "/ˈɪmplɪment/",
+    "partOfSpeech": "verb",
+    "frequency": 16,
+    "examples": [
+      {
+        "id": "medium_085_ex1",
+        "english": "We need to implement the new strategy quickly.",
+        "japanese": "新しい戦略を迅速に実行する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_086",
+    "english": "incorporate",
+    "japanese": "組み入れる、法人化する",
+    "phonetic": "/ɪnˈkɔːrpəreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 15,
+    "examples": [
+      {
+        "id": "medium_086_ex1",
+        "english": "We will incorporate your feedback into the design.",
+        "japanese": "あなたのフィードバックをデザインに組み入れる。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_087",
+    "english": "initial",
+    "japanese": "最初の、初期の",
+    "phonetic": "/ɪˈnɪʃl/",
+    "partOfSpeech": "adjective",
+    "frequency": 14,
+    "examples": [
+      {
+        "id": "medium_087_ex1",
+        "english": "The initial results are promising.",
+        "japanese": "初期の結果は有望だ。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_088",
+    "english": "innovation",
+    "japanese": "革新、技術革新",
+    "phonetic": "/ˌɪnəˈveɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 13,
+    "examples": [
+      {
+        "id": "medium_088_ex1",
+        "english": "Innovation is key to business success.",
+        "japanese": "革新はビジネスの成功の鍵だ。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_089",
+    "english": "instance",
+    "japanese": "例、場合",
+    "phonetic": "/ˈɪnstəns/",
+    "partOfSpeech": "noun",
+    "frequency": 12,
+    "examples": [
+      {
+        "id": "medium_089_ex1",
+        "english": "For instance, consider the case of Japan.",
+        "japanese": "例えば、日本のケースを考えてみよう。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_090",
+    "english": "integrate",
+    "japanese": "統合する",
+    "phonetic": "/ˈɪntɪɡreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 11,
+    "examples": [
+      {
+        "id": "medium_090_ex1",
+        "english": "We need to integrate the new system with the existing one.",
+        "japanese": "新しいシステムを既存のシステムと統合する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_091",
+    "english": "interpret",
+    "japanese": "解釈する",
+    "phonetic": "/ɪnˈtɜːrprɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_091_ex1",
+        "english": "It's important to interpret the data correctly.",
+        "japanese": "データを正しく解釈することが重要だ。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_092",
+    "english": "investigate",
+    "japanese": "調査する",
+    "phonetic": "/ɪnˈvestɪɡeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "medium_092_ex1",
+        "english": "The police are investigating the crime.",
+        "japanese": "警察は犯罪を調査している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_093",
+    "english": "justify",
+    "japanese": "正当化する",
+    "phonetic": "/ˈdʒʌstɪfaɪ/",
+    "partOfSpeech": "verb",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "medium_093_ex1",
+        "english": "You need to justify your decision.",
+        "japanese": "あなたの決定を正当化する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_094",
+    "english": "layer",
+    "japanese": "層",
+    "phonetic": "/ˈleɪər/",
+    "partOfSpeech": "noun",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "medium_094_ex1",
+        "english": "The cake has three layers.",
+        "japanese": "そのケーキは3つの層がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_095",
+    "english": "liberal",
+    "japanese": "自由主義の、寛大な",
+    "phonetic": "/ˈlɪbərəl/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "medium_095_ex1",
+        "english": "She has a liberal view on social issues.",
+        "japanese": "彼女は社会問題に対して寛大な見方をしている。",
+        "difficulty": 2,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "medium_096",
+    "english": "locate",
+    "japanese": "見つける、位置する",
+    "phonetic": "/ˈloʊkeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "medium_096_ex1",
+        "english": "Can you locate the nearest gas station?",
+        "japanese": "最寄りのガソリンスタンドを見つけられますか？",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_097",
+    "english": "maintain",
+    "japanese": "維持する、主張する",
+    "phonetic": "/meɪnˈteɪn/",
+    "partOfSpeech": "verb",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "medium_097_ex1",
+        "english": "He maintains that he is innocent.",
+        "japanese": "彼は無実だと主張している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_098",
+    "english": "monitor",
+    "japanese": "監視する、モニター",
+    "phonetic": "/ˈmɑːnɪtər/",
+    "partOfSpeech": "verb",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "medium_098_ex1",
+        "english": "We need to monitor the situation closely.",
+        "japanese": "状況を注意深く監視する必要がある。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_099",
+    "english": "negative",
+    "japanese": "否定的な、負の",
+    "phonetic": "/ˈneɡətɪv/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "medium_099_ex1",
+        "english": "The news had a negative impact on the stock market.",
+        "japanese": "そのニュースは株式市場に負の影響を与えた。",
+        "difficulty": 2,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "medium_100",
+    "english": "obtain",
+    "japanese": "得る、入手する",
+    "phonetic": "/əbˈteɪn/",
+    "partOfSpeech": "verb",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "medium_100_ex1",
+        "english": "You can obtain more information from our website.",
+        "japanese": "当社のウェブサイトから詳細情報を入手できます。",
+        "difficulty": 2,
+        "context": "general"
       }
     ]
   }

@@ -35,7 +35,6 @@ model User {
   // Relations
   progress    WordProgress[]
   sessions    LearningSession[]
-  achievements UserAchievement[]
   accounts Account[]
   sessions_auth Session[]
 
@@ -148,6 +147,9 @@ model WordProgress {
   word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
 
   @@unique([userId, wordId])
+  @@index([nextReviewDate])
+  @@index([status])
+  @@index([userId, status])
   @@map("word_progress")
   @@schema("smart-vocab")
 }
@@ -163,35 +165,9 @@ model LearningSession {
   
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([completedAt])
+  @@index([userId, completedAt])
   @@map("learning_sessions")
   @@schema("smart-vocab")
 }
 
-model Achievement {
-  id          String @id @default(cuid())
-  name        String @unique
-  description String
-  icon        String
-  category    String // streak, volume, accuracy, speed, etc.
-  requirement Int    // threshold value
-  isActive    Boolean @default(true)
-
-  users UserAchievement[]
-
-  @@map("achievements")
-  @@schema("smart-vocab")
-}
-
-model UserAchievement {
-  id           String   @id @default(cuid())
-  userId       String
-  achievementId String
-  unlockedAt   DateTime @default(now())
-
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, achievementId])
-  @@map("user_achievements")
-  @@schema("smart-vocab")
-}

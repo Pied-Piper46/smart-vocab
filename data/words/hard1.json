@@ -1,86 +1,1701 @@
 [
   {
-    "id": "hard1-001",
-    "english": "perspicacious",
-    "japanese": "洞察力のある、鋭敏な",
-    "phonetic": "ˌpɜːrspɪˈkeɪʃəs",
+    "id": "hard_001",
+    "english": "ubiquitous",
+    "japanese": "どこにでもある、遍在する",
+    "phonetic": "/juːˈbɪkwɪtəs/",
     "partOfSpeech": "adjective",
-    "frequency": 50,
+    "frequency": 10,
     "examples": [
       {
-        "id": "hard1-001-ex1",
-        "english": "Her perspicacious analysis revealed the underlying problem.",
-        "japanese": "彼女の洞察力のある分析が根本的な問題を明らかにした。",
-        "difficulty": 4,
-        "context": "analytical thinking"
+        "id": "hard_001_ex1",
+        "english": "Smartphones have become ubiquitous in modern society.",
+        "japanese": "スマートフォンは現代社会において遍在する存在となった。",
+        "difficulty": 3,
+        "context": "general"
       }
     ]
   },
   {
-    "id": "hard1-002",
-    "english": "obfuscate",
-    "japanese": "混乱させる、曖昧にする",
-    "phonetic": "ˈɒbfʌskeɪt",
+    "id": "hard_002",
+    "english": "paradigm",
+    "japanese": "模範、典型、パラダイム",
+    "phonetic": "/ˈpærədaɪm/",
+    "partOfSpeech": "noun",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_002_ex1",
+        "english": "The internet has shifted the paradigm of communication.",
+        "japanese": "インターネットはコミュニケーションのパラダイムを変えた。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_003",
+    "english": "ephemeral",
+    "japanese": "つかの間の、はかない",
+    "phonetic": "/ɪˈfemərəl/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_003_ex1",
+        "english": "Fame is often ephemeral.",
+        "japanese": "名声はしばしばつかの間である。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_004",
+    "english": "benevolent",
+    "japanese": "慈悲深い、親切な",
+    "phonetic": "/bəˈnevələnt/",
+    "partOfSpeech": "adjective",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_004_ex1",
+        "english": "The benevolent king cared for his people.",
+        "japanese": "慈悲深い王は民を気遣った。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_005",
+    "english": "cacophony",
+    "japanese": "不協和音、耳障りな音",
+    "phonetic": "/kəˈkɑːfəni/",
+    "partOfSpeech": "noun",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_005_ex1",
+        "english": "The city street was a cacophony of horns and shouts.",
+        "japanese": "街の通りはクラクションと叫び声の不協和音だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_006",
+    "english": "deleterious",
+    "japanese": "有害な、悪影響を及ぼす",
+    "phonetic": "/ˌdelɪˈtɪriəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_006_ex1",
+        "english": "Smoking has deleterious effects on health.",
+        "japanese": "喫煙は健康に有害な影響を及ぼす。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_007",
+    "english": "equivocate",
+    "japanese": "言葉を濁す、ごまかす",
+    "phonetic": "/ɪˈkwɪvəkeɪt/",
     "partOfSpeech": "verb",
-    "frequency": 40,
+    "frequency": 4,
     "examples": [
       {
-        "id": "hard1-002-ex1",
-        "english": "The politician tried to obfuscate the real issues.",
-        "japanese": "その政治家は本当の問題を曖昧にしようとした。",
-        "difficulty": 4,
-        "context": "politics"
+        "id": "hard_007_ex1",
+        "english": "He equivocated when asked about his involvement in the scandal.",
+        "japanese": "彼はスキャンダルへの関与について尋ねられたとき、言葉を濁した。",
+        "difficulty": 3,
+        "context": "business"
       }
     ]
   },
   {
-    "id": "hard1-003",
-    "english": "sycophantic",
-    "japanese": "へつらう、おべっかを使う",
-    "phonetic": "ˌsɪkəˈfæntɪk",
+    "id": "hard_008",
+    "english": "fastidious",
+    "japanese": "細心の注意を払う、潔癖な",
+    "phonetic": "/fəˈstɪdiəs/",
     "partOfSpeech": "adjective",
-    "frequency": 30,
+    "frequency": 3,
     "examples": [
       {
-        "id": "hard1-003-ex1",
-        "english": "His sycophantic behavior annoyed his colleagues.",
-        "japanese": "彼のへつらう行動は同僚たちを苛立たせた。",
-        "difficulty": 4,
-        "context": "workplace behavior"
+        "id": "hard_008_ex1",
+        "english": "She is very fastidious about her appearance.",
+        "japanese": "彼女は身だしなみに非常に細心の注意を払う。",
+        "difficulty": 3,
+        "context": "general"
       }
     ]
   },
   {
-    "id": "hard1-004",
-    "english": "quintessential",
-    "japanese": "典型的な、本質的な",
-    "phonetic": "ˌkwɪntɪˈsenʃəl",
+    "id": "hard_009",
+    "english": "gregarious",
+    "japanese": "社交的な、群居性の",
+    "phonetic": "/ɡrɪˈɡɛriəs/",
     "partOfSpeech": "adjective",
-    "frequency": 75,
+    "frequency": 2,
     "examples": [
       {
-        "id": "hard1-004-ex1",
-        "english": "She is the quintessential professional.",
-        "japanese": "彼女は典型的なプロフェッショナルです。",
-        "difficulty": 4,
-        "context": "professional qualities"
+        "id": "hard_009_ex1",
+        "english": "He is a gregarious person who loves parties.",
+        "japanese": "彼はお祭り好きな社交的な人だ。",
+        "difficulty": 3,
+        "context": "general"
       }
     ]
   },
   {
-    "id": "hard1-005",
+    "id": "hard_010",
+    "english": "heterogeneous",
+    "japanese": "異種の、不均質の",
+    "phonetic": "/ˌhetərəˈdʒiːniəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_010_ex1",
+        "english": "The population of the city is very heterogeneous.",
+        "japanese": "その都市の人口は非常に異質だ。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_011",
+    "english": "idiosyncrasy",
+    "japanese": "特異な性質、癖",
+    "phonetic": "/ˌɪdioʊˈsɪŋkrəsi/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_011_ex1",
+        "english": "One of his idiosyncrasies is his habit of talking to himself.",
+        "japanese": "彼の特異な性質の一つは、独り言を言う癖だ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_012",
+    "english": "juxtapose",
+    "japanese": "並置する、並列させる",
+    "phonetic": "/ˌdʒʌkstəˈpoʊz/",
+    "partOfSpeech": "verb",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_012_ex1",
+        "english": "The artist juxtaposed modern and ancient elements in her work.",
+        "japanese": "その芸術家は作品の中で現代と古代の要素を並置した。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_013",
+    "english": "kaleidoscope",
+    "japanese": "万華鏡、変化の多いもの",
+    "phonetic": "/kəˈlaɪdəskoʊp/",
+    "partOfSpeech": "noun",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_013_ex1",
+        "english": "The city offers a kaleidoscope of cultures.",
+        "japanese": "その都市は文化の万華鏡を提供している。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_014",
+    "english": "luminous",
+    "japanese": "光り輝く、明るい",
+    "phonetic": "/ˈluːmɪnəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_014_ex1",
+        "english": "The moon was a luminous orb in the night sky.",
+        "japanese": "月は夜空に光り輝く球体だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_015",
+    "english": "magnanimous",
+    "japanese": "寛大な、度量の大きい",
+    "phonetic": "/mæɡˈnænɪməs/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_015_ex1",
+        "english": "The magnanimous leader forgave his enemies.",
+        "japanese": "寛大な指導者は敵を許した。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_016",
+    "english": "nefarious",
+    "japanese": "極悪非道な、不正な",
+    "phonetic": "/nɪˈfɛriəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_016_ex1",
+        "english": "The villain had a nefarious plan.",
+        "japanese": "その悪役は極悪非道な計画を持っていた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_017",
+    "english": "obfuscate",
+    "japanese": "曖昧にする、分かりにくくする",
+    "phonetic": "/ˈɑːbfəskeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_017_ex1",
+        "english": "Politicians often obfuscate the truth.",
+        "japanese": "政治家はしばしば真実を曖昧にする。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_018",
+    "english": "plethora",
+    "japanese": "過多、過剰",
+    "phonetic": "/ˈpleθərə/",
+    "partOfSpeech": "noun",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_018_ex1",
+        "english": "The internet offers a plethora of information.",
+        "japanese": "インターネットは過剰な情報を提供している。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_019",
+    "english": "quixotic",
+    "japanese": "空想的な、非現実的な",
+    "phonetic": "/kwɪkˈsɑːtɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_019_ex1",
+        "english": "His quixotic pursuit of perfection led to frustration.",
+        "japanese": "彼の空想的な完璧主義の追求はフラストレーションにつながった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_020",
     "english": "recalcitrant",
-    "japanese": "反抗的な、手に負えない",
-    "phonetic": "rɪˈkælsɪtrənt",
+    "japanese": "反抗的な、強情な",
+    "phonetic": "/rɪˈkælsɪtrənt/",
     "partOfSpeech": "adjective",
-    "frequency": 35,
+    "frequency": 1,
     "examples": [
       {
-        "id": "hard1-005-ex1",
-        "english": "The recalcitrant student refused to follow the rules.",
-        "japanese": "その反抗的な生徒は規則に従うことを拒否した。",
-        "difficulty": 4,
-        "context": "education"
+        "id": "hard_020_ex1",
+        "english": "The recalcitrant student refused to follow instructions.",
+        "japanese": "その反抗的な生徒は指示に従うことを拒否した。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_021",
+    "english": "serendipity",
+    "japanese": "偶然の幸運、思わぬ発見",
+    "phonetic": "/ˌserənˈdɪpəti/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_021_ex1",
+        "english": "Finding the old photograph was a moment of serendipity.",
+        "japanese": "古い写真を見つけたのは偶然の幸運だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_022",
+    "english": "taciturn",
+    "japanese": "無口な、口数の少ない",
+    "phonetic": "/ˈtæsɪtɜːrn/",
+    "partOfSpeech": "adjective",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_022_ex1",
+        "english": "He was a taciturn man who rarely spoke.",
+        "japanese": "彼はめったに話さない無口な男だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_023",
+    "english": "ubiquitous",
+    "japanese": "どこにでもある、遍在する",
+    "phonetic": "/juːˈbɪkwɪtəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_023_ex1",
+        "english": "Coffee shops are ubiquitous in this city.",
+        "japanese": "この街ではコーヒーショップがどこにでもある。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_024",
+    "english": "vacillate",
+    "japanese": "ためらう、動揺する",
+    "phonetic": "/ˈvæsɪleɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_024_ex1",
+        "english": "She vacillated between two choices.",
+        "japanese": "彼女は2つの選択肢の間でためらった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_025",
+    "english": "wary",
+    "japanese": "用心深い、慎重な",
+    "phonetic": "/ˈweri/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_025_ex1",
+        "english": "Be wary of strangers.",
+        "japanese": "見知らぬ人には用心しなさい。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_026",
+    "english": "xenophobia",
+    "japanese": "外国人嫌い、異文化嫌悪",
+    "phonetic": "/ˌzenəˈfoʊbiə/",
+    "partOfSpeech": "noun",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_026_ex1",
+        "english": "The rise of xenophobia is a global concern.",
+        "japanese": "外国人嫌いの台頭は世界的な懸念事項だ。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_027",
+    "english": "yield",
+    "japanese": "産出する、屈する",
+    "phonetic": "/jiːld/",
+    "partOfSpeech": "verb",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_027_ex1",
+        "english": "The farm yields a large crop of corn.",
+        "japanese": "その農場は大量のトウモロコシを産出する。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_028",
+    "english": "zealous",
+    "japanese": "熱心な、熱狂的な",
+    "phonetic": "/ˈzeləs/",
+    "partOfSpeech": "adjective",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_028_ex1",
+        "english": "He is a zealous supporter of environmental protection.",
+        "japanese": "彼は環境保護の熱心な支持者だ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_029",
+    "english": "aberration",
+    "japanese": "逸脱、異常",
+    "phonetic": "/ˌæbəˈreɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_029_ex1",
+        "english": "His outburst was an aberration from his usual calm behavior.",
+        "japanese": "彼の激しい感情の爆発は、普段の落ち着いた行動からの逸脱だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_030",
+    "english": "capricious",
+    "japanese": "気まぐれな、移り気な",
+    "phonetic": "/kəˈprɪʃəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_030_ex1",
+        "english": "The weather in the mountains is very capricious.",
+        "japanese": "山の天気は非常に気まぐれだ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_031",
+    "english": "debilitate",
+    "japanese": "衰弱させる",
+    "phonetic": "/dɪˈbɪlɪteɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_031_ex1",
+        "english": "The illness debilitated him.",
+        "japanese": "その病気は彼を衰弱させた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_032",
+    "english": "delineate",
+    "japanese": "描写する、明確にする",
+    "phonetic": "/dɪˈlɪnieɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_032_ex1",
+        "english": "The report delineates the responsibilities of each department.",
+        "japanese": "その報告書は各部署の責任を明確にしている。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_033",
+    "english": "demagogue",
+    "japanese": "扇動政治家",
+    "phonetic": "/ˈdeməɡɑːɡ/",
+    "partOfSpeech": "noun",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_033_ex1",
+        "english": "The demagogue appealed to the emotions of the crowd.",
+        "japanese": "その扇動政治家は群衆の感情に訴えかけた。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_034",
+    "english": "dichotomy",
+    "japanese": "二分法、二分すること",
+    "phonetic": "/daɪˈkɑːtəmi/",
+    "partOfSpeech": "noun",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_034_ex1",
+        "english": "There is a clear dichotomy between theory and practice.",
+        "japanese": "理論と実践の間には明確な二分法がある。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_035",
+    "english": "disparate",
+    "japanese": "異種の、全く異なる",
+    "phonetic": "/ˈdɪspərət/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_035_ex1",
+        "english": "The team members came from disparate backgrounds.",
+        "japanese": "チームメンバーは全く異なる背景から来ていた。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_036",
+    "english": "egregious",
+    "japanese": "ひどい、とんでもない",
+    "phonetic": "/ɪˈɡriːdʒəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_036_ex1",
+        "english": "It was an egregious error.",
+        "japanese": "それはひどい間違いだった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_037",
+    "english": "elucidate",
+    "japanese": "解明する、明らかにする",
+    "phonetic": "/ɪˈluːsɪdeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_037_ex1",
+        "english": "The professor elucidated the complex theory.",
+        "japanese": "教授は複雑な理論を解明した。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_038",
+    "english": "enervate",
+    "japanese": "活力を奪う、弱らせる",
+    "phonetic": "/ˈenərveɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_038_ex1",
+        "english": "The long journey enervated him.",
+        "japanese": "長い旅は彼の活力を奪った。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_039",
+    "english": "esoteric",
+    "japanese": "難解な、秘教的な",
+    "phonetic": "/ˌesəˈterɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_039_ex1",
+        "english": "The book contained esoteric knowledge.",
+        "japanese": "その本には難解な知識が含まれていた。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_040",
+    "english": "euphemism",
+    "japanese": "婉曲表現",
+    "phonetic": "/ˈjuːfəmɪzəm/",
+    "partOfSpeech": "noun",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_040_ex1",
+        "english": "'Passed away' is a euphemism for 'died'.",
+        "japanese": "「亡くなった」は「死んだ」の婉曲表現だ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_041",
+    "english": "exacerbate",
+    "japanese": "悪化させる",
+    "phonetic": "/ɪɡˈzæsərbeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_041_ex1",
+        "english": "The new policy will only exacerbate the problem.",
+        "japanese": "新しい政策は問題を悪化させるだけだろう。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_042",
+    "english": "exigent",
+    "japanese": "緊急の、差し迫った",
+    "phonetic": "/ˈeksɪdʒənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_042_ex1",
+        "english": "The company faced exigent financial difficulties.",
+        "japanese": "その会社は差し迫った財政難に直面した。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_043",
+    "english": "expedient",
+    "japanese": "好都合な、便宜的な",
+    "phonetic": "/ɪkˈspiːdiənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_043_ex1",
+        "english": "It was expedient to agree to their terms.",
+        "japanese": "彼らの条件に同意するのが好都合だった。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_044",
+    "english": "extrapolate",
+    "japanese": "外挿する、推測する",
+    "phonetic": "/ɪkˈstræpəleɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_044_ex1",
+        "english": "We can extrapolate the future trend from the current data.",
+        "japanese": "現在のデータから将来の傾向を推測できる。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_045",
+    "english": "facetious",
+    "japanese": "ふざけた、軽薄な",
+    "phonetic": "/fəˈsiːʃəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_045_ex1",
+        "english": "His facetious remarks were not appreciated.",
+        "japanese": "彼のふざけた発言は評価されなかった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_046",
+    "english": "fallacious",
+    "japanese": "誤った、欺瞞的な",
+    "phonetic": "/fəˈleɪʃəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_046_ex1",
+        "english": "His argument was based on fallacious reasoning.",
+        "japanese": "彼の議論は誤った推論に基づいていた。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_047",
+    "english": "fatuous",
+    "japanese": "愚かな、ばかげた",
+    "phonetic": "/ˈfætʃuəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_047_ex1",
+        "english": "It was a fatuous decision.",
+        "japanese": "それは愚かな決定だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_048",
+    "english": "fiduciary",
+    "japanese": "受託者の、信託の",
+    "phonetic": "/fɪˈduːʃieri/",
+    "partOfSpeech": "adjective",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_048_ex1",
+        "english": "He has a fiduciary duty to his clients.",
+        "japanese": "彼には顧客に対する受託者責任がある。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_049",
+    "english": "fortuitous",
+    "japanese": "偶然の、思いがけない",
+    "phonetic": "/fɔːrˈtuːɪtəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_049_ex1",
+        "english": "It was a fortuitous encounter.",
+        "japanese": "それは思いがけない出会いだった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_050",
+    "english": "garrulous",
+    "japanese": "おしゃべりな",
+    "phonetic": "/ˈɡærələs/",
+    "partOfSpeech": "adjective",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_050_ex1",
+        "english": "The garrulous old man told many stories.",
+        "japanese": "おしゃべりな老人は多くの物語を語った。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_051",
+    "english": "hegemony",
+    "japanese": "覇権、支配権",
+    "phonetic": "/hɪˈdʒeməni/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_051_ex1",
+        "english": "The country sought regional hegemony.",
+        "japanese": "その国は地域覇権を求めた。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_052",
+    "english": "iconoclast",
+    "japanese": "因習打破主義者、偶像破壊者",
+    "phonetic": "/aɪˈkɑːnəklæst/",
+    "partOfSpeech": "noun",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_052_ex1",
+        "english": "Steve Jobs was an iconoclast in the tech industry.",
+        "japanese": "スティーブ・ジョブズはテクノロジー業界の因習打破主義者だった。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_053",
+    "english": "impecunious",
+    "japanese": "貧乏な、金のない",
+    "phonetic": "/ˌɪmpɪˈkjuːniəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_053_ex1",
+        "english": "He was an impecunious artist.",
+        "japanese": "彼は貧乏な芸術家だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_054",
+    "english": "impervious",
+    "japanese": "影響されない、不浸透性の",
+    "phonetic": "/ɪmˈpɜːrviəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_054_ex1",
+        "english": "He seemed impervious to criticism.",
+        "japanese": "彼は批判に影響されないようだった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_055",
+    "english": "inchoate",
+    "japanese": "初期の、未完成の",
+    "phonetic": "/ɪnˈkoʊɪt/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_055_ex1",
+        "english": "The project is still in an inchoate stage.",
+        "japanese": "そのプロジェクトはまだ初期段階にある。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_056",
+    "english": "indefatigable",
+    "japanese": "不屈の、疲れを知らない",
+    "phonetic": "/ˌɪndɪˈfætɪɡəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_056_ex1",
+        "english": "She is an indefatigable worker.",
+        "japanese": "彼女は不屈の働き手だ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_057",
+    "english": "innocuous",
+    "japanese": "無害な",
+    "phonetic": "/ɪˈnɑːkjuəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_057_ex1",
+        "english": "The snake was innocuous.",
+        "japanese": "そのヘビは無害だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_058",
+    "english": "insidious",
+    "japanese": "陰湿な、ずるい",
+    "phonetic": "/ɪnˈsɪdiəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_058_ex1",
+        "english": "The disease has an insidious onset.",
+        "japanese": "その病気は陰湿な発症をする。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_059",
+    "english": "intransigent",
+    "japanese": "非妥協的な、頑固な",
+    "phonetic": "/ɪnˈtrænsɪdʒənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_059_ex1",
+        "english": "The two sides remained intransigent.",
+        "japanese": "両者は非妥協的だった。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_060",
+    "english": "lachrymose",
+    "japanese": "涙もろい、悲しげな",
+    "phonetic": "/ˈlækrɪmoʊs/",
+    "partOfSpeech": "adjective",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_060_ex1",
+        "english": "The movie had a lachrymose ending.",
+        "japanese": "その映画は悲しげな結末だった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_061",
+    "english": "maudlin",
+    "japanese": "感傷的な、涙もろい",
+    "phonetic": "/ˈmɔːdlɪn/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_061_ex1",
+        "english": "He became maudlin after a few drinks.",
+        "japanese": "彼は数杯飲んだ後、感傷的になった。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_062",
+    "english": "obsequious",
+    "japanese": "へつらう、追従的な",
+    "phonetic": "/əbˈsiːkwiəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_062_ex1",
+        "english": "The waiter was overly obsequious.",
+        "japanese": "そのウェイターは過度にへつらっていた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_063",
+    "english": "parsimonious",
+    "japanese": "けちな、倹約しすぎる",
+    "phonetic": "/ˌpɑːrsɪˈmoʊniəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_063_ex1",
+        "english": "He was too parsimonious to buy new clothes.",
+        "japanese": "彼は新しい服を買うにはけちすぎた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_064",
+    "english": "perfidious",
+    "japanese": "不誠実な、裏切りの",
+    "phonetic": "/pərˈfɪdiəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_064_ex1",
+        "english": "The perfidious friend betrayed his trust.",
+        "japanese": "その不誠実な友人は彼の信頼を裏切った。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_065",
+    "english": "perfunctory",
+    "japanese": "おざなりの、いい加減な",
+    "phonetic": "/pərˈfʌŋktəri/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_065_ex1",
+        "english": "He gave a perfunctory nod.",
+        "japanese": "彼はおざなりにうなずいた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_066",
+    "english": "perspicacious",
+    "japanese": "洞察力のある、賢明な",
+    "phonetic": "/ˌpɜːrspɪˈkeɪʃəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_066_ex1",
+        "english": "The perspicacious detective quickly solved the case.",
+        "japanese": "洞察力のある探偵はすぐに事件を解決した。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_067",
+    "english": "philanthropic",
+    "japanese": "慈善の、博愛主義の",
+    "phonetic": "/ˌfɪlənˈθrɑːpɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_067_ex1",
+        "english": "He is known for his philanthropic activities.",
+        "japanese": "彼は慈善活動で知られている。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_068",
+    "english": "precipitate",
+    "japanese": "引き起こす、性急な",
+    "phonetic": "/prɪˈsɪpɪteɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_068_ex1",
+        "english": "His actions precipitated a crisis.",
+        "japanese": "彼の行動が危機を引き起こした。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_069",
+    "english": "profligate",
+    "japanese": "放蕩な、浪費する",
+    "phonetic": "/ˈprɑːflɪɡət/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_069_ex1",
+        "english": "He was known for his profligate spending.",
+        "japanese": "彼は浪費癖で知られていた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_070",
+    "english": "proliferate",
+    "japanese": "増殖する、急増する",
+    "phonetic": "/prəˈlɪfəreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_070_ex1",
+        "english": "Rumors proliferated after the incident.",
+        "japanese": "その事件の後、噂が急増した。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_071",
+    "english": "propensity",
+    "japanese": "傾向、性癖",
+    "phonetic": "/prəˈpensəti/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_071_ex1",
+        "english": "He has a propensity for exaggeration.",
+        "japanese": "彼には誇張する傾向がある。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_072",
+    "english": "prosaic",
+    "japanese": "散文的な、平凡な",
+    "phonetic": "/proʊˈzeɪɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_072_ex1",
+        "english": "His writing style is rather prosaic.",
+        "japanese": "彼の文体はかなり散文的だ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_073",
+    "english": "quiescent",
+    "japanese": "静止した、活動していない",
+    "phonetic": "/kwiˈesnt/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_073_ex1",
+        "english": "The volcano has been quiescent for centuries.",
+        "japanese": "その火山は何世紀もの間、活動していなかった。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_074",
+    "english": "reclusive",
+    "japanese": "隠遁した、引きこもりの",
+    "phonetic": "/rɪˈkluːsɪv/",
+    "partOfSpeech": "adjective",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_074_ex1",
+        "english": "He lived a reclusive life in the mountains.",
+        "japanese": "彼は山で隠遁生活を送った。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_075",
+    "english": "reiterate",
+    "japanese": "繰り返して言う",
+    "phonetic": "/riˈɪtəreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_075_ex1",
+        "english": "Let me reiterate my main point.",
+        "japanese": "私の主要な点を繰り返させてください。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_076",
+    "english": "reproach",
+    "japanese": "非難する、叱責",
+    "phonetic": "/rɪˈproʊtʃ/",
+    "partOfSpeech": "verb",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_076_ex1",
+        "english": "He reproached himself for his mistakes.",
+        "japanese": "彼は自分の過ちを自責した。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_077",
+    "english": "repudiate",
+    "japanese": "拒否する、否認する",
+    "phonetic": "/rɪˈpjuːdieɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_077_ex1",
+        "english": "He repudiated the accusations.",
+        "japanese": "彼はその告発を否認した。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_078",
+    "english": "resilient",
+    "japanese": "回復力のある、弾力性のある",
+    "phonetic": "/rɪˈzɪliənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_078_ex1",
+        "english": "The economy proved to be resilient.",
+        "japanese": "経済は回復力があることが証明された。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_079",
+    "english": "sanguine",
+    "japanese": "楽観的な、快活な",
+    "phonetic": "/ˈsæŋɡwɪn/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_079_ex1",
+        "english": "He is sanguine about the company's future.",
+        "japanese": "彼は会社の将来について楽観的だ。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_080",
+    "english": "scrupulous",
+    "japanese": "誠実な、綿密な",
+    "phonetic": "/ˈskruːpjələs/",
+    "partOfSpeech": "adjective",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_080_ex1",
+        "english": "She is scrupulous in her work.",
+        "japanese": "彼女は仕事において綿密だ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_081",
+    "english": "solicitous",
+    "japanese": "気遣う、心配する",
+    "phonetic": "/səˈlɪsɪtəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_081_ex1",
+        "english": "He was solicitous about her health.",
+        "japanese": "彼は彼女の健康を気遣っていた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_082",
+    "english": "subjugate",
+    "japanese": "征服する、服従させる",
+    "phonetic": "/ˈsʌbdʒuɡeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_082_ex1",
+        "english": "The empire sought to subjugate neighboring lands.",
+        "japanese": "その帝国は隣接する土地を征服しようとした。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_083",
+    "english": "surreptitious",
+    "japanese": "こっそりとした、秘密の",
+    "phonetic": "/ˌsɜːrəpˈtɪʃəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_083_ex1",
+        "english": "He made a surreptitious glance at his watch.",
+        "japanese": "彼はこっそり時計を見た。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_084",
+    "english": "sycophant",
+    "japanese": "追従者、ごますり",
+    "phonetic": "/ˈsɪkəfænt/",
+    "partOfSpeech": "noun",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_084_ex1",
+        "english": "The politician was surrounded by sycophants.",
+        "japanese": "その政治家はごますりたちに囲まれていた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_085",
+    "english": "transient",
+    "japanese": "一時的な、はかない",
+    "phonetic": "/ˈtrænʃnt/",
+    "partOfSpeech": "adjective",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_085_ex1",
+        "english": "The beauty of cherry blossoms is transient.",
+        "japanese": "桜の美しさははかない。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_086",
+    "english": "ubiquitous",
+    "japanese": "どこにでもある、遍在する",
+    "phonetic": "/juːˈbɪkwɪtəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_086_ex1",
+        "english": "Mobile phones are ubiquitous nowadays.",
+        "japanese": "携帯電話は今日ではどこにでもある。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_087",
+    "english": "unilateral",
+    "japanese": "一方的な",
+    "phonetic": "/ˌjuːnɪˈlætərəl/",
+    "partOfSpeech": "adjective",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_087_ex1",
+        "english": "The company made a unilateral decision.",
+        "japanese": "その会社は一方的な決定を下した。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_088",
+    "english": "unprecedented",
+    "japanese": "前例のない",
+    "phonetic": "/ʌnˈpresɪdentɪd/",
+    "partOfSpeech": "adjective",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_088_ex1",
+        "english": "The crisis caused unprecedented challenges.",
+        "japanese": "その危機は前例のない課題を引き起こした。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_089",
+    "english": "vacuous",
+    "japanese": "空虚な、内容のない",
+    "phonetic": "/ˈvækjuəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_089_ex1",
+        "english": "He made a vacuous statement.",
+        "japanese": "彼は内容のない発言をした。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_090",
+    "english": "venerate",
+    "japanese": "崇拝する、尊敬する",
+    "phonetic": "/ˈvenəreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_090_ex1",
+        "english": "Ancient cultures venerated their ancestors.",
+        "japanese": "古代の文化は祖先を崇拝した。",
+        "difficulty": 3,
+        "context": "academic"
+      }
+    ]
+  },
+  {
+    "id": "hard_091",
+    "english": "veracity",
+    "japanese": "真実性、正確さ",
+    "phonetic": "/vəˈræsəti/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "hard_091_ex1",
+        "english": "The veracity of his statement was questioned.",
+        "japanese": "彼の発言の真実性が問われた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_092",
+    "english": "verbose",
+    "japanese": "冗長な、言葉数の多い",
+    "phonetic": "/vɜːrˈboʊs/",
+    "partOfSpeech": "adjective",
+    "frequency": 9,
+    "examples": [
+      {
+        "id": "hard_092_ex1",
+        "english": "His explanation was too verbose.",
+        "japanese": "彼の説明は冗長すぎた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_093",
+    "english": "viable",
+    "japanese": "実行可能な、存続可能な",
+    "phonetic": "/ˈvaɪəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 8,
+    "examples": [
+      {
+        "id": "hard_093_ex1",
+        "english": "We need to find a viable solution.",
+        "japanese": "私たちは実行可能な解決策を見つける必要がある。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_094",
+    "english": "vicarious",
+    "japanese": "代理の、間接的な",
+    "phonetic": "/vɪˈkɛriəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 7,
+    "examples": [
+      {
+        "id": "hard_094_ex1",
+        "english": "She experienced vicarious pleasure through her children's success.",
+        "japanese": "彼女は子供たちの成功を通して間接的な喜びを経験した。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_095",
+    "english": "vilify",
+    "japanese": "中傷する、けなす",
+    "phonetic": "/ˈvɪlɪfaɪ/",
+    "partOfSpeech": "verb",
+    "frequency": 6,
+    "examples": [
+      {
+        "id": "hard_095_ex1",
+        "english": "He was vilified by the media.",
+        "japanese": "彼はメディアによって中傷された。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_096",
+    "english": "vindicate",
+    "japanese": "正当性を証明する、潔白を証明する",
+    "phonetic": "/ˈvɪndɪkeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 5,
+    "examples": [
+      {
+        "id": "hard_096_ex1",
+        "english": "The new evidence vindicated his claim.",
+        "japanese": "新しい証拠が彼の主張の正当性を証明した。",
+        "difficulty": 3,
+        "context": "business"
+      }
+    ]
+  },
+  {
+    "id": "hard_097",
+    "english": "virtuoso",
+    "japanese": "名人、巨匠",
+    "phonetic": "/ˌvɜːrtʃuˈoʊsoʊ/",
+    "partOfSpeech": "noun",
+    "frequency": 4,
+    "examples": [
+      {
+        "id": "hard_097_ex1",
+        "english": "He is a piano virtuoso.",
+        "japanese": "彼はピアノの巨匠だ。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_098",
+    "english": "visceral",
+    "japanese": "内臓の、本能的な",
+    "phonetic": "/ˈvɪsərəl/",
+    "partOfSpeech": "adjective",
+    "frequency": 3,
+    "examples": [
+      {
+        "id": "hard_098_ex1",
+        "english": "He had a visceral reaction to the news.",
+        "japanese": "彼はそのニュースに本能的な反応を示した。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_099",
+    "english": "vituperative",
+    "japanese": "罵倒的な、口汚い",
+    "phonetic": "/vaɪˈtuːpərətɪv/",
+    "partOfSpeech": "adjective",
+    "frequency": 2,
+    "examples": [
+      {
+        "id": "hard_099_ex1",
+        "english": "He launched a vituperative attack on his opponent.",
+        "japanese": "彼は対戦相手に罵倒的な攻撃を仕掛けた。",
+        "difficulty": 3,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "hard_100",
+    "english": "vociferous",
+    "japanese": "大声で叫ぶ、騒々しい",
+    "phonetic": "/voʊˈsɪfərəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 1,
+    "examples": [
+      {
+        "id": "hard_100_ex1",
+        "english": "The crowd was vociferous in their demands.",
+        "japanese": "群衆は要求を大声で叫んだ。",
+        "difficulty": 3,
+        "context": "general"
       }
     ]
   }

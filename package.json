@@ -7,6 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "words:add": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts",
+    "words:update": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts --force",
+    "words:clear": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts --clear",
+    "words:verbose": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts --verbose",
     "db:seed": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts"
   },
   "prisma": {
