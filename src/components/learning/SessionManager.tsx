@@ -406,7 +406,7 @@ export default function SessionManager({
   const renderCompleted = () => {
     if (!sessionFeedback) {
       // Loading state while feedback is being generated
-      return <LoadingSpinner text="結果を集計中..." absolute />;
+      return <LoadingSpinner text="結果を集計しています..." absolute />;
     }
 
     return (

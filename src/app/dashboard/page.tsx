@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { User } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
@@ -73,11 +73,23 @@ export default function Dashboard() {
         fetch('/api/progress/daily')
       ]);
       
+      // Handle profile fetch failure (e.g., user deleted from database)
       if (!profileResponse.ok) {
+        if (profileResponse.status === 404 || profileResponse.status === 401) {
+          console.error('User not found or unauthorized - clearing session');
+          await signOut({ callbackUrl: '/auth/signin' });
+          return;
+        }
         throw new Error('Failed to fetch profile');
       }
       
+      // Handle daily progress fetch failure
       if (!progressResponse.ok) {
+        if (progressResponse.status === 404 || progressResponse.status === 401) {
+          console.error('User progress not found or unauthorized - clearing session');
+          await signOut({ callbackUrl: '/auth/signin' });
+          return;
+        }
         throw new Error('Failed to fetch daily progress');
       }
       
@@ -88,13 +100,25 @@ export default function Dashboard() {
       
       if (profileData.success) {
         setProfile(profileData.data);
+      } else {
+        // API responded but with success: false
+        console.error('Profile fetch failed:', profileData.error);
+        await signOut({ callbackUrl: '/auth/signin' });
+        return;
       }
       
       if (progressData.success) {
         setDailyProgress(progressData.data);
+      } else {
+        // API responded but with success: false
+        console.error('Daily progress fetch failed:', progressData.error);
+        await signOut({ callbackUrl: '/auth/signin' });
+        return;
       }
     } catch (error) {
       console.error('Error fetching data:', error);
+      // For other errors, also redirect to sign in
+      await signOut({ callbackUrl: '/auth/signin' });
     } finally {
       setIsLoading(false);
     }
@@ -106,8 +130,13 @@ export default function Dashboard() {
   }
 
   // Redirect to signin if not authenticated
-  if (!session || !profile || !dailyProgress) {
+  if (!session) {
     return null;
+  }
+
+  // If data is still loading or not available, show loading
+  if (!profile || !dailyProgress) {
+    return <LoadingSpinner />;
   }
 
   return (
@@ -119,7 +148,7 @@ export default function Dashboard() {
       
       <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
-        <div className="flex items-center mb-30 sm:mb-50">
+        <div className="flex items-center mb-20 sm:mb-40">
           {/* Left spacer - invisible but takes same space as profile button on desktop */}
           <div className="hidden sm:flex flex-1 justify-start">
             <div className="invisible flex items-center gap-3 p-3">

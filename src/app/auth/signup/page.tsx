@@ -82,8 +82,8 @@ export default function SignUpPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="glass-strong rounded-3xl p-10 w-full max-w-md">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-white mb-4 smart-vocab-title">Smart Vocab</h1>
-          <h2 className="text-2xl text-white mb-2 font-bold">新規登録</h2>
+          <h1 className="text-4xl font-bold text-white/80 mb-4 smart-vocab-title">Smart Vocab</h1>
+          <h2 className="text-2xl text-white/80 mb-2 font-bold">新規登録</h2>
           <p className="text-sm text-white/80">新しいアカウントを作成して下さい</p>
         </div>
 
@@ -156,9 +156,11 @@ export default function SignUpPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="glass-button w-full py-4 rounded-xl text-white font-bold text-lg hover:scale-101 transition-all duration-300 disabled:opacity-50"
+            className="bg-gradient-to-r from-blue-400 to-purple-400 w-full py-4 rounded-xl font-bold text-lg hover:scale-103 hover:from-blue-500 hover:to-purple-500 transition-all duration-300 disabled:opacity-50 shadow-lg group"
           >
-            {isLoading ? 'アカウント作成中...' : 'アカウント作成'}
+            <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-white text-transparent group-hover:from-blue-50 group-hover:to-purple-50 transition-all duration-300">
+              {isLoading ? 'アカウント作成中...' : 'アカウント作成'}
+            </span>
           </button>
         </form>
 

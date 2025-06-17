@@ -40,8 +40,8 @@ export default function SignInPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="glass-strong rounded-3xl p-10 w-full max-w-md">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-white mb-4 smart-vocab-title">Smart Vocab</h1>
-          <h2 className="text-2xl text-white mb-2 font-bold">ログイン</h2>
+          <h1 className="text-4xl font-bold text-white/80 mb-4 smart-vocab-title">Smart Vocab</h1>
+          <h2 className="text-2xl text-white/80 mb-2 font-bold">ログイン</h2>
           <p className="text-sm text-white/80">アカウントにサインインしてください</p>
         </div>
 
@@ -84,7 +84,7 @@ export default function SignInPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="glass-button w-full py-4 rounded-xl text-white font-bold text-lg hover:scale-101 transition-all duration-300 disabled:opacity-50"
+            className="glass-light w-full py-4 rounded-xl text-white font-bold text-lg hover:scale-105 transition-all duration-300 disabled:opacity-50"
           >
             {isLoading ? 'ログイン中...' : 'ログイン'}
           </button>

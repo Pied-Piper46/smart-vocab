@@ -224,25 +224,25 @@ export function getMasteryDisplayInfo(status: MasteryStatus): {
     case 'new':
       return {
         label: '新規',
-        color: 'bg-blue-500',
+        color: 'bg-blue-500/70',
         description: '初回学習'
       };
     case 'learning':
       return {
         label: '学習中',
-        color: 'bg-yellow-500', 
+        color: 'bg-yellow-500/70', 
         description: '初期学習段階'
       };
     case 'reviewing':
       return {
         label: '復習中',
-        color: 'bg-orange-500',
+        color: 'bg-orange-500/70',
         description: '定着段階'
       };
     case 'mastered':
       return {
         label: '習得済',
-        color: 'bg-green-500',
+        color: 'bg-green-500/70',
         description: '習得完了'
       };
   }

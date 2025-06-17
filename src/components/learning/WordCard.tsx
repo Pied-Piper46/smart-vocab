@@ -42,9 +42,9 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
   };
 
   const renderMasteryBadge = () => {
-    if (!word.progress?.status) return null;
-    
-    const masteryInfo = getMasteryDisplayInfo(word.progress.status as MasteryStatus);
+    // If no progress or status, treat as new word
+    const status = word.progress?.status || 'new';
+    const masteryInfo = getMasteryDisplayInfo(status as MasteryStatus);
     
     return (
       <div className="absolute top-4 right-4">
@@ -101,6 +101,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
                 onChange={(e) => setUserAnswer(e.target.value)}
                 className="w-full bg-transparent border-0 border-b-2 border-white/30 focus:border-white/70 outline-none px-2 py-3 text-white text-lg font-medium text-center placeholder-white/50 transition-colors duration-300"
                 onKeyDown={(e) => e.key === 'Enter' && handleShowAnswer()}
+                placeholder="入力する"
               />
             </div>
           </div>
@@ -123,6 +124,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
               onChange={(e) => setUserAnswer(e.target.value)}
               className="bg-transparent border-0 border-b-2 border-white/30 focus:border-white/70 outline-none px-2 py-3 text-white text-lg font-medium text-center placeholder-white/50 transition-colors duration-300 max-w-md w-full"
               onKeyDown={(e) => e.key === 'Enter' && handleShowAnswer()}
+              placeholder="入力する"
             />
           </div>
         );
@@ -159,13 +161,13 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
         <div className="flex justify-center gap-6">
           <button
             onClick={() => handleAnswer(false)}
-            className="w-12 h-12 rounded-full bg-white/10 hover:bg-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110 active:scale-95 active:bg-red-500/70"
+            className="w-12 h-12 rounded-full bg-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110 active:scale-95 active:bg-red-500/70"
           >
             <X size={24} />
           </button>
           <button
             onClick={() => handleAnswer(true)}
-            className="w-12 h-12 rounded-full bg-white/10 hover:bg-green-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110 active:scale-95 active:bg-green-500/70"
+            className="w-12 h-12 rounded-full bg-green-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110 active:scale-95 active:bg-green-500/70"
           >
             <Check size={24} />
           </button>

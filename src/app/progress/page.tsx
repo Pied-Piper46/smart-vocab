@@ -368,7 +368,7 @@ export default function ProgressPage() {
 
       {/* Logout Confirmation Dialog */}
       {showLogoutDialog && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="glass-strong rounded-2xl p-8 max-w-md w-full">
             <div className="text-center mb-6">
               <div className="p-4 bg-red-400/20 rounded-full mx-auto mb-4 w-fit">
@@ -376,23 +376,22 @@ export default function ProgressPage() {
               </div>
               <h2 className="text-2xl font-bold text-white mb-2">ログアウトしますか？</h2>
               <p className="text-white/70">
-                現在の学習セッションは保存されます。<br />
                 再度ログインして学習を続けることができます。
               </p>
             </div>
             
-            <div className="flex gap-4">
+            <div className="flex justify-center gap-6">
               <button
                 onClick={handleLogoutCancel}
-                className="flex-1 p-3 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all duration-300"
+                className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110"
               >
-                キャンセル
+                <X size={24} />
               </button>
               <button
                 onClick={handleLogoutConfirm}
-                className="flex-1 p-3 rounded-xl bg-red-500 hover:bg-red-600 text-white transition-all duration-300"
+                className="w-12 h-12 rounded-full bg-red-500 hover:bg-red-500 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
               >
-                ログアウト
+                <LogOut size={24} />
               </button>
             </div>
           </div>
@@ -517,14 +516,14 @@ export default function ProgressPage() {
           <div className="space-y-3 mb-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 bg-blue-400 rounded"></div>
+                <div className="w-4 h-4 bg-yellow-500/70 rounded"></div>
                 <span className="text-white/70 text-lg">学習中</span>
               </div>
               <span className="text-white/80 font-bold text-xl">{analytics.masteryStats.learning}語</span>
             </div>
             <div className="w-full bg-white/10 rounded-full h-4">
               <div 
-                className="bg-blue-400 h-4 rounded-full transition-all duration-1000" 
+                className="bg-yellow-500/70 h-4 rounded-full transition-all duration-1000" 
                 style={{ width: totalWords > 0 ? `${(analytics.masteryStats.learning / totalWords) * 100}%` : '0%' }}
               ></div>
             </div>
@@ -534,14 +533,14 @@ export default function ProgressPage() {
           <div className="space-y-3 mb-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 bg-orange-400 rounded"></div>
+                <div className="w-4 h-4 bg-orange-500/70 rounded"></div>
                 <span className="text-white/70 text-lg">復習中</span>
               </div>
               <span className="text-white/80 font-bold text-xl">{analytics.masteryStats.reviewing}語</span>
             </div>
             <div className="w-full bg-white/10 rounded-full h-4">
               <div 
-                className="bg-orange-400 h-4 rounded-full transition-all duration-1000" 
+                className="bg-orange-500/70 h-4 rounded-full transition-all duration-1000" 
                 style={{ width: totalWords > 0 ? `${(analytics.masteryStats.reviewing / totalWords) * 100}%` : '0%' }}
               ></div>
             </div>
@@ -551,14 +550,14 @@ export default function ProgressPage() {
           <div className="space-y-3 mb-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 bg-green-400 rounded"></div>
+                <div className="w-4 h-4 bg-green-500/70 rounded"></div>
                 <span className="text-white/70 text-lg">習得済み</span>
               </div>
               <span className="text-white/80 font-bold text-xl">{analytics.masteryStats.mastered}語</span>
             </div>
             <div className="w-full bg-white/10 rounded-full h-4">
               <div 
-                className="bg-green-400 h-4 rounded-full transition-all duration-1000" 
+                className="bg-green-500/70 h-4 rounded-full transition-all duration-1000" 
                 style={{ width: totalWords > 0 ? `${(analytics.masteryStats.mastered / totalWords) * 100}%` : '0%' }}
               ></div>
             </div>

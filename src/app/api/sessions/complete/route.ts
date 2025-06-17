@@ -302,7 +302,7 @@ export async function POST(request: NextRequest) {
         },
       };
     }, {
-      timeout: 20000, // 15 seconds timeout
+      timeout: 30000, // 15 seconds timeout
     });
 
     return NextResponse.json({
