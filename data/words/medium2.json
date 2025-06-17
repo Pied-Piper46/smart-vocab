@@ -1,35 +1,1939 @@
 [
   {
     "id": "medium_101",
-    "english": "",
-    "japanese": "",
-    "phonetic": "",
-    "partOfSpeech": "",
-    "frequency": ,
+    "english": "colonise",
+    "japanese": "植民地化する",
+    "phonetic": "/ˈkɒlənaɪz/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
     "examples": [
       {
         "id": "medium_101_ex1",
-        "english": "",
-        "japanese": "",
-        "difficulty": ,
-        "context": ""
+        "english": "The British began to colonise Australia in the late 18th century.",
+        "japanese": "イギリスは18世紀後半にオーストラリアを植民地化し始めた。",
+        "difficulty": 2,
+        "context": "history"
       }
     ]
   },
   {
-    "id": "medium_101",
-    "english": "",
-    "japanese": "",
-    "phonetic": "",
-    "partOfSpeech": "",
-    "frequency": ,
+    "id": "medium_102",
+    "english": "settle",
+    "japanese": "定住する、解決する",
+    "phonetic": "/ˈsetl/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
     "examples": [
       {
-        "id": "medium_101_ex1",
-        "english": "",
-        "japanese": "",
-        "difficulty": ,
-        "context": ""
+        "id": "medium_102_ex1",
+        "english": "They decided to settle in a new country.",
+        "japanese": "彼らは新しい国に定住することを決めた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_103",
+    "english": "dog",
+    "japanese": "犬",
+    "phonetic": "/dɒɡ/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_103_ex1",
+        "english": "My dog loves to play in the park.",
+        "japanese": "私の犬は公園で遊ぶのが大好きだ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_104",
+    "english": "concern",
+    "japanese": "心配、関心事",
+    "phonetic": "/kənˈsɜːrn/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_104_ex1",
+        "english": "Environmental protection is a global concern.",
+        "japanese": "環境保護は世界的な関心事だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_105",
+    "english": "pioneer",
+    "japanese": "開拓者、先駆者",
+    "phonetic": "/ˌpaɪəˈnɪər/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_105_ex1",
+        "english": "Marie Curie was a pioneer in the field of radioactivity.",
+        "japanese": "マリー・キュリーは放射能の分野の先駆者だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_106",
+    "english": "settler",
+    "japanese": "入植者",
+    "phonetic": "/ˈsetlər/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_106_ex1",
+        "english": "The early settlers faced many hardships.",
+        "japanese": "初期の入植者は多くの困難に直面した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_107",
+    "english": "coloniser",
+    "japanese": "植民地化する人",
+    "phonetic": "/ˈkɒlənaɪzər/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_107_ex1",
+        "english": "The colonisers imposed their culture on the indigenous people.",
+        "japanese": "植民地化する人々は先住民に自分たちの文化を押し付けた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_108",
+    "english": "ancient",
+    "japanese": "古代の",
+    "phonetic": "/ˈeɪnʃənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_108_ex1",
+        "english": "Ancient civilizations had advanced knowledge.",
+        "japanese": "古代文明は高度な知識を持っていた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_109",
+    "english": "primitive",
+    "japanese": "原始的な",
+    "phonetic": "/ˈprɪmətɪv/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_109_ex1",
+        "english": "They lived in a primitive hut.",
+        "japanese": "彼らは原始的な小屋に住んでいた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_110",
+    "english": "prehistoric",
+    "japanese": "有史以前の",
+    "phonetic": "/ˌpriːhɪˈstɒrɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_110_ex1",
+        "english": "Dinosaurs lived in prehistoric times.",
+        "japanese": "恐竜は有史以前の時代に生きていた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_111",
+    "english": "seafarer",
+    "japanese": "船乗り",
+    "phonetic": "/ˈsiːˌfeərər/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_111_ex1",
+        "english": "The old seafarer told tales of the sea.",
+        "japanese": "老船乗りは海の物語を語った。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_112",
+    "english": "voyager",
+    "japanese": "航海者、旅行者",
+    "phonetic": "/ˈvɔɪɪdʒər/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_112_ex1",
+        "english": "The space voyager explored distant galaxies.",
+        "japanese": "宇宙航海者は遠い銀河を探検した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_113",
+    "english": "mariner",
+    "japanese": "船員",
+    "phonetic": "/ˈmærɪnər/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_113_ex1",
+        "english": "The mariner navigated the ship through the storm.",
+        "japanese": "船員は嵐の中を船を操縦した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_114",
+    "english": "discover",
+    "japanese": "発見する",
+    "phonetic": "/dɪˈskʌvər/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_114_ex1",
+        "english": "Scientists discover new species every year.",
+        "japanese": "科学者は毎年新しい種を発見する。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_115",
+    "english": "come upon",
+    "japanese": "偶然見つける",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_115_ex1",
+        "english": "I came upon an old photo album in the attic.",
+        "japanese": "屋根裏で古い写真アルバムを偶然見つけた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_116",
+    "english": "on hand",
+    "japanese": "手元にある、利用できる",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_116_ex1",
+        "english": "We have plenty of supplies on hand.",
+        "japanese": "手元に十分な物資がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_117",
+    "english": "lay sth to rest",
+    "japanese": "(問題などを)解決する、終わらせる",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_117_ex1",
+        "english": "It's time to lay this old argument to rest.",
+        "japanese": "この古い議論を終わらせる時が来た。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_118",
+    "english": "construct",
+    "japanese": "建設する、構築する",
+    "phonetic": "/kənˈstrʌkt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_118_ex1",
+        "english": "They plan to construct a new bridge.",
+        "japanese": "彼らは新しい橋を建設する予定だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_119",
+    "english": "fashion",
+    "japanese": "流行、様式、形作る",
+    "phonetic": "/ˈfæʃn/",
+    "partOfSpeech": "noun/verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_119_ex1",
+        "english": "She fashioned a birdhouse out of old wood.",
+        "japanese": "彼女は古い木材で鳥の巣箱を形作った。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_120",
+    "english": "dub",
+    "japanese": "吹き替える、〜と名付ける",
+    "phonetic": "/dʌb/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_120_ex1",
+        "english": "The movie was dubbed into several languages.",
+        "japanese": "その映画はいくつかの言語に吹き替えられた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_121",
+    "english": "voyage",
+    "japanese": "航海、旅",
+    "phonetic": "/ˈvɔɪɪdʒ/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_121_ex1",
+        "english": "The ship embarked on a long voyage across the ocean.",
+        "japanese": "その船は海を渡る長い航海に出発した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_122",
+    "english": "expedition",
+    "japanese": "探検、遠征",
+    "phonetic": "/ˌekspɪˈdɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_122_ex1",
+        "english": "They organized an expedition to the Amazon rainforest.",
+        "japanese": "彼らはアマゾンの熱帯雨林への探検隊を組織した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_123",
+    "english": "favourable",
+    "japanese": "好都合な、好意的な",
+    "phonetic": "/ˈfeɪvərəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_123_ex1",
+        "english": "The weather conditions were favourable for the outdoor event.",
+        "japanese": "屋外イベントにとって天候は好都合だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_124",
+    "english": "auspicious",
+    "japanese": "縁起の良い、幸先の良い",
+    "phonetic": "/ɔːˈspɪʃəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_124_ex1",
+        "english": "It was an auspicious start to the new year.",
+        "japanese": "それは新年の幸先の良いスタートだった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_125",
+    "english": "source of hydration",
+    "japanese": "水分補給源",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_125_ex1",
+        "english": "Water is the best source of hydration.",
+        "japanese": "水は最高の水分補給源だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_126",
+    "english": "find (one's) bearings",
+    "japanese": "自分の位置を知る、状況を把握する",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_126_ex1",
+        "english": "After getting lost, it took him a while to find his bearings.",
+        "japanese": "道に迷った後、彼は自分の位置を把握するのにしばらく時間がかかった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_127",
+    "english": "follow in (one's) footsteps",
+    "japanese": "(人の)足跡をたどる、(人の)後に続く",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_127_ex1",
+        "english": "She decided to follow in her mother's footsteps and become a doctor.",
+        "japanese": "彼女は母親の足跡をたどり、医者になることを決めた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_128",
+    "english": "arguably",
+    "japanese": "議論の余地はあるが、おそらく",
+    "phonetic": "/ˈɑːrɡjuəbli/",
+    "partOfSpeech": "adverb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_128_ex1",
+        "english": "He is arguably the best player on the team.",
+        "japanese": "彼はおそらくチームで最高の選手だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_129",
+    "english": "malleable",
+    "japanese": "柔軟な、順応性のある",
+    "phonetic": "/ˈmæliəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_129_ex1",
+        "english": "Gold is a highly malleable metal.",
+        "japanese": "金は非常に柔軟な金属だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_130",
+    "english": "flexible",
+    "japanese": "柔軟な",
+    "phonetic": "/ˈfleksəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_130_ex1",
+        "english": "Our work schedule is very flexible.",
+        "japanese": "私たちの勤務スケジュールは非常に柔軟だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_131",
+    "english": "mould",
+    "japanese": "型、カビ、形作る",
+    "phonetic": "/moʊld/",
+    "partOfSpeech": "noun/verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_131_ex1",
+        "english": "The artist used clay to mould the sculpture.",
+        "japanese": "芸術家は粘土を使って彫刻を形作った。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_132",
+    "english": "wide range of",
+    "japanese": "幅広い",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_132_ex1",
+        "english": "The store offers a wide range of products.",
+        "japanese": "その店は幅広い製品を提供している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_133",
+    "english": "assortment of",
+    "japanese": "様々な種類の",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_133_ex1",
+        "english": "We have an assortment of candies.",
+        "japanese": "様々な種類のキャンディがある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_134",
+    "english": "diverse array of",
+    "japanese": "多様な",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_134_ex1",
+        "english": "The exhibition featured a diverse array of artworks.",
+        "japanese": "その展覧会では多様な芸術作品が展示された。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_135",
+    "english": "host of",
+    "japanese": "多数の",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_135_ex1",
+        "english": "A host of problems arose during the project.",
+        "japanese": "プロジェクト中に多数の問題が発生した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_136",
+    "english": "coating",
+    "japanese": "コーティング、被膜",
+    "phonetic": "/ˈkoʊtɪŋ/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_136_ex1",
+        "english": "The pan has a non-stick coating.",
+        "japanese": "そのフライパンには焦げ付き防止のコーティングが施されている。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_137",
+    "english": "waterproof",
+    "japanese": "防水の",
+    "phonetic": "/ˈwɔːtərpruːf/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_137_ex1",
+        "english": "This jacket is completely waterproof.",
+        "japanese": "このジャケットは完全に防水だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_138",
+    "english": "impermeable",
+    "japanese": "不浸透性の",
+    "phonetic": "/ɪmˈpɜːrmiəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_138_ex1",
+        "english": "The material is impermeable to water.",
+        "japanese": "その素材は水を通さない。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_139",
+    "english": "shatterproof",
+    "japanese": "飛散防止の",
+    "phonetic": "/ˈʃætərpruːf/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_139_ex1",
+        "english": "The car windows are made of shatterproof glass.",
+        "japanese": "その車の窓は飛散防止ガラスでできている。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_140",
+    "english": "spring from",
+    "japanese": "〜から生じる、〜に由来する",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_140_ex1",
+        "english": "His ideas spring from a deep understanding of human nature.",
+        "japanese": "彼のアイデアは人間性の深い理解から生じている。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_141",
+    "english": "originate",
+    "japanese": "由来する、始まる",
+    "phonetic": "/əˈrɪdʒɪneɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_141_ex1",
+        "english": "The custom originated in ancient times.",
+        "japanese": "その習慣は古代に由来する。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_142",
+    "english": "mankind",
+    "japanese": "人類",
+    "phonetic": "/ˌmænˈkaɪnd/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_142_ex1",
+        "english": "The future of mankind depends on our actions today.",
+        "japanese": "人類の未来は今日の私たちの行動にかかっている。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_143",
+    "english": "earliest origins",
+    "japanese": "最も初期の起源",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_143_ex1",
+        "english": "The earliest origins of life on Earth are still a mystery.",
+        "japanese": "地球上の生命の最も初期の起源はまだ謎だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_144",
+    "english": "the medieval period",
+    "japanese": "中世",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_144_ex1",
+        "english": "Castles were built during the medieval period.",
+        "japanese": "城は中世に建てられた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_145",
+    "english": "the Middle Ages",
+    "japanese": "中世",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_145_ex1",
+        "english": "Knights were common in the Middle Ages.",
+        "japanese": "騎士は中世に一般的だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_146",
+    "english": "see-through",
+    "japanese": "透けて見える",
+    "phonetic": "/ˈsiːθruː/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_146_ex1",
+        "english": "She wore a see-through blouse.",
+        "japanese": "彼女は透けて見えるブラウスを着ていた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_147",
+    "english": "transparent",
+    "japanese": "透明な",
+    "phonetic": "/trænsˈpærənt/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_147_ex1",
+        "english": "Glass is a transparent material.",
+        "japanese": "ガラスは透明な素材だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_148",
+    "english": "go bankrupt",
+    "japanese": "破産する",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_148_ex1",
+        "english": "Many small businesses went bankrupt during the recession.",
+        "japanese": "不況の間、多くの小企業が破産した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_149",
+    "english": "synthetic",
+    "japanese": "合成の",
+    "phonetic": "/sɪnˈθetɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_149_ex1",
+        "english": "Nylon is a synthetic fiber.",
+        "japanese": "ナイロンは合成繊維だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_150",
+    "english": "be derived from",
+    "japanese": "〜に由来する",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_150_ex1",
+        "english": "The word 'democracy' is derived from Greek.",
+        "japanese": "「民主主義」という言葉はギリシャ語に由来する。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_151",
+    "english": "inexpensive",
+    "japanese": "安価な",
+    "phonetic": "/ˌɪnɪkˈspensɪv/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_151_ex1",
+        "english": "We bought an inexpensive but reliable car.",
+        "japanese": "私たちは安価だが信頼できる車を買った。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_152",
+    "english": "consequence",
+    "japanese": "結果、影響",
+    "phonetic": "/ˈkɑːnsəkwens/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_152_ex1",
+        "english": "The decision had serious consequences.",
+        "japanese": "その決定は深刻な結果をもたらした。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_153",
+    "english": "outcome",
+    "japanese": "結果、成果",
+    "phonetic": "/ˈaʊtkʌm/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_153_ex1",
+        "english": "The outcome of the negotiations was positive.",
+        "japanese": "交渉の結果は肯定的だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_154",
+    "english": "big headache",
+    "japanese": "大きな悩み、頭痛の種",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_154_ex1",
+        "english": "Dealing with bureaucracy is a big headache.",
+        "japanese": "官僚主義に対処するのは大きな悩みだ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_155",
+    "english": "salvage",
+    "japanese": "救助する、サルベージする",
+    "phonetic": "/ˈsælvɪdʒ/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_155_ex1",
+        "english": "They managed to salvage some items from the wreckage.",
+        "japanese": "彼らは残骸からいくつかの品物を救助することができた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_156",
+    "english": "recover",
+    "japanese": "回復する、取り戻す",
+    "phonetic": "/rɪˈkʌvər/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_156_ex1",
+        "english": "She is recovering from a serious illness.",
+        "japanese": "彼女は重病から回復している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_157",
+    "english": "the ocean floor",
+    "japanese": "海底",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_157_ex1",
+        "english": "Many mysterious creatures live on the ocean floor.",
+        "japanese": "多くの神秘的な生物が海底に生息している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_158",
+    "english": "the seabed",
+    "japanese": "海底",
+    "phonetic": "",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_158_ex1",
+        "english": "Explorers discovered ancient artifacts on the seabed.",
+        "japanese": "探検家たちは海底で古代の遺物を発見した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_159",
+    "english": "depart",
+    "japanese": "出発する",
+    "phonetic": "/dɪˈpɑːrt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_159_ex1",
+        "english": "The train will depart from platform 5.",
+        "japanese": "列車は5番ホームから出発する。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_160",
+    "english": "embark",
+    "japanese": "乗船する、始める",
+    "phonetic": "/ɪmˈbɑːrk/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_160_ex1",
+        "english": "They embarked on a new adventure.",
+        "japanese": "彼らは新しい冒険に乗り出した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_161",
+    "english": "make sth watertight",
+    "japanese": "〜を水密にする",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_161_ex1",
+        "english": "They had to make the boat watertight before the storm.",
+        "japanese": "嵐の前にボートを水密にする必要があった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_162",
+    "english": "seal sth shut",
+    "japanese": "〜を密閉する",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_162_ex1",
+        "english": "He sealed the envelope shut with wax.",
+        "japanese": "彼はワックスで封筒を密閉した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_163",
+    "english": "lack of",
+    "japanese": "〜の不足",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_163_ex1",
+        "english": "The project failed due to a lack of funding.",
+        "japanese": "そのプロジェクトは資金不足のため失敗した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_164",
+    "english": "inadequate number of",
+    "japanese": "不十分な数の",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_164_ex1",
+        "english": "There was an inadequate number of lifeboats for all passengers.",
+        "japanese": "乗客全員分の救命ボートの数が不十分だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_165",
+    "english": "shortage of",
+    "japanese": "〜の不足",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_165_ex1",
+        "english": "The country is facing a severe shortage of water.",
+        "japanese": "その国は深刻な水不足に直面している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_166",
+    "english": "accounts vary",
+    "japanese": "諸説ある、話が異なる",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_166_ex1",
+        "english": "Accounts vary as to what exactly happened.",
+        "japanese": "何が正確に起こったかについては諸説ある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_167",
+    "english": "stories diverge",
+    "japanese": "話が食い違う",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_167_ex1",
+        "english": "Their stories diverge on key details.",
+        "japanese": "彼らの話は重要な詳細で食い違う。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_168",
+    "english": "sink",
+    "japanese": "沈む",
+    "phonetic": "/sɪŋk/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_168_ex1",
+        "english": "The ship began to sink after hitting an iceberg.",
+        "japanese": "その船は氷山に衝突した後、沈み始めた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_169",
+    "english": "go under",
+    "japanese": "沈む、破産する",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_169_ex1",
+        "english": "Many businesses went under during the economic crisis.",
+        "japanese": "経済危機の間、多くの企業が破産した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_170",
+    "english": "in hindsight",
+    "japanese": "今にして思えば、後から考えると",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_170_ex1",
+        "english": "In hindsight, it was a bad decision.",
+        "japanese": "今にして思えば、それは悪い決断だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_171",
+    "english": "doubt",
+    "japanese": "疑い",
+    "phonetic": "/daʊt/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_171_ex1",
+        "english": "There is no doubt that he is innocent.",
+        "japanese": "彼が無実であることに疑いの余地はない。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_172",
+    "english": "disbelief",
+    "japanese": "不信、信じられない気持ち",
+    "phonetic": "/ˌdɪsbɪˈliːf/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_172_ex1",
+        "english": "She stared at him in disbelief.",
+        "japanese": "彼女は信じられない気持ちで彼を見つめた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_173",
+    "english": "endeavor",
+    "japanese": "努力、試み",
+    "phonetic": "/ɪnˈdevər/",
+    "partOfSpeech": "noun/verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_173_ex1",
+        "english": "He made every endeavor to succeed.",
+        "japanese": "彼は成功するためにあらゆる努力をした。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_174",
+    "english": "foray",
+    "japanese": "襲撃、進出",
+    "phonetic": "/ˈfɔːreɪ/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_174_ex1",
+        "english": "His first foray into politics was unsuccessful.",
+        "japanese": "彼の政治への最初の進出は失敗に終わった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_175",
+    "english": "debris",
+    "japanese": "残骸、がれき",
+    "phonetic": "/dəˈbriː/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_175_ex1",
+        "english": "The street was covered with debris after the storm.",
+        "japanese": "嵐の後、通りはがれきで覆われていた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_176",
+    "english": "wreckage",
+    "japanese": "残骸、難破物",
+    "phonetic": "/ˈrekɪdʒ/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_176_ex1",
+        "english": "The wreckage of the plane was found in the mountains.",
+        "japanese": "飛行機の残骸が山中で発見された。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_177",
+    "english": "intact",
+    "japanese": "無傷の、損なわれていない",
+    "phonetic": "/ɪnˈtækt/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_177_ex1",
+        "english": "Despite the accident, the package remained intact.",
+        "japanese": "事故にもかかわらず、荷物は無傷だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_178",
+    "english": "unharmed",
+    "japanese": "無傷の",
+    "phonetic": "/ʌnˈhɑːrmd/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_178_ex1",
+        "english": "She escaped from the burning building unharmed.",
+        "japanese": "彼女は燃える建物から無傷で脱出した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_179",
+    "english": "split in half",
+    "japanese": "真っ二つに割る",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_179_ex1",
+        "english": "He split the apple in half.",
+        "japanese": "彼はリンゴを真っ二つに割った。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_180",
+    "english": "divide",
+    "japanese": "分ける、分割する",
+    "phonetic": "/dɪˈvaɪd/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_180_ex1",
+        "english": "We divided the cake into equal parts.",
+        "japanese": "私たちはケーキを均等に分けた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_181",
+    "english": "leave sth open",
+    "japanese": "〜を開けたままにする、〜を未解決のままにする",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_181_ex1",
+        "english": "Don't leave the door open.",
+        "japanese": "ドアを開けたままにしないでください。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_182",
+    "english": "deteriorate",
+    "japanese": "悪化する",
+    "phonetic": "/dɪˈtɪriəreɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_182_ex1",
+        "english": "His health began to deteriorate rapidly.",
+        "japanese": "彼の健康は急速に悪化し始めた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_183",
+    "english": "corrode",
+    "japanese": "腐食する",
+    "phonetic": "/kəˈroʊd/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_183_ex1",
+        "english": "Salt water can corrode metal.",
+        "japanese": "塩水は金属を腐食させる可能性がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_184",
+    "english": "erode",
+    "japanese": "侵食する",
+    "phonetic": "/ɪˈroʊd/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_184_ex1",
+        "english": "Wind and rain can erode rocks.",
+        "japanese": "風と雨は岩を侵食する可能性がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_185",
+    "english": "in concert with",
+    "japanese": "〜と協力して、〜と連携して",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_185_ex1",
+        "english": "The two companies worked in concert with each other.",
+        "japanese": "その2つの会社は互いに協力して働いた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_186",
+    "english": "treasure trove",
+    "japanese": "宝の山、貴重な発見",
+    "phonetic": "",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_186_ex1",
+        "english": "The old library was a treasure trove of rare books.",
+        "japanese": "その古い図書館は貴重な本の宝の山だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_187",
+    "english": "inundated",
+    "japanese": "殺到した、水浸しになった",
+    "phonetic": "/ˈɪnʌndeɪtɪd/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_187_ex1",
+        "english": "We were inundated with applications for the job.",
+        "japanese": "私たちはその仕事への応募が殺到した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_188",
+    "english": "inhabit",
+    "japanese": "住む、生息する",
+    "phonetic": "/ɪnˈhæbɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_188_ex1",
+        "english": "Many different species inhabit the rainforest.",
+        "japanese": "多くの異なる種が熱帯雨林に生息している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_189",
+    "english": "populate",
+    "japanese": "居住させる、〜に住む",
+    "phonetic": "/ˈpɑːpjuleɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_189_ex1",
+        "english": "The island was populated by a small community.",
+        "japanese": "その島には小さなコミュニティが住んでいた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_190",
+    "english": "nuisance",
+    "japanese": "迷惑、厄介なもの",
+    "phonetic": "/ˈnuːsns/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_190_ex1",
+        "english": "The loud music was a real nuisance.",
+        "japanese": "その大音量の音楽は本当に迷惑だった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_191",
+    "english": "encroach on",
+    "japanese": "〜を侵食する、〜に侵入する",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_191_ex1",
+        "english": "The sea is encroaching on the coastline.",
+        "japanese": "海が海岸線を侵食している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_192",
+    "english": "impinge on",
+    "japanese": "〜に影響を与える、〜を侵害する",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_192_ex1",
+        "english": "His rights were impinged on by the new law.",
+        "japanese": "彼の権利は新しい法律によって侵害された。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_193",
+    "english": "infringe upon",
+    "japanese": "〜を侵害する",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_193_ex1",
+        "english": "The company was accused of infringing upon copyright.",
+        "japanese": "その会社は著作権を侵害したとして告発された。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_194",
+    "english": "invade",
+    "japanese": "侵略する、侵入する",
+    "phonetic": "/ɪnˈveɪd/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_194_ex1",
+        "english": "The army invaded the neighboring country.",
+        "japanese": "その軍隊は隣国を侵略した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_195",
+    "english": "instinct",
+    "japanese": "本能",
+    "phonetic": "/ˈɪnstɪŋkt/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_195_ex1",
+        "english": "Birds build nests by instinct.",
+        "japanese": "鳥は本能で巣を作る。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_196",
+    "english": "predisposition",
+    "japanese": "素因、傾向",
+    "phonetic": "/ˌpriːdɪspəˈzɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_196_ex1",
+        "english": "He has a genetic predisposition to heart disease.",
+        "japanese": "彼には心臓病の遺伝的素因がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_197",
+    "english": "inclination",
+    "japanese": "傾向、好み",
+    "phonetic": "/ˌɪnklɪˈneɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_197_ex1",
+        "english": "She has an inclination for art.",
+        "japanese": "彼女は芸術への傾向がある。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_198",
+    "english": "alter",
+    "japanese": "変える",
+    "phonetic": "/ˈɔːltər/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_198_ex1",
+        "english": "The new policy will alter the way we do business.",
+        "japanese": "新しい方針は私たちのビジネスのやり方を変えるだろう。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_199",
+    "english": "landscape",
+    "japanese": "風景、景観",
+    "phonetic": "/ˈlændskeɪp/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_199_ex1",
+        "english": "The natural landscape of the area is beautiful.",
+        "japanese": "その地域の自然景観は美しい。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_200",
+    "english": "terrain",
+    "japanese": "地形",
+    "phonetic": "/təˈreɪn/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_200_ex1",
+        "english": "The mountainous terrain made travel difficult.",
+        "japanese": "山岳地帯の地形は移動を困難にした。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_201",
+    "english": "domicile",
+    "japanese": "住所、居住地",
+    "phonetic": "/ˈdɑːmɪsaɪl/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_201_ex1",
+        "english": "His legal domicile is in London.",
+        "japanese": "彼の法的な居住地はロンドンだ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_202",
+    "english": "property",
+    "japanese": "財産、不動産",
+    "phonetic": "/ˈprɑːpərti/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_202_ex1",
+        "english": "They own a large property in the countryside.",
+        "japanese": "彼らは田舎に大きな不動産を所有している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_203",
+    "english": "relocate",
+    "japanese": "移転する",
+    "phonetic": "/ˌriːˈloʊkeɪt/",
+    "partOfSpeech": "verb",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_203_ex1",
+        "english": "The company decided to relocate its headquarters.",
+        "japanese": "その会社は本社を移転することを決定した。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_204",
+    "english": "optimal",
+    "japanese": "最適な",
+    "phonetic": "/ˈɑːptɪməl/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_204_ex1",
+        "english": "This is the optimal solution for the problem.",
+        "japanese": "これがその問題に対する最適な解決策だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_205",
+    "english": "bounty",
+    "japanese": "報奨金、豊富さ",
+    "phonetic": "/ˈbaʊnti/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_205_ex1",
+        "english": "The ocean provides a rich bounty of seafood.",
+        "japanese": "海は豊富な海産物を提供している。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_206",
+    "english": "abundance",
+    "japanese": "豊富、多量",
+    "phonetic": "/əˈbʌndəns/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_206_ex1",
+        "english": "There was an abundance of food at the party.",
+        "japanese": "パーティーには豊富な食べ物があった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_207",
+    "english": "predator",
+    "japanese": "捕食動物",
+    "phonetic": "/ˈpredətər/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_207_ex1",
+        "english": "Lions are apex predators in their ecosystem.",
+        "japanese": "ライオンは生態系における頂点捕食者だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_208",
+    "english": "unfeasible",
+    "japanese": "実行不可能な",
+    "phonetic": "/ʌnˈfiːzəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_208_ex1",
+        "english": "The plan was deemed unfeasible due to high costs.",
+        "japanese": "その計画は高コストのため実行不可能と判断された。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_209",
+    "english": "grow agitated",
+    "japanese": "動揺する、興奮する",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_209_ex1",
+        "english": "He grew agitated as the deadline approached.",
+        "japanese": "締め切りが近づくにつれて、彼は動揺し始めた。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_210",
+    "english": "surplus",
+    "japanese": "余剰、余り",
+    "phonetic": "/ˈsɜːrplʌs/",
+    "partOfSpeech": "noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_210_ex1",
+        "english": "We have a surplus of food this year.",
+        "japanese": "今年は食料が余剰だ。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_211",
+    "english": "strike",
+    "japanese": "打つ、襲う、ストライキ",
+    "phonetic": "/straɪk/",
+    "partOfSpeech": "verb/noun",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_211_ex1",
+        "english": "The workers went on strike for better wages.",
+        "japanese": "労働者たちはより良い賃金を求めてストライキを行った。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_212",
+    "english": "make a beeline for",
+    "japanese": "〜へまっすぐ向かう",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_212_ex1",
+        "english": "As soon as he arrived, he made a beeline for the food.",
+        "japanese": "到着するやいなや、彼は食べ物へまっすぐ向かった。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_213",
+    "english": "go straight to",
+    "japanese": "〜へまっすぐ行く",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_213_ex1",
+        "english": "I need to go straight to the office after this.",
+        "japanese": "この後、まっすぐオフィスに行かなければならない。",
+        "difficulty": 2,
+        "context": "general"
+      }
+    ]
+  },
+  {
+    "id": "medium_214",
+    "english": "head straight for",
+    "japanese": "〜へまっすぐ向かう",
+    "phonetic": "",
+    "partOfSpeech": "phrase",
+    "frequency": 10,
+    "examples": [
+      {
+        "id": "medium_214_ex1",
+        "english": "After school, she heads straight for the library.",
+        "japanese": "学校の後、彼女はまっすぐ図書館へ向かう。",
+        "difficulty": 2,
+        "context": "general"
       }
     ]
   }
