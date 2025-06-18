@@ -18,7 +18,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "VocabMaster - 英単語学習アプリ",
+  title: "Smart Vocab - 科学的英単語学習",
   description: "科学的根拠に基づく効率的な英単語学習アプリケーション",
 };
 

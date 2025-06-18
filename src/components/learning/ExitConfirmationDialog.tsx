@@ -82,16 +82,16 @@ export default function ExitConfirmationDialog({
           {/* Action Buttons */}
           <div className="flex justify-center gap-6">
             <button
+              onClick={onConfirmExit}
+              className="w-12 h-12 rounded-full bg-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110"
+            >
+              <LogOut size={24} />
+            </button>
+            <button
               onClick={onCancel}
               className="w-12 h-12 rounded-full bg-white/10 hover:bg-green-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110"
             >
               <Play size={24} />
-            </button>
-            <button
-              onClick={onConfirmExit}
-              className="w-12 h-12 rounded-full bg-white/10 hover:bg-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-300 hover:scale-110"
-            >
-              <LogOut size={24} />
             </button>
           </div>
         </div>

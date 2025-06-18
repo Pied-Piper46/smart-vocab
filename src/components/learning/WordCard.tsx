@@ -60,15 +60,17 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
       case 'eng_to_jpn':
         return (
           <div className="text-center">
-            <div className="flex items-center justify-center gap-4 mb-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-3">
               <button
                 onClick={playAudio}
-                className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
+                className="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110 shrink-0"
               >
                 <Volume2 size={24} />
               </button>
-              <div className="text-5xl font-bold text-white/70">{word.english}</div>
-              <div className="w-10"></div> {/* Spacer to keep text centered */}
+              <div className={`font-bold text-white/70 break-words ${word.english.length > 12 ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-5xl'}`}>
+                {word.english}
+              </div>
+              <div className="sm:w-10"></div>
             </div>
             <div className="text-lg text-white/70">({word.partOfSpeech})</div>
           </div>
@@ -77,7 +79,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
       case 'jpn_to_eng':
         return (
           <div className="text-center">
-            <div className="text-5xl font-bold mb-3 text-white/70">{word.japanese}</div>
+            <div className="text-4xl font-bold mb-3 text-white/70">{word.japanese}</div>
             <div className="text-lg text-white/70">({word.partOfSpeech})</div>
           </div>
         );
@@ -135,21 +137,23 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
     return (
       <div className="text-center">
         <div className="mb-4">
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-2">
             <button
               onClick={playAudio}
-              className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
+              className="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110 shrink-0"
             >
               <Volume2 size={24} />
             </button>
-            <div className="text-5xl font-bold text-white/70 mb-1">{word.english}</div>
-            <div className="w-10"></div> {/* Spacer to keep text centered */}
+            <div className={`font-bold text-white/70 break-words ${word.english.length > 12 ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-5xl'}`}>
+              {word.english}
+            </div>
+            <div className="sm:w-10"/>
           </div>
           <div className="text-base text-white/60 mb-1">( {word.partOfSpeech} )</div>
           {word.phonetic && (
             <div className="text-base text-white/60 font-mono mb-10">/{word.phonetic}/</div>
           )}
-          <div className="text-4xl text-white/70 font-bold">{word.japanese}</div>
+          <div className={`font-bold text-white/70 break-words ${word.japanese.length > 6 ? 'text-2xl sm:text-4xl' : 'text-3xl sm:text-5xl'}`}>{word.japanese}</div>
         </div>
 
         {word.examples.length > 0 && (

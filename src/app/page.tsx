@@ -77,7 +77,7 @@ export default function Home() {
               <h3 className="text-xl font-bold text-white">適応的間隔反復</h3>
             </div>
             <p className="text-white/80 leading-relaxed">
-              個人の忘却曲線に基づいて最適なタイミングで復習。95%の保持率を実現します。
+              忘却曲線に基づいて最適なタイミングで単語を復習し、記憶定着を図ります。
             </p>
             <div className="mt-4 h-1 glass-progress rounded-full overflow-hidden">
               <div className="glass-progress-fill h-full w-1/6 rounded-full"></div>
@@ -92,7 +92,7 @@ export default function Home() {
               <h3 className="text-xl font-bold text-white">能動的想起</h3>
             </div>
             <p className="text-white/80 leading-relaxed">
-              受動的な学習を排除し、思い出す力を鍛えて記憶定着率を51%向上させます。
+              思い出す力を鍛えて記憶定着率を向上させます。
             </p>
             <div className="mt-4 h-1 glass-progress rounded-full overflow-hidden">
               <div className="glass-progress-fill h-full w-1/3 rounded-full"></div>
@@ -107,7 +107,7 @@ export default function Home() {
               <h3 className="text-xl font-bold text-white">マルチモーダル学習</h3>
             </div>
             <p className="text-white/80 leading-relaxed">
-              視覚・聴覚・運動記憶を統合した学習で、学習効率を22.6ポイント向上させます。
+              視覚・聴覚・運動記憶を統合した学習で、学習効率を向上させます。
             </p>
             <div className="mt-4 h-1 glass-progress rounded-full overflow-hidden">
               <div className="glass-progress-fill h-full w-1/2 rounded-full"></div>
@@ -162,13 +162,13 @@ export default function Home() {
 
         {/* Statistics */}
         <div className="glass-strong rounded-3xl p-12 mb-16 relative overflow-hidden">
-          <div className="absolute inset-0 shimmer opacity-20"></div>
+          {/* <div className="absolute inset-0 shimmer opacity-20"></div> */}
           <h2 className="text-3xl font-bold text-center mb-12 text-white">期待される学習効果</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center glass-light rounded-2xl p-6 hover:glass transition-all duration-300">
-              <div className="text-4xl font-bold text-gradient mb-3">18-22語</div>
-              <div className="text-lg text-white font-medium">時間あたり学習語数</div>
-              <div className="text-sm text-white/60 mt-2">従来の3倍</div>
+              <div className="text-4xl font-bold text-gradient mb-3">10分</div>
+              <div className="text-lg text-white font-medium">１日あたり学習時間</div>
+              <div className="text-sm text-white/60 mt-2">従来の1/3倍</div>
             </div>
             <div className="text-center glass-light rounded-2xl p-6 hover:glass transition-all duration-300">
               <div className="text-4xl font-bold text-gradient mb-3">80-90%</div>

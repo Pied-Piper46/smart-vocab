@@ -106,7 +106,7 @@ export default function SessionFeedbackComponent({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-center gap-6">
+      <div className="flex justify-center gap-6 mb-20">
         <button
           onClick={onGoHome}
           className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
