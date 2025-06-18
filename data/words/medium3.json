@@ -1,0 +1,648 @@
+[
+    {
+        "id": "medium_215",
+        "english": "initial",
+        "japanese": "最初の、初期の",
+        "phonetic": "ɪˈnɪʃəl",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_215_ex1",
+            "english": "The initial results were promising.",
+            "japanese": "最初の結果は有望だった。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+     },
+    {
+        "id": "medium_216",
+        "english": "practically",
+        "japanese": "ほとんど、実用的に",
+        "phonetic": "ˈpræktɪkli",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_216_ex1",
+            "english": "It's practically impossible to finish this in one day.",
+            "japanese": "これを1日で終えるのはほとんど不可能です。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_217",
+        "english": "obscure",
+        "japanese": "曖昧な、不明瞭な",
+        "phonetic": "əbˈskjʊər",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_217_ex1",
+            "english": "His origins are obscure.",
+            "japanese": "彼の出自は不明瞭だ。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_218",
+        "english": "relatively",
+        "japanese": "比較的",
+        "phonetic": "ˈrɛlətɪvli",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_218_ex1",
+            "english": "She is relatively new to the job.",
+            "japanese": "彼女はその仕事には比較的慣れていない。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_219",
+        "english": "showcase",
+        "japanese": "陳列する、見せびらかす",
+        "phonetic": "ˈʃoʊkeɪs",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_219_ex1",
+            "english": "The event will showcase local talent.",
+            "japanese": "そのイベントは地元の才能を披露するでしょう。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_220",
+        "english": "exhibit",
+        "japanese": "展示する",
+        "phonetic": "ɪɡˈzɪbɪt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_220_ex1",
+            "english": "They will exhibit their new paintings.",
+            "japanese": "彼らは新しい絵画を展示する予定です。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_221",
+        "english": "state-of-the-art",
+        "japanese": "最新式の、最先端の",
+        "phonetic": "",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_221_ex1",
+            "english": "The hospital has state-of-the-art equipment.",
+            "japanese": "その病院には最新式の設備があります。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_222",
+        "english": "cutting-edge",
+        "japanese": "最先端の",
+        "phonetic": "",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_222_ex1",
+            "english": "They are working on cutting-edge technology.",
+            "japanese": "彼らは最先端の技術に取り組んでいます。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_223",
+        "english": "balloon",
+        "japanese": "気球、膨らむ",
+        "phonetic": "bəˈluːn",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_223_ex1",
+            "english": "The balloon floated away.",
+            "japanese": "風船は飛んでいきました。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_224",
+        "english": "explode",
+        "japanese": "爆発する",
+        "phonetic": "ɪkˈsploʊd",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_224_ex1",
+            "english": "The firework exploded in the sky.",
+            "japanese": "花火が空で爆発した。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_225",
+        "english": "surge",
+        "japanese": "急増する",
+        "phonetic": "sɜːrdʒ",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_225_ex1",
+            "english": "Prices surged during the holiday season.",
+            "japanese": "ホリデーシーズン中に価格が急騰した。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_226",
+        "english": "formidable",
+        "japanese": "手ごわい、恐るべき",
+        "phonetic": "ˈfɔːrmɪdəbl",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_226_ex1",
+            "english": "He faced a formidable opponent.",
+            "japanese": "彼は手ごわい相手に直面した。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_227",
+        "english": "assemble",
+        "japanese": "組み立てる、集める",
+        "phonetic": "əˈsɛmbl",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_227_ex1",
+            "english": "Please assemble the furniture according to the instructions.",
+            "japanese": "指示に従って家具を組み立ててください。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_228",
+        "english": "outplay",
+        "japanese": "打ち負かす",
+        "phonetic": "ˌaʊtˈpleɪ",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_228_ex1",
+            "english": "Our team managed to outplay the opponents.",
+            "japanese": "私たちのチームは相手を打ち負かすことができました。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_229",
+        "english": "outperform",
+        "japanese": "性能で上回る",
+        "phonetic": "ˌaʊtpərˈfɔːrm",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_229_ex1",
+            "english": "The new model outperforms its predecessor.",
+            "japanese": "新しいモデルは以前のモデルよりも性能が優れています。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_230",
+        "english": "stationary",
+        "japanese": "静止した、動かない",
+        "phonetic": "ˈsteɪʃəneri",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_230_ex1",
+            "english": "The car remained stationary.",
+            "japanese": "車は静止したままでした。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_231",
+        "english": "demanding",
+        "japanese": "要求の多い、きつい",
+        "phonetic": "dɪˈmændɪŋ",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_231_ex1",
+            "english": "It was a very demanding task.",
+            "japanese": "それは非常に要求の多い仕事でした。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_232",
+        "english": "ambitious",
+        "japanese": "野心的な",
+        "phonetic": "æmˈbɪʃəs",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_232_ex1",
+            "english": "She has ambitious goals.",
+            "japanese": "彼女は野心的な目標を持っています。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_233",
+        "english": "in flux",
+        "japanese": "流動的で",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_233_ex1",
+            "english": "The situation is still in flux.",
+            "japanese": "状況はまだ流動的です。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_234",
+        "english": "act in response",
+        "japanese": "対応する",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_234_ex1",
+            "english": "We need to act in response to the new regulations.",
+            "japanese": "新しい規制に対応する必要があります。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_235",
+        "english": "position",
+        "japanese": "位置、配置する",
+        "phonetic": "pəˈzɪʃən",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_235_ex1",
+            "english": "He took a strong position on the issue.",
+            "japanese": "彼はその問題について強い立場をとった。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_236",
+        "english": "place",
+        "japanese": "場所、置く",
+        "phonetic": "pleɪs",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_236_ex1",
+            "english": "This is a beautiful place.",
+            "japanese": "ここは美しい場所です。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_237",
+        "english": "adept at",
+        "japanese": "～に熟練している",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_237_ex1",
+            "english": "She is adept at solving complex problems.",
+            "japanese": "彼女は複雑な問題を解決することに熟練している。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_238",
+        "english": "proficient at",
+        "japanese": "～に熟達している",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_238_ex1",
+            "english": "He is proficient at playing the piano.",
+            "japanese": "彼はピアノを弾くことに熟達している。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_239",
+        "english": "deft at",
+        "japanese": "～が器用な",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_239_ex1",
+            "english": "The surgeon was deft at handling the instruments.",
+            "japanese": "その外科医は器具の扱いに器用だった。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_240",
+        "english": "variable",
+        "japanese": "変わりやすい、変数",
+        "phonetic": "ˈvɛəriəbl",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_240_ex1",
+            "english": "The weather is highly variable in this region.",
+            "japanese": "この地域の天気は非常に変わりやすい。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_241",
+        "english": "awkward",
+        "japanese": "不器用な、気まずい",
+        "phonetic": "ˈɔːkwərd",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_241_ex1",
+            "english": "There was an awkward silence.",
+            "japanese": "気まずい沈黙があった。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_242",
+        "english": "long way off",
+        "japanese": "まだ遠い",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_242_ex1",
+            "english": "The deadline is still a long way off.",
+            "japanese": "締め切りはまだ遠い。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_243",
+        "english": "viable",
+        "japanese": "実行可能な",
+        "phonetic": "ˈvaɪəbl",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_243_ex1",
+            "english": "This is a viable solution.",
+            "japanese": "これは実行可能な解決策です。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_244",
+        "english": "feasible",
+        "japanese": "実行可能な",
+        "phonetic": "ˈfiːzəbl",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_244_ex1",
+            "english": "It's feasible to complete the project by next month.",
+            "japanese": "来月までにプロジェクトを完了することは可能です。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_245",
+        "english": "distant prospect",
+        "japanese": "遠い見込み",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_245_ex1",
+            "english": "Success seemed a distant prospect.",
+            "japanese": "成功は遠い見込みに思えた。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_246",
+        "english": "long way down the road",
+        "japanese": "まだ先のこと",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_246_ex1",
+            "english": "We'll deal with that problem a long way down the road.",
+            "japanese": "その問題はまだ先のこととして対処します。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_247",
+        "english": "go back to the drawing board",
+        "japanese": "計画を練り直す",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_247_ex1",
+            "english": "If this plan fails, we'll have to go back to the drawing board.",
+            "japanese": "この計画が失敗したら、振り出しに戻って練り直さなければならない。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_248",
+        "english": "go back to square one",
+        "japanese": "振り出しに戻る",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_248_ex1",
+            "english": "After the error, we had to go back to square one.",
+            "japanese": "エラーの後、私たちは振り出しに戻らなければならなかった。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_249",
+        "english": "quantum leap",
+        "japanese": "飛躍的な進歩",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_249_ex1",
+            "english": "This new technology represents a quantum leap.",
+            "japanese": "この新しい技術は飛躍的な進歩を表している。",
+            "difficulty": 3,
+            "context": "Common phrase"
+        }
+        ]
+    },
+    {
+        "id": "medium_250",
+        "english": "promising",
+        "japanese": "有望な",
+        "phonetic": "ˈprɑːmɪsɪŋ",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_250_ex1",
+            "english": "He is a promising young artist.",
+            "japanese": "彼は有望な若い芸術家です。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_251",
+        "english": "application",
+        "japanese": "応用、申請",
+        "phonetic": "ˌæplɪˈkeɪʃən",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_251_ex1",
+            "english": "The application of this theory is wide.",
+            "japanese": "この理論の応用範囲は広い。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    },
+    {
+        "id": "medium_252",
+        "english": "utilisation",
+        "japanese": "利用",
+        "phonetic": "ˌjuːtɪlaɪˈzeɪʃən",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+        {
+            "id": "medium_252_ex1",
+            "english": "Efficient utilisation of resources is key.",
+            "japanese": "資源の効率的な利用が鍵です。",
+            "difficulty": 3,
+            "context": "General usage"
+        }
+        ]
+    }
+]
