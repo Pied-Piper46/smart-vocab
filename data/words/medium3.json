@@ -644,5 +644,753 @@
             "context": "General usage"
         }
         ]
+    },
+    {
+        "id": "medium_253",
+        "english": "set one's sights on",
+        "japanese": "～に目標を定める",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_253_ex1",
+                "english": "She set her sights on becoming a doctor.",
+                "japanese": "彼女は医者になることを目標に定めた。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_254",
+        "english": "strive for",
+        "japanese": "～を目指して努力する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_254_ex1",
+                "english": "We must strive for excellence.",
+                "japanese": "私たちは卓越性を目指して努力しなければならない。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_255",
+        "english": "revamp",
+        "japanese": "改善する、刷新する",
+        "phonetic": "ˈriːvæmp",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_255_ex1",
+                "english": "They decided to revamp the old system.",
+                "japanese": "彼らは古いシステムを刷新することに決めた。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_256",
+        "english": "overhaul",
+        "japanese": "総点検する、徹底的に見直す",
+        "phonetic": "ˈoʊvərhɔːl",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_256_ex1",
+                "english": "The company decided to overhaul its entire management structure.",
+                "japanese": "会社は経営構造全体を徹底的に見直すことを決定した。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_257",
+        "english": "cool towards",
+        "japanese": "～に対して冷淡な",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_257_ex1",
+                "english": "He became cool towards his former friends.",
+                "japanese": "彼は以前の友人たちに対して冷淡になった。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_258",
+        "english": "aloof towards",
+        "japanese": "～に対してよそよそしい",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_258_ex1",
+                "english": "She remained aloof towards her colleagues.",
+                "japanese": "彼女は同僚に対してよそよそしい態度を保った。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_259",
+        "english": "glow",
+        "japanese": "輝き、光る",
+        "phonetic": "ɡloʊ",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_259_ex1",
+                "english": "The sunset cast a warm glow.",
+                "japanese": "夕日は暖かい輝きを投げかけた。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_260",
+        "english": "radiance",
+        "japanese": "輝き、光輝",
+        "phonetic": "ˈreɪdiəns",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_260_ex1",
+                "english": "Her face was full of radiance.",
+                "japanese": "彼女の顔は輝きに満ちていた。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_261",
+        "english": "despise",
+        "japanese": "軽蔑する",
+        "phonetic": "dɪˈspaɪz",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_261_ex1",
+                "english": "He despised hypocrisy.",
+                "japanese": "彼は偽善を軽蔑した。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_262",
+        "english": "loathe",
+        "japanese": "ひどく嫌う",
+        "phonetic": "loʊð",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_262_ex1",
+                "english": "I loathe doing laundry.",
+                "japanese": "洗濯をするのがひどく嫌いだ。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_263",
+        "english": "detest",
+        "japanese": "ひどく嫌う",
+        "phonetic": "dɪˈtɛst",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_263_ex1",
+                "english": "She detests dishonesty.",
+                "japanese": "彼女は不正直をひどく嫌う。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_264",
+        "english": "hold disdain for",
+        "japanese": "～を軽蔑する",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_264_ex1",
+                "english": "Many people hold disdain for corrupt politicians.",
+                "japanese": "多くの人々は腐敗した政治家を軽蔑している。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_265",
+        "english": "antagonist",
+        "japanese": "敵対者、対抗者",
+        "phonetic": "ænˈtæɡənɪst",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_265_ex1",
+                "english": "The protagonist faced his antagonist in the final scene.",
+                "japanese": "主人公は最終シーンで敵対者と対峙した。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_266",
+        "english": "adversary",
+        "japanese": "敵、対戦相手",
+        "phonetic": "ˈædvərsɛri",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_266_ex1",
+                "english": "He defeated his adversary in the chess match.",
+                "japanese": "彼はチェスの試合で対戦相手を打ち負かした。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_267",
+        "english": "upstage",
+        "japanese": "主役を食う、目立たなくさせる",
+        "phonetic": "ʌpˈsteɪdʒ",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_267_ex1",
+                "english": "The supporting actor tried to upstage the lead.",
+                "japanese": "脇役は主役を食おうとした。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_268",
+        "english": "outdo",
+        "japanese": "～に勝る、～をしのぐ",
+        "phonetic": "ˌaʊtˈduː",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_268_ex1",
+                "english": "She always tries to outdo her brother.",
+                "japanese": "彼女はいつも弟に勝ろうとする。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_269",
+        "english": "outrageous",
+        "japanese": "とんでもない、法外な",
+        "phonetic": "aʊtˈreɪdʒəs",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_269_ex1",
+                "english": "The prices were outrageous.",
+                "japanese": "価格はとんでもなかった。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_270",
+        "english": "scandalous",
+        "japanese": "スキャンダラスな、不名誉な",
+        "phonetic": "ˈskændələs",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_270_ex1",
+                "english": "It was a scandalous affair.",
+                "japanese": "それはスキャンダラスな事件だった。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_271",
+        "english": "win the day",
+        "japanese": "勝利を収める",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_271_ex1",
+                "english": "Despite the challenges, good sense will win the day.",
+                "japanese": "困難にもかかわらず、良識が勝利を収めるだろう。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_272",
+        "english": "triumph",
+        "japanese": "勝利、大成功",
+        "phonetic": "ˈtraɪəmf",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_272_ex1",
+                "english": "His victory was a great triumph.",
+                "japanese": "彼の勝利は大きな成功だった。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_273",
+        "english": "victorious",
+        "japanese": "勝利した",
+        "phonetic": "vɪkˈtɔːriəs",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_273_ex1",
+                "english": "The team was victorious in the final match.",
+                "japanese": "チームは決勝戦で勝利した。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_274",
+        "english": "outline",
+        "japanese": "概要、概説する",
+        "phonetic": "ˈaʊtlaɪn",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_274_ex1",
+                "english": "He presented an outline of his plan.",
+                "japanese": "彼は計画の概要を提示した。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_275",
+        "english": "harness",
+        "japanese": "利用する、活用する",
+        "phonetic": "ˈhɑːrnɪs",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_275_ex1",
+                "english": "We need to harness renewable energy.",
+                "japanese": "私たちは再生可能エネルギーを活用する必要がある。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_276",
+        "english": "exploit",
+        "japanese": "利用する、開発する",
+        "phonetic": "ɪkˈsplɔɪt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_276_ex1",
+                "english": "The company exploited new markets.",
+                "japanese": "その会社は新しい市場を開拓した。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_277",
+        "english": "dumbfounded",
+        "japanese": "呆然とした",
+        "phonetic": "ˈdʌmfaʊndɪd",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_277_ex1",
+                "english": "She was dumbfounded by the news.",
+                "japanese": "彼女はその知らせに呆然とした。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_278",
+        "english": "astonished",
+        "japanese": "驚いた",
+        "phonetic": "əˈstɑːnɪʃt",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_278_ex1",
+                "english": "I was astonished by his performance.",
+                "japanese": "彼の演技に驚いた。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_279",
+        "english": "capital",
+        "japanese": "資本、首都",
+        "phonetic": "ˈkæpɪtl",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_279_ex1",
+                "english": "Tokyo is the capital of Japan.",
+                "japanese": "東京は日本の首都です。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_280",
+        "english": "come to nothing",
+        "japanese": "無駄になる、失敗に終わる",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_280_ex1",
+                "english": "All their efforts came to nothing.",
+                "japanese": "彼らの努力はすべて無駄になった。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_281",
+        "english": "come to naught",
+        "japanese": "無に帰す、失敗に終わる",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_281_ex1",
+                "english": "Their grand plans came to naught.",
+                "japanese": "彼らの壮大な計画は無に帰した。",
+                "difficulty": 3,
+                "context": "Common phrase"
+            }
+        ]
+    },
+    {
+        "id": "medium_282",
+        "english": "penniless",
+        "japanese": "無一文の",
+        "phonetic": "ˈpɛnɪləs",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_282_ex1",
+                "english": "He died penniless.",
+                "japanese": "彼は無一文で亡くなった。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_283",
+        "english": "destitute",
+        "japanese": "困窮した、貧しい",
+        "phonetic": "ˈdɛstɪtuːt",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_283_ex1",
+                "english": "The war left many families destitute.",
+                "japanese": "戦争は多くの家族を困窮させた。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_284",
+        "english": "broke",
+        "japanese": "破産した、お金がない",
+        "phonetic": "broʊk",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_284_ex1",
+                "english": "I'm completely broke until payday.",
+                "japanese": "給料日まで全くお金がない。",
+                "difficulty": 3,
+                "context": "Informal usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_285",
+        "english": "impoverished",
+        "japanese": "貧困化した",
+        "phonetic": "ɪmˈpɑːvərɪʃt",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_285_ex1",
+                "english": "The region was impoverished by the drought.",
+                "japanese": "その地域は干ばつによって貧困化した。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_286",
+        "english": "archetype",
+        "japanese": "原型、典型",
+        "phonetic": "ˈɑːrkɪtaɪp",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_286_ex1",
+                "english": "He is the archetype of a successful entrepreneur.",
+                "japanese": "彼は成功した起業家の典型だ。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_287",
+        "english": "epitome",
+        "japanese": "典型、縮図",
+        "phonetic": "ɪˈpɪtəmi",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_287_ex1",
+                "english": "She is the epitome of elegance.",
+                "japanese": "彼女は優雅さの典型だ。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_288",
+        "english": "reevaluate",
+        "japanese": "再評価する",
+        "phonetic": "ˌriːɪˈvæljueɪt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_288_ex1",
+                "english": "We need to reevaluate our strategy.",
+                "japanese": "私たちは戦略を再評価する必要がある。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_289",
+        "english": "reassess",
+        "japanese": "再評価する、再検討する",
+        "phonetic": "ˌriːəˈsɛs",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_289_ex1",
+                "english": "It's time to reassess our priorities.",
+                "japanese": "私たちの優先順位を再検討する時が来た。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_290",
+        "english": "accomplishment",
+        "japanese": "達成、業績",
+        "phonetic": "əˈkɑːmplɪʃmənt",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_290_ex1",
+                "english": "Graduating was a great accomplishment.",
+                "japanese": "卒業は大きな達成だった。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_291",
+        "english": "sour",
+        "japanese": "酸っぱい、不機嫌になる",
+        "phonetic": "saʊər",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_291_ex1",
+                "english": "The milk has gone sour.",
+                "japanese": "牛乳が酸っぱくなった。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_292",
+        "english": "direct current",
+        "japanese": "直流",
+        "phonetic": "",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_292_ex1",
+                "english": "Batteries produce direct current.",
+                "japanese": "バッテリーは直流を生成する。",
+                "difficulty": 3,
+                "context": "Technical term"
+            }
+        ]
+    },
+    {
+        "id": "medium_293",
+        "english": "alternating current",
+        "japanese": "交流",
+        "phonetic": "",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_293_ex1",
+                "english": "Most household appliances use alternating current.",
+                "japanese": "ほとんどの家電製品は交流を使用する。",
+                "difficulty": 3,
+                "context": "Technical term"
+            }
+        ]
+    },
+    {
+        "id": "medium_294",
+        "english": "muddy",
+        "japanese": "泥だらけの、不明瞭な",
+        "phonetic": "ˈmʌdi",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_294_ex1",
+                "english": "The road was muddy after the rain.",
+                "japanese": "雨の後、道は泥だらけだった。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_295",
+        "english": "stunt",
+        "japanese": "発育を妨げる、妙技",
+        "phonetic": "stʌnt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_295_ex1",
+                "english": "Lack of water can stunt plant growth.",
+                "japanese": "水不足は植物の成長を妨げることがある。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
+    },
+    {
+        "id": "medium_296",
+        "english": "electrocute",
+        "japanese": "感電死させる",
+        "phonetic": "ɪˈlɛktrəkjuːt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_296_ex1",
+                "english": "Be careful not to electrocute yourself.",
+                "japanese": "感電しないように注意してください。",
+                "difficulty": 3,
+                "context": "General usage"
+            }
+        ]
     }
 ]
