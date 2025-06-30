@@ -16,15 +16,15 @@
         "japanese": "",
         "phonetic": "",
         "partOfSpeech": "",
-        "frequency": null,
+        "frequency": 50,
         "examples": [
-        {
-            "id": "medium_215_ex1",
-            "english": "",
-            "japanese": "",
-            "difficulty": null,
-            "context": ""
-        }
+            {
+                "id": "medium_215_ex1",
+                "english": "",
+                "japanese": "",
+                "difficulty": 3,
+                "context": ""
+            }
         ]
      },
      ...
