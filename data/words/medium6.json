@@ -1,0 +1,750 @@
+[
+    {
+        "id": "medium_381",
+        "english": "asteroid",
+        "japanese": "小惑星",
+        "phonetic": "ˈæstərɔɪd",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_381_ex1",
+                "english": "A large asteroid is heading towards Earth.",
+                "japanese": "大きな小惑星が地球に向かっている。",
+                "difficulty": 3,
+                "context": "space"
+            }
+        ]
+    },
+    {
+        "id": "medium_382",
+        "english": "devastation",
+        "japanese": "荒廃、破壊",
+        "phonetic": "ˌdevəˈsteɪʃən",
+        "partOfSpeech": "noun",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_382_ex1",
+                "english": "The earthquake caused widespread devastation.",
+                "japanese": "その地震は広範囲にわたる荒廃を引き起こした。",
+                "difficulty": 4,
+                "context": "disaster"
+            }
+        ]
+    },
+    {
+        "id": "medium_383",
+        "english": "divert away",
+        "japanese": "そらす、迂回させる",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_383_ex1",
+                "english": "They tried to divert the asteroid away from Earth.",
+                "japanese": "彼らは小惑星を地球からそらそうとした。",
+                "difficulty": 3,
+                "context": "action"
+            }
+        ]
+    },
+    {
+        "id": "medium_384",
+        "english": "blow something up",
+        "japanese": "～を爆破する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_384_ex1",
+                "english": "The plan was to blow up the bridge.",
+                "japanese": "その計画は橋を爆破することだった。",
+                "difficulty": 3,
+                "context": "action"
+            }
+        ]
+    },
+    {
+        "id": "medium_385",
+        "english": "wipe out",
+        "japanese": "～を全滅させる、根絶する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_385_ex1",
+                "english": "A single asteroid could wipe out life on Earth.",
+                "japanese": "一つの小惑星が地球上の生命を全滅させる可能性がある。",
+                "difficulty": 4,
+                "context": "disaster"
+            }
+        ]
+    },
+    {
+        "id": "medium_386",
+        "english": "decimate",
+        "japanese": "～を激減させる",
+        "phonetic": "ˈdesɪmeɪt",
+        "partOfSpeech": "verb",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_386_ex1",
+                "english": "The disease decimated the population.",
+                "japanese": "その病気は人口を激減させた。",
+                "difficulty": 4,
+                "context": "impact"
+            }
+        ]
+    },
+    {
+        "id": "medium_387",
+        "english": "devastate",
+        "japanese": "～を壊滅させる、打ちのめす",
+        "phonetic": "ˈdevəsteɪt",
+        "partOfSpeech": "verb",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_387_ex1",
+                "english": "The news devastated her.",
+                "japanese": "その知らせは彼女を打ちのめした。",
+                "difficulty": 3,
+                "context": "emotion"
+            }
+        ]
+    },
+    {
+        "id": "medium_388",
+        "english": "inevitable",
+        "japanese": "避けられない、必然の",
+        "phonetic": "ɪnˈevɪtəbl",
+        "partOfSpeech": "adjective",
+        "frequency": 75,
+        "examples": [
+            {
+                "id": "medium_388_ex1",
+                "english": "Change is an inevitable part of life.",
+                "japanese": "変化は人生の避けられない一部だ。",
+                "difficulty": 4,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_389",
+        "english": "inescapable",
+        "japanese": "逃れられない、避けられない",
+        "phonetic": "ɪnɪˈskeɪpəbl",
+        "partOfSpeech": "adjective",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_389_ex1",
+                "english": "The truth was inescapable.",
+                "japanese": "真実は逃れられなかった。",
+                "difficulty": 4,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_390",
+        "english": "unavoidable",
+        "japanese": "避けられない",
+        "phonetic": "ˌʌnəˈvɔɪdəbl",
+        "partOfSpeech": "adjective",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_390_ex1",
+                "english": "The accident was unavoidable.",
+                "japanese": "その事故は避けられなかった。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_391",
+        "english": "hurtle towards",
+        "japanese": "～に向かって突進する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_391_ex1",
+                "english": "The car hurtled towards the barrier.",
+                "japanese": "車は障壁に向かって突進した。",
+                "difficulty": 3,
+                "context": "movement"
+            }
+        ]
+    },
+    {
+        "id": "medium_392",
+        "english": "rush towards",
+        "japanese": "～に向かって急ぐ",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_392_ex1",
+                "english": "The crowd rushed towards the stage.",
+                "japanese": "群衆はステージに向かって急いだ。",
+                "difficulty": 2,
+                "context": "movement"
+            }
+        ]
+    },
+    {
+        "id": "medium_393",
+        "english": "routinely",
+        "japanese": "日常的に、定期的に",
+        "phonetic": "ruːˈtiːnli",
+        "partOfSpeech": "adverb",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_393_ex1",
+                "english": "He routinely checks his email.",
+                "japanese": "彼は日常的にメールをチェックする。",
+                "difficulty": 3,
+                "context": "habit"
+            }
+        ]
+    },
+    {
+        "id": "medium_394",
+        "english": "constantly",
+        "japanese": "絶えず、常に",
+        "phonetic": "ˈkɒnstəntli",
+        "partOfSpeech": "adverb",
+        "frequency": 80,
+        "examples": [
+            {
+                "id": "medium_394_ex1",
+                "english": "She is constantly studying.",
+                "japanese": "彼女は絶えず勉強している。",
+                "difficulty": 3,
+                "context": "habit"
+            }
+        ]
+    },
+    {
+        "id": "medium_395",
+        "english": "pull in",
+        "japanese": "～を引き込む、引き寄せる",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_395_ex1",
+                "english": "The magnet pulled in the metal.",
+                "japanese": "磁石が金属を引き込んだ。",
+                "difficulty": 3,
+                "context": "action"
+            }
+        ]
+    },
+    {
+        "id": "medium_396",
+        "english": "draw in",
+        "japanese": "～を引き込む、誘い込む",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_396_ex1",
+                "english": "The story drew me in.",
+                "japanese": "その物語に引き込まれた。",
+                "difficulty": 3,
+                "context": "action"
+            }
+        ]
+    },
+    {
+        "id": "medium_397",
+        "english": "enormous",
+        "japanese": "巨大な、莫大な",
+        "phonetic": "ɪˈnɔːrməs",
+        "partOfSpeech": "adjective",
+        "frequency": 75,
+        "examples": [
+            {
+                "id": "medium_397_ex1",
+                "english": "They built an enormous statue.",
+                "japanese": "彼らは巨大な像を建てた。",
+                "difficulty": 3,
+                "context": "size"
+            }
+        ]
+    },
+    {
+        "id": "medium_398",
+        "english": "gigantic",
+        "japanese": "巨大な",
+        "phonetic": "dʒaɪˈɡæntɪk",
+        "partOfSpeech": "adjective",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_398_ex1",
+                "english": "A gigantic wave hit the coast.",
+                "japanese": "巨大な波が海岸を襲った。",
+                "difficulty": 3,
+                "context": "size"
+            }
+        ]
+    },
+    {
+        "id": "medium_399",
+        "english": "immense",
+        "japanese": "計り知れない、広大な",
+        "phonetic": "ɪˈmens",
+        "partOfSpeech": "adjective",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_399_ex1",
+                "english": "The universe is immense.",
+                "japanese": "宇宙は広大だ。",
+                "difficulty": 4,
+                "context": "size"
+            }
+        ]
+    },
+    {
+        "id": "medium_400",
+        "english": "massive",
+        "japanese": "巨大な、大量の",
+        "phonetic": "ˈmæsɪv",
+        "partOfSpeech": "adjective",
+        "frequency": 80,
+        "examples": [
+            {
+                "id": "medium_400_ex1",
+                "english": "They made a massive effort.",
+                "japanese": "彼らは多大な努力をした。",
+                "difficulty": 3,
+                "context": "size"
+            }
+        ]
+    },
+    {
+        "id": "medium_401",
+        "english": "plummet",
+        "japanese": "急落する",
+        "phonetic": "ˈplʌmɪt",
+        "partOfSpeech": "verb",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_401_ex1",
+                "english": "The stock prices plummeted.",
+                "japanese": "株価が急落した。",
+                "difficulty": 3,
+                "context": "movement"
+            }
+        ]
+    },
+    {
+        "id": "medium_402",
+        "english": "plunge",
+        "japanese": "飛び込む、急落する",
+        "phonetic": "plʌndʒ",
+        "partOfSpeech": "verb",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_402_ex1",
+                "english": "He plunged into the water.",
+                "japanese": "彼は水に飛び込んだ。",
+                "difficulty": 3,
+                "context": "movement"
+            }
+        ]
+    },
+    {
+        "id": "medium_403",
+        "english": "tackle",
+        "japanese": "取り組む、タックルする",
+        "phonetic": "ˈtækl",
+        "partOfSpeech": "verb",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_403_ex1",
+                "english": "We need to tackle this problem.",
+                "japanese": "この問題に取り組む必要がある。",
+                "difficulty": 3,
+                "context": "action"
+            }
+        ]
+    },
+    {
+        "id": "medium_404",
+        "english": "wrestle with",
+        "japanese": "～と格闘する、取り組む",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_404_ex1",
+                "english": "He wrestled with the decision.",
+                "japanese": "彼はその決断に苦しんだ。",
+                "difficulty": 4,
+                "context": "struggle"
+            }
+        ]
+    },
+    {
+        "id": "medium_405",
+        "english": "pin something down",
+        "japanese": "～を特定する、突き止める",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_405_ex1",
+                "english": "It's hard to pin down the exact cause.",
+                "japanese": "正確な原因を特定するのは難しい。",
+                "difficulty": 4,
+                "context": "identification"
+            }
+        ]
+    },
+    {
+        "id": "medium_406",
+        "english": "get a fix on",
+        "japanese": "～の位置を特定する、～を理解する",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_406_ex1",
+                "english": "We need to get a fix on their location.",
+                "japanese": "彼らの位置を特定する必要がある。",
+                "difficulty": 4,
+                "context": "location"
+            }
+        ]
+    },
+    {
+        "id": "medium_407",
+        "english": "pinpoint",
+        "japanese": "～を正確に特定する",
+        "phonetic": "ˈpɪnpɔɪnt",
+        "partOfSpeech": "verb",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_407_ex1",
+                "english": "The doctor pinpointed the source of the pain.",
+                "japanese": "医者は痛みの原因を正確に特定した。",
+                "difficulty": 3,
+                "context": "identification"
+            }
+        ]
+    },
+    {
+        "id": "medium_408",
+        "english": "trajectory",
+        "japanese": "軌道、弾道",
+        "phonetic": "trəˈdʒektəri",
+        "partOfSpeech": "noun",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_408_ex1",
+                "english": "The missile's trajectory was off.",
+                "japanese": "ミサイルの軌道がずれていた。",
+                "difficulty": 4,
+                "context": "movement"
+            }
+        ]
+    },
+    {
+        "id": "medium_409",
+        "english": "head towards",
+        "japanese": "～に向かう",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_409_ex1",
+                "english": "They are heading towards the city.",
+                "japanese": "彼らは都市に向かっている。",
+                "difficulty": 2,
+                "context": "movement"
+            }
+        ]
+    },
+    {
+        "id": "medium_410",
+        "english": "be bound for",
+        "japanese": "～行きである、～に向かっている",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_410_ex1",
+                "english": "This train is bound for Tokyo.",
+                "japanese": "この電車は東京行きだ。",
+                "difficulty": 3,
+                "context": "travel"
+            }
+        ]
+    },
+    {
+        "id": "medium_411",
+        "english": "nudge something away",
+        "japanese": "～をそっと押しのける",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_411_ex1",
+                "english": "She nudged the plate away.",
+                "japanese": "彼女は皿をそっと押しのけた。",
+                "difficulty": 3,
+                "context": "action"
+            }
+        ]
+    },
+    {
+        "id": "medium_412",
+        "english": "incoming",
+        "japanese": "入ってくる、着任する",
+        "phonetic": "ˈɪnkʌmɪŋ",
+        "partOfSpeech": "adjective",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_412_ex1",
+                "english": "Incoming calls are routed to voicemail.",
+                "japanese": "着信は留守番電話に転送される。",
+                "difficulty": 3,
+                "context": "communication"
+            }
+        ]
+    },
+    {
+        "id": "medium_413",
+        "english": "inward bound",
+        "japanese": "内向きの、国内行きの",
+        "phonetic": "",
+        "partOfSpeech": "adjective",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_413_ex1",
+                "english": "The ship was inward bound.",
+                "japanese": "その船は国内行きだった。",
+                "difficulty": 3,
+                "context": "travel"
+            }
+        ]
+    },
+    {
+        "id": "medium_414",
+        "english": "ahead of time",
+        "japanese": "前もって、予定より早く",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_414_ex1",
+                "english": "Please arrive ahead of time.",
+                "japanese": "時間より前に到着してください。",
+                "difficulty": 3,
+                "context": "time"
+            }
+        ]
+    },
+    {
+        "id": "medium_415",
+        "english": "beforehand",
+        "japanese": "前もって、あらかじめ",
+        "phonetic": "bɪˈfɔːrhænd",
+        "partOfSpeech": "adverb",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_415_ex1",
+                "english": "I prepared everything beforehand.",
+                "japanese": "私はすべて前もって準備した。",
+                "difficulty": 3,
+                "context": "preparation"
+            }
+        ]
+    },
+    {
+        "id": "medium_416",
+        "english": "impractical",
+        "japanese": "非現実的な、実用的でない",
+        "phonetic": "ɪmˈpræktɪkl",
+        "partOfSpeech": "adjective",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_416_ex1",
+                "english": "The plan was impractical.",
+                "japanese": "その計画は非現実的だった。",
+                "difficulty": 3,
+                "context": "feasibility"
+            }
+        ]
+    },
+    {
+        "id": "medium_417",
+        "english": "crisis",
+        "japanese": "危機",
+        "phonetic": "ˈkraɪsɪs",
+        "partOfSpeech": "noun",
+        "frequency": 75,
+        "examples": [
+            {
+                "id": "medium_417_ex1",
+                "english": "The country is facing an economic crisis.",
+                "japanese": "その国は経済危機に直面している。",
+                "difficulty": 4,
+                "context": "situation"
+            }
+        ]
+    },
+    {
+        "id": "medium_418",
+        "english": "spectacular",
+        "japanese": "壮観な、目覚ましい",
+        "phonetic": "spekˈtækjələr",
+        "partOfSpeech": "adjective",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_418_ex1",
+                "english": "The view was spectacular.",
+                "japanese": "その眺めは壮観だった。",
+                "difficulty": 3,
+                "context": "description"
+            }
+        ]
+    },
+    {
+        "id": "medium_419",
+        "english": "astonishing",
+        "japanese": "驚くべき、びっくりするような",
+        "phonetic": "əˈstɒnɪʃɪŋ",
+        "partOfSpeech": "adjective",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_419_ex1",
+                "english": "The results were astonishing.",
+                "japanese": "その結果は驚くべきものだった。",
+                "difficulty": 3,
+                "context": "description"
+            }
+        ]
+    },
+    {
+        "id": "medium_420",
+        "english": "drawback",
+        "japanese": "欠点、不利な点",
+        "phonetic": "ˈdrɔːbæk",
+        "partOfSpeech": "noun",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_420_ex1",
+                "english": "The main drawback is the cost.",
+                "japanese": "主な欠点は費用だ。",
+                "difficulty": 3,
+                "context": "evaluation"
+            }
+        ]
+    },
+    {
+        "id": "medium_421",
+        "english": "pitfall",
+        "japanese": "落とし穴、危険",
+        "phonetic": "ˈpɪtfɔːl",
+        "partOfSpeech": "noun",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_421_ex1",
+                "english": "Beware of the pitfalls of online shopping.",
+                "japanese": "オンラインショッピングの落とし穴に注意してください。",
+                "difficulty": 4,
+                "context": "warning"
+            }
+        ]
+    },
+    {
+        "id": "medium_422",
+        "english": "break apart",
+        "japanese": "バラバラになる、分解する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_422_ex1",
+                "english": "The old ship began to break apart.",
+                "japanese": "その古い船はバラバラになり始めた。",
+                "difficulty": 3,
+                "context": "destruction"
+            }
+        ]
+    },
+    {
+        "id": "medium_423",
+        "english": "fragment",
+        "japanese": "断片、破片；断片化する",
+        "phonetic": "ˈfræɡmənt",
+        "partOfSpeech": "noun/verb",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_423_ex1",
+                "english": "The glass shattered into fragments.",
+                "japanese": "ガラスは破片に砕け散った。",
+                "difficulty": 3,
+                "context": "object"
+            }
+        ]
+    },
+    {
+        "id": "medium_424",
+        "english": "come apart",
+        "japanese": "バラバラになる、分解する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_424_ex1",
+                "english": "The book came apart in my hands.",
+                "japanese": "その本は私の手の中でバラバラになった。",
+                "difficulty": 2,
+                "context": "destruction"
+            }
+        ]
+    }
+]
