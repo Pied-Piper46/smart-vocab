@@ -1,0 +1,410 @@
+[
+    {
+        "id": "medium_425",
+        "english": "emerge",
+        "japanese": "現れる、出現する",
+        "phonetic": "ɪˈmɜːrdʒ",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_425_ex1",
+                "english": "The truth began to emerge.",
+                "japanese": "真実が明らかになり始めた。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_426",
+        "english": "come onto the scene",
+        "japanese": "登場する、現れる",
+        "phonetic": "",
+        "partOfSpeech": "phrase",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_426_ex1",
+                "english": "A new talent came onto the scene.",
+                "japanese": "新しい才能が登場した。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_427",
+        "english": "conceive",
+        "japanese": "想像する、考案する",
+        "phonetic": "kənˈsiːv",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_427_ex1",
+                "english": "He conceived a plan to escape.",
+                "japanese": "彼は脱出計画を考案した。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_428",
+        "english": "far from certain",
+        "japanese": "確実とは程遠い",
+        "phonetic": "",
+        "partOfSpeech": "phrase",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_428_ex1",
+                "english": "The outcome is far from certain.",
+                "japanese": "結果は確実とは程遠い。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_429",
+        "english": "ambiguous",
+        "japanese": "曖昧な、多義的な",
+        "phonetic": "æmˈbɪɡjuəs",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_429_ex1",
+                "english": "His answer was ambiguous.",
+                "japanese": "彼の答えは曖昧だった。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_430",
+        "english": "acclaim",
+        "japanese": "称賛、喝采",
+        "phonetic": "əˈkleɪm",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_430_ex1",
+                "english": "She received critical acclaim.",
+                "japanese": "彼女は批評家から絶賛された。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_431",
+        "english": "fame",
+        "japanese": "名声",
+        "phonetic": "feɪm",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_431_ex1",
+                "english": "He achieved international fame.",
+                "japanese": "彼は国際的な名声を得た。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_432",
+        "english": "upside",
+        "japanese": "良い面、上向き",
+        "phonetic": "ˈʌpsaɪd",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_432_ex1",
+                "english": "The upside of the situation is...",
+                "japanese": "その状況の良い面は...",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_433",
+        "english": "invulnerable",
+        "japanese": "傷つかない、無敵の",
+        "phonetic": "ɪnˈvʌlnərəbəl",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_433_ex1",
+                "english": "He seemed invulnerable to criticism.",
+                "japanese": "彼は批判に対して無敵に見えた。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_434",
+        "english": "impenetrable",
+        "japanese": "貫通できない、理解できない",
+        "phonetic": "ɪmˈpɛnɪtrəbəl",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_434_ex1",
+                "english": "The fortress was impenetrable.",
+                "japanese": "その要塞は貫通不可能だった。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_435",
+        "english": "cut out",
+        "japanese": "切り取る、やめる",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_435_ex1",
+                "english": "She cut out the picture from the magazine.",
+                "japanese": "彼女は雑誌から写真を切り取った。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_436",
+        "english": "take out",
+        "japanese": "取り出す、連れ出す",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_436_ex1",
+                "english": "He took out his wallet.",
+                "japanese": "彼は財布を取り出した。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_437",
+        "english": "eliminate",
+        "japanese": "排除する、削除する",
+        "phonetic": "ɪˈlɪmɪneɪt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_437_ex1",
+                "english": "We need to eliminate errors.",
+                "japanese": "私たちはエラーを排除する必要がある。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_438",
+        "english": "intermediary",
+        "japanese": "仲介者、中間的な",
+        "phonetic": "ˌɪntərˈmiːdiəri",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_438_ex1",
+                "english": "He acted as an intermediary.",
+                "japanese": "彼は仲介者として行動した。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_439",
+        "english": "fluctuate",
+        "japanese": "変動する、上下する",
+        "phonetic": "ˈflʌktʃueɪt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_439_ex1",
+                "english": "Prices fluctuate daily.",
+                "japanese": "価格は毎日変動する。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_440",
+        "english": "vacillate",
+        "japanese": "揺れ動く、ためらう",
+        "phonetic": "ˈvæsɪleɪt",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_440_ex1",
+                "english": "He vacillated between the two choices.",
+                "japanese": "彼は2つの選択肢の間で揺れ動いた。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_441",
+        "english": "seesaw",
+        "japanese": "シーソー、一進一退する",
+        "phonetic": "ˈsiːsɔː",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_441_ex1",
+                "english": "The battle seesawed back and forth.",
+                "japanese": "戦いは一進一退だった。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_442",
+        "english": "cautious",
+        "japanese": "慎重な、用心深い",
+        "phonetic": "ˈkɔːʃəs",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_442_ex1",
+                "english": "Be cautious when crossing the road.",
+                "japanese": "道を渡るときは慎重に。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_443",
+        "english": "prudent",
+        "japanese": "賢明な、思慮深い",
+        "phonetic": "ˈpruːdənt",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_443_ex1",
+                "english": "It was a prudent decision.",
+                "japanese": "それは賢明な決断だった。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_444",
+        "english": "wary",
+        "japanese": "用心深い、警戒している",
+        "phonetic": "ˈweəri",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_444_ex1",
+                "english": "She was wary of strangers.",
+                "japanese": "彼女は見知らぬ人に用心深かった。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_445",
+        "english": "anonymity",
+        "japanese": "匿名性",
+        "phonetic": "ˌænəˈnɪmɪti",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_445_ex1",
+                "english": "He preferred to live in anonymity.",
+                "japanese": "彼は匿名で暮らすことを好んだ。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_446",
+        "english": "obscurity",
+        "japanese": "無名、不明瞭",
+        "phonetic": "əbˈskjʊərəti",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_446_ex1",
+                "english": "He lived in obscurity for years.",
+                "japanese": "彼は何年も無名で暮らした。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_447",
+        "english": "vanish",
+        "japanese": "消える、姿を消す",
+        "phonetic": "ˈvænɪʃ",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_447_ex1",
+                "english": "The magician made the rabbit vanish.",
+                "japanese": "手品師はウサギを消した。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_448",
+        "english": "characterise",
+        "japanese": "特徴づける",
+        "phonetic": "ˈkærəktəraɪz",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_448_ex1",
+                "english": "His work is characterised by attention to detail.",
+                "japanese": "彼の仕事は細部へのこだわりが特徴だ。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    }
+]

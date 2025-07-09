@@ -33,7 +33,7 @@ async function loadJsonData(): Promise<JsonWord[]> {
   const dataDir = path.join(process.cwd(), 'data', 'words');
   
   // Load data from all JSON files
-  const files = ['medium6.json'];
+  const files = ['medium7.json'];
   
   for (const file of files) {
     const filePath = path.join(dataDir, file);
