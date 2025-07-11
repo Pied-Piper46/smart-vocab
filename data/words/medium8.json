@@ -1,0 +1,767 @@
+[
+  {
+    "id": "medium_449",
+    "english": "swindle",
+    "japanese": "だます",
+    "phonetic": "/swíndl/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_449_ex1",
+        "english": "The con artist tried to swindle the elderly woman out of her savings.",
+        "japanese": "詐欺師はその女性から貯金を騙し取ろうとした。",
+        "difficulty": 3,
+        "context": "Financial scams and deception."
+      }
+    ]
+  },
+  {
+    "id": "medium_450",
+    "english": "con",
+    "japanese": "だます",
+    "phonetic": "/kɒn/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_450_ex1",
+        "english": "He tried to con me into buying a fake watch.",
+        "japanese": "彼は私に偽物の時計を買わせようとだました。",
+        "difficulty": 3,
+        "context": "Deception for personal gain."
+      }
+    ]
+  },
+  {
+    "id": "medium_451",
+    "english": "fraud",
+    "japanese": "詐欺",
+    "phonetic": "/frɔːd/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_451_ex1",
+        "english": "The company was accused of financial fraud.",
+        "japanese": "その会社は金融詐欺で告発された。",
+        "difficulty": 3,
+        "context": "Illegal deception for financial gain."
+      }
+    ]
+  },
+  {
+    "id": "medium_452",
+    "english": "racket",
+    "japanese": "不正な商売",
+    "phonetic": "/rækɪt/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_452_ex1",
+        "english": "They were running a protection racket in the neighborhood.",
+        "japanese": "彼らは近所で用心棒代の詐欺を働いていた。",
+        "difficulty": 3,
+        "context": "Organized crime or illegal business."
+      }
+    ]
+  },
+  {
+    "id": "medium_453",
+    "english": "dividend",
+    "japanese": "配当",
+    "phonetic": "/dívidɛnd/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_453_ex1",
+        "english": "The company announced a quarterly dividend.",
+        "japanese": "その会社は四半期配当を発表した。",
+        "difficulty": 3,
+        "context": "Profits distributed to shareholders."
+      }
+    ]
+  },
+  {
+    "id": "medium_454",
+    "english": "legitimate",
+    "japanese": "正当な",
+    "phonetic": "/lɪˈdʒɪtəmət/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_454_ex1",
+        "english": "This is a legitimate business opportunity.",
+        "japanese": "これは正当なビジネスチャンスです。",
+        "difficulty": 3,
+        "context": "Lawful and morally acceptable."
+      }
+    ]
+  },
+  {
+    "id": "medium_455",
+    "english": "authentic",
+    "japanese": "本物の",
+    "phonetic": "/ɔːˈθɛntɪk/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_455_ex1",
+        "english": "The painting was confirmed to be authentic.",
+        "japanese": "その絵は本物であることが確認された。",
+        "difficulty": 3,
+        "context": "Real or genuine."
+      }
+    ]
+  },
+  {
+    "id": "medium_456",
+    "english": "genuine",
+    "japanese": "本物の",
+    "phonetic": "/ˈdʒɛnjuɪn/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_456_ex1",
+        "english": "She has a genuine interest in helping others.",
+        "japanese": "彼女は他者を助けることに本物の関心を持っている。",
+        "difficulty": 3,
+        "context": "Sincere and true."
+      }
+    ]
+  },
+  {
+    "id": "medium_457",
+    "english": "above board",
+    "japanese": "公明正大な",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_457_ex1",
+        "english": "All their dealings were strictly above board.",
+        "japanese": "彼らの取引はすべて厳密に公明正大だった。",
+        "difficulty": 3,
+        "context": "Honest and legal."
+      }
+    ]
+  },
+  {
+    "id": "medium_458",
+    "english": "collapse",
+    "japanese": "崩壊する",
+    "phonetic": "/kəˈlæps/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_458_ex1",
+        "english": "The old building was about to collapse.",
+        "japanese": "その古い建物は崩壊寸前だった。",
+        "difficulty": 3,
+        "context": "To fall down or fall in."
+      }
+    ]
+  },
+  {
+    "id": "medium_459",
+    "english": "associated",
+    "japanese": "関連のある",
+    "phonetic": "/əˈsoʊʃieɪtɪd/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_459_ex1",
+        "english": "He has associated with criminals in the past.",
+        "japanese": "彼は過去に犯罪者と付き合いがあった。",
+        "difficulty": 3,
+        "context": "Connected or related to."
+      }
+    ]
+  },
+  {
+    "id": "medium_460",
+    "english": "affiliated",
+    "japanese": "加入している",
+    "phonetic": "/əˈfɪlieɪtɪd/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_460_ex1",
+        "english": "The hospital is affiliated with a major university.",
+        "japanese": "その病院は主要な大学と提携している。",
+        "difficulty": 3,
+        "context": "Formally connected or linked."
+      }
+    ]
+  },
+  {
+    "id": "medium_461",
+    "english": "assure",
+    "japanese": "保証する",
+    "phonetic": "/əˈʃʊər/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_461_ex1",
+        "english": "I assure you that everything will be fine.",
+        "japanese": "すべてうまくいくことを保証します。",
+        "difficulty": 3,
+        "context": "To tell someone something positively."
+      }
+    ]
+  },
+  {
+    "id": "medium_462",
+    "english": "convince",
+    "japanese": "説得する",
+    "phonetic": "/kənˈvɪns/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_462_ex1",
+        "english": "It was hard to convince him to change his mind.",
+        "japanese": "彼を考えを変えさせるのは難しかった。",
+        "difficulty": 3,
+        "context": "To make someone believe something."
+      }
+    ]
+  },
+  {
+    "id": "medium_463",
+    "english": "enthusiasm",
+    "japanese": "熱意",
+    "phonetic": "/ɛnˈθuːziæzəm/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_463_ex1",
+        "english": "She showed great enthusiasm for the project.",
+        "japanese": "彼女はそのプロジェクトに大きな熱意を示した。",
+        "difficulty": 3,
+        "context": "Intense and eager enjoyment."
+      }
+    ]
+  },
+  {
+    "id": "medium_464",
+    "english": "fervour",
+    "japanese": "熱意",
+    "phonetic": "/ˈfɜːrvər/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_464_ex1",
+        "english": "He spoke with great fervour about his beliefs.",
+        "japanese": "彼は自分の信念について熱意を込めて語った。",
+        "difficulty": 3,
+        "context": "Intense and passionate feeling."
+      }
+    ]
+  },
+  {
+    "id": "medium_465",
+    "english": "zeal",
+    "japanese": "熱意",
+    "phonetic": "/ziːl/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_465_ex1",
+        "english": "The volunteers worked with remarkable zeal.",
+        "japanese": "ボランティアたちは驚くべき熱意で働いた。",
+        "difficulty": 3,
+        "context": "Great energy or enthusiasm."
+      }
+    ]
+  },
+  {
+    "id": "medium_466",
+    "english": "sweep through",
+    "japanese": "〜を席巻する",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_466_ex1",
+        "english": "The new policy will sweep through the organization.",
+        "japanese": "新しい方針は組織全体を席巻するだろう。",
+        "difficulty": 3,
+        "context": "To move rapidly and powerfully through something."
+      }
+    ]
+  },
+  {
+    "id": "medium_467",
+    "english": "spread through",
+    "japanese": "〜に広がる",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_467_ex1",
+        "english": "The news began to spread through the town.",
+        "japanese": "その知らせは町中に広がり始めた。",
+        "difficulty": 3,
+        "context": "To become known or be transmitted to many people."
+      }
+    ]
+  },
+  {
+    "id": "medium_468",
+    "english": "fan out across",
+    "japanese": "〜に広がる",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_468_ex1",
+        "english": "The search party began to fan out across the forest.",
+        "japanese": "捜索隊は森中に広がり始めた。",
+        "difficulty": 3,
+        "context": "To spread out in different directions."
+      }
+    ]
+  },
+  {
+    "id": "medium_469",
+    "english": "get left behind",
+    "japanese": "取り残される",
+    "phonetic": "",
+    "partOfSpeech": "idiom",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_469_ex1",
+        "english": "If you don't study, you'll get left behind.",
+        "japanese": "勉強しなければ、取り残されるだろう。",
+        "difficulty": 3,
+        "context": "To fail to keep up with others."
+      }
+    ]
+  },
+  {
+    "id": "medium_470",
+    "english": "miss out",
+    "japanese": "機会を逃す",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_470_ex1",
+        "english": "Don't miss out on this amazing opportunity!",
+        "japanese": "この素晴らしい機会を逃さないでください！",
+        "difficulty": 3,
+        "context": "To fail to take advantage of something."
+      }
+    ]
+  },
+  {
+    "id": "medium_471",
+    "english": "rake in",
+    "japanese": "〜を稼ぎ込む",
+    "phonetic": "",
+    "partOfSpeech": "phrasal verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_471_ex1",
+        "english": "The company is raking in profits from the new product.",
+        "japanese": "その会社は新製品から利益を稼ぎ込んでいる。",
+        "difficulty": 3,
+        "context": "To earn a lot of money easily."
+      }
+    ]
+  },
+  {
+    "id": "medium_472",
+    "english": "wealth",
+    "japanese": "富",
+    "phonetic": "/wɛlθ/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_472_ex1",
+        "english": "He accumulated great wealth during his lifetime.",
+        "japanese": "彼は生涯で莫大な富を築いた。",
+        "difficulty": 3,
+        "context": "An abundance of valuable possessions or money."
+      }
+    ]
+  },
+  {
+    "id": "medium_473",
+    "english": "affluence",
+    "japanese": "富裕",
+    "phonetic": "/ˈæfluəns/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_473_ex1",
+        "english": "The region is known for its affluence.",
+        "japanese": "その地域は富裕で知られている。",
+        "difficulty": 3,
+        "context": "The state of having a great deal of money."
+      }
+    ]
+  },
+  {
+    "id": "medium_474",
+    "english": "prosperity",
+    "japanese": "繁栄",
+    "phonetic": "/prɑːˈspɛrəti/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_474_ex1",
+        "english": "The country is experiencing economic prosperity.",
+        "japanese": "その国は経済的繁栄を経験している。",
+        "difficulty": 3,
+        "context": "The state of being successful and flourishing."
+      }
+    ]
+  },
+  {
+    "id": "medium_475",
+    "english": "suspicion",
+    "japanese": "疑い",
+    "phonetic": "/səˈspɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_475_ex1",
+        "english": "There is a strong suspicion of foul play.",
+        "japanese": "不正行為の強い疑いがある。",
+        "difficulty": 3,
+        "context": "A feeling or belief that something is likely to be true."
+      }
+    ]
+  },
+  {
+    "id": "medium_476",
+    "english": "scepticism",
+    "japanese": "懐疑主義",
+    "phonetic": "/ˈskɛptɪsɪzəm/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_476_ex1",
+        "english": "He met the claims with scepticism.",
+        "japanese": "彼はその主張に懐疑的に対応した。",
+        "difficulty": 3,
+        "context": "Doubt about the truth of something."
+      }
+    ]
+  },
+  {
+    "id": "medium_477",
+    "english": "inaccurate",
+    "japanese": "不正確な",
+    "phonetic": "/ɪnˈækjərət/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_477_ex1",
+        "english": "The report contained several inaccurate statements.",
+        "japanese": "その報告書にはいくつかの不正確な記述が含まれていた。",
+        "difficulty": 3,
+        "context": "Not correct or precise."
+      }
+    ]
+  },
+  {
+    "id": "medium_478",
+    "english": "erroneous",
+    "japanese": "誤った",
+    "phonetic": "/ɪˈroʊniəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_478_ex1",
+        "english": "The system produced erroneous results.",
+        "japanese": "そのシステムは誤った結果を生成した。",
+        "difficulty": 3,
+        "context": "Wrong or incorrect."
+      }
+    ]
+  },
+  {
+    "id": "medium_479",
+    "english": "ascertain",
+    "japanese": "確かめる",
+    "phonetic": "/æsərˈteɪn/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_479_ex1",
+        "english": "We need to ascertain the cause of the problem.",
+        "japanese": "問題の原因を確かめる必要がある。",
+        "difficulty": 3,
+        "context": "To find out for certain."
+      }
+    ]
+  },
+  {
+    "id": "medium_480",
+    "english": "inconceivable",
+    "japanese": "考えられない",
+    "phonetic": "/ˌɪnkənˈsiːvəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_480_ex1",
+        "english": "It was inconceivable that he would betray us.",
+        "japanese": "彼が私たちを裏切るなんて考えられなかった。",
+        "difficulty": 3,
+        "context": "Impossible to imagine or believe."
+      }
+    ]
+  },
+  {
+    "id": "medium_481",
+    "english": "inquiry",
+    "japanese": "調査",
+    "phonetic": "/ˈɪnkwəri/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_481_ex1",
+        "english": "The police launched an inquiry into the incident.",
+        "japanese": "警察はその事件の調査を開始した。",
+        "difficulty": 3,
+        "context": "An act of asking for information."
+      }
+    ]
+  },
+  {
+    "id": "medium_482",
+    "english": "probe",
+    "japanese": "調査",
+    "phonetic": "/proʊb/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_482_ex1",
+        "english": "The journalist conducted a thorough probe into the corruption.",
+        "japanese": "そのジャーナリストは汚職について徹底的な調査を行った。",
+        "difficulty": 3,
+        "context": "An investigation into something."
+      }
+    ]
+  },
+  {
+    "id": "medium_483",
+    "english": "investigation",
+    "japanese": "調査",
+    "phonetic": "/ɪnˌvɛstɪˈɡeɪʃn/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_483_ex1",
+        "english": "The investigation is ongoing.",
+        "japanese": "調査は進行中です。",
+        "difficulty": 3,
+        "context": "The action of investigating something."
+      }
+    ]
+  },
+  {
+    "id": "medium_484",
+    "english": "endure",
+    "japanese": "耐える",
+    "phonetic": "/ɪnˈdjʊər/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_484_ex1",
+        "english": "She had to endure a lot of pain.",
+        "japanese": "彼女は多くの痛みに耐えなければならなかった。",
+        "difficulty": 3,
+        "context": "To suffer something painful or difficult."
+      }
+    ]
+  },
+  {
+    "id": "medium_485",
+    "english": "trustworthy",
+    "japanese": "信頼できる",
+    "phonetic": "/ˈtrʌstˌwɜːrðɪ/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_485_ex1",
+        "english": "He is a trustworthy person.",
+        "japanese": "彼は信頼できる人物です。",
+        "difficulty": 3,
+        "context": "Able to be relied on as honest or truthful."
+      }
+    ]
+  },
+  {
+    "id": "medium_486",
+    "english": "credible",
+    "japanese": "信頼できる",
+    "phonetic": "/ˈkrɛdəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_486_ex1",
+        "english": "The witness provided a credible account of the event.",
+        "japanese": "その証人は事件について信頼できる説明を提供した。",
+        "difficulty": 3,
+        "context": "Able to be believed; convincing."
+      }
+    ]
+  },
+  {
+    "id": "medium_487",
+    "english": "reliable",
+    "japanese": "信頼できる",
+    "phonetic": "/rɪˈlaɪəbl/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_487_ex1",
+        "english": "She is a reliable employee.",
+        "japanese": "彼女は信頼できる従業員です。",
+        "difficulty": 3,
+        "context": "Consistently good in quality or performance."
+      }
+    ]
+  },
+  {
+    "id": "medium_488",
+    "english": "infamous",
+    "japanese": "悪名高い",
+    "phonetic": "/ˈɪnfəməs/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_488_ex1",
+        "english": "The gangster was infamous for his cruelty.",
+        "japanese": "そのギャングは残虐さで悪名高かった。",
+        "difficulty": 3,
+        "context": "Well known for some bad quality or deed."
+      }
+    ]
+  },
+  {
+    "id": "medium_489",
+    "english": "notorious",
+    "japanese": "悪名高い",
+    "phonetic": "/noʊˈtɔːriəs/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_489_ex1",
+        "english": "The area is notorious for its high crime rate.",
+        "japanese": "その地域は高い犯罪率で悪名高い。",
+        "difficulty": 3,
+        "context": "Famous for something bad."
+      }
+    ]
+  },
+  {
+    "id": "medium_490",
+    "english": "scandalous",
+    "japanese": "悪名高い",
+    "phonetic": "/ˈskændələs/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_490_ex1",
+        "english": "The politician's affair was scandalous.",
+        "japanese": "その政治家の不倫はスキャンダラスだった。",
+        "difficulty": 3,
+        "context": "Giving rise to public shock or outrage."
+      }
+    ]
+  },
+  {
+    "id": "medium_491",
+    "english": "ill-famed",
+    "japanese": "悪名高い",
+    "phonetic": "/ˌɪl ˈfeɪmd/",
+    "partOfSpeech": "adjective",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_491_ex1",
+        "english": "The ill-famed pirate was known throughout the seven seas.",
+        "japanese": "悪名高い海賊は七つの海で知られていた。",
+        "difficulty": 3,
+        "context": "Having a bad reputation."
+      }
+    ]
+  },
+  {
+    "id": "medium_492",
+    "english": "arouse",
+    "japanese": "かき立てる",
+    "phonetic": "/əˈraʊz/",
+    "partOfSpeech": "verb",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_492_ex1",
+        "english": "The speech was intended to arouse public interest.",
+        "japanese": "そのスピーチは国民の関心をかき立てることを意図していた。",
+        "difficulty": 3,
+        "context": "To stir or provoke."
+      }
+    ]
+  },
+  {
+    "id": "medium_493",
+    "english": "bookkeeping",
+    "japanese": "会計業務",
+    "phonetic": "/ˈbʊkkiːpɪŋ/",
+    "partOfSpeech": "noun",
+    "frequency": 50,
+    "examples": [
+      {
+        "id": "medium_493_ex1",
+        "english": "Accurate bookkeeping is essential for any business.",
+        "japanese": "正確な会計業務はどんなビジネスにも不可欠です。",
+        "difficulty": 3,
+        "context": "The process of recording financial transactions."
+      }
+    ]
+  }
+]
