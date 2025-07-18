@@ -59,10 +59,10 @@ export function getOptimalSessionComposition(
 } {
   // Ideal ratios for effective learning (optimized for new flow)
   const idealRatios = {
-    new: 0.70,
+    new: 0.68,
     learning: 0.15,
     reviewing: 0.10,
-    mastered: 0.05
+    mastered: 0.07
   };
   
   const composition = {

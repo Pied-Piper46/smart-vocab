@@ -22,7 +22,10 @@ import {
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { useAnalyticsData, useStrugglingWords, useLearningHistory, useProfileData } from '@/lib/swr-config';
+import { sessionStorageCache } from '@/lib/session-storage';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface AnalyticsData {
   streaks: {
     current: number;
@@ -44,6 +47,7 @@ interface AnalyticsData {
   goalAchievementRate: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface StrugglingWord {
   word: {
     english: string;
@@ -56,6 +60,7 @@ interface StrugglingWord {
   status: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface LearningHistoryData {
   month: string;
   year: number;
@@ -72,6 +77,7 @@ interface LearningHistoryData {
   activeDays: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface UserProfile {
   id: string;
   name: string;
@@ -91,15 +97,19 @@ type MenuType = 'progress' | 'mastery' | 'recent' | 'struggling' | 'history' | '
 export default function ProgressPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
-  const [strugglingWords, setStrugglingWords] = useState<StrugglingWord[]>([]);
-  const [learningHistory, setLearningHistory] = useState<LearningHistoryData | null>(null);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [activeMenu, setActiveMenu] = useState<MenuType>('progress');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [currentHistoryMonth, setCurrentHistoryMonth] = useState(new Date());
+  
+  // SWR hooks for efficient data fetching and caching
+  const { data: analytics, error: analyticsError, isLoading: isLoadingAnalytics } = useAnalyticsData();
+  const { data: strugglingWords, error: strugglingError, isLoading: isLoadingStrugglingWords } = useStrugglingWords();
+  const { data: userProfile, error: profileError, isLoading: isLoadingProfile } = useProfileData();
+  const { data: learningHistory, error: historyError, isLoading: isLoadingHistory } = useLearningHistory(
+    currentHistoryMonth.getFullYear(),
+    currentHistoryMonth.getMonth() + 1
+  );
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -107,94 +117,50 @@ export default function ProgressPage() {
       router.push('/auth/signin');
       return;
     }
-    fetchAnalytics();
   }, [session, status, router]);
 
-  const fetchAnalytics = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch('/api/progress/analytics');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setAnalytics(data.data);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching analytics:', error);
-    } finally {
-      setIsLoading(false);
+  // Handle SWR errors
+  useEffect(() => {
+    if (analyticsError || strugglingError || profileError || historyError) {
+      console.error('Progress page data fetch errors:', {
+        analytics: analyticsError,
+        struggling: strugglingError,
+        profile: profileError,
+        history: historyError
+      });
     }
-  };
+  }, [analyticsError, strugglingError, profileError, historyError]);
 
-  const fetchUserProfile = async () => {
-    try {
-      const response = await fetch('/api/user/profile');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setUserProfile(data.data);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
+  // Cache data in sessionStorage for faster subsequent loads
+  useEffect(() => {
+    if (analytics) {
+      sessionStorageCache.set('progress-analytics', analytics);
     }
-  };
+  }, [analytics]);
 
-  const fetchStrugglingWords = async () => {
-    try {
-      const response = await fetch('/api/progress/struggling-words');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setStrugglingWords(data.data);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching struggling words:', error);
+  useEffect(() => {
+    if (strugglingWords) {
+      sessionStorageCache.set('progress-struggling-words', strugglingWords);
     }
-  };
+  }, [strugglingWords]);
 
-  const fetchLearningHistory = async (targetMonth?: Date) => {
-    try {
-      const monthToFetch = targetMonth || currentHistoryMonth;
-      const year = monthToFetch.getFullYear();
-      const month = monthToFetch.getMonth() + 1; // JavaScript months are 0-indexed
-      
-      const response = await fetch(`/api/progress/learning-history?year=${year}&month=${month}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setLearningHistory(data.data);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching learning history:', error);
+  useEffect(() => {
+    if (userProfile) {
+      sessionStorageCache.set('progress-user-profile', userProfile);
     }
-  };
+  }, [userProfile]);
+
+  useEffect(() => {
+    if (learningHistory) {
+      sessionStorageCache.set(`progress-history-${currentHistoryMonth.getFullYear()}-${currentHistoryMonth.getMonth() + 1}`, learningHistory);
+    }
+  }, [learningHistory, currentHistoryMonth]);
+
 
   const handleMenuClick = (menu: MenuType) => {
     setActiveMenu(menu);
     setIsSidebarOpen(false);
-    
-    // Fetch data on demand
-    switch (menu) {
-      case 'struggling':
-        if (strugglingWords.length === 0) {
-          fetchStrugglingWords();
-        }
-        break;
-      case 'history':
-        if (!learningHistory) {
-          fetchLearningHistory();
-        }
-        break;
-      case 'profile':
-        if (!userProfile) {
-          fetchUserProfile();
-        }
-        break;
-    }
+    // SWR automatically handles data fetching when components mount
   };
 
   const handleHomeClick = () => {
@@ -221,7 +187,7 @@ export default function ProgressPage() {
     const prevMonth = new Date(currentHistoryMonth);
     prevMonth.setMonth(prevMonth.getMonth() - 1);
     setCurrentHistoryMonth(prevMonth);
-    fetchLearningHistory(prevMonth);
+    // SWR will automatically fetch new data when currentHistoryMonth changes
   };
 
   const handleNextMonth = () => {
@@ -232,7 +198,7 @@ export default function ProgressPage() {
     const now = new Date();
     if (nextMonth <= now) {
       setCurrentHistoryMonth(nextMonth);
-      fetchLearningHistory(nextMonth);
+      // SWR will automatically fetch new data when currentHistoryMonth changes
     }
   };
 
@@ -255,7 +221,7 @@ export default function ProgressPage() {
     return currentMenuItem ? currentMenuItem.icon : BarChart3;
   };
 
-  if (status === 'loading' || isLoading) {
+  if (status === 'loading' || isLoadingAnalytics) {
     return <LoadingSpinner />;
   }
 
@@ -583,7 +549,7 @@ export default function ProgressPage() {
 
         {analytics.recentlyMastered.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:ml-5 sm:mr-5">
-            {analytics.recentlyMastered.map((item, index) => (
+            {analytics.recentlyMastered.map((item: { word: { english: string; japanese: string }; updatedAt: string }, index: number) => (
               <div key={index} className="glass rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <Star className="text-green-300" size={20} />
@@ -609,6 +575,19 @@ export default function ProgressPage() {
   }
 
   function renderStrugglingContent() {
+    // Show loading spinner while fetching struggling words data
+    if (isLoadingStrugglingWords) {
+      return (
+        <div className="space-y-8">
+          <div className="hidden lg:flex items-center gap-3 mb-15 ml-7">
+            <AlertTriangle className="text-white/80 w-8 h-8" />
+            <h2 className="text-white/80 text-3xl font-bold">苦手な単語</h2>
+          </div>
+          <LoadingSpinner fullScreen={false} />
+        </div>
+      );
+    }
+
     return (
       <div className="space-y-8 mb-10">
         <div className="hidden lg:flex items-center gap-3 mb-15 ml-7">
@@ -616,9 +595,9 @@ export default function ProgressPage() {
           <h2 className="text-white/80 text-3xl font-bold">苦手な単語</h2>
         </div>
 
-        {strugglingWords.length > 0 ? (
+        {strugglingWords && strugglingWords.length > 0 ? (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:ml-5 sm:mr-5">
-            {strugglingWords.map((item, index) => (
+            {strugglingWords.map((item: { word: { english: string; japanese: string; partOfSpeech: string }; totalReviews: number; correctAnswers: number; accuracy: number }, index: number) => (
               <div key={index} className="glass rounded-2xl p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
@@ -656,7 +635,7 @@ export default function ProgressPage() {
   }
 
   function renderHistoryContent() {
-    if (!learningHistory) {
+    if (isLoadingHistory || !learningHistory) {
       return (
         <div className="space-y-8">
           <div className="hidden lg:flex items-center gap-3 mb-15 ml-7">
@@ -713,7 +692,7 @@ export default function ProgressPage() {
             {/* Calendar Grid */}
             <div className="grid grid-cols-7 gap-1 text-xs">
               {/* Week headers */}
-              {['日', '月', '火', '水', '木', '金', '土'].map((day) => (
+              {['日', '月', '火', '水', '木', '金', '土'].map((day: string) => (
                 <div key={day} className="text-white/50 text-center p-2 font-bold">
                   {day}
                 </div>
@@ -725,7 +704,7 @@ export default function ProgressPage() {
               ))}
               
               {/* Days */}
-              {learningHistory.days.map((day) => (
+              {learningHistory.days.map((day: { day: number; date: string; sessionCount: number; hasSession: boolean }) => (
                 <div
                   key={day.day}
                   className={`
@@ -758,7 +737,7 @@ export default function ProgressPage() {
   }
 
   function renderProfileContent() {
-    if (!userProfile) {
+    if (isLoadingProfile || !userProfile) {
       return (
         <div className="space-y-8">
           <div className="hidden lg:flex items-center gap-3 mb-15 ml-7">

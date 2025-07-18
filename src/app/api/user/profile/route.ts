@@ -25,6 +25,7 @@ export async function GET() {
         currentStreak: true,
         longestStreak: true,
         totalStudyTime: true,
+        totalWordsLearned: true, // Pre-calculated field
       },
     });
 
@@ -35,22 +36,13 @@ export async function GET() {
       );
     }
 
-    // Calculate totalWordsLearned from WordProgress
-    const wordProgressCount = await prisma.wordProgress.count({
-      where: {
-        userId: currentUser.id,
-        correctAnswers: {
-          gt: 0
-        }
-      }
-    });
-
     return NextResponse.json({
       success: true,
-      data: {
-        ...user,
-        totalWordsLearned: wordProgressCount
-      },
+      data: user,
+    }, {
+      headers: {
+        'Cache-Control': 'private, max-age=300, stale-while-revalidate=60', // 5分間キャッシュ、1分間のstale-while-revalidate
+      }
     });
   } catch (error) {
     console.error('Error fetching user profile:', error);

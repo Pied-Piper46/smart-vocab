@@ -200,33 +200,82 @@ export async function recordSessionCompletion(
   wordsStudied: number,
   answers: SessionAnswer[]
 ): Promise<SessionCompletionData> {
-  try {
-    const response = await fetch(`${API_BASE}/sessions/complete`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        wordsStudied,
-        answers,
-      }),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+  const maxRetries = 3;
+  let lastError: Error;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      console.log(`🔄 Recording session completion (attempt ${attempt}/${maxRetries})...`);
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      
+      const response = await fetch(`${API_BASE}/sessions/complete`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          wordsStudied,
+          answers,
+        }),
+        signal: controller.signal,
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        // Handle specific HTTP status codes
+        if (response.status === 401) {
+          throw new Error('Authentication required. Please sign in again.');
+        } else if (response.status === 403) {
+          throw new Error('Access denied. Please check your permissions.');
+        } else if (response.status === 409) {
+          throw new Error('Session conflict. Please try again.');
+        } else if (response.status >= 500) {
+          throw new Error(`Server error (${response.status}). Please try again later.`);
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      }
+      
+      const result: ApiResponse<SessionCompletionData> = await response.json();
+      
+      if (!result.success || !result.data) {
+        throw new Error(result.error || 'Failed to record session completion');
+      }
+      
+      console.log(`✅ Session completion recorded successfully on attempt ${attempt}`);
+      return result.data;
+      
+    } catch (error) {
+      lastError = error as Error;
+      console.error(`❌ Attempt ${attempt} failed:`, error);
+      
+      // Don't retry on authentication or client errors
+      if (error instanceof Error) {
+        if (error.message.includes('Authentication') || 
+            error.message.includes('Access denied') ||
+            error.message.includes('401') ||
+            error.message.includes('403')) {
+          throw error;
+        }
+      }
+      
+      // If this was the last attempt, throw the error
+      if (attempt === maxRetries) {
+        throw lastError;
+      }
+      
+      // Wait before retrying with exponential backoff
+      const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000); // Max 5 seconds
+      console.log(`⏳ Waiting ${delay}ms before retry...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
     }
-    
-    const result: ApiResponse<SessionCompletionData> = await response.json();
-    
-    if (!result.success || !result.data) {
-      throw new Error(result.error || 'Failed to record session completion');
-    }
-    
-    return result.data;
-  } catch (error) {
-    console.error('Error recording session completion:', error);
-    throw error;
   }
+  
+  // This should never be reached, but TypeScript requires it
+  throw lastError!;
 }
 
 /**

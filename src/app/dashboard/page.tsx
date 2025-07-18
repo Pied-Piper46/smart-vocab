@@ -5,34 +5,20 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { User } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { useDashboardData } from '@/lib/swr-config';
+import { sessionStorageCache } from '@/lib/session-storage';
 
-interface UserProfile {
-  name: string;
-  email: string;
-  dailyGoal: number;
-  sessionDuration: number;
-  preferredLanguage: string;
-  totalWordsLearned: number;
-  currentStreak: number;
-  longestStreak: number;
-  totalStudyTime: number;
-}
-
-interface DailyProgress {
-  dailyGoal: number;
-  wordsStudiedToday: number;
-  sessionsToday: number;
-  progressPercentage: number;
-  isGoalReached: boolean;
-}
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [dailyProgress, setDailyProgress] = useState<DailyProgress | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [showProgressAnimation, setShowProgressAnimation] = useState(false);
+  
+  // Use SWR for data fetching with caching
+  const { data: dashboardData, error, isLoading } = useDashboardData();
+  
+  const profile = dashboardData?.profile;
+  const dailyProgress = dashboardData?.dailyProgress;
 
   // Redirect to signin if not authenticated
   useEffect(() => {
@@ -42,12 +28,16 @@ export default function Dashboard() {
     }
   }, [session, status, router]);
 
-  // Fetch user profile and daily progress
+  // Handle SWR errors (e.g., authentication issues)
   useEffect(() => {
-    if (session?.user?.id) {
-      fetchData();
+    if (error && session) {
+      console.error('Dashboard data fetch error:', error);
+      // If authentication error, sign out
+      if (error.message?.includes('unauthorized') || error.message?.includes('401')) {
+        signOut({ callbackUrl: '/auth/signin' });
+      }
     }
-  }, [session]);
+  }, [error, session]);
 
   // Start progress bar animation after component mounts and data is loaded
   useEffect(() => {
@@ -63,68 +53,15 @@ export default function Dashboard() {
     }
   }, [profile, dailyProgress, isLoading]);
 
-  const fetchData = async () => {
-    try {
-      setIsLoading(true);
-      
-      // Fetch profile and daily progress in parallel
-      const [profileResponse, progressResponse] = await Promise.all([
-        fetch('/api/user/profile'),
-        fetch('/api/progress/daily')
-      ]);
-      
-      // Handle profile fetch failure (e.g., user deleted from database)
-      if (!profileResponse.ok) {
-        if (profileResponse.status === 404 || profileResponse.status === 401) {
-          console.error('User not found or unauthorized - clearing session');
-          await signOut({ callbackUrl: '/auth/signin' });
-          return;
-        }
-        throw new Error('Failed to fetch profile');
-      }
-      
-      // Handle daily progress fetch failure
-      if (!progressResponse.ok) {
-        if (progressResponse.status === 404 || progressResponse.status === 401) {
-          console.error('User progress not found or unauthorized - clearing session');
-          await signOut({ callbackUrl: '/auth/signin' });
-          return;
-        }
-        throw new Error('Failed to fetch daily progress');
-      }
-      
-      const [profileData, progressData] = await Promise.all([
-        profileResponse.json(),
-        progressResponse.json()
-      ]);
-      
-      if (profileData.success) {
-        setProfile(profileData.data);
-      } else {
-        // API responded but with success: false
-        console.error('Profile fetch failed:', profileData.error);
-        await signOut({ callbackUrl: '/auth/signin' });
-        return;
-      }
-      
-      if (progressData.success) {
-        setDailyProgress(progressData.data);
-      } else {
-        // API responded but with success: false
-        console.error('Daily progress fetch failed:', progressData.error);
-        await signOut({ callbackUrl: '/auth/signin' });
-        return;
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      // For other errors, also redirect to sign in
-      await signOut({ callbackUrl: '/auth/signin' });
-    } finally {
-      setIsLoading(false);
+  // Cache data in sessionStorage for faster subsequent loads
+  useEffect(() => {
+    if (dashboardData && !error) {
+      sessionStorageCache.set('dashboard-data', dashboardData);
     }
-  };
+  }, [dashboardData, error]);
 
-  // Show loading while checking authentication
+
+  // Show loading while checking authentication or fetching data
   if (status === 'loading' || isLoading) {
     return <LoadingSpinner />;
   }

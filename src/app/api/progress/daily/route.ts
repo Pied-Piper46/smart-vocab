@@ -79,6 +79,10 @@ export async function GET() {
         progressPercentage,
         isGoalReached: wordsStudiedToday >= user.dailyGoal,
       },
+    }, {
+      headers: {
+        'Cache-Control': 'private, max-age=180, stale-while-revalidate=30', // 3分間キャッシュ（進捗は頻繁に更新される可能性）
+      }
     });
   } catch (error) {
     console.error('Error fetching daily progress:', error);

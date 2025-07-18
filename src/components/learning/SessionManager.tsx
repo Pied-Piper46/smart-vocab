@@ -8,6 +8,7 @@ import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import SessionFeedbackComponent from './SessionFeedback';
 import ExitConfirmationDialog from './ExitConfirmationDialog';
 import { DifficultyLevel } from '@/types/word-data';
+import { mutate } from 'swr';
 
 // Remove unused interfaces since they're now imported from api-client
 
@@ -86,16 +87,77 @@ export default function SessionManager({
       console.log('📋 Generated feedback from batch result:', feedback);
       setSessionFeedback(feedback);
       
+      // 🚀 SWR Cache Invalidation - Refresh dashboard and progress data immediately
+      console.log('📋 Invalidating SWR cache for dashboard and progress data...');
+      await Promise.all([
+        mutate('/api/dashboard'),
+        mutate('/api/user/profile'),
+        mutate('/api/progress/daily'),
+        mutate('/api/progress/analytics'),
+        mutate('/api/progress/struggling-words')
+      ]);
+      console.log('✅ SWR cache invalidated successfully');
+      
       onSessionComplete?.(finalStats, feedback);
     } catch (error) {
       console.error('❌ Failed to complete session with batch processing:', error);
-      // Fallback: generate basic feedback without status changes
+      
+      // Enhanced error handling with retry mechanism
+      let retryCount = 0;
+      const maxRetries = 2;
+      
+      while (retryCount < maxRetries) {
+        try {
+          console.log(`🔄 Retrying session completion (attempt ${retryCount + 1}/${maxRetries})...`);
+          const result = await recordSessionCompletion(finalStats.wordsStudied, sessionAnswers);
+          
+          const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, result.statusChanges);
+          setSessionFeedback(feedback);
+          
+          // Invalidate cache on successful retry
+          await Promise.all([
+            mutate('/api/dashboard'),
+            mutate('/api/user/profile'),
+            mutate('/api/progress/daily'),
+            mutate('/api/progress/analytics'),
+            mutate('/api/progress/struggling-words')
+          ]);
+          
+          onSessionComplete?.(finalStats, feedback);
+          return; // Success, exit retry loop
+          
+        } catch (retryError) {
+          console.error(`❌ Retry ${retryCount + 1} failed:`, retryError);
+          retryCount++;
+          
+          if (retryCount < maxRetries) {
+            // Wait before retrying (exponential backoff)
+            await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, retryCount)));
+          }
+        }
+      }
+      
+      // All retries failed - show basic feedback but still try to invalidate cache
+      console.error('❌ All retry attempts failed, showing basic feedback');
       const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, {
         upgrades: [],
         downgrades: [],
         maintained: []
       });
       setSessionFeedback(feedback);
+      
+      // Try to invalidate cache even on failure (user might have partial progress)
+      try {
+        await Promise.all([
+          mutate('/api/dashboard'),
+          mutate('/api/user/profile'),
+          mutate('/api/progress/daily'),
+          mutate('/api/progress/analytics'),
+          mutate('/api/progress/struggling-words')
+        ]);
+      } catch (cacheError) {
+        console.warn('⚠️ Failed to invalidate cache after session error:', cacheError);
+      }
     }
   }, [sessionStats, selectedDifficulty, sessionAnswers, onSessionComplete]);
 
@@ -130,16 +192,77 @@ export default function SessionManager({
       console.log('📋 Generated feedback from batch result:', feedback);
       setSessionFeedback(feedback);
       
+      // 🚀 SWR Cache Invalidation - Refresh dashboard and progress data immediately
+      console.log('📋 Invalidating SWR cache for dashboard and progress data...');
+      await Promise.all([
+        mutate('/api/dashboard'),
+        mutate('/api/user/profile'),
+        mutate('/api/progress/daily'),
+        mutate('/api/progress/analytics'),
+        mutate('/api/progress/struggling-words')
+      ]);
+      console.log('✅ SWR cache invalidated successfully');
+      
       onSessionComplete?.(finalStats, feedback);
     } catch (error) {
       console.error('❌ Failed to complete session with final answer batch processing:', error);
-      // Fallback: generate basic feedback without status changes
+      
+      // Enhanced error handling with retry mechanism
+      let retryCount = 0;
+      const maxRetries = 2;
+      
+      while (retryCount < maxRetries) {
+        try {
+          console.log(`🔄 Retrying session completion (attempt ${retryCount + 1}/${maxRetries})...`);
+          const result = await recordSessionCompletion(finalStats.wordsStudied, finalAnswers);
+          
+          const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, result.statusChanges);
+          setSessionFeedback(feedback);
+          
+          // Invalidate cache on successful retry
+          await Promise.all([
+            mutate('/api/dashboard'),
+            mutate('/api/user/profile'),
+            mutate('/api/progress/daily'),
+            mutate('/api/progress/analytics'),
+            mutate('/api/progress/struggling-words')
+          ]);
+          
+          onSessionComplete?.(finalStats, feedback);
+          return; // Success, exit retry loop
+          
+        } catch (retryError) {
+          console.error(`❌ Retry ${retryCount + 1} failed:`, retryError);
+          retryCount++;
+          
+          if (retryCount < maxRetries) {
+            // Wait before retrying (exponential backoff)
+            await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, retryCount)));
+          }
+        }
+      }
+      
+      // All retries failed - show basic feedback but still try to invalidate cache
+      console.error('❌ All retry attempts failed, showing basic feedback');
       const feedback: SessionFeedback = generateSessionFeedbackFromBatch(finalStats, {
         upgrades: [],
         downgrades: [],
         maintained: []
       });
       setSessionFeedback(feedback);
+      
+      // Try to invalidate cache even on failure (user might have partial progress)
+      try {
+        await Promise.all([
+          mutate('/api/dashboard'),
+          mutate('/api/user/profile'),
+          mutate('/api/progress/daily'),
+          mutate('/api/progress/analytics'),
+          mutate('/api/progress/struggling-words')
+        ]);
+      } catch (cacheError) {
+        console.warn('⚠️ Failed to invalidate cache after session error:', cacheError);
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onSessionComplete]);
