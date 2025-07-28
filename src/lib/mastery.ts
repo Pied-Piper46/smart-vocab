@@ -152,14 +152,22 @@ export function selectOptimalWords<T extends {
 ): T[] {
   const selectedWords: T[] = [];
   
-  // Helper function to select words with priority sorting
+  // Helper function to select words with priority sorting and randomization for equal priorities
   const selectFromCategory = (words: T[], count: number): T[] => {
     return words
       .map(word => ({
         word,
-        priority: calculateWordPriority(word)
+        priority: calculateWordPriority(word),
+        randomTieBreaker: Math.random() // Add random value for tie-breaking
       }))
-      .sort((a, b) => b.priority - a.priority) // Higher priority first
+      .sort((a, b) => {
+        // First sort by priority (higher first)
+        if (a.priority !== b.priority) {
+          return b.priority - a.priority;
+        }
+        // If priorities are equal, use random tie-breaker
+        return b.randomTieBreaker - a.randomTieBreaker;
+      })
       .slice(0, count)
       .map(item => item.word);
   };
