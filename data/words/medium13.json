@@ -1,0 +1,563 @@
+[
+    {
+        "id": "medium_657",
+        "english": "commonly held belief",
+        "japanese": "一般的に信じられていること、通説",
+        "phonetic": "",
+        "partOfSpeech": "名詞句",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_657_ex1",
+                "english": "It's a commonly held belief that money brings happiness.",
+                "japanese": "お金が幸福をもたらすというのは、一般的に信じられていることです。",
+                "difficulty": 3,
+                "context": "社会的な通念"
+            }
+        ]
+    },
+    {
+        "id": "medium_658",
+        "english": "axiom",
+        "japanese": "公理、自明の理",
+        "phonetic": "/ˈæksiəm/",
+        "partOfSpeech": "名詞",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_658_ex1",
+                "english": "The axiom that all men are created equal is fundamental to democracy.",
+                "japanese": "すべての人間は平等に創造されるという公理は、民主主義の基本である。",
+                "difficulty": 4,
+                "context": "哲学、数学"
+            }
+        ]
+    },
+    {
+        "id": "medium_659",
+        "english": "make up",
+        "japanese": "でっちあげる、構成する、仲直りする",
+        "phonetic": "",
+        "partOfSpeech": "句動詞",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_659_ex1",
+                "english": "She had to make up a story to explain her absence.",
+                "japanese": "彼女は欠席の理由を説明するために話をでっちあげなければならなかった。",
+                "difficulty": 2,
+                "context": "言い訳、物語"
+            }
+        ]
+    },
+    {
+        "id": "medium_660",
+        "english": "invent",
+        "japanese": "発明する、でっちあげる",
+        "phonetic": "/ɪnˈvɛnt/",
+        "partOfSpeech": "動詞",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_660_ex1",
+                "english": "He invented a new device for cleaning windows.",
+                "japanese": "彼は窓を掃除するための新しい装置を発明した。",
+                "difficulty": 2,
+                "context": "技術、創造"
+            }
+        ]
+    },
+    {
+        "id": "medium_661",
+        "english": "concoct",
+        "japanese": "でっちあげる、調合する",
+        "phonetic": "/kənˈkɒkt/",
+        "partOfSpeech": "動詞",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_661_ex1",
+                "english": "They concocted a plan to escape from prison.",
+                "japanese": "彼らは刑務所から脱走する計画をでっちあげた。",
+                "difficulty": 3,
+                "context": "計画、料理"
+            }
+        ]
+    },
+    {
+        "id": "medium_662",
+        "english": "set down",
+        "japanese": "書き留める、置く",
+        "phonetic": "",
+        "partOfSpeech": "句動詞",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_662_ex1",
+                "english": "He set down his thoughts in a letter.",
+                "japanese": "彼は手紙に自分の考えを書き留めた。",
+                "difficulty": 2,
+                "context": "記録、配置"
+            }
+        ]
+    },
+    {
+        "id": "medium_663",
+        "english": "laboriously",
+        "japanese": "骨の折れるように、苦労して",
+        "phonetic": "/ləˈbɔːriəsli/",
+        "partOfSpeech": "副詞",
+        "frequency": 35,
+        "examples": [
+            {
+                "id": "medium_663_ex1",
+                "english": "He laboriously climbed the steep mountain.",
+                "japanese": "彼は苦労して険しい山を登った。",
+                "difficulty": 3,
+                "context": "努力、困難"
+            }
+        ]
+    },
+    {
+        "id": "medium_664",
+        "english": "meticulously",
+        "japanese": "細心の注意を払って、綿密に",
+        "phonetic": "/məˈtɪkjʊləsli/",
+        "partOfSpeech": "副詞",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_664_ex1",
+                "english": "She meticulously checked every detail of the report.",
+                "japanese": "彼女は報告書のすべての詳細を綿密に確認した。",
+                "difficulty": 3,
+                "context": "正確さ、注意深さ"
+            }
+        ]
+    },
+    {
+        "id": "medium_665",
+        "english": "diligently",
+        "japanese": "勤勉に、熱心に",
+        "phonetic": "/ˈdɪlɪdʒəntli/",
+        "partOfSpeech": "副詞",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_665_ex1",
+                "english": "He worked diligently to finish the project on time.",
+                "japanese": "彼はプロジェクトを期限内に終えるために勤勉に働いた。",
+                "difficulty": 2,
+                "context": "努力、仕事"
+            }
+        ]
+    },
+    {
+        "id": "medium_666",
+        "english": "compile",
+        "japanese": "編集する、まとめる",
+        "phonetic": "/kəmˈpaɪl/",
+        "partOfSpeech": "動詞",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_666_ex1",
+                "english": "She compiled a list of all the books she had read.",
+                "japanese": "彼女は読んだすべての本のリストをまとめた。",
+                "difficulty": 2,
+                "context": "情報、データ"
+            }
+        ]
+    },
+    {
+        "id": "medium_667",
+        "english": "amass",
+        "japanese": "蓄積する、集める",
+        "phonetic": "/əˈmæs/",
+        "partOfSpeech": "動詞",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_667_ex1",
+                "english": "He amassed a fortune through hard work.",
+                "japanese": "彼は勤勉に働くことで財産を築き上げた。",
+                "difficulty": 3,
+                "context": "富、コレクション"
+            }
+        ]
+    },
+    {
+        "id": "medium_668",
+        "english": "anthology",
+        "japanese": "選集、詩集",
+        "phonetic": "/ænˈθɒlədʒi/",
+        "partOfSpeech": "名詞",
+        "frequency": 30,
+        "examples": [
+            {
+                "id": "medium_668_ex1",
+                "english": "The book is an anthology of modern poetry.",
+                "japanese": "その本は現代詩の選集である。",
+                "difficulty": 4,
+                "context": "文学、コレクション"
+            }
+        ]
+    },
+    {
+        "id": "medium_669",
+        "english": "pass down",
+        "japanese": "伝える、受け継ぐ",
+        "phonetic": "",
+        "partOfSpeech": "句動詞",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_669_ex1",
+                "english": "The tradition has been passed down through generations.",
+                "japanese": "その伝統は何世代にもわたって伝えられてきた。",
+                "difficulty": 2,
+                "context": "文化、遺産"
+            }
+        ]
+    },
+    {
+        "id": "medium_670",
+        "english": "folklore",
+        "japanese": "民間伝承、民俗学",
+        "phonetic": "/ˈfoʊklɔːr/",
+        "partOfSpeech": "名詞",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_670_ex1",
+                "english": "The story is part of local folklore.",
+                "japanese": "その話は地元の民間伝承の一部である。",
+                "difficulty": 3,
+                "context": "文化、物語"
+            }
+        ]
+    },
+    {
+        "id": "medium_671",
+        "english": "millennium",
+        "japanese": "千年紀",
+        "phonetic": "/mɪˈlɛniəm/",
+        "partOfSpeech": "名詞",
+        "frequency": 35,
+        "examples": [
+            {
+                "id": "medium_671_ex1",
+                "english": "The new millennium brought many changes.",
+                "japanese": "新しい千年紀は多くの変化をもたらした。",
+                "difficulty": 3,
+                "context": "時間、歴史"
+            }
+        ]
+    },
+    {
+        "id": "medium_672",
+        "english": "folk tale",
+        "japanese": "民話、昔話",
+        "phonetic": "",
+        "partOfSpeech": "名詞句",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_672_ex1",
+                "english": "My grandmother used to tell me folk tales.",
+                "japanese": "祖母はよく私に民話を話してくれた。",
+                "difficulty": 2,
+                "context": "物語、文化"
+            }
+        ]
+    },
+    {
+        "id": "medium_673",
+        "english": "strike",
+        "japanese": "打つ、襲う、印象を与える",
+        "phonetic": "/straɪk/",
+        "partOfSpeech": "動詞",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_673_ex1",
+                "english": "The idea suddenly struck him.",
+                "japanese": "その考えが突然彼にひらめいた。",
+                "difficulty": 2,
+                "context": "行動、思考"
+            }
+        ]
+    },
+    {
+        "id": "medium_674",
+        "english": "occur to",
+        "japanese": "～の心に浮かぶ、～に思いつく",
+        "phonetic": "",
+        "partOfSpeech": "句動詞",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_674_ex1",
+                "english": "It never occurred to me that he might be lying.",
+                "japanese": "彼が嘘をついているかもしれないとは、私には全く思いつかなかった。",
+                "difficulty": 3,
+                "context": "思考、気づき"
+            }
+        ]
+    },
+    {
+        "id": "medium_675",
+        "english": "poles apart",
+        "japanese": "正反対で、かけ離れて",
+        "phonetic": "",
+        "partOfSpeech": "形容詞句",
+        "frequency": 30,
+        "examples": [
+            {
+                "id": "medium_675_ex1",
+                "english": "Their opinions are poles apart.",
+                "japanese": "彼らの意見は正反対だ。",
+                "difficulty": 4,
+                "context": "意見、関係"
+            }
+        ]
+    },
+    {
+        "id": "medium_676",
+        "english": "plot",
+        "japanese": "筋書き、陰謀、区画",
+        "phonetic": "/plɒt/",
+        "partOfSpeech": "名詞",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_676_ex1",
+                "english": "The plot of the movie was very exciting.",
+                "japanese": "その映画の筋書きはとても面白かった。",
+                "difficulty": 2,
+                "context": "物語、計画"
+            }
+        ]
+    },
+    {
+        "id": "medium_677",
+        "english": "narrative",
+        "japanese": "物語、語り口",
+        "phonetic": "/ˈnærətɪv/",
+        "partOfSpeech": "名詞",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_677_ex1",
+                "english": "The book has a compelling narrative.",
+                "japanese": "その本には説得力のある物語がある。",
+                "difficulty": 3,
+                "context": "文学、説明"
+            }
+        ]
+    },
+    {
+        "id": "medium_678",
+        "english": "affirm",
+        "japanese": "断言する、肯定する",
+        "phonetic": "/əˈfɜːrm/",
+        "partOfSpeech": "動詞",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_678_ex1",
+                "english": "He affirmed his commitment to the project.",
+                "japanese": "彼はプロジェクトへのコミットメントを断言した。",
+                "difficulty": 3,
+                "context": "主張、確認"
+            }
+        ]
+    },
+    {
+        "id": "medium_679",
+        "english": "ancestry",
+        "japanese": "祖先、家系",
+        "phonetic": "/ˈænsɛstri/",
+        "partOfSpeech": "名詞",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_679_ex1",
+                "english": "Her ancestry can be traced back to ancient royalty.",
+                "japanese": "彼女の祖先は古代の王族にまで遡ることができる。",
+                "difficulty": 3,
+                "context": "家族、歴史"
+            }
+        ]
+    },
+    {
+        "id": "medium_680",
+        "english": "hideous",
+        "japanese": "恐ろしい、醜い",
+        "phonetic": "/ˈhɪdiəs/",
+        "partOfSpeech": "形容詞",
+        "frequency": 35,
+        "examples": [
+            {
+                "id": "medium_680_ex1",
+                "english": "The monster had a hideous face.",
+                "japanese": "その怪物は恐ろしい顔をしていた。",
+                "difficulty": 3,
+                "context": "外見、恐怖"
+            }
+        ]
+    },
+    {
+        "id": "medium_681",
+        "english": "grotesque",
+        "japanese": "グロテスクな、異様な",
+        "phonetic": "/ɡroʊˈtɛsk/",
+        "partOfSpeech": "形容詞",
+        "frequency": 30,
+        "examples": [
+            {
+                "id": "medium_681_ex1",
+                "english": "The statue was a grotesque figure.",
+                "japanese": "その像は異様な姿をしていた。",
+                "difficulty": 4,
+                "context": "芸術、外見"
+            }
+        ]
+    },
+    {
+        "id": "medium_682",
+        "english": "metamorphose",
+        "japanese": "変形する、変態する",
+        "phonetic": "/ˌmɛtəˈmɔːrfoʊz/",
+        "partOfSpeech": "動詞",
+        "frequency": 25,
+        "examples": [
+            {
+                "id": "medium_682_ex1",
+                "english": "The caterpillar metamorphosed into a butterfly.",
+                "japanese": "毛虫は蝶に変態した。",
+                "difficulty": 4,
+                "context": "変化、生物学"
+            }
+        ]
+    },
+    {
+        "id": "medium_683",
+        "english": "varying",
+        "japanese": "様々な、変化する",
+        "phonetic": "/ˈvɛəriɪŋ/",
+        "partOfSpeech": "形容詞",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_683_ex1",
+                "english": "The results were obtained under varying conditions.",
+                "japanese": "結果は様々な条件下で得られた。",
+                "difficulty": 2,
+                "context": "多様性、条件"
+            }
+        ]
+    },
+    {
+        "id": "medium_684",
+        "english": "adaptation",
+        "japanese": "適応、翻案",
+        "phonetic": "/ˌædæpˈteɪʃən/",
+        "partOfSpeech": "名詞",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_684_ex1",
+                "english": "The movie is an adaptation of a popular novel.",
+                "japanese": "その映画は人気小説の翻案である。",
+                "difficulty": 3,
+                "context": "変化、作品"
+            }
+        ]
+    },
+    {
+        "id": "medium_685",
+        "english": "interpretation",
+        "japanese": "解釈、通訳",
+        "phonetic": "/ɪnˌtɜːrprɪˈteɪʃən/",
+        "partOfSpeech": "名詞",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_685_ex1",
+                "english": "His interpretation of the poem was very insightful.",
+                "japanese": "彼のその詩の解釈は非常に洞察に富んでいた。",
+                "difficulty": 3,
+                "context": "理解、説明"
+            }
+        ]
+    },
+    {
+        "id": "medium_686",
+        "english": "root in",
+        "japanese": "～に根ざす、～に由来する",
+        "phonetic": "",
+        "partOfSpeech": "句動詞",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_686_ex1",
+                "english": "The problem is rooted in a lack of communication.",
+                "japanese": "その問題はコミュニケーション不足に根ざしている。",
+                "difficulty": 3,
+                "context": "原因、起源"
+            }
+        ]
+    },
+    {
+        "id": "medium_687",
+        "english": "classify",
+        "japanese": "分類する",
+        "phonetic": "/ˈklæsɪfaɪ/",
+        "partOfSpeech": "動詞",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_687_ex1",
+                "english": "Scientists classify animals into different groups.",
+                "japanese": "科学者は動物を異なるグループに分類する。",
+                "difficulty": 2,
+                "context": "整理、科学"
+            }
+        ]
+    },
+    {
+        "id": "medium_688",
+        "english": "traced back to",
+        "japanese": "～に遡る、～に由来する",
+        "phonetic": "",
+        "partOfSpeech": "句動詞",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_688_ex1",
+                "english": "The tradition can be traced back to ancient times.",
+                "japanese": "その伝統は古代にまで遡ることができる。",
+                "difficulty": 3,
+                "context": "起源、歴史"
+            }
+        ]
+    },
+    {
+        "id": "medium_689",
+        "english": "divide",
+        "japanese": "分ける、分割する",
+        "phonetic": "/dɪˈvaɪd/",
+        "partOfSpeech": "動詞",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_689_ex1",
+                "english": "They divided the cake into equal parts.",
+                "japanese": "彼らはケーキを等しい部分に分けた。",
+                "difficulty": 2,
+                "context": "分割、数学"
+            }
+        ]
+    }
+]
