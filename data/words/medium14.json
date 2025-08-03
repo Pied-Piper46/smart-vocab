@@ -1,0 +1,835 @@
+[
+    {
+        "id": "medium_690",
+        "english": "incidence",
+        "japanese": "発生率、出来事",
+        "phonetic": "/ˈɪnsɪdəns/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_690_ex1",
+                "english": "The incidence of the disease is increasing.",
+                "japanese": "その病気の発生率が増加している。",
+                "difficulty": 3,
+                "context": "医療"
+            }
+        ]
+    },
+    {
+        "id": "medium_691",
+        "english": "occurrence",
+        "japanese": "出来事、発生",
+        "phonetic": "/əˈkʌrəns/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_691_ex1",
+                "english": "This was a rare occurrence.",
+                "japanese": "これは珍しい出来事だった。",
+                "difficulty": 3,
+                "context": "日常"
+            }
+        ]
+    },
+    {
+        "id": "medium_692",
+        "english": "instance",
+        "japanese": "例、実例",
+        "phonetic": "/ˈɪnstəns/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_692_ex1",
+                "english": "For instance, consider this case.",
+                "japanese": "例えば、このケースを考えてみてください。",
+                "difficulty": 3,
+                "context": "議論"
+            }
+        ]
+    },
+    {
+        "id": "medium_693",
+        "english": "spot",
+        "japanese": "場所、点、斑点",
+        "phonetic": "/spɒt/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_693_ex1",
+                "english": "This is a good spot for a picnic.",
+                "japanese": "ここはピクニックに良い場所だ。",
+                "difficulty": 3,
+                "context": "場所"
+            }
+        ]
+    },
+    {
+        "id": "medium_694",
+        "english": "sight",
+        "japanese": "視力、光景、見ること",
+        "phonetic": "/saɪt/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_694_ex1",
+                "english": "The view was a beautiful sight.",
+                "japanese": "その眺めは美しい光景だった。",
+                "difficulty": 3,
+                "context": "風景"
+            }
+        ]
+    },
+    {
+        "id": "medium_695",
+        "english": "adjacent to",
+        "japanese": "〜に隣接して",
+        "phonetic": "",
+        "partOfSpeech": "prepositional phrase",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_695_ex1",
+                "english": "The building is adjacent to the park.",
+                "japanese": "その建物は公園に隣接している。",
+                "difficulty": 3,
+                "context": "地理"
+            }
+        ]
+    },
+    {
+        "id": "medium_696",
+        "english": "abutting",
+        "japanese": "隣接している、境を接している",
+        "phonetic": "/əˈbʌtɪŋ/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_696_ex1",
+                "english": "The two properties are abutting.",
+                "japanese": "その2つの土地は隣接している。",
+                "difficulty": 3,
+                "context": "不動産"
+            }
+        ]
+    },
+    {
+        "id": "medium_697",
+        "english": "adjoining",
+        "japanese": "隣接した、隣の",
+        "phonetic": "/əˈdʒɔɪnɪŋ/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_697_ex1",
+                "english": "We stayed in adjoining rooms.",
+                "japanese": "私たちは隣り合った部屋に泊まった。",
+                "difficulty": 3,
+                "context": "ホテル"
+            }
+        ]
+    },
+    {
+        "id": "medium_698",
+        "english": "alongside",
+        "japanese": "〜のそばに、〜と並んで",
+        "phonetic": "/əˈlɒŋsaɪd/",
+        "partOfSpeech": "preposition",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_698_ex1",
+                "english": "He walked alongside his dog.",
+                "japanese": "彼は犬のそばを歩いた。",
+                "difficulty": 3,
+                "context": "行動"
+            }
+        ]
+    },
+    {
+        "id": "medium_699",
+        "english": "hygienic",
+        "japanese": "衛生的な",
+        "phonetic": "/haɪˈdʒiːnɪk/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_699_ex1",
+                "english": "It's important to maintain hygienic conditions.",
+                "japanese": "衛生的な状態を保つことが重要だ。",
+                "difficulty": 3,
+                "context": "健康"
+            }
+        ]
+    },
+    {
+        "id": "medium_700",
+        "english": "sanitary",
+        "japanese": "衛生的な、清潔な",
+        "phonetic": "/ˈsænɪtəri/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_700_ex1",
+                "english": "The hospital has very sanitary facilities.",
+                "japanese": "その病院は非常に衛生的な設備がある。",
+                "difficulty": 3,
+                "context": "施設"
+            }
+        ]
+    },
+    {
+        "id": "medium_701",
+        "english": "sterile",
+        "japanese": "無菌の、不毛の",
+        "phonetic": "/ˈstɛraɪl/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_701_ex1",
+                "english": "The surgical instruments must be sterile.",
+                "japanese": "手術器具は無菌でなければならない。",
+                "difficulty": 3,
+                "context": "医療"
+            }
+        ]
+    },
+    {
+        "id": "medium_702",
+        "english": "exclusively",
+        "japanese": "もっぱら、排他的に",
+        "phonetic": "/ɪkˈskluːsɪvli/",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_702_ex1",
+                "english": "This offer is exclusively for members.",
+                "japanese": "このオファーは会員限定です。",
+                "difficulty": 3,
+                "context": "ビジネス"
+            }
+        ]
+    },
+    {
+        "id": "medium_703",
+        "english": "solely",
+        "japanese": "もっぱら、単に",
+        "phonetic": "/ˈsəʊlli/",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_703_ex1",
+                "english": "He is solely responsible for the project.",
+                "japanese": "彼がそのプロジェクトの唯一の責任者だ。",
+                "difficulty": 3,
+                "context": "責任"
+            }
+        ]
+    },
+    {
+        "id": "medium_704",
+        "english": "entirely",
+        "japanese": "完全に、全く",
+        "phonetic": "/ɪnˈtaɪəli/",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_704_ex1",
+                "english": "The situation is entirely different now.",
+                "japanese": "状況は今や全く異なる。",
+                "difficulty": 3,
+                "context": "状況"
+            }
+        ]
+    },
+    {
+        "id": "medium_705",
+        "english": "phenomenon",
+        "japanese": "現象",
+        "phonetic": "/fɪˈnɒmɪnən/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_705_ex1",
+                "english": "Global warming is a serious phenomenon.",
+                "japanese": "地球温暖化は深刻な現象だ。",
+                "difficulty": 3,
+                "context": "科学"
+            }
+        ]
+    },
+    {
+        "id": "medium_706",
+        "english": "corroborate",
+        "japanese": "裏付ける、確証する",
+        "phonetic": "/kəˈrɒbəreɪt/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_706_ex1",
+                "english": "The evidence corroborated his story.",
+                "japanese": "その証拠は彼の話を裏付けた。",
+                "difficulty": 3,
+                "context": "法廷"
+            }
+        ]
+    },
+    {
+        "id": "medium_707",
+        "english": "primate",
+        "japanese": "霊長類",
+        "phonetic": "/ˈpraɪmeɪt/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_707_ex1",
+                "english": "Monkeys and apes are primates.",
+                "japanese": "サルや類人猿は霊長類だ。",
+                "difficulty": 3,
+                "context": "生物学"
+            }
+        ]
+    },
+    {
+        "id": "medium_708",
+        "english": "mimic",
+        "japanese": "模倣する、真似る",
+        "phonetic": "/ˈmɪmɪk/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_708_ex1",
+                "english": "He can mimic various accents.",
+                "japanese": "彼はいろいろなアクセントを真似できる。",
+                "difficulty": 3,
+                "context": "能力"
+            }
+        ]
+    },
+    {
+        "id": "medium_709",
+        "english": "dominant",
+        "japanese": "支配的な、優勢な",
+        "phonetic": "/ˈdɒmɪnənt/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_709_ex1",
+                "english": "The dominant species in this area is the oak tree.",
+                "japanese": "この地域で優勢な種はオークの木だ。",
+                "difficulty": 3,
+                "context": "生態系"
+            }
+        ]
+    },
+    {
+        "id": "medium_710",
+        "english": "mating season",
+        "japanese": "繁殖期",
+        "phonetic": "",
+        "partOfSpeech": "noun phrase",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_710_ex1",
+                "english": "Deer are more active during the mating season.",
+                "japanese": "シカは繁殖期により活動的になる。",
+                "difficulty": 3,
+                "context": "動物"
+            }
+        ]
+    },
+    {
+        "id": "medium_711",
+        "english": "adapt to",
+        "japanese": "〜に適応する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_711_ex1",
+                "english": "It's hard to adapt to a new environment.",
+                "japanese": "新しい環境に適応するのは難しい。",
+                "difficulty": 3,
+                "context": "変化"
+            }
+        ]
+    },
+    {
+        "id": "medium_712",
+        "english": "acclimatise to",
+        "japanese": "〜に順応する、慣れる",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_712_ex1",
+                "english": "It takes time to acclimatise to the altitude.",
+                "japanese": "その高度に順応するには時間がかかる。",
+                "difficulty": 3,
+                "context": "環境"
+            }
+        ]
+    },
+    {
+        "id": "medium_713",
+        "english": "adjust to",
+        "japanese": "〜に順応する、調整する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_713_ex1",
+                "english": "You need to adjust to the new rules.",
+                "japanese": "新しい規則に順応する必要がある。",
+                "difficulty": 3,
+                "context": "規則"
+            }
+        ]
+    },
+    {
+        "id": "medium_714",
+        "english": "acclimate",
+        "japanese": "順応させる、慣れる",
+        "phonetic": "/ˈæklɪmeɪt/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_714_ex1",
+                "english": "The plants need time to acclimate to the new climate.",
+                "japanese": "その植物は新しい気候に慣れる時間が必要だ。",
+                "difficulty": 3,
+                "context": "植物"
+            }
+        ]
+    },
+    {
+        "id": "medium_715",
+        "english": "mountainous",
+        "japanese": "山の多い、山岳の",
+        "phonetic": "/ˈmaʊntɪnəs/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_715_ex1",
+                "english": "The region is very mountainous.",
+                "japanese": "その地域は非常に山が多い。",
+                "difficulty": 3,
+                "context": "地理"
+            }
+        ]
+    },
+    {
+        "id": "medium_716",
+        "english": "hilly",
+        "japanese": "丘の多い",
+        "phonetic": "/ˈhɪli/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_716_ex1",
+                "english": "We went for a walk in the hilly countryside.",
+                "japanese": "私たちは丘の多い田舎を散歩した。",
+                "difficulty": 3,
+                "context": "風景"
+            }
+        ]
+    },
+    {
+        "id": "medium_717",
+        "english": "alpine",
+        "japanese": "高山の、アルプスの",
+        "phonetic": "/ˈælpaɪn/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_717_ex1",
+                "english": "Alpine plants are adapted to cold climates.",
+                "japanese": "高山植物は寒い気候に適応している。",
+                "difficulty": 3,
+                "context": "植物"
+            }
+        ]
+    },
+    {
+        "id": "medium_718",
+        "english": "preserve",
+        "japanese": "保存する、保護する",
+        "phonetic": "/prɪˈzɜːrv/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_718_ex1",
+                "english": "We must preserve our natural resources.",
+                "japanese": "私たちは天然資源を保護しなければならない。",
+                "difficulty": 3,
+                "context": "環境"
+            }
+        ]
+    },
+    {
+        "id": "medium_719",
+        "english": "assume",
+        "japanese": "仮定する、引き受ける",
+        "phonetic": "/əˈsjuːm/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_719_ex1",
+                "english": "I assume you are correct.",
+                "japanese": "あなたが正しいと仮定します。",
+                "difficulty": 3,
+                "context": "思考"
+            }
+        ]
+    },
+    {
+        "id": "medium_720",
+        "english": "presume",
+        "japanese": "推定する、〜と見なす",
+        "phonetic": "/prɪˈzjuːm/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_720_ex1",
+                "english": "I presume you've heard the news.",
+                "japanese": "あなたはニュースを聞いたと推定します。",
+                "difficulty": 3,
+                "context": "推測"
+            }
+        ]
+    },
+    {
+        "id": "medium_721",
+        "english": "act as",
+        "japanese": "〜として機能する、〜の役目を果たす",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_721_ex1",
+                "english": "He will act as a temporary manager.",
+                "japanese": "彼が一時的なマネージャーとして機能するだろう。",
+                "difficulty": 3,
+                "context": "役割"
+            }
+        ]
+    },
+    {
+        "id": "medium_722",
+        "english": "uncover",
+        "japanese": "暴く、発見する",
+        "phonetic": "/ʌnˈkʌvər/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_722_ex1",
+                "english": "The investigation uncovered the truth.",
+                "japanese": "調査は真実を暴いた。",
+                "difficulty": 3,
+                "context": "調査"
+            }
+        ]
+    },
+    {
+        "id": "medium_723",
+        "english": "alleviate",
+        "japanese": "和らげる、軽減する",
+        "phonetic": "/əˈliːvieɪt/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_723_ex1",
+                "english": "This medicine will alleviate your pain.",
+                "japanese": "この薬はあなたの痛みを和らげるだろう。",
+                "difficulty": 3,
+                "context": "医療"
+            }
+        ]
+    },
+    {
+        "id": "medium_724",
+        "english": "unwind",
+        "japanese": "くつろぐ、ほどく",
+        "phonetic": "/ʌnˈwaɪnd/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_724_ex1",
+                "english": "I like to unwind with a good book.",
+                "japanese": "私は良い本を読んでくつろぐのが好きだ。",
+                "difficulty": 3,
+                "context": "リラックス"
+            }
+        ]
+    },
+    {
+        "id": "medium_725",
+        "english": "aggressive",
+        "japanese": "攻撃的な、積極的な",
+        "phonetic": "/əˈɡrɛsɪv/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_725_ex1",
+                "english": "He has an aggressive marketing strategy.",
+                "japanese": "彼は積極的なマーケティング戦略を持っている。",
+                "difficulty": 3,
+                "context": "性格"
+            }
+        ]
+    },
+    {
+        "id": "medium_726",
+        "english": "belligerent",
+        "japanese": "好戦的な、けんか腰の",
+        "phonetic": "/bɪˈlɪdʒərənt/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_726_ex1",
+                "english": "His belligerent attitude caused problems.",
+                "japanese": "彼の好戦的な態度は問題を引き起こした。",
+                "difficulty": 3,
+                "context": "性格"
+            }
+        ]
+    },
+    {
+        "id": "medium_727",
+        "english": "hostile",
+        "japanese": "敵意のある、敵対的な",
+        "phonetic": "/ˈhɒstaɪl/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_727_ex1",
+                "english": "The crowd was hostile towards the speaker.",
+                "japanese": "群衆は講演者に対して敵対的だった。",
+                "difficulty": 3,
+                "context": "感情"
+            }
+        ]
+    },
+    {
+        "id": "medium_728",
+        "english": "combative",
+        "japanese": "好戦的な、けんか好きな",
+        "phonetic": "/ˈkɒmbətɪv/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_728_ex1",
+                "english": "He was in a combative mood.",
+                "japanese": "彼は好戦的な気分だった。",
+                "difficulty": 3,
+                "context": "気分"
+            }
+        ]
+    },
+    {
+        "id": "medium_729",
+        "english": "dispute",
+        "japanese": "論争、紛争",
+        "phonetic": "/dɪˈspjuːt/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_729_ex1",
+                "english": "They had a dispute over money.",
+                "japanese": "彼らはお金をめぐって論争した。",
+                "difficulty": 3,
+                "context": "対立"
+            }
+        ]
+    },
+    {
+        "id": "medium_730",
+        "english": "quarrel",
+        "japanese": "口論、けんか",
+        "phonetic": "/ˈkwɒrəl/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_730_ex1",
+                "english": "They had a quarrel about trivial matters.",
+                "japanese": "彼らは些細なことで口論した。",
+                "difficulty": 3,
+                "context": "人間関係"
+            }
+        ]
+    },
+    {
+        "id": "medium_731",
+        "english": "altercation",
+        "japanese": "口論、言い争い",
+        "phonetic": "/ˌɔːltərˈkeɪʃən/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_731_ex1",
+                "english": "There was a heated altercation between the two drivers.",
+                "japanese": "2人のドライバーの間で激しい言い争いがあった。",
+                "difficulty": 3,
+                "context": "衝突"
+            }
+        ]
+    },
+    {
+        "id": "medium_732",
+        "english": "lower",
+        "japanese": "下げる、低くする",
+        "phonetic": "/ˈləʊər/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_732_ex1",
+                "english": "Please lower your voice.",
+                "japanese": "声を下げてください。",
+                "difficulty": 3,
+                "context": "行動"
+            }
+        ]
+    },
+    {
+        "id": "medium_733",
+        "english": "significantly",
+        "japanese": "かなり、著しく",
+        "phonetic": "/sɪɡˈnɪfɪkəntli/",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_733_ex1",
+                "english": "Sales have increased significantly.",
+                "japanese": "売上が著しく増加した。",
+                "difficulty": 3,
+                "context": "経済"
+            }
+        ]
+    },
+    {
+        "id": "medium_734",
+        "english": "considerably",
+        "japanese": "かなり、相当に",
+        "phonetic": "/kənˈsɪdərəbli/",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_734_ex1",
+                "english": "The price has dropped considerably.",
+                "japanese": "価格はかなり下がった。",
+                "difficulty": 3,
+                "context": "変化"
+            }
+        ]
+    },
+    {
+        "id": "medium_735",
+        "english": "measurably",
+        "japanese": "測定できるほどに、かなりの程度に",
+        "phonetic": "/ˈmɛʒərəbli/",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_735_ex1",
+                "english": "His performance has improved measurably.",
+                "japanese": "彼のパフォーマンスは測定できるほど改善した。",
+                "difficulty": 3,
+                "context": "評価"
+            }
+        ]
+    },
+    {
+        "id": "medium_736",
+        "english": "corresponding",
+        "japanese": "対応する、一致する",
+        "phonetic": "/ˌkɒrɪˈspɒndɪŋ/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_736_ex1",
+                "english": "The corresponding figures are shown in the table.",
+                "japanese": "対応する数値は表に示されている。",
+                "difficulty": 3,
+                "context": "情報"
+            }
+        ]
+    },
+    {
+        "id": "medium_737",
+        "english": "correlative",
+        "japanese": "相関的な、相互関係のある",
+        "phonetic": "/kəˈrɛlətɪv/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_737_ex1",
+                "english": "There is a correlative relationship between the two variables.",
+                "japanese": "2つの変数間には相関関係がある。",
+                "difficulty": 3,
+                "context": "統計"
+            }
+        ]
+    },
+    {
+        "id": "medium_738",
+        "english": "undivided",
+        "japanese": "分割されていない、専念した",
+        "phonetic": "/ˌʌndɪˈvaɪdɪd/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_738_ex1",
+                "english": "He gave his undivided attention to the task.",
+                "japanese": "彼はその仕事に全神経を集中した。",
+                "difficulty": 3,
+                "context": "集中"
+            }
+        ]
+    }
+]

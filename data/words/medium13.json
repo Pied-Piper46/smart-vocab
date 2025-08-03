@@ -4,7 +4,7 @@
         "english": "commonly held belief",
         "japanese": "一般的に信じられていること、通説",
         "phonetic": "",
-        "partOfSpeech": "名詞句",
+        "partOfSpeech": "noun phrase",
         "frequency": 50,
         "examples": [
             {
@@ -21,7 +21,7 @@
         "english": "axiom",
         "japanese": "公理、自明の理",
         "phonetic": "/ˈæksiəm/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 40,
         "examples": [
             {
@@ -38,7 +38,7 @@
         "english": "make up",
         "japanese": "でっちあげる、構成する、仲直りする",
         "phonetic": "",
-        "partOfSpeech": "句動詞",
+        "partOfSpeech": "phrasal verb",
         "frequency": 70,
         "examples": [
             {
@@ -55,7 +55,7 @@
         "english": "invent",
         "japanese": "発明する、でっちあげる",
         "phonetic": "/ɪnˈvɛnt/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 60,
         "examples": [
             {
@@ -72,7 +72,7 @@
         "english": "concoct",
         "japanese": "でっちあげる、調合する",
         "phonetic": "/kənˈkɒkt/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 45,
         "examples": [
             {
@@ -89,7 +89,7 @@
         "english": "set down",
         "japanese": "書き留める、置く",
         "phonetic": "",
-        "partOfSpeech": "句動詞",
+        "partOfSpeech": "phrasal verb",
         "frequency": 55,
         "examples": [
             {
@@ -106,7 +106,7 @@
         "english": "laboriously",
         "japanese": "骨の折れるように、苦労して",
         "phonetic": "/ləˈbɔːriəsli/",
-        "partOfSpeech": "副詞",
+        "partOfSpeech": "adverb",
         "frequency": 35,
         "examples": [
             {
@@ -123,7 +123,7 @@
         "english": "meticulously",
         "japanese": "細心の注意を払って、綿密に",
         "phonetic": "/məˈtɪkjʊləsli/",
-        "partOfSpeech": "副詞",
+        "partOfSpeech": "adverb",
         "frequency": 45,
         "examples": [
             {
@@ -140,7 +140,7 @@
         "english": "diligently",
         "japanese": "勤勉に、熱心に",
         "phonetic": "/ˈdɪlɪdʒəntli/",
-        "partOfSpeech": "副詞",
+        "partOfSpeech": "adverb",
         "frequency": 50,
         "examples": [
             {
@@ -157,7 +157,7 @@
         "english": "compile",
         "japanese": "編集する、まとめる",
         "phonetic": "/kəmˈpaɪl/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 60,
         "examples": [
             {
@@ -174,7 +174,7 @@
         "english": "amass",
         "japanese": "蓄積する、集める",
         "phonetic": "/əˈmæs/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 40,
         "examples": [
             {
@@ -191,7 +191,7 @@
         "english": "anthology",
         "japanese": "選集、詩集",
         "phonetic": "/ænˈθɒlədʒi/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 30,
         "examples": [
             {
@@ -208,7 +208,7 @@
         "english": "pass down",
         "japanese": "伝える、受け継ぐ",
         "phonetic": "",
-        "partOfSpeech": "句動詞",
+        "partOfSpeech": "phrasal verb",
         "frequency": 55,
         "examples": [
             {
@@ -225,7 +225,7 @@
         "english": "folklore",
         "japanese": "民間伝承、民俗学",
         "phonetic": "/ˈfoʊklɔːr/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 40,
         "examples": [
             {
@@ -242,7 +242,7 @@
         "english": "millennium",
         "japanese": "千年紀",
         "phonetic": "/mɪˈlɛniəm/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 35,
         "examples": [
             {
@@ -259,7 +259,7 @@
         "english": "folk tale",
         "japanese": "民話、昔話",
         "phonetic": "",
-        "partOfSpeech": "名詞句",
+        "partOfSpeech": "noun phrase",
         "frequency": 45,
         "examples": [
             {
@@ -276,7 +276,7 @@
         "english": "strike",
         "japanese": "打つ、襲う、印象を与える",
         "phonetic": "/straɪk/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 65,
         "examples": [
             {
@@ -293,7 +293,7 @@
         "english": "occur to",
         "japanese": "～の心に浮かぶ、～に思いつく",
         "phonetic": "",
-        "partOfSpeech": "句動詞",
+        "partOfSpeech": "phrasal verb",
         "frequency": 50,
         "examples": [
             {
@@ -310,7 +310,7 @@
         "english": "poles apart",
         "japanese": "正反対で、かけ離れて",
         "phonetic": "",
-        "partOfSpeech": "形容詞句",
+        "partOfSpeech": "adjective phrase",
         "frequency": 30,
         "examples": [
             {
@@ -327,7 +327,7 @@
         "english": "plot",
         "japanese": "筋書き、陰謀、区画",
         "phonetic": "/plɒt/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 60,
         "examples": [
             {
@@ -344,7 +344,7 @@
         "english": "narrative",
         "japanese": "物語、語り口",
         "phonetic": "/ˈnærətɪv/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 55,
         "examples": [
             {
@@ -361,7 +361,7 @@
         "english": "affirm",
         "japanese": "断言する、肯定する",
         "phonetic": "/əˈfɜːrm/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 45,
         "examples": [
             {
@@ -378,7 +378,7 @@
         "english": "ancestry",
         "japanese": "祖先、家系",
         "phonetic": "/ˈænsɛstri/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 40,
         "examples": [
             {
@@ -395,7 +395,7 @@
         "english": "hideous",
         "japanese": "恐ろしい、醜い",
         "phonetic": "/ˈhɪdiəs/",
-        "partOfSpeech": "形容詞",
+        "partOfSpeech": "adjective",
         "frequency": 35,
         "examples": [
             {
@@ -412,7 +412,7 @@
         "english": "grotesque",
         "japanese": "グロテスクな、異様な",
         "phonetic": "/ɡroʊˈtɛsk/",
-        "partOfSpeech": "形容詞",
+        "partOfSpeech": "adjective",
         "frequency": 30,
         "examples": [
             {
@@ -429,7 +429,7 @@
         "english": "metamorphose",
         "japanese": "変形する、変態する",
         "phonetic": "/ˌmɛtəˈmɔːrfoʊz/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 25,
         "examples": [
             {
@@ -446,7 +446,7 @@
         "english": "varying",
         "japanese": "様々な、変化する",
         "phonetic": "/ˈvɛəriɪŋ/",
-        "partOfSpeech": "形容詞",
+        "partOfSpeech": "adjective",
         "frequency": 50,
         "examples": [
             {
@@ -463,7 +463,7 @@
         "english": "adaptation",
         "japanese": "適応、翻案",
         "phonetic": "/ˌædæpˈteɪʃən/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 55,
         "examples": [
             {
@@ -480,7 +480,7 @@
         "english": "interpretation",
         "japanese": "解釈、通訳",
         "phonetic": "/ɪnˌtɜːrprɪˈteɪʃən/",
-        "partOfSpeech": "名詞",
+        "partOfSpeech": "noun",
         "frequency": 60,
         "examples": [
             {
@@ -497,7 +497,7 @@
         "english": "root in",
         "japanese": "～に根ざす、～に由来する",
         "phonetic": "",
-        "partOfSpeech": "句動詞",
+        "partOfSpeech": "phrasal verb",
         "frequency": 40,
         "examples": [
             {
@@ -514,7 +514,7 @@
         "english": "classify",
         "japanese": "分類する",
         "phonetic": "/ˈklæsɪfaɪ/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 55,
         "examples": [
             {
@@ -531,7 +531,7 @@
         "english": "traced back to",
         "japanese": "～に遡る、～に由来する",
         "phonetic": "",
-        "partOfSpeech": "句動詞",
+        "partOfSpeech": "phrasal verb",
         "frequency": 45,
         "examples": [
             {
@@ -548,7 +548,7 @@
         "english": "divide",
         "japanese": "分ける、分割する",
         "phonetic": "/dɪˈvaɪd/",
-        "partOfSpeech": "動詞",
+        "partOfSpeech": "verb",
         "frequency": 65,
         "examples": [
             {

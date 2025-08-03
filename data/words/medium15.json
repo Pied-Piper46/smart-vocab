@@ -1,0 +1,546 @@
+[
+    {
+        "id": "medium_739",
+        "english": "dot",
+        "japanese": "点、〜に点在する",
+        "phonetic": "/dɒt/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_739_ex1",
+                "english": "There's a small dot on the map.",
+                "japanese": "地図に小さな点がある。",
+                "difficulty": 3,
+                "context": "地図"
+            }
+        ]
+    },
+    {
+        "id": "medium_740",
+        "english": "revere",
+        "japanese": "崇拝する、尊敬する",
+        "phonetic": "/rɪˈvɪər/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_740_ex1",
+                "english": "He is revered as a national hero.",
+                "japanese": "彼は国民的英雄として崇拝されている。",
+                "difficulty": 3,
+                "context": "人物"
+            }
+        ]
+    },
+    {
+        "id": "medium_741",
+        "english": "venerate",
+        "japanese": "崇敬する、敬う",
+        "phonetic": "/ˈvɛnəreɪt/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_741_ex1",
+                "english": "The ancient people venerated their ancestors.",
+                "japanese": "古代の人々は祖先を崇敬した。",
+                "difficulty": 3,
+                "context": "歴史"
+            }
+        ]
+    },
+    {
+        "id": "medium_742",
+        "english": "recuperate from",
+        "japanese": "〜から回復する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_742_ex1",
+                "english": "She is recuperating from her illness.",
+                "japanese": "彼女は病気から回復している。",
+                "difficulty": 3,
+                "context": "健康"
+            }
+        ]
+    },
+    {
+        "id": "medium_743",
+        "english": "convalesce from",
+        "japanese": "〜から回復する、静養する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_743_ex1",
+                "english": "He needs time to convalesce from the surgery.",
+                "japanese": "彼は手術から回復するために時間が必要だ。",
+                "difficulty": 3,
+                "context": "医療"
+            }
+        ]
+    },
+    {
+        "id": "medium_744",
+        "english": "in honour of",
+        "japanese": "〜に敬意を表して、〜を記念して",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_744_ex1",
+                "english": "A ceremony was held in honour of the veterans.",
+                "japanese": "退役軍人に敬意を表して式典が開催された。",
+                "difficulty": 3,
+                "context": "イベント"
+            }
+        ]
+    },
+    {
+        "id": "medium_745",
+        "english": "in memory of",
+        "japanese": "〜を記念して、〜を偲んで",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_745_ex1",
+                "english": "A monument was built in memory of the victims.",
+                "japanese": "犠牲者を偲んで記念碑が建てられた。",
+                "difficulty": 3,
+                "context": "記念"
+            }
+        ]
+    },
+    {
+        "id": "medium_746",
+        "english": "uninterrupted",
+        "japanese": "中断されない、連続した",
+        "phonetic": "/ˌʌnɪnˈtɛrʌptɪd/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_746_ex1",
+                "english": "He worked for five hours uninterrupted.",
+                "japanese": "彼は中断なしに5時間働いた。",
+                "difficulty": 3,
+                "context": "時間"
+            }
+        ]
+    },
+    {
+        "id": "medium_747",
+        "english": "declare",
+        "japanese": "宣言する、発表する",
+        "phonetic": "/dɪˈklɛər/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_747_ex1",
+                "english": "The government declared a state of emergency.",
+                "japanese": "政府は非常事態を宣言した。",
+                "difficulty": 3,
+                "context": "政治"
+            }
+        ]
+    },
+    {
+        "id": "medium_748",
+        "english": "comprise of",
+        "japanese": "〜から成る、〜で構成される",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_748_ex1",
+                "english": "The team comprises of ten members.",
+                "japanese": "そのチームは10人のメンバーで構成されている。",
+                "difficulty": 3,
+                "context": "構成"
+            }
+        ]
+    },
+    {
+        "id": "medium_749",
+        "english": "made up of",
+        "japanese": "〜で構成されている",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_749_ex1",
+                "english": "The committee is made up of experts.",
+                "japanese": "その委員会は専門家で構成されている。",
+                "difficulty": 3,
+                "context": "組織"
+            }
+        ]
+    },
+    {
+        "id": "medium_750",
+        "english": "composed of",
+        "japanese": "〜で構成されている",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_750_ex1",
+                "english": "The air is composed of various gases.",
+                "japanese": "空気は様々なガスで構成されている。",
+                "difficulty": 3,
+                "context": "科学"
+            }
+        ]
+    },
+    {
+        "id": "medium_751",
+        "english": "arguably",
+        "japanese": "おそらく、議論の余地はあるが",
+        "phonetic": "/ˈɑːrɡjuəbli/",
+        "partOfSpeech": "adverb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_751_ex1",
+                "english": "He is arguably the best player.",
+                "japanese": "彼はおそらく最高の選手だ。",
+                "difficulty": 3,
+                "context": "意見"
+            }
+        ]
+    },
+    {
+        "id": "medium_752",
+        "english": "commission",
+        "japanese": "委員会、委託、手数料",
+        "phonetic": "/kəˈmɪʃən/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_752_ex1",
+                "english": "The artist received a commission for the painting.",
+                "japanese": "その芸術家は絵画の委託を受けた。",
+                "difficulty": 3,
+                "context": "芸術"
+            }
+        ]
+    },
+    {
+        "id": "medium_753",
+        "english": "serve as",
+        "japanese": "〜として役立つ、〜の役割を果たす",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_753_ex1",
+                "english": "This room will serve as a temporary office.",
+                "japanese": "この部屋は一時的なオフィスとして役立つだろう。",
+                "difficulty": 3,
+                "context": "機能"
+            }
+        ]
+    },
+    {
+        "id": "medium_754",
+        "english": "monastery",
+        "japanese": "修道院",
+        "phonetic": "/ˈmɒnəstəri/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_754_ex1",
+                "english": "He decided to live in a monastery.",
+                "japanese": "彼は修道院で暮らすことを決めた。",
+                "difficulty": 3,
+                "context": "宗教"
+            }
+        ]
+    },
+    {
+        "id": "medium_755",
+        "english": "storey",
+        "japanese": "階（建物）",
+        "phonetic": "/ˈstɔːri/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_755_ex1",
+                "english": "The building has three storeys.",
+                "japanese": "その建物は3階建てだ。",
+                "difficulty": 3,
+                "context": "建築"
+            }
+        ]
+    },
+    {
+        "id": "medium_756",
+        "english": "pagoda",
+        "japanese": "パゴダ、仏塔",
+        "phonetic": "/pəˈɡəʊdə/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_756_ex1",
+                "english": "We visited an ancient pagoda.",
+                "japanese": "私たちは古代のパゴダを訪れた。",
+                "difficulty": 3,
+                "context": "建築"
+            }
+        ]
+    },
+    {
+        "id": "medium_757",
+        "english": "ornate",
+        "japanese": "華麗な、装飾過多の",
+        "phonetic": "/ɔːrˈneɪt/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_757_ex1",
+                "english": "The church has an ornate altar.",
+                "japanese": "その教会には華麗な祭壇がある。",
+                "difficulty": 3,
+                "context": "芸術"
+            }
+        ]
+    },
+    {
+        "id": "medium_758",
+        "english": "excavation",
+        "japanese": "発掘、掘削",
+        "phonetic": "/ˌɛkskəˈveɪʃən/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_758_ex1",
+                "english": "Archaeologists are conducting an excavation.",
+                "japanese": "考古学者が発掘調査を行っている。",
+                "difficulty": 3,
+                "context": "考古学"
+            }
+        ]
+    },
+    {
+        "id": "medium_759",
+        "english": "timber",
+        "japanese": "材木、木材",
+        "phonetic": "/ˈtɪmbər/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_759_ex1",
+                "english": "The house is built of timber.",
+                "japanese": "その家は木材で建てられている。",
+                "difficulty": 3,
+                "context": "建築"
+            }
+        ]
+    },
+    {
+        "id": "medium_760",
+        "english": "structure",
+        "japanese": "構造、建造物",
+        "phonetic": "/ˈstrʌktʃər/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_760_ex1",
+                "english": "The bridge has a strong structure.",
+                "japanese": "その橋は頑丈な構造をしている。",
+                "difficulty": 3,
+                "context": "建築"
+            }
+        ]
+    },
+    {
+        "id": "medium_761",
+        "english": "edifice",
+        "japanese": "大建築物、堂々たる建物",
+        "phonetic": "/ˈɛdɪfɪs/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_761_ex1",
+                "english": "The cathedral is a magnificent edifice.",
+                "japanese": "その大聖堂は壮大な建造物だ。",
+                "difficulty": 3,
+                "context": "建築"
+            }
+        ]
+    },
+    {
+        "id": "medium_762",
+        "english": "utilitarian",
+        "japanese": "実用的な、功利主義の",
+        "phonetic": "/ˌjuːtɪlɪˈtɛəriən/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_762_ex1",
+                "english": "The design is purely utilitarian.",
+                "japanese": "そのデザインは純粋に実用的だ。",
+                "difficulty": 3,
+                "context": "デザイン"
+            }
+        ]
+    },
+    {
+        "id": "medium_763",
+        "english": "exterior",
+        "japanese": "外観、外部",
+        "phonetic": "/ɪkˈstɪəriər/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_763_ex1",
+                "english": "The exterior of the house needs painting.",
+                "japanese": "家の外観は塗装が必要だ。",
+                "difficulty": 3,
+                "context": "建築"
+            }
+        ]
+    },
+    {
+        "id": "medium_764",
+        "english": "interior",
+        "japanese": "内部、内装",
+        "phonetic": "/ɪnˈtɪəriər/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_764_ex1",
+                "english": "The interior design is very modern.",
+                "japanese": "内装のデザインはとてもモダンだ。",
+                "difficulty": 3,
+                "context": "デザイン"
+            }
+        ]
+    },
+    {
+        "id": "medium_765",
+        "english": "house",
+        "japanese": "収容する、保管する",
+        "phonetic": "/haʊz/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_765_ex1",
+                "english": "The museum houses a large collection of art.",
+                "japanese": "その美術館は大量の美術品を収蔵している。",
+                "difficulty": 3,
+                "context": "施設"
+            }
+        ]
+    },
+    {
+        "id": "medium_766",
+        "english": "contain",
+        "japanese": "含む、収容する",
+        "phonetic": "/kənˈteɪn/",
+        "partOfSpeech": "verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_766_ex1",
+                "english": "The box contains old letters.",
+                "japanese": "その箱には古い手紙が入っている。",
+                "difficulty": 3,
+                "context": "内容"
+            }
+        ]
+    },
+    {
+        "id": "medium_767",
+        "english": "sacred",
+        "japanese": "神聖な、聖なる",
+        "phonetic": "/ˈseɪkrɪd/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_767_ex1",
+                "english": "This is a sacred place for many people.",
+                "japanese": "ここは多くの人々にとって神聖な場所だ。",
+                "difficulty": 3,
+                "context": "宗教"
+            }
+        ]
+    },
+    {
+        "id": "medium_768",
+        "english": "holy",
+        "japanese": "聖なる、神聖な",
+        "phonetic": "/ˈhəʊli/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_768_ex1",
+                "english": "The Bible is a holy book.",
+                "japanese": "聖書は聖なる書物だ。",
+                "difficulty": 3,
+                "context": "宗教"
+            }
+        ]
+    },
+    {
+        "id": "medium_769",
+        "english": "divine",
+        "japanese": "神の、神聖な",
+        "phonetic": "/dɪˈvaɪn/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_769_ex1",
+                "english": "They believe in divine intervention.",
+                "japanese": "彼らは神の介入を信じている。",
+                "difficulty": 3,
+                "context": "宗教"
+            }
+        ]
+    },
+    {
+        "id": "medium_770",
+        "english": "conclusive",
+        "japanese": "決定的な、最終的な",
+        "phonetic": "/kənˈkluːsɪv/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_770_ex1",
+                "english": "The evidence was not conclusive.",
+                "japanese": "その証拠は決定的ではなかった。",
+                "difficulty": 3,
+                "context": "証拠"
+            }
+        ]
+    }
+]
