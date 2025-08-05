@@ -1,0 +1,835 @@
+[
+    {
+        "id": "medium_809",
+        "english": "common knowledge",
+        "japanese": "常識",
+        "phonetic": "/ˈkɒmən ˈnɒlɪdʒ/",
+        "partOfSpeech": "noun phrase",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_809_ex1",
+                "english": "It's common knowledge that the earth is round.",
+                "japanese": "地球が丸いのは常識だ。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_810",
+        "english": "perish",
+        "japanese": "滅びる、死ぬ",
+        "phonetic": "/ˈperɪʃ/",
+        "partOfSpeech": "verb",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_810_ex1",
+                "english": "Many animals perished in the fire.",
+                "japanese": "多くの動物が火事で死んだ。",
+                "difficulty": 3,
+                "context": "disaster"
+            }
+        ]
+    },
+    {
+        "id": "medium_811",
+        "english": "collapse",
+        "japanese": "崩壊する、倒れる",
+        "phonetic": "/kəˈlæps/",
+        "partOfSpeech": "verb",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_811_ex1",
+                "english": "The building collapsed after the earthquake.",
+                "japanese": "その建物は地震の後崩壊した。",
+                "difficulty": 3,
+                "context": "disaster"
+            }
+        ]
+    },
+    {
+        "id": "medium_812",
+        "english": "deduce",
+        "japanese": "推測する、演繹する",
+        "phonetic": "/dɪˈdjuːs/",
+        "partOfSpeech": "verb",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_812_ex1",
+                "english": "From the evidence, we can deduce that he is innocent.",
+                "japanese": "証拠から、彼が無実であると推測できる。",
+                "difficulty": 3,
+                "context": "logic"
+            }
+        ]
+    },
+    {
+        "id": "medium_813",
+        "english": "figure out",
+        "japanese": "理解する、解決する",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 75,
+        "examples": [
+            {
+                "id": "medium_813_ex1",
+                "english": "I can't figure out how to solve this problem.",
+                "japanese": "この問題の解決方法がわからない。",
+                "difficulty": 3,
+                "context": "problem solving"
+            }
+        ]
+    },
+    {
+        "id": "medium_814",
+        "english": "infer",
+        "japanese": "推測する、暗示する",
+        "phonetic": "/ɪnˈfɜːr/",
+        "partOfSpeech": "verb",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_814_ex1",
+                "english": "What can you infer from this statement?",
+                "japanese": "この声明から何を推測できますか？",
+                "difficulty": 3,
+                "context": "logic"
+            }
+        ]
+    },
+    {
+        "id": "medium_815",
+        "english": "ward off",
+        "japanese": "避ける、防ぐ",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_815_ex1",
+                "english": "She wore a charm to ward off evil spirits.",
+                "japanese": "彼女は悪霊を避けるためにお守りを身につけていた。",
+                "difficulty": 3,
+                "context": "superstition"
+            }
+        ]
+    },
+    {
+        "id": "medium_816",
+        "english": "avert",
+        "japanese": "避ける、そらす",
+        "phonetic": "/əˈvɜːrt/",
+        "partOfSpeech": "verb",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_816_ex1",
+                "english": "He averted his eyes from the scene.",
+                "japanese": "彼はその光景から目をそらした。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_817",
+        "english": "stave off",
+        "japanese": "食い止める、防ぐ",
+        "phonetic": "",
+        "partOfSpeech": "phrasal verb",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_817_ex1",
+                "english": "They tried to stave off the economic crisis.",
+                "japanese": "彼らは経済危機を食い止めようとした。",
+                "difficulty": 3,
+                "context": "economy"
+            }
+        ]
+    },
+    {
+        "id": "medium_818",
+        "english": "precipitation",
+        "japanese": "降水量、降水",
+        "phonetic": "/prɪˌsɪpɪˈteɪʃn/",
+        "partOfSpeech": "noun",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_818_ex1",
+                "english": "We had a lot of precipitation last month.",
+                "japanese": "先月は降水量が多かった。",
+                "difficulty": 3,
+                "context": "weather"
+            }
+        ]
+    },
+    {
+        "id": "medium_819",
+        "english": "rainfall",
+        "japanese": "降雨、雨量",
+        "phonetic": "/ˈreɪnfɔːl/",
+        "partOfSpeech": "noun",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_819_ex1",
+                "english": "The region receives high annual rainfall.",
+                "japanese": "その地域は年間降水量が多い。",
+                "difficulty": 3,
+                "context": "weather"
+            }
+        ]
+    },
+    {
+        "id": "medium_820",
+        "english": "take steps",
+        "japanese": "措置を講じる、対策を講じる",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_820_ex1",
+                "english": "We need to take steps to prevent this from happening again.",
+                "japanese": "これが二度と起こらないように対策を講じる必要がある。",
+                "difficulty": 3,
+                "context": "action"
+            }
+        ]
+    },
+    {
+        "id": "medium_821",
+        "english": "yield",
+        "japanese": "産出する、屈する",
+        "phonetic": "/jiːld/",
+        "partOfSpeech": "verb",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_821_ex1",
+                "english": "The land yields a good crop.",
+                "japanese": "その土地は良い作物を産出する。",
+                "difficulty": 3,
+                "context": "agriculture"
+            }
+        ]
+    },
+    {
+        "id": "medium_822",
+        "english": "harvest",
+        "japanese": "収穫する",
+        "phonetic": "/ˈhɑːrvɪst/",
+        "partOfSpeech": "verb",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_822_ex1",
+                "english": "Farmers are busy harvesting their crops.",
+                "japanese": "農家は作物の収穫で忙しい。",
+                "difficulty": 3,
+                "context": "agriculture"
+            }
+        ]
+    },
+    {
+        "id": "medium_823",
+        "english": "drought",
+        "japanese": "干ばつ",
+        "phonetic": "/draʊt/",
+        "partOfSpeech": "noun",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_823_ex1",
+                "english": "The region is suffering from a severe drought.",
+                "japanese": "その地域は深刻な干ばつに苦しんでいる。",
+                "difficulty": 3,
+                "context": "weather"
+            }
+        ]
+    },
+    {
+        "id": "medium_824",
+        "english": "fossilised",
+        "japanese": "化石化した",
+        "phonetic": "/ˈfɒsɪlaɪzd/",
+        "partOfSpeech": "adjective",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_824_ex1",
+                "english": "They found fossilised remains of ancient plants.",
+                "japanese": "彼らは古代植物の化石化した残骸を発見した。",
+                "difficulty": 3,
+                "context": "science"
+            }
+        ]
+    },
+    {
+        "id": "medium_825",
+        "english": "pollen",
+        "japanese": "花粉",
+        "phonetic": "/ˈpɒlən/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_825_ex1",
+                "english": "Pollen can cause allergies.",
+                "japanese": "花粉はアレルギーを引き起こすことがある。",
+                "difficulty": 3,
+                "context": "biology"
+            }
+        ]
+    },
+    {
+        "id": "medium_826",
+        "english": "sediment",
+        "japanese": "堆積物",
+        "phonetic": "/ˈsedɪmənt/",
+        "partOfSpeech": "noun",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_826_ex1",
+                "english": "The river carries a lot of sediment.",
+                "japanese": "その川は多くの堆積物を運ぶ。",
+                "difficulty": 3,
+                "context": "geology"
+            }
+        ]
+    },
+    {
+        "id": "medium_827",
+        "english": "crop",
+        "japanese": "作物",
+        "phonetic": "/krɒp/",
+        "partOfSpeech": "noun",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_827_ex1",
+                "english": "The main crop in this area is rice.",
+                "japanese": "この地域の主要な作物は米だ。",
+                "difficulty": 3,
+                "context": "agriculture"
+            }
+        ]
+    },
+    {
+        "id": "medium_828",
+        "english": "surplus",
+        "japanese": "余剰、余り",
+        "phonetic": "/ˈsɜːrpləs/",
+        "partOfSpeech": "noun",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_828_ex1",
+                "english": "We have a surplus of food.",
+                "japanese": "私たちは食料の余剰がある。",
+                "difficulty": 3,
+                "context": "economy"
+            }
+        ]
+    },
+    {
+        "id": "medium_829",
+        "english": "grain",
+        "japanese": "穀物",
+        "phonetic": "/ɡreɪn/",
+        "partOfSpeech": "noun",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_829_ex1",
+                "english": "The country imports a lot of grain.",
+                "japanese": "その国は多くの穀物を輸入している。",
+                "difficulty": 3,
+                "context": "agriculture"
+            }
+        ]
+    },
+    {
+        "id": "medium_830",
+        "english": "relief effort",
+        "japanese": "救援活動",
+        "phonetic": "/rɪˈliːf ˈefərt/",
+        "partOfSpeech": "noun phrase",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_830_ex1",
+                "english": "The relief effort provided aid to the victims.",
+                "japanese": "救援活動は犠牲者に援助を提供した。",
+                "difficulty": 3,
+                "context": "disaster"
+            }
+        ]
+    },
+    {
+        "id": "medium_831",
+        "english": "mitigate",
+        "japanese": "和らげる、軽減する",
+        "phonetic": "/ˈmɪtɪɡeɪt/",
+        "partOfSpeech": "verb",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_831_ex1",
+                "english": "We need to mitigate the risks.",
+                "japanese": "私たちはリスクを軽減する必要がある。",
+                "difficulty": 3,
+                "context": "general"
+            }
+        ]
+    },
+    {
+        "id": "medium_832",
+        "english": "fertile region",
+        "japanese": "肥沃な地域",
+        "phonetic": "/ˈfɜːrtaɪl ˈriːdʒən/",
+        "partOfSpeech": "noun phrase",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_832_ex1",
+                "english": "The Nile Delta is a fertile region.",
+                "japanese": "ナイルデルタは肥沃な地域だ。",
+                "difficulty": 3,
+                "context": "geography"
+            }
+        ]
+    },
+    {
+        "id": "medium_833",
+        "english": "breadbasket",
+        "japanese": "穀倉地帯",
+        "phonetic": "/ˈbredbæskɪt/",
+        "partOfSpeech": "noun",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_833_ex1",
+                "english": "Ukraine is known as the breadbasket of Europe.",
+                "japanese": "ウクライナはヨーロッパの穀倉地帯として知られている。",
+                "difficulty": 3,
+                "context": "geography"
+            }
+        ]
+    },
+    {
+        "id": "medium_834",
+        "english": "fringe",
+        "japanese": "周辺、端",
+        "phonetic": "/frɪndʒ/",
+        "partOfSpeech": "noun",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_834_ex1",
+                "english": "He lives on the fringe of society.",
+                "japanese": "彼は社会の周辺に住んでいる。",
+                "difficulty": 3,
+                "context": "society"
+            }
+        ]
+    },
+    {
+        "id": "medium_835",
+        "english": "periphery",
+        "japanese": "周辺、外周",
+        "phonetic": "/pəˈrɪfəri/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_835_ex1",
+                "english": "The city's growth extended to its periphery.",
+                "japanese": "都市の成長はその周辺にまで及んだ。",
+                "difficulty": 3,
+                "context": "geography"
+            }
+        ]
+    },
+    {
+        "id": "medium_836",
+        "english": "outskirts",
+        "japanese": "郊外、外れ",
+        "phonetic": "/ˈaʊtskɜːrts/",
+        "partOfSpeech": "noun",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_836_ex1",
+                "english": "They live on the outskirts of London.",
+                "japanese": "彼らはロンドンの郊外に住んでいる。",
+                "difficulty": 3,
+                "context": "geography"
+            }
+        ]
+    },
+    {
+        "id": "medium_837",
+        "english": "conquer",
+        "japanese": "征服する、克服する",
+        "phonetic": "/ˈkɒŋkər/",
+        "partOfSpeech": "verb",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_837_ex1",
+                "english": "He conquered his fear of heights.",
+                "japanese": "彼は高所恐怖症を克服した。",
+                "difficulty": 3,
+                "context": "personal development"
+            }
+        ]
+    },
+    {
+        "id": "medium_838",
+        "english": "defeat",
+        "japanese": "打ち負かす、敗北させる",
+        "phonetic": "/dɪˈfiːt/",
+        "partOfSpeech": "verb",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_838_ex1",
+                "english": "Our team defeated the champions.",
+                "japanese": "私たちのチームはチャンピオンを打ち負かした。",
+                "difficulty": 3,
+                "context": "sports"
+            }
+        ]
+    },
+    {
+        "id": "medium_839",
+        "english": "vanquish",
+        "japanese": "打ち破る、征服する",
+        "phonetic": "/ˈvæŋkwɪʃ/",
+        "partOfSpeech": "verb",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_839_ex1",
+                "english": "The knight vanquished the dragon.",
+                "japanese": "騎士はドラゴンを打ち破った。",
+                "difficulty": 3,
+                "context": "fantasy"
+            }
+        ]
+    },
+    {
+        "id": "medium_840",
+        "english": "selfless",
+        "japanese": "無私無欲な、自己犠牲的な",
+        "phonetic": "/ˈselfləs/",
+        "partOfSpeech": "adjective",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_840_ex1",
+                "english": "Her selfless dedication to others is admirable.",
+                "japanese": "他者への彼女の無私無欲な献身は賞賛に値する。",
+                "difficulty": 3,
+                "context": "character"
+            }
+        ]
+    },
+    {
+        "id": "medium_841",
+        "english": "altruistic",
+        "japanese": "利他的な",
+        "phonetic": "/ˌæltruˈɪstɪk/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_841_ex1",
+                "english": "He is known for his altruistic acts.",
+                "japanese": "彼は利他的な行為で知られている。",
+                "difficulty": 3,
+                "context": "character"
+            }
+        ]
+    },
+    {
+        "id": "medium_842",
+        "english": "noble",
+        "japanese": "高貴な、崇高な",
+        "phonetic": "/ˈnoʊbl/",
+        "partOfSpeech": "adjective",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_842_ex1",
+                "english": "He made a noble effort to help the poor.",
+                "japanese": "彼は貧しい人々を助けるために崇高な努力をした。",
+                "difficulty": 3,
+                "context": "character"
+            }
+        ]
+    },
+    {
+        "id": "medium_843",
+        "english": "magnanimous",
+        "japanese": "寛大な、度量の大きい",
+        "phonetic": "/mæɡˈnænɪməs/",
+        "partOfSpeech": "adjective",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_843_ex1",
+                "english": "The magnanimous leader forgave his enemies.",
+                "japanese": "寛大な指導者は敵を許した。",
+                "difficulty": 3,
+                "context": "character"
+            }
+        ]
+    },
+    {
+        "id": "medium_844",
+        "english": "boundary",
+        "japanese": "境界、限界",
+        "phonetic": "/ˈbaʊndəri/",
+        "partOfSpeech": "noun",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_844_ex1",
+                "english": "There is a clear boundary between the two countries.",
+                "japanese": "二つの国の間には明確な境界がある。",
+                "difficulty": 3,
+                "context": "geography"
+            }
+        ]
+    },
+    {
+        "id": "medium_845",
+        "english": "breed",
+        "japanese": "繁殖させる、育てる",
+        "phonetic": "/briːd/",
+        "partOfSpeech": "verb",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_845_ex1",
+                "english": "They breed horses on their farm.",
+                "japanese": "彼らは農場で馬を繁殖させている。",
+                "difficulty": 3,
+                "context": "animals"
+            }
+        ]
+    },
+    {
+        "id": "medium_846",
+        "english": "cross",
+        "japanese": "交配させる、横切る",
+        "phonetic": "/krɒs/",
+        "partOfSpeech": "verb",
+        "frequency": 70,
+        "examples": [
+            {
+                "id": "medium_846_ex1",
+                "english": "They crossed two different types of roses.",
+                "japanese": "彼らは2種類のバラを交配させた。",
+                "difficulty": 3,
+                "context": "biology"
+            }
+        ]
+    },
+    {
+        "id": "medium_847",
+        "english": "hardy",
+        "japanese": "丈夫な、耐寒性の",
+        "phonetic": "/ˈhɑːrdi/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_847_ex1",
+                "english": "These plants are very hardy.",
+                "japanese": "これらの植物はとても丈夫だ。",
+                "difficulty": 3,
+                "context": "plants"
+            }
+        ]
+    },
+    {
+        "id": "medium_848",
+        "english": "variant",
+        "japanese": "変種、異形",
+        "phonetic": "/ˈveəriənt/",
+        "partOfSpeech": "noun",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_848_ex1",
+                "english": "This is a new variant of the virus.",
+                "japanese": "これはウイルスの新しい変種だ。",
+                "difficulty": 3,
+                "context": "science"
+            }
+        ]
+    },
+    {
+        "id": "medium_849",
+        "english": "resilient",
+        "japanese": "回復力のある、弾力性のある",
+        "phonetic": "/rɪˈzɪliənt/",
+        "partOfSpeech": "adjective",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_849_ex1",
+                "english": "He is a resilient person who can overcome difficulties.",
+                "japanese": "彼は困難を乗り越えられる回復力のある人だ。",
+                "difficulty": 3,
+                "context": "character"
+            }
+        ]
+    },
+    {
+        "id": "medium_850",
+        "english": "resistant",
+        "japanese": "耐性のある、抵抗力のある",
+        "phonetic": "/rɪˈzɪstənt/",
+        "partOfSpeech": "adjective",
+        "frequency": 60,
+        "examples": [
+            {
+                "id": "medium_850_ex1",
+                "english": "This material is resistant to water.",
+                "japanese": "この素材は水に耐性がある。",
+                "difficulty": 3,
+                "context": "material"
+            }
+        ]
+    },
+    {
+        "id": "medium_851",
+        "english": "arid",
+        "japanese": "乾燥した、不毛の",
+        "phonetic": "/ˈærɪd/",
+        "partOfSpeech": "adjective",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_851_ex1",
+                "english": "The desert is an arid region.",
+                "japanese": "その砂漠は乾燥した地域だ。",
+                "difficulty": 3,
+                "context": "geography"
+            }
+        ]
+    },
+    {
+        "id": "medium_852",
+        "english": "prescience",
+        "japanese": "予知、先見の明",
+        "phonetic": "/ˈpresiəns/",
+        "partOfSpeech": "noun",
+        "frequency": 40,
+        "examples": [
+            {
+                "id": "medium_852_ex1",
+                "english": "Her prescience allowed her to avoid the disaster.",
+                "japanese": "彼女の予知能力が彼女に災害を避けることを可能にした。",
+                "difficulty": 3,
+                "context": "ability"
+            }
+        ]
+    },
+    {
+        "id": "medium_853",
+        "english": "foresight",
+        "japanese": "先見の明、予見",
+        "phonetic": "/ˈfɔːrsaɪt/",
+        "partOfSpeech": "noun",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_853_ex1",
+                "english": "It was a lack of foresight that led to the problem.",
+                "japanese": "その問題を引き起こしたのは先見の明の欠如だった。",
+                "difficulty": 3,
+                "context": "ability"
+            }
+        ]
+    },
+    {
+        "id": "medium_854",
+        "english": "forethought",
+        "japanese": "事前の考慮、熟慮",
+        "phonetic": "/ˈfɔːrθɔːt/",
+        "partOfSpeech": "noun",
+        "frequency": 50,
+        "examples": [
+            {
+                "id": "medium_854_ex1",
+                "english": "With a little forethought, we could have avoided this.",
+                "japanese": "少しの熟慮があれば、これを避けることができたのに。",
+                "difficulty": 3,
+                "context": "planning"
+            }
+        ]
+    },
+    {
+        "id": "medium_855",
+        "english": "fall into ruin",
+        "japanese": "廃墟となる、荒廃する",
+        "phonetic": "",
+        "partOfSpeech": "idiom",
+        "frequency": 45,
+        "examples": [
+            {
+                "id": "medium_855_ex1",
+                "english": "The old castle fell into ruin over centuries.",
+                "japanese": "その古い城は何世紀にもわたって廃墟となった。",
+                "difficulty": 3,
+                "context": "history"
+            }
+        ]
+    },
+    {
+        "id": "medium_856",
+        "english": "disintegrate",
+        "japanese": "崩壊する、分解する",
+        "phonetic": "/dɪsˈɪntɪɡreɪt/",
+        "partOfSpeech": "verb",
+        "frequency": 55,
+        "examples": [
+            {
+                "id": "medium_856_ex1",
+                "english": "The old book started to disintegrate.",
+                "japanese": "その古い本は崩壊し始めた。",
+                "difficulty": 3,
+                "context": "decay"
+            }
+        ]
+    },
+    {
+        "id": "medium_857",
+        "english": "decline",
+        "japanese": "衰退する、減少する",
+        "phonetic": "/dɪˈklaɪn/",
+        "partOfSpeech": "verb",
+        "frequency": 65,
+        "examples": [
+            {
+                "id": "medium_857_ex1",
+                "english": "The city's population has been in decline.",
+                "japanese": "その都市の人口は減少傾向にある。",
+                "difficulty": 3,
+                "context": "trend"
+            }
+        ]
+    }
+]
