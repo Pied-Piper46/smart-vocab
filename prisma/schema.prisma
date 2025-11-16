@@ -15,27 +15,14 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Authentication fields
-  name          String?
-  email         String   @unique
-  emailVerified DateTime?
-  image         String?
+  email          String   @unique
+  emailVerified  DateTime?
   hashedPassword String?
 
-  // Learning preferences
-  dailyGoal          Int     @default(15) // words per day
-  sessionDuration    Int     @default(10) // minutes
-  preferredLanguage  String  @default("ja") // ja for Japanese
-  
-  // Progress tracking
-  totalWordsLearned  Int     @default(0)
-  currentStreak      Int     @default(0)
-  longestStreak      Int     @default(0)
-  totalStudyTime     Int     @default(0) // minutes
-
   // Relations
-  progress    WordProgress[]
-  sessions    LearningSession[]
-  accounts Account[]
+  progress      WordProgress[]
+  sessions      LearningSession[]
+  accounts      Account[]
   sessions_auth Session[]
 
   @@map("users")
