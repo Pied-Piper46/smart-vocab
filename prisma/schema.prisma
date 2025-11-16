@@ -95,33 +95,30 @@ model Word {
 }
 
 model WordProgress {
-  id       String   @id @default(cuid())
-  userId   String
-  wordId   String
+  id        String   @id @default(cuid())
+  userId    String
+  wordId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Spaced repetition data
-  easeFactor      Float   @default(2.5) // SuperMemo algorithm
-  interval        Int     @default(1)   // days until next review
-  repetitions     Int     @default(0)
-  nextReviewDate  DateTime @default(now())
-  
   // Performance tracking
-  totalReviews    Int     @default(0)
-  correctAnswers  Int     @default(0)
-  streak          Int     @default(0)
-  lastAnswerCorrect Boolean @default(false)
-  
-  // Status
-  status          String  @default("new") // new, learning, reviewing, mastered
-  previousStatus  String? // previous status for change detection
+  totalReviews      Int      @default(0)
+  correctAnswers    Int      @default(0)
+  streak            Int      @default(0)
+  lastAnswerCorrect Boolean  @default(false)
+  lastReviewedAt    DateTime?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  // Review scheduling
+  recommendedReviewDate DateTime @default(now())
+
+  // Status (computed from streak/accuracy, but cached for query performance)
+  status String @default("new") // new, learning, mastered
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
 
   @@unique([userId, wordId])
-  @@index([nextReviewDate])
+  @@index([recommendedReviewDate])
   @@index([status])
   @@index([userId, status])
   @@map("word_progress")
