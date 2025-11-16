@@ -95,8 +95,6 @@ model Word {
   japanese    String
   phonetic    String?  // pronunciation
   partOfSpeech String  // noun, verb, adjective, etc.
-  difficulty  Int      @default(1) // 1-5 scale
-  frequency   Int      @default(1) // usage frequency ranking
 
   // Learning context
   examples    WordExample[]

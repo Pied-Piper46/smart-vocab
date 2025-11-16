@@ -47,12 +47,6 @@ async function loadJsonData(): Promise<JsonWord[]> {
   return allWords;
 }
 
-function getDifficultyFromId(id: string): number {
-  if (id.startsWith('easy')) return 1;
-  if (id.startsWith('medium')) return 2;
-  if (id.startsWith('hard')) return 3;
-  return 1; // default
-}
 
 async function main() {
   console.log('📚 Starting word data management...');
@@ -132,8 +126,6 @@ async function main() {
             japanese: jsonWord.japanese,
             phonetic: jsonWord.phonetic,
             partOfSpeech: jsonWord.partOfSpeech,
-            difficulty: getDifficultyFromId(jsonWord.id),
-            frequency: jsonWord.frequency,
           },
         });
         addedWords++;
@@ -262,8 +254,6 @@ async function addAllWordsAsNew(jsonWords: JsonWord[]) {
           japanese: jsonWord.japanese,
           phonetic: jsonWord.phonetic,
           partOfSpeech: jsonWord.partOfSpeech,
-          difficulty: getDifficultyFromId(jsonWord.id),
-          frequency: jsonWord.frequency,
         },
       });
       addedWords++;
