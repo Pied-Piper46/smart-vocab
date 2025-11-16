@@ -16,35 +16,19 @@ export interface WordData {
   japanese: string;
   phonetic?: string;
   partOfSpeech: string;
-  frequency: number;
-  examples: WordExample[];
+  exampleEnglish: string;
+  exampleJapanese: string;
   progress?: WordProgress;
 }
 
-export interface WordExample {
-  id: string;
-  english: string;
-  japanese: string;
-  difficulty: number;
-  context: string;
-}
-
 export interface WordProgress {
-  easeFactor: number;
-  interval: number;
-  repetitions: number;
-  nextReviewDate: Date;
-  streak: number;
   totalReviews: number;
   correctAnswers: number;
+  streak: number;
+  lastAnswerCorrect: boolean;
+  lastReviewedAt?: string | null; // ISO string from API
+  recommendedReviewDate: string; // ISO string from API
   status?: string; // Mastery status
-  statusChange?: {
-    changed: boolean;
-    from: string;
-    to: string;
-    isUpgrade: boolean;
-    isDowngrade: boolean;
-  };
 }
 
 
@@ -179,17 +163,11 @@ export interface WordStatusChange {
  */
 export interface SessionCompletionData {
   sessionId: string;
-  completedAt: Date;
-  wordsStudied: number;
+  completedAt: string; // ISO string from API
   statusChanges: {
     upgrades: WordStatusChange[];
     downgrades: WordStatusChange[];
     maintained: WordStatusChange[];
-  };
-  updatedStats: {
-    currentStreak: number;
-    longestStreak: number;
-    totalWordsLearned: number;
   };
 }
 
@@ -285,8 +263,7 @@ export interface SessionHistoryData {
   totalSessions: number;
   recentSessions: Array<{
     id: string;
-    completedAt: Date;
-    wordsStudied: number;
+    completedAt: string; // ISO string from API
   }>;
   thisWeek: number;
   thisMonth: number;
