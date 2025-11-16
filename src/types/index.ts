@@ -3,58 +3,44 @@
 // === Database Models ===
 export interface User {
   id: string;
-  name?: string;
-  email?: string;
-  dailyGoal: number;
-  sessionDuration: number;
-  preferredLanguage: string;
-  totalWordsLearned: number;
-  currentStreak: number;
-  longestStreak: number;
-  totalStudyTime: number;
+  email: string;
+  emailVerified?: Date | null;
+  hashedPassword?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Word {
   id: string;
   english: string;
   japanese: string;
-  phonetic?: string;
+  phonetic?: string | null;
   partOfSpeech: string;
-  difficulty: number;
-  frequency: number;
-  examples?: WordExample[];
+  exampleEnglish: string;
+  exampleJapanese: string;
+  createdAt: Date;
+  updatedAt: Date;
   progress?: WordProgress;
-}
-
-export interface WordExample {
-  id: string;
-  wordId: string;
-  english: string;
-  japanese: string;
-  difficulty: number;
-  context: string;
 }
 
 export interface WordProgress {
   id: string;
   userId: string;
   wordId: string;
-  easeFactor: number;
-  interval: number;
-  repetitions: number;
-  nextReviewDate: Date;
   totalReviews: number;
   correctAnswers: number;
   streak: number;
   lastAnswerCorrect: boolean;
+  lastReviewedAt?: Date | null;
+  recommendedReviewDate: Date;
   status: MasteryStatus;
-  previousStatus?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface LearningSession {
   id: string;
   userId: string;
-  wordsStudied: number;
   completedAt: Date;
 }
 
@@ -175,14 +161,13 @@ export interface SessionHistory {
 
 // === UI Component Types ===
 export interface UserProfile {
-  name: string;
   email: string;
-  dailyGoal: number;
-  sessionDuration: number;
-  preferredLanguage: string;
-  currentStreak: number;
-  longestStreak: number;
-  totalWordsLearned: number;
+  createdAt: Date;
+  // Computed fields (calculated from other tables)
+  currentStreak?: number;
+  longestStreak?: number;
+  totalWordsLearned?: number;
+  totalStudyTime?: number;
 }
 
 export interface DifficultyOption {
