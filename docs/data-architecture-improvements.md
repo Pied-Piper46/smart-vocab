@@ -1342,6 +1342,141 @@ The proposed WordProgress schema and session construction logic is well-optimize
    - Check query performance after JOIN removal
    - Monitor database size reduction
 
+## Implementation Progress
+
+### ✅ Completed
+1. **Prisma Schema Updates (Phase 1)**
+   - User model: Removed name, image, dailyGoal, sessionDuration, preferredLanguage, totalWordsLearned, currentStreak, longestStreak, totalStudyTime
+   - Word model: Removed difficulty/frequency, consolidated exampleEnglish/exampleJapanese
+   - WordProgress model: Removed easeFactor/interval/repetitions/previousStatus, added recommendedReviewDate
+   - LearningSession model: Removed wordsStudied/createdAt
+   - WordExample model: Completely removed
+   - Database pushed via `npx prisma db push`
+
+2. **Mastery Calculation Logic** ([src/lib/mastery.ts](../src/lib/mastery.ts))
+   - Updated `calculateMasteryStatus()` with two paths to mastery (streak >= 3 OR streak >= 2 && accuracy >= 0.80)
+   - Added `getRecommendedReviewInterval()` for streak-based spacing
+   - Added `calculateRecommendedReviewDate()` for next review calculation
+   - Updated `calculateWordPriority()` to use recommendedReviewDate, lastReviewedAt, streak, accuracy
+   - Updated `selectOptimalWords()` to use new field structure
+   - Updated `getOptimalSessionComposition()` with session patterns (newFocused, balanced, reviewFocused)
+   - Removed all SM-2 algorithm references (easeFactor, interval, etc.)
+
+3. **Type Definitions** ([src/types/index.ts](../src/types/index.ts))
+   - User: Removed deleted fields, kept only id, email, emailVerified, hashedPassword, createdAt, updatedAt
+   - Word: Removed difficulty/frequency/examples, added exampleEnglish/exampleJapanese
+   - WordExample: Deleted entirely
+   - WordProgress: Removed SM-2 fields, added recommendedReviewDate/lastReviewedAt
+   - LearningSession: Removed wordsStudied
+   - UserProfile: Made computed fields optional (currentStreak, longestStreak, etc.)
+
+4. **API Client Types** ([src/lib/api-client.ts](../src/lib/api-client.ts))
+   - WordData: Removed frequency/examples[], added exampleEnglish/exampleJapanese
+   - WordExample: Deleted entirely
+   - WordProgress: Removed SM-2 fields, added new fields with ISO string dates
+   - SessionCompletionData: Removed wordsStudied and updatedStats (User statistics)
+   - SessionHistoryData: Removed wordsStudied from recentSessions
+
+5. **Session Words API** ([src/app/api/words/session/route.ts](../src/app/api/words/session/route.ts))
+   - Removed difficulty filtering (now selects from all words)
+   - Removed examples relation usage
+   - Removed frequency sorting
+   - Updated to use recommendedReviewDate/lastReviewedAt/streak for priority
+   - Returns new Word structure with exampleEnglish/exampleJapanese
+
+6. **Session Complete API** ([src/app/api/sessions/complete/route.ts](../src/app/api/sessions/complete/route.ts))
+   - Removed wordsStudied from session creation
+   - Removed examples relation reference
+   - Removed all SM-2 algorithm logic
+   - Uses streak-based recommendedReviewDate calculation
+   - Removed User statistics updates (computed fields removed)
+   - Simplified response (no wordsStudied, no updatedStats)
+
+### 🚧 In Progress / Remaining Tasks
+
+#### Critical (Must Fix Immediately - Code Will Not Run)
+
+~~1. **Session Words API** - ✅ COMPLETED~~
+
+~~2. **Session Complete API** - ✅ COMPLETED~~
+
+~~3. **API Client Types** - ✅ COMPLETED~~
+
+~~4. **Type Definitions** - ✅ COMPLETED~~
+
+~~5. **Mastery Calculation** - ✅ COMPLETED~~
+
+#### High Priority (Core Functionality)
+
+1. **SessionManager Component** ([src/components/learning/SessionManager.tsx](../src/components/learning/SessionManager.tsx)):
+   - L6: `fetchSessionWords` call still passes difficulty parameter
+   - L10: Imports `DifficultyLevel` (no longer used)
+   - L54: Uses `selectedDifficulty` state
+   - L350: Calls `fetchSessionWords(selectedDifficulty!, 15)` - needs to remove difficulty
+   - L434-480: Difficulty selection UI needs to be removed or simplified
+   - API response handling needs update (no wordsStudied in response)
+
+2. **WordCard Component** - Check if uses `word.examples[0]` (needs exampleEnglish/exampleJapanese)
+
+3. **API Client Function** ([src/lib/api-client.ts](../src/lib/api-client.ts)):
+   - L57-81: `fetchSessionWords()` still takes difficulty parameter - needs update
+   - L199-279: `recordSessionCompletion()` still passes wordsStudied - needs update
+
+4. **Other API Routes to Audit**:
+   - [src/app/api/words/route.ts](../src/app/api/words/route.ts) - May reference difficulty/frequency/examples
+   - [src/app/api/sessions/history/route.ts](../src/app/api/sessions/history/route.ts) - May reference wordsStudied
+   - [src/app/api/progress/](../src/app/api/progress/) - May reference User stats or old WordProgress fields
+   - [src/app/api/dashboard/route.ts](../src/app/api/dashboard/route.ts) - May use deleted User fields
+   - [src/app/api/user/profile/route.ts](../src/app/api/user/profile/route.ts) - Uses deleted User fields
+
+5. **Seed Script** ([prisma/seed.ts](../prisma/seed.ts)):
+   - Verify it uses new Word schema (exampleEnglish/exampleJapanese)
+   - Should not reference difficulty/frequency fields
+   - Should handle auto-generated IDs (not manual assignment)
+
+#### Medium Priority (UI/UX)
+
+7. **Dashboard/Profile Updates**
+   - Remove display of deleted User statistics (currentStreak, longestStreak, totalWordsLearned, totalStudyTime)
+   - Implement computed statistics queries if needed for display
+   - Update components to use new Word structure
+
+8. **Component Updates**
+   - Update WordCard to use Word.exampleEnglish/exampleJapanese
+   - Update any component expecting old data structures
+
+#### Low Priority (Cleanup)
+
+9. **Type File Reorganization** (Phase 3)
+   - Create database.ts, api.ts, ui.ts, word-import.ts
+   - Migrate to Prisma-generated types as primary source
+   - Remove redundant manual definitions
+
+10. **Seed Script Updates** ([prisma/seed.ts](../prisma/seed.ts)):
+    - Already updated for new schema (verify)
+    - Remove any references to deleted fields
+
+11. **Eliminate Triple Type Duplication**
+    - Currently 3 sources of type definitions:
+      - `@prisma/client` - Auto-generated from schema (source of truth)
+      - `src/types/index.ts` - Manual definitions (server/client shared)
+      - `src/lib/api-client.ts` - Frontend-specific redefinitions
+    - **Problem**: Same types (Word, WordProgress, etc.) defined in 3 places
+    - **Solution**:
+      - Use Prisma types as base
+      - `src/types/index.ts` for extended/computed types only
+      - `src/lib/api-client.ts` should import from `@/types`, not redefine
+    - **Benefits**: Single source of truth, no sync issues, less maintenance
+
+### Next Steps (Recommended Order)
+
+1. **Immediate**: Fix [src/app/api/sessions/complete/route.ts](../src/app/api/sessions/complete/route.ts) - Server will crash without this
+2. **Immediate**: Update [src/types/index.ts](../src/types/index.ts) to match new schema
+3. **Soon**: Update [src/lib/mastery.ts](../src/lib/mastery.ts) with new calculation logic
+4. **Soon**: Audit and fix all other API routes
+5. **Later**: Update UI components
+6. **Finally**: Reorganize type files
+
 ## Notes
 
 - Prisma auto-generates types from `schema.prisma` via `npx prisma generate`

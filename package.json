@@ -7,6 +7,11 @@
     "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
     "words:add": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts",
     "words:update": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts --force",
     "words:clear": "npx dotenv -e .env.local -- npx tsx prisma/seed.ts --clear",
@@ -32,15 +37,21 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.1.1",
     "dotenv-cli": "^8.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "jsdom": "^27.2.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.9"
   }
 }
