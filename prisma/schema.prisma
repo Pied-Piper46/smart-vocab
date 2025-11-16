@@ -96,25 +96,14 @@ model Word {
   phonetic    String?  // pronunciation
   partOfSpeech String  // noun, verb, adjective, etc.
 
+  // Example sentence (consolidated from WordExample)
+  exampleEnglish   String
+  exampleJapanese  String
+
   // Learning context
-  examples    WordExample[]
   progress    WordProgress[]
 
   @@map("words")
-  @@schema("smart-vocab")
-}
-
-model WordExample {
-  id        String @id @default(cuid())
-  wordId    String
-  english   String
-  japanese  String
-  difficulty Int   @default(1) // 1-3 (beginner, intermediate, advanced)
-  context   String @default("general") // general, business, academic, etc.
-
-  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
-
-  @@map("word_examples")
   @@schema("smart-vocab")
 }
 
