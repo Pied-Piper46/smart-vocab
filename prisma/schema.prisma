@@ -142,14 +142,10 @@ model WordProgress {
 }
 
 model LearningSession {
-  id        String   @id @default(cuid())
-  userId    String
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  userId      String
+  completedAt DateTime
 
-  // Minimal session info
-  wordsStudied   Int      @default(15) // typically 15 words per session
-  completedAt    DateTime // session completion time (required)
-  
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([completedAt])
