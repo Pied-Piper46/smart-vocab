@@ -634,27 +634,596 @@ model User {
 
 ### 11. WordProgress Table and Session Logic Redesign
 
-**Status:** ✅ **Design Finalized** - See [session-construction-refactoring-v2.md](./session-construction-refactoring-v2.md)
+#### Current Issues with WordProgress
 
-#### Summary
+**Spaced Repetition Fields (Mostly Unused):**
+- `easeFactor` - Used only for interval calculation, which itself is not effectively used
+- `interval` - Used only for nextReviewDate calculation
+- `repetitions` - Used only for interval logic (1st, 2nd, 3rd+ attempts)
+- `nextReviewDate` - Exists but doesn't effectively control session selection
+  - Problem: Users may not study on scheduled days
+  - Problem: Many words may be due on same day
+  - Problem: Current logic doesn't prioritize by this date
 
-Session construction logic has been completely redesigned with a simpler, more performant approach:
+**Performance Fields (Some Unused):**
+- `totalReviews` ✅ Used - Status calculation
+- `correctAnswers` ✅ Used - Status calculation
+- `streak` ✅ Used - Status calculation (consecutive correct answers)
+- `lastAnswerCorrect` ❌ Unused - Saved but never referenced
 
-**Key Changes:**
-- **推奨復習日を解答時に計算** - Complexity moved from session construction to answer processing
-- **セッション構築は推奨日順に取得** - Simple `ORDER BY recommendedReviewDate` query
-- **優先度計算を削除** - No more complex priority calculations with magic numbers
-- **accuracyフィールドを削除** - Computed on-the-fly from totalReviews/correctAnswers
-- **lastAnswerCorrectを削除** - Redundant (can derive from streak)
+**Status Fields:**
+- `status` ✅ Critical - Core of session composition
+- `previousStatus` ⚠️ Used only for change detection in feedback, can be calculated
+
+#### User Experience Analysis
+
+**Key Insights:**
+
+1. **Streak = Recent Mastery State (定着度)**
+   - High streak: Recently performing well → Content is sticking
+   - Low streak (0): Recently failed → Still unstable
+   - Important: `accuracy: 0.50, streak: 3` means "was struggling but now improving"
+
+2. **Accuracy = Overall Aptitude (得意度)**
+   - High accuracy: Already knew it / Easy to remember
+   - Low accuracy: Difficult / Hard to remember
+   - Independent metric from streak
+
+3. **Proposed Dependencies:**
+   - **Review Interval ← Streak** (consecutive correct answers)
+     - streak 0: 1 day later
+     - streak 1: 3 days later
+     - streak 2: 7 days later
+     - streak 3: 14 days later
+     - streak 4+: 30 days later
+   - **Priority ← Accuracy** (among same status/streak)
+     - Lower accuracy = Higher priority
+
+#### Decision: Simplified WordProgress Model
+
+**New Schema:**
+```prisma
+model WordProgress {
+  id       String   @id @default(cuid())
+  userId   String
+  wordId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Performance metrics
+  totalReviews    Int     @default(0)
+  correctAnswers  Int     @default(0)
+  accuracy        Float   @default(0)  // Computed on update
+  streak          Int     @default(0)  // Consecutive correct answers
+
+  // Timing metrics
+  lastReviewedAt         DateTime @default(now())
+  recommendedReviewDate  DateTime @default(now())  // Based on streak
+
+  // Status
+  status          String  @default("new")
+
+  user User @relation(fields: [userId], references: [id])
+  word Word @relation(fields: [wordId], references: [id])
+
+  @@unique([userId, wordId])
+  @@index([userId, status, recommendedReviewDate])
+  @@index([userId, status, accuracy])
+  @@index([userId, lastReviewedAt])
+}
+```
+
+**Fields Removed:**
+1. `easeFactor` - No longer needed
+2. `interval` - Replaced by streak-based logic
+3. `repetitions` - Replaced by streak
+4. `nextReviewDate` - Replaced by recommendedReviewDate
+5. `lastAnswerCorrect` - Unused
+6. `previousStatus` - Can be calculated during update
+
+**Fields Added:**
+1. `accuracy` - Computed on update (correctAnswers / totalReviews)
+2. `recommendedReviewDate` - Streak-based recommended review date
+
+#### Improved Status Calculation
+
+```typescript
+function calculateMasteryStatus(progress: WordProgress): MasteryStatus {
+  const { totalReviews, correctAnswers, streak } = progress;
+  const accuracy = correctAnswers / totalReviews;
+
+  if (totalReviews === 0) return 'new';
+
+  // Learning phase
+  if (totalReviews <= 3) return 'learning';
+
+  // Mastered: Two paths for motivation
+  // Path A: Recent mastery (streak-focused)
+  // Path B: Overall aptitude (accuracy-focused)
+  if (streak >= 3 || (streak >= 2 && accuracy >= 0.80)) {
+    return 'mastered';
+  }
+
+  return 'reviewing';
+}
+```
 
 **Benefits:**
-- ⚡ **4x faster** session construction (O(1) index scan vs O(n log n) sort)
-- 🧪 **Easier to test** - Deterministic logic, no complex priority calculations
-- 🔧 **Easier to maintain** - Configuration externalized, clear separation of concerns
+- ✅ Faster mastery for struggling words (streak 3 → mastered)
+- ✅ Faster mastery for easy words (streak 2 + accuracy 0.8 → mastered)
+- ✅ Better motivation (status changes more frequently)
 
-For complete design details, implementation plan, and TDD workflow, see:
-👉 **[session-construction-refactoring-v2.md](./session-construction-refactoring-v2.md)**
+#### Review Interval Logic
 
+```typescript
+function getRecommendedReviewInterval(streak: number): number {
+  if (streak === 0) return 1;   // Failed → Next day
+  if (streak === 1) return 3;   // 1 correct → 3 days
+  if (streak === 2) return 7;   // 2 correct → 1 week
+  if (streak === 3) return 14;  // 3 correct → 2 weeks
+  return 30;                     // 4+ correct → 1 month
+}
+
+function updateProgress(progress: WordProgress, isCorrect: boolean) {
+  const newStreak = isCorrect ? progress.streak + 1 : 0;
+  const newCorrectAnswers = progress.correctAnswers + (isCorrect ? 1 : 0);
+  const newTotalReviews = progress.totalReviews + 1;
+  const newAccuracy = newCorrectAnswers / newTotalReviews;
+
+  const interval = getRecommendedReviewInterval(newStreak);
+  const recommendedReviewDate = addDays(new Date(), interval);
+
+  return {
+    streak: newStreak,
+    correctAnswers: newCorrectAnswers,
+    totalReviews: newTotalReviews,
+    accuracy: newAccuracy,
+    lastReviewedAt: new Date(),
+    recommendedReviewDate,
+    status: calculateMasteryStatus({
+      totalReviews: newTotalReviews,
+      correctAnswers: newCorrectAnswers,
+      streak: newStreak
+    })
+  };
+}
+```
+
+#### Priority Calculation (Deterministic)
+
+```typescript
+function calculatePriority(word: WordProgress, now: Date): number {
+  const daysOverdue = Math.max(0, daysBetween(word.recommendedReviewDate, now));
+  const daysSinceReview = daysBetween(word.lastReviewedAt, now);
+
+  let priority = 0;
+
+  // 1. Days overdue (most important)
+  priority += daysOverdue * 20;
+
+  // 2. Streak = 0 (recently failed)
+  if (word.streak === 0 && word.totalReviews >= 2) {
+    priority += 50;
+  }
+
+  // 3. Low accuracy
+  if (word.accuracy < 0.5 && word.totalReviews >= 4) {
+    priority += 30;
+  } else if (word.accuracy < 0.7 && word.totalReviews >= 4) {
+    priority += 15;
+  }
+
+  // 4. Days since last review
+  priority += daysSinceReview * 5;
+
+  // No randomness - deterministic priority
+  return priority;
+}
+
+function selectByPriority(candidates: WordProgress[], count: number): WordProgress[] {
+  return candidates
+    .map(word => ({ word, priority: calculatePriority(word, new Date()) }))
+    .sort((a, b) => {
+      // Same streak → Lower accuracy first
+      if (a.word.streak === b.word.streak) {
+        if (Math.abs(a.word.accuracy - b.word.accuracy) > 0.1) {
+          return a.word.accuracy - b.word.accuracy;
+        }
+      }
+      // Otherwise sort by priority
+      return b.priority - a.priority;
+    })
+    .slice(0, count)
+    .map(item => item.word);
+}
+```
+
+**Key Points:**
+- ✅ No randomness in priority calculation (preserves calculated priority)
+- ✅ Same streak → Lower accuracy prioritized
+- ✅ Clear, debuggable logic
+
+#### Session Composition Logic
+
+**Session Size:** 10 words
+
+**Three Patterns:**
+```typescript
+const SESSION_PATTERNS = {
+  // Pattern A: New-focused (early learning)
+  newFocused: {
+    new: 6,
+    learning: 1,
+    reviewing: 1,
+    mastered: 1,
+    // Total: 9
+  },
+
+  // Pattern B: Balanced (standard)
+  balanced: {
+    new: 5,
+    learning: 2,
+    reviewing: 1,
+    mastered: 1,
+    // Total: 9
+  },
+
+  // Pattern C: Review-focused (consolidation)
+  reviewFocused: {
+    new: 4,
+    learning: 2,
+    reviewing: 2,
+    mastered: 1,
+    // Total: 9
+  }
+};
+```
+
+**Random Slots:** 0-3 words (randomly determined each session)
+- Creates variety between sessions
+- Prevents predictability
+
+**Session Construction Flow:**
+```typescript
+async function buildSession(userId: string): Promise<WordProgress[]> {
+  // Step 1: Determine random slot count (0-3)
+  const randomSlotCount = Math.floor(Math.random() * 4);
+  const prioritySlotCount = 10 - randomSlotCount;
+
+  // Step 2: Select pattern randomly
+  const pattern = randomChoice(['newFocused', 'balanced', 'reviewFocused']);
+
+  // Step 3: Scale pattern to priority slot count
+  const composition = scaleComposition(pattern, prioritySlotCount);
+
+  // Step 4: Select words by priority + keep candidate pool
+  const selectedWords = [];
+  const candidatePool = [];
+
+  for (const [status, count] of Object.entries(composition)) {
+    const { selected, candidates } = await selectTopWordsWithCandidates(
+      userId, status, count
+    );
+    selectedWords.push(...selected);
+    candidatePool.push(...candidates); // Keep unused candidates
+  }
+
+  // Step 5: Fill shortage from candidate pool (no duplicate check needed)
+  const shortage = prioritySlotCount - selectedWords.length;
+  if (shortage > 0) {
+    const fillers = selectByPriority(candidatePool, shortage);
+    selectedWords.push(...fillers);
+  }
+
+  // Step 6: Add random slots
+  if (randomSlotCount > 0) {
+    const excludeIds = new Set([
+      ...selectedWords.map(w => w.id),
+      ...candidatePool.map(w => w.id)
+    ]);
+    const randomWords = await selectRandomWords(userId, randomSlotCount, excludeIds);
+    selectedWords.push(...randomWords);
+  }
+
+  // Step 7: Final shuffle
+  return shuffle(selectedWords);
+}
+```
+
+**Candidate Pool Strategy:**
+```typescript
+async function selectTopWordsWithCandidates(
+  userId: string,
+  status: MasteryStatus,
+  count: number
+): Promise<{ selected: WordProgress[]; candidates: WordProgress[] }> {
+  // Phase 1: Due words (recommendedReviewDate passed)
+  const dueWords = await prisma.wordProgress.findMany({
+    where: { userId, status, recommendedReviewDate: { lte: new Date() } },
+    take: Math.max(count * 5, 20)
+  });
+
+  if (dueWords.length >= count) {
+    const selected = selectByPriority(dueWords, count);
+    const candidates = dueWords.filter(w => !selected.includes(w));
+    return { selected, candidates };
+  }
+
+  // Phase 2: Near-due words (within 2 days)
+  const nearDue = await prisma.wordProgress.findMany({
+    where: {
+      userId, status,
+      recommendedReviewDate: { gt: new Date(), lte: addDays(new Date(), 2) }
+    },
+    take: count * 3
+  });
+
+  // Phase 3: All words (sorted by lastReviewedAt)
+  const remaining = await prisma.wordProgress.findMany({
+    where: { userId, status },
+    orderBy: { lastReviewedAt: 'asc' },
+    take: count * 2
+  });
+
+  const allCandidates = [...dueWords, ...nearDue, ...remaining];
+  const selected = selectByPriority(allCandidates, count);
+  const candidates = allCandidates.filter(w => !selected.includes(w));
+
+  return { selected, candidates };
+}
+```
+
+**Benefits:**
+- ✅ **Performance**: Only fetch necessary candidates, reuse pool for shortage
+- ✅ **No duplicate checks**: Candidate pool already excludes selected words
+- ✅ **Guaranteed coverage**: All words eventually appear via recommendedReviewDate
+- ✅ **Variety**: Random pattern + random slots (0-3) each session
+- ✅ **Priority preserved**: Deterministic selection within each status
+
+**Example Session:**
+```
+Random slots: 2
+Priority slots: 8
+
+Pattern: balanced (scaled to 8)
+→ new: 4, learning: 2, reviewing: 1, mastered: 1
+
+Selection:
+- new: 4 words (priority order) + 20 candidates
+- learning: 2 words (priority order) + 10 candidates
+- reviewing: 1 word (priority order) + 5 candidates
+- mastered: 1 word (priority order) + 3 candidates
+
+Total selected: 8 words
+Candidate pool: 30 words (unused candidates)
+
+Random slots: 2 words (excluding selected + pool)
+
+Final: 10 words → shuffle
+```
+
+**Shortage Example:**
+```
+Random slots: 0
+Priority slots: 10
+
+Pattern: reviewFocused (scaled to 10)
+→ new: 4, learning: 2, reviewing: 2, mastered: 2
+
+Selection:
+- new: 4 words
+- learning: 2 words
+- reviewing: 0 words (shortage: 2) + 3 candidates
+- mastered: 2 words
+
+Total selected: 8 words (shortage: 2)
+Candidate pool: 35 candidates
+
+Fill shortage: Select 2 from candidate pool by priority
+→ Total: 10 words
+```
+
+#### Performance Optimization for Session Construction
+
+**Potential Bottleneck Analysis:**
+
+Current proposal could result in multiple sequential DB queries:
+- 4 statuses × up to 3 queries each = up to 12 DB queries
+- Sequential execution = slow response time (~600ms)
+
+**Optimized Strategy: Parallel Query Execution**
+
+**Key Improvements:**
+1. **Parallel Queries**: Execute all status queries simultaneously using `Promise.all`
+2. **Index Optimization**: Compound indexes for efficient filtering
+3. **Candidate Pool Reuse**: Minimize additional queries for random slots
+4. **Select Optimization**: Fetch only necessary fields
+
+**Optimized Schema Indexes:**
+```prisma
+model WordProgress {
+  // ... fields ...
+
+  @@unique([userId, wordId])
+
+  // Optimized indexes for session construction
+  @@index([userId, status, recommendedReviewDate]) // Primary query
+  @@index([userId, status, accuracy])               // Struggling words
+  @@index([userId, status])                         // Count queries
+}
+```
+
+**Optimized Session Construction:**
+```typescript
+async function buildSessionOptimized(userId: string): Promise<WordProgress[]> {
+  const now = new Date();
+
+  // Step 1: Determine random slots and pattern
+  const randomSlotCount = Math.floor(Math.random() * 4); // 0-3
+  const prioritySlotCount = 10 - randomSlotCount;
+  const pattern = randomChoice(['newFocused', 'balanced', 'reviewFocused']);
+  const composition = scaleComposition(SESSION_PATTERNS[pattern], prioritySlotCount);
+
+  // Step 2: PARALLEL QUERY EXECUTION (4 queries simultaneously)
+  const [newWords, learningWords, reviewingWords, masteredWords] = await Promise.all([
+    fetchStatusCandidates(userId, 'new', composition.new, now),
+    fetchStatusCandidates(userId, 'learning', composition.learning, now),
+    fetchStatusCandidates(userId, 'reviewing', composition.reviewing, now),
+    fetchStatusCandidates(userId, 'mastered', composition.mastered, now),
+  ]);
+
+  // Step 3: Merge results
+  const selectedWords = [
+    ...newWords.selected,
+    ...learningWords.selected,
+    ...reviewingWords.selected,
+    ...masteredWords.selected
+  ];
+
+  const candidatePool = [
+    ...newWords.candidates,
+    ...learningWords.candidates,
+    ...reviewingWords.candidates,
+    ...masteredWords.candidates
+  ];
+
+  // Step 4: Fill shortage from candidate pool
+  const shortage = prioritySlotCount - selectedWords.length;
+  if (shortage > 0) {
+    const fillers = selectByPriority(candidatePool, shortage);
+    selectedWords.push(...fillers);
+  }
+
+  // Step 5: Random slots (reuse candidate pool when possible)
+  if (randomSlotCount > 0) {
+    if (candidatePool.length >= randomSlotCount) {
+      // No additional query needed - use candidate pool
+      const remainingPool = candidatePool.filter(w => !selectedWords.includes(w));
+      const randomWords = shuffle(remainingPool).slice(0, randomSlotCount);
+      selectedWords.push(...randomWords);
+    } else {
+      // Fallback: additional query (rare case)
+      const excludeIds = new Set([
+        ...selectedWords.map(w => w.id),
+        ...candidatePool.map(w => w.id)
+      ]);
+      const randomWords = await selectRandomWords(userId, randomSlotCount, excludeIds);
+      selectedWords.push(...randomWords);
+    }
+  }
+
+  // Step 6: Final shuffle
+  return shuffle(selectedWords);
+}
+
+// Efficient single-query candidate fetching
+async function fetchStatusCandidates(
+  userId: string,
+  status: MasteryStatus,
+  count: number,
+  now: Date
+): Promise<{ selected: WordProgress[]; candidates: WordProgress[] }> {
+  if (count === 0) {
+    return { selected: [], candidates: [] };
+  }
+
+  // Single optimized query with compound index
+  const candidates = await prisma.wordProgress.findMany({
+    where: { userId, status },
+    select: {
+      id: true,
+      wordId: true,
+      totalReviews: true,
+      correctAnswers: true,
+      accuracy: true,
+      streak: true,
+      lastReviewedAt: true,
+      recommendedReviewDate: true,
+      status: true,
+      word: {
+        select: {
+          id: true,
+          english: true,
+          japanese: true,
+          phonetic: true,
+          partOfSpeech: true,
+          exampleEnglish: true,
+          exampleJapanese: true
+        }
+      }
+    },
+    take: Math.max(count * 5, 20), // Sufficient candidate pool
+    orderBy: [
+      { recommendedReviewDate: 'asc' }, // Due date priority
+      { accuracy: 'asc' }               // Then by difficulty
+    ]
+  });
+
+  const selected = selectByPriority(candidates, count);
+  const remaining = candidates.filter(w => !selected.includes(w));
+
+  return { selected, candidates: remaining };
+}
+```
+
+**Performance Comparison:**
+
+| Metric | Before Optimization | After Optimization |
+|--------|--------------------|--------------------|
+| DB Queries | 4-12 (sequential) | 4 (parallel) |
+| Estimated Time | ~600ms | ~150ms |
+| Memory Usage | Medium | Medium |
+| Code Complexity | High | Medium |
+| Cache Potential | Low | High |
+
+**Additional Optimizations (Future):**
+
+1. **Connection Pooling:**
+```typescript
+// lib/prisma.ts
+import { PrismaClient } from '@prisma/client';
+
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
+
+export const prisma = globalForPrisma.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma;
+}
+```
+
+2. **Result Caching (Redis):**
+```typescript
+// Cache frequently accessed data
+const cacheKey = `user:${userId}:status:counts`;
+const cached = await redis.get(cacheKey);
+
+if (!cached) {
+  const counts = await getStatusCounts(userId);
+  await redis.setex(cacheKey, 300, JSON.stringify(counts)); // 5min cache
+}
+```
+
+3. **Database Query Analysis:**
+```sql
+-- Verify index usage
+EXPLAIN ANALYZE
+SELECT * FROM word_progress
+WHERE user_id = 'xxx' AND status = 'reviewing'
+ORDER BY recommended_review_date ASC
+LIMIT 20;
+
+-- Should show: Index Scan using idx_user_status_date
+```
+
+**Conclusion:**
+The proposed WordProgress schema and session construction logic is well-optimized:
+- ✅ Minimal fields (no redundant data)
+- ✅ Appropriate compound indexes for all query patterns
+- ✅ Parallel query execution reduces latency by 75%
+- ✅ Candidate pool reuse minimizes additional queries
+- ✅ Select optimization reduces data transfer
+- ✅ Scalable architecture ready for future caching
 
 ## Implementation Priority
 
