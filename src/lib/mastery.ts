@@ -46,6 +46,16 @@ export function calculateMasteryStatus(progress: WordProgressData): MasteryStatu
 }
 
 /**
+ * Calculate accuracy from total reviews and correct answers
+ * @param totalReviews - Total number of reviews
+ * @param correctAnswers - Number of correct answers
+ * @returns Accuracy as a decimal (0.0 - 1.0)
+ */
+export function calculateAccuracy(totalReviews: number, correctAnswers: number): number {
+  return totalReviews > 0 ? correctAnswers / totalReviews : 0
+}
+
+/**
  * Get recommended review interval based on streak
  * Streak-based spacing: higher streak = longer interval
  */

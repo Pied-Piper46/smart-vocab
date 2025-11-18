@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import {
   calculateMasteryStatus,
   getRecommendedReviewInterval,
+  calculateAccuracy,
 } from './mastery'
 
 describe('mastery calculation', () => {
@@ -72,6 +73,30 @@ describe('mastery calculation', () => {
     it('should return 30 days for streak 4+', () => {
       expect(getRecommendedReviewInterval(4)).toBe(30)
       expect(getRecommendedReviewInterval(10)).toBe(30)
+    })
+  })
+
+  describe('calculateAccuracy', () => {
+    it('should calculate accuracy correctly', () => {
+      expect(calculateAccuracy(10, 8)).toBe(0.8)
+      expect(calculateAccuracy(5, 3)).toBe(0.6)
+      expect(calculateAccuracy(20, 19)).toBe(0.95)
+    })
+
+    it('should return 0 when totalReviews is 0', () => {
+      expect(calculateAccuracy(0, 0)).toBe(0)
+    })
+
+    it('should handle 100% accuracy', () => {
+      expect(calculateAccuracy(10, 10)).toBe(1.0)
+    })
+
+    it('should handle 0% accuracy', () => {
+      expect(calculateAccuracy(10, 0)).toBe(0)
+    })
+
+    it('should handle decimal results', () => {
+      expect(calculateAccuracy(3, 2)).toBeCloseTo(0.6667, 4)
     })
   })
 })
