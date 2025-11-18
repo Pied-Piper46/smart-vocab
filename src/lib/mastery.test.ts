@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import {
   calculateMasteryStatus,
-  getRecommendedReviewInterval,
   calculateAccuracy,
 } from './mastery'
+import { getBaseInterval } from './review-scheduler'
 
 describe('mastery calculation', () => {
   describe('calculateMasteryStatus', () => {
@@ -53,26 +53,26 @@ describe('mastery calculation', () => {
     })
   })
 
-  describe('getRecommendedReviewInterval', () => {
+  describe('getBaseInterval (from review-scheduler)', () => {
     it('should return 1 day for streak 0', () => {
-      expect(getRecommendedReviewInterval(0)).toBe(1)
+      expect(getBaseInterval(0)).toBe(1)
     })
 
     it('should return 3 days for streak 1', () => {
-      expect(getRecommendedReviewInterval(1)).toBe(3)
+      expect(getBaseInterval(1)).toBe(3)
     })
 
     it('should return 7 days for streak 2', () => {
-      expect(getRecommendedReviewInterval(2)).toBe(7)
+      expect(getBaseInterval(2)).toBe(7)
     })
 
     it('should return 14 days for streak 3', () => {
-      expect(getRecommendedReviewInterval(3)).toBe(14)
+      expect(getBaseInterval(3)).toBe(14)
     })
 
     it('should return 30 days for streak 4+', () => {
-      expect(getRecommendedReviewInterval(4)).toBe(30)
-      expect(getRecommendedReviewInterval(10)).toBe(30)
+      expect(getBaseInterval(4)).toBe(30)
+      expect(getBaseInterval(10)).toBe(30)
     })
   })
 

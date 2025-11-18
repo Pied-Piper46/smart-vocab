@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { addDays, daysBetween } from './date-utils'
+import { addDays, daysBetween, calculateDaysOverdue } from './date-utils'
 
 describe('date-utils', () => {
   describe('addDays', () => {
@@ -70,6 +70,33 @@ describe('date-utils', () => {
       const date1 = new Date('2024-01-31T00:00:00.000Z')
       const date2 = new Date('2024-02-03T00:00:00.000Z')
       expect(daysBetween(date1, date2)).toBe(3)
+    })
+  })
+
+  describe('calculateDaysOverdue', () => {
+    it('should return 0 when not overdue', () => {
+      const reviewDate = new Date('2024-01-10T00:00:00.000Z')
+      const now = new Date('2024-01-08T00:00:00.000Z')
+      expect(calculateDaysOverdue(reviewDate, now)).toBe(0)
+    })
+
+    it('should calculate days overdue correctly', () => {
+      const reviewDate = new Date('2024-01-05T00:00:00.000Z')
+      const now = new Date('2024-01-10T00:00:00.000Z')
+      expect(calculateDaysOverdue(reviewDate, now)).toBe(5)
+    })
+
+    it('should return 0 on the exact review date', () => {
+      const reviewDate = new Date('2024-01-10T00:00:00.000Z')
+      const now = new Date('2024-01-10T00:00:00.000Z')
+      expect(calculateDaysOverdue(reviewDate, now)).toBe(0)
+    })
+
+    it('should use current date when now is not provided', () => {
+      const pastDate = new Date('2020-01-01T00:00:00.000Z')
+      const result = calculateDaysOverdue(pastDate)
+      // Should be a large positive number (years of days)
+      expect(result).toBeGreaterThan(1000)
     })
   })
 })

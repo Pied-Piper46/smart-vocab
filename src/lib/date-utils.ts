@@ -26,3 +26,15 @@ export function daysBetween(date1: Date, date2: Date): number {
   const timeDiff = date2.getTime() - date1.getTime()
   return Math.floor(timeDiff / MS_PER_DAY)
 }
+
+/**
+ * Calculate days overdue from recommended review date
+ * @param recommendedReviewDate - The recommended review date
+ * @param now - Current date (defaults to new Date())
+ * @returns Number of days overdue (0 if not overdue)
+ */
+export function calculateDaysOverdue(recommendedReviewDate: Date, now: Date = new Date()): number {
+  const timeDiff = now.getTime() - recommendedReviewDate.getTime()
+  const daysDiff = Math.floor(timeDiff / MS_PER_DAY)
+  return Math.max(0, daysDiff)
+}
