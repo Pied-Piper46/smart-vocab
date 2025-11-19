@@ -5,6 +5,17 @@
 
 従来の複雑な優先度計算をセッション構築時に行う方式から、**推奨復習日を解答時に計算し、セッション構築時は推奨日順に取得するだけ**のシンプルな方式に変更。
 
+## 実装状況
+
+✅ **Phase 1 完了**: 推奨復習日計算ロジックの実装
+✅ **Phase 2 完了**: セッションパターン定義
+✅ **Phase 3 完了**: セッション構築ロジックの実装
+✅ **Phase 4 完了**: mastery.tsのリファクタリング
+✅ **Phase 5 完了**: DBスキーマの更新
+🚧 **Phase 6 進行中**: API統合（次のステップ）
+
+**テスト状況**: 62テスト全てパス（date-utils: 15, mastery: 15, review-scheduler: 16, pattern-selector: 4, session-builder: 12）
+
 ---
 
 # 新アルゴリズム設計（確定版）
@@ -287,190 +298,218 @@ it('should calculate review date based on streak and accuracy', () => {
 
 # 実装計画
 
-## Phase 1: 推奨復習日計算ロジックの実装
+## ✅ Phase 1: 推奨復習日計算ロジックの実装（完了）
 
-### 1-1. date-utils.ts の作成
-**内容:**
-- `addDays(date: Date, days: number): Date`
-- `daysBetween(date1: Date, date2: Date): number`
-- テスト作成（TDD）
+### 実装内容
+- ✅ `src/lib/date-utils.ts` - 日付ユーティリティ関数
+  - `addDays(date, days)` - 日付加算（不変）
+  - `daysBetween(date1, date2)` - 日数差計算
+  - `calculateDaysOverdue(reviewDate, now?)` - 期限超過日数計算
+  - 15テストケース（うるう年、月境界、不変性など）
 
-### 1-2. config/review-interval.ts の作成
-**内容:**
-- `REVIEW_INTERVAL_CONFIG` 定数定義
-- 係数の外部化
+- ✅ `src/config/review-interval.ts` - 調整可能な係数設定
+  - BASE_INTERVALS: `[1, 3, 7, 14, 30]`
+  - ACCURACY_MULTIPLIERS: critical 0.7, low 0.85, high 1.3
+  - REVIEWS_MULTIPLIER: 1.2 (10回以上で延長)
+  - LEARNING_MAX_INTERVAL: 3日（初期学習段階の上限）
 
-### 1-3. calculateRecommendedReviewDate() の実装
-**場所:** `src/lib/mastery.ts` または新規 `src/lib/review-scheduler.ts`
-**内容:**
-- アプローチ1の実装
-- `getBaseInterval()` 実装
-- テスト作成（TDD）
+- ✅ `src/lib/review-scheduler.ts` - 推奨復習日計算
+  - `calculateRecommendedReviewDate(streak, accuracy, totalReviews, status, now?)`
+  - `getBaseInterval(streak)` - streakベースの基本間隔
+  - 16テストケース（全調整パターン網羅）
 
-**テストケース:**
-- streakごとの基本間隔
-- accuracy調整（低/高）
-- totalReviews調整
-- learning段階の強制調整
-- 境界値テスト
+- ✅ `src/lib/mastery.ts` - accuracy計算追加
+  - `calculateAccuracy(totalReviews, correctAnswers)` - 正答率計算
+  - 5テストケース
 
-### 1-4. calculateAccuracy() ユーティリティ
-**内容:**
-- `calculateAccuracy(totalReviews: number, correctAnswers: number): number`
-- テスト作成
+**コミット**: `[Phase 1] Implement recommended review date calculation logic`
 
 ---
 
-## Phase 2: セッションパターン定義
+## ✅ Phase 2: セッションパターン定義（完了）
 
-### 2-1. config/session-patterns.ts の作成
-**内容:**
+### 実装内容
+- ✅ `src/config/session-patterns.ts` - 5つのセッションパターン定義
+  - `SESSION_PATTERNS`: newFocused, balanced, reviewFocused, consolidationFocused, masteryMaintenance
+  - `SESSION_SIZE = 10`, `CANDIDATE_MULTIPLIER = 3`
+  - TypeScript型定義（SessionPattern, PatternName）
+
+- ✅ `src/lib/pattern-selector.ts` - パターン選択ロジック
+  - `selectRandomPattern()` - ランダムにパターンを選択
+  - `selectPattern(name)` - 決定論的にパターンを選択
+  - 4テストケース（ランダム性、有効性検証）
+
+**コミット**: `[Phase 2] Implement session pattern configuration and selection`
+
+---
+
+## ✅ Phase 3: セッション構築ロジックの実装（完了）
+
+### 実装内容
+- ✅ `src/lib/session-builder.ts` - セッション構築関数群
+  - `getCandidateQuerySpecs(pattern)` - DB クエリ仕様定義
+    - new: `ORDER BY createdAt DESC` (ランダム的)
+    - learning/reviewing/mastered: `ORDER BY recommendedReviewDate ASC` (優先度順)
+  - `buildSession(pattern, candidates)` - セッション構築メイン関数
+    - パターンに従って単語選択
+    - 最終シャッフルで多様性確保
+  - `selectWordsFromCategory(words, count)` - カテゴリから N 個選択
+  - 12テストケース（構成、不足処理、エッジケース）
+
+**設計特徴**:
+- Pure function設計（DBアクセスはAPI層で実施）
+- 候補が不足時は graceful degradation
+
+**コミット**: `[Phase 3] Implement session builder logic`
+
+---
+
+## ✅ Phase 4: mastery.tsのリファクタリング（完了）
+
+### 削除した旧関数
+- ❌ `getRecommendedReviewInterval()` → review-scheduler.ts の `getBaseInterval()` に置き換え
+- ❌ `calculateRecommendedReviewDate()` → review-scheduler.ts の同名関数に置き換え
+- ❌ `calculateWordPriority()` → 不要（推奨日ソートで代替）
+- ❌ `getOptimalSessionComposition()` → session-patterns.ts に置き換え
+- ❌ `selectOptimalWords()` → session-builder.ts に置き換え
+- ❌ `calculateDaysSinceReview()` → 未使用のため削除
+
+### 移動した関数
+- 📦 `calculateDaysOverdue()` → date-utils.ts へ移動（再利用性向上）
+
+### 残存関数（コアロジックのみ）
+- ✅ `calculateMasteryStatus()` - 学習状態判定
+- ✅ `calculateAccuracy()` - 正答率計算（新規追加）
+- ✅ `getReviewStatistics()` - 統計情報（calculateDaysOverdueをimport）
+- ✅ `getMasteryDisplayInfo()` - UI表示情報
+
+### テスト更新
+- mastery.test.ts: `getRecommendedReviewInterval` → `getBaseInterval` (from review-scheduler)
+- date-utils.test.ts: `calculateDaysOverdue` の4テスト追加
+
+**コミット**: `[Phase 4] Refactor mastery.ts - remove deprecated functions`
+
+---
+
+## ✅ Phase 5: DBスキーマの更新（完了）
+
+### 実装内容
+- ✅ `prisma/schema.prisma` - `lastAnswerCorrect` フィールド削除
+  - 理由: streakから導出可能（streak > 0 なら最後は正解）
+  - `npx prisma db push` でDB反映完了
+
+### コード修正
+- ✅ `src/types/index.ts` - WordProgress型から削除
+- ✅ `src/lib/api-client.ts` - WordProgress型から削除
+- ✅ `src/lib/progress-utils.ts` - 返り値から削除
+- ✅ `src/app/api/words/session/route.ts` - 型定義と返却データから削除
+- ✅ `src/app/api/progress/route.ts` - update dataから削除
+- ✅ `src/app/api/sessions/complete/route.ts` - create/update dataから削除
+
+**コミット**: `[Phase 5] Remove lastAnswerCorrect field from schema and codebase`
+
+---
+
+## 🚧 Phase 6: API統合（進行中）
+
+### 6-1. セッション構築APIの更新
+**場所:** `src/app/api/words/session/route.ts`
+
+**現状の問題:**
+- ❌ 旧関数を使用: `getOptimalSessionComposition()`, `selectOptimalWords()`
+- ❌ 複雑な優先度計算ロジック（O(n log n)）
+
+**必要な変更:**
 ```typescript
-export const SESSION_PATTERNS = {
-  newFocused: { new: 6, learning: 2, reviewing: 1, mastered: 1 },
-  balanced: { new: 5, learning: 3, reviewing: 1, mastered: 1 },
-  reviewFocused: { new: 3, learning: 3, reviewing: 3, mastered: 1 },
-  consolidationFocused: { new: 2, learning: 4, reviewing: 3, mastered: 1 },
-  masteryMaintenance: { new: 4, learning: 2, reviewing: 2, mastered: 2 }
-} as const;
+// 旧実装（削除予定）
+const composition = getOptimalSessionComposition(available, limit);
+const selectedWords = selectOptimalWords(categorizedWords, composition);
 
-export type SessionPattern = typeof SESSION_PATTERNS[keyof typeof SESSION_PATTERNS];
-export type PatternName = keyof typeof SESSION_PATTERNS;
+// ↓
+
+// 新実装
+import { selectRandomPattern } from '@/lib/pattern-selector';
+import { buildSession, getCandidateQuerySpecs } from '@/lib/session-builder';
+
+const pattern = selectRandomPattern();
+const specs = getCandidateQuerySpecs(pattern);
+
+// 各ステータスから候補を取得
+const candidates = {
+  new: await prisma.wordProgress.findMany({
+    where: { userId, status: 'new' },
+    orderBy: specs.new.orderBy,
+    take: specs.new.count,
+    include: { word: true }
+  }),
+  // learning, reviewing, mastered も同様...
+};
+
+// セッション構築
+const session = buildSession(pattern, candidates);
 ```
 
-### 2-2. パターン選択ロジック
-**内容:**
-- `selectRandomPattern(): PatternName`
-- テスト作成（依存性注入でテスト可能に）
+### 6-2. 解答処理APIの更新（sessions/complete, progress）
+**場所:**
+- `src/app/api/sessions/complete/route.ts`
+- `src/app/api/progress/route.ts`
 
----
+**現状の問題:**
+- ❌ 旧SM-2アルゴリズム使用（easeFactor, interval, repetitionsなど）
+- ❌ 推奨復習日計算が旧方式
 
-## Phase 3: セッション構築ロジックの実装
-
-### 3-1. session-builder.ts の作成
-**内容:**
-- `fetchCandidates()` - 候補取得
-- `buildSession()` - メイン関数
-- テスト作成（TDD）
-
-**実装順序（TDD）:**
-
-**Step 1: fetchCandidates() のテスト**
+**必要な変更:**
 ```typescript
-describe('fetchCandidates', () => {
-  it('should fetch new words randomly', async () => {
-    // new状態は createdAt DESC
-  });
+// 旧実装（削除予定）
+const newEaseFactor = calculateEaseFactor(...);
+const newInterval = calculateInterval(...);
+const newRepetitions = ...;
 
-  it('should fetch non-new words by recommendedReviewDate', async () => {
-    // learning/reviewing/mastered は推奨日順
-  });
+// ↓
 
-  it('should fetch 3x the required count', async () => {
-    // count * 3
-  });
+// 新実装
+import { calculateRecommendedReviewDate } from '@/lib/review-scheduler';
+import { calculateAccuracy, calculateMasteryStatus } from '@/lib/mastery';
+
+const newStreak = answer.isCorrect ? progress.streak + 1 : 0;
+const newCorrectAnswers = progress.correctAnswers + (answer.isCorrect ? 1 : 0);
+const newTotalReviews = progress.totalReviews + 1;
+
+const accuracy = calculateAccuracy(newTotalReviews, newCorrectAnswers);
+const newStatus = calculateMasteryStatus({
+  totalReviews: newTotalReviews,
+  correctAnswers: newCorrectAnswers,
+  streak: newStreak
 });
-```
 
-**Step 2: buildSession() のテスト**
-```typescript
-describe('buildSession', () => {
-  it('should return 10 words', async () => {
-    // 常に10単語
-  });
-
-  it('should follow pattern composition', async () => {
-    // パターン通りの構成
-  });
-
-  it('should fill shortage from candidate pool', async () => {
-    // 不足分補充
-  });
-
-  it('should shuffle final result', async () => {
-    // 最終シャッフル
-  });
-});
-```
-
----
-
-## Phase 4: mastery.ts のリファクタリング
-
-### 4-1. 不要な関数の削除
-**削除対象:**
-- `calculateWordPriority()` → 不要（推奨日で代替）
-- `getOptimalSessionComposition()` → session-builder.tsへ移動
-- `selectOptimalWords()` → session-builder.tsへ移動
-- `calculateDaysOverdue()` → date-utils.tsへ移動
-- `calculateDaysSinceReview()` → date-utils.tsへ移動
-
-### 4-2. 残す関数
-**コアロジックのみ:**
-- `calculateMasteryStatus()`
-- `getRecommendedReviewInterval()`
-- `calculateRecommendedReviewDate()` （新規実装）
-- `calculateAccuracy()` （新規追加）
-
-### 4-3. 移動する関数
-- `getReviewStatistics()` → `src/lib/stats.ts`
-- `getMasteryDisplayInfo()` → `src/lib/mastery-display.ts`
-
----
-
-## Phase 5: DBスキーマの更新
-
-### 5-1. lastAnswerCorrect の削除
-**作業:**
-1. schema.prismaから削除
-2. `npx prisma db push`
-3. 関連コード修正（もしあれば）
-
-### 5-2. インデックス確認
-**確認項目:**
-```prisma
-@@index([userId, status, recommendedReviewDate])
-@@index([userId, status])
-@@index([recommendedReviewDate])
-```
-
----
-
-## Phase 6: API統合
-
-### 6-1. 解答時の推奨日計算
-**場所:** `src/app/api/sessions/complete/route.ts`
-
-**変更:**
-```typescript
-// 解答時に推奨日を計算して保存
-const accuracy = calculateAccuracy(totalReviews + 1, newCorrectAnswers);
 const recommendedReviewDate = calculateRecommendedReviewDate(
   newStreak,
   accuracy,
-  totalReviews + 1,
+  newTotalReviews,
   newStatus
 );
 
 await prisma.wordProgress.update({
-  where: { id: wordProgressId },
+  where: { userId_wordId: { userId, wordId } },
   data: {
     streak: newStreak,
     correctAnswers: newCorrectAnswers,
-    totalReviews: totalReviews + 1,
+    totalReviews: newTotalReviews,
     status: newStatus,
-    recommendedReviewDate,  // ← 追加
+    recommendedReviewDate,  // ← 新アルゴリズムで計算
     lastReviewedAt: new Date()
   }
 });
 ```
 
-### 6-2. セッション構築APIの更新
-**場所:** `src/app/api/words/session/route.ts`
+### 6-3. 不要なフィールド削除
+**削除対象:**
+- ❌ `easeFactor` (SM-2専用)
+- ❌ `interval` (SM-2専用)
+- ❌ `repetitions` (SM-2専用)
+- ❌ `nextReviewDate` → `recommendedReviewDate` に統一済み
 
-**変更:**
-- 旧: 複雑な優先度計算ロジック
-- 新: `buildSession(userId)` を呼び出すだけ
+**注意:** これらのフィールドがDBスキーマに存在する場合、マイグレーション必要
 
 ---
 
@@ -526,4 +565,47 @@ git add .
 
 ---
 
-**次のステップ:** Phase 1-1から TDDサイクルで実装を開始
+# 実装サマリー
+
+## 完了した作業（Phase 1-5）
+
+### 作成ファイル
+1. **`src/lib/date-utils.ts`** (15 tests) - 日付計算ユーティリティ
+2. **`src/config/review-interval.ts`** - 調整可能な復習間隔係数
+3. **`src/lib/review-scheduler.ts`** (16 tests) - 推奨復習日計算ロジック
+4. **`src/config/session-patterns.ts`** - 5つのセッションパターン定義
+5. **`src/lib/pattern-selector.ts`** (4 tests) - パターン選択ロジック
+6. **`src/lib/session-builder.ts`** (12 tests) - セッション構築ロジック
+
+### 変更ファイル
+1. **`src/lib/mastery.ts`** - 旧関数削除、calculateAccuracy追加 (15 tests)
+2. **`prisma/schema.prisma`** - lastAnswerCorrect削除
+3. **`src/types/index.ts`** - WordProgress型更新
+4. **`src/lib/api-client.ts`** - WordProgress型更新
+5. **`src/lib/progress-utils.ts`** - lastAnswerCorrect削除
+6. **API routes** - lastAnswerCorrect削除（session, progress, sessions/complete）
+
+### テスト状況
+- **総テスト数**: 62 tests
+- **パス率**: 100%
+- **カバレッジ**: date-utils (15), mastery (15), review-scheduler (16), pattern-selector (4), session-builder (12)
+
+### Git コミット履歴
+1. `[Phase 1] Implement recommended review date calculation logic`
+2. `[Phase 2] Implement session pattern configuration and selection`
+3. `[Phase 3] Implement session builder logic`
+4. `[Phase 4] Refactor mastery.ts - remove deprecated functions`
+5. `[Phase 5] Remove lastAnswerCorrect field from schema and codebase`
+
+## 次のステップ: Phase 6 - API統合
+
+**優先順位:**
+1. セッション構築API更新 (`/api/words/session`)
+2. 解答処理API更新 (`/api/sessions/complete`, `/api/progress`)
+3. 旧SM-2フィールド削除（easeFactor, interval, repetitions）
+
+**推定作業時間:** 2-3時間（TDDサイクル含む）
+
+---
+
+**現在の状態:** Phase 1-5完了、Phase 6準備完了
