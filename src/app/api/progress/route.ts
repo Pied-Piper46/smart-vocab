@@ -197,7 +197,6 @@ export async function POST(request: NextRequest) {
         nextReviewDate,
         status: newStatus,
         previousStatus: previousStatus,
-        lastAnswerCorrect: isCorrect,
         updatedAt: new Date(),
       },
       include: {

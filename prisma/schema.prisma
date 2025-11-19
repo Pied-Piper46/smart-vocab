@@ -105,7 +105,6 @@ model WordProgress {
   totalReviews      Int      @default(0)
   correctAnswers    Int      @default(0)
   streak            Int      @default(0)
-  lastAnswerCorrect Boolean  @default(false)
   lastReviewedAt    DateTime?
 
   // Review scheduling

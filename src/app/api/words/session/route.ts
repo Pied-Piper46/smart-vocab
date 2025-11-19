@@ -47,7 +47,6 @@ export async function GET(request: NextRequest) {
         totalReviews: number;
         correctAnswers: number;
         streak: number;
-        lastAnswerCorrect: boolean;
         lastReviewedAt: Date | null;
         recommendedReviewDate: Date;
         status: string;
@@ -118,7 +117,6 @@ export async function GET(request: NextRequest) {
         totalReviews: word.progress[0].totalReviews,
         correctAnswers: word.progress[0].correctAnswers,
         streak: word.progress[0].streak,
-        lastAnswerCorrect: word.progress[0].lastAnswerCorrect,
         lastReviewedAt: word.progress[0].lastReviewedAt?.toISOString() || null,
         recommendedReviewDate: word.progress[0].recommendedReviewDate.toISOString(),
         status: word.progress[0].status,

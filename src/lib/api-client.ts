@@ -25,7 +25,6 @@ export interface WordProgress {
   totalReviews: number;
   correctAnswers: number;
   streak: number;
-  lastAnswerCorrect: boolean;
   lastReviewedAt?: string | null; // ISO string from API
   recommendedReviewDate: string; // ISO string from API
   status?: string; // Mastery status

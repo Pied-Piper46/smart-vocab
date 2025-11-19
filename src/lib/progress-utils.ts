@@ -182,7 +182,6 @@ function calculateProgressUpdate(
     nextReviewDate,
     status: newStatus,
     previousStatus: progress.status,
-    lastAnswerCorrect: isCorrect,
     updatedAt: new Date(),
   };
 }

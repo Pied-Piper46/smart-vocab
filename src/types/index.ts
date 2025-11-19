@@ -30,7 +30,6 @@ export interface WordProgress {
   totalReviews: number;
   correctAnswers: number;
   streak: number;
-  lastAnswerCorrect: boolean;
   lastReviewedAt?: Date | null;
   recommendedReviewDate: Date;
   status: MasteryStatus;
