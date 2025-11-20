@@ -1,33 +1,24 @@
 /**
  * API Client for VocabMaster
  * Handles all API communications with the backend
+ *
+ * Note: Types here represent API boundary contracts (Date → ISO string)
+ * For database types, see @/types or @prisma/client
  */
 
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  count?: number;
+import type { Word, WordProgress as DbWordProgress, SessionAnswer, WordStatusChange } from '@/types';
+
+// Re-export common types from central location
+export type { ApiResponse, SessionAnswer, WordStatusChange } from '@/types';
+
+// API-specific types (with Date fields as ISO strings for serialization)
+export interface WordData extends Omit<Word, 'createdAt' | 'updatedAt'> {
+  progress?: WordProgressApi;
 }
 
-export interface WordData {
-  id: string;
-  english: string;
-  japanese: string;
-  phonetic?: string;
-  partOfSpeech: string;
-  exampleEnglish: string;
-  exampleJapanese: string;
-  progress?: WordProgress;
-}
-
-export interface WordProgress {
-  totalReviews: number;
-  correctAnswers: number;
-  streak: number;
+export interface WordProgressApi extends Omit<DbWordProgress, 'id' | 'userId' | 'wordId' | 'createdAt' | 'updatedAt' | 'lastReviewedAt' | 'recommendedReviewDate'> {
   lastReviewedAt?: string | null; // ISO string from API
   recommendedReviewDate: string; // ISO string from API
-  status?: string; // Mastery status
 }
 
 
@@ -70,7 +61,7 @@ export async function fetchSessionWords(
 export async function updateWordProgress(
   wordId: string,
   isCorrect: boolean
-): Promise<WordProgress> {
+): Promise<WordProgressApi> {
   try {
     const response = await fetch(`${API_BASE}/progress`, {
       method: 'POST',
@@ -87,7 +78,7 @@ export async function updateWordProgress(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const result: ApiResponse<WordProgress> = await response.json();
+    const result: ApiResponse<WordProgressApi> = await response.json();
     
     if (!result.success || !result.data) {
       throw new Error(result.error || 'Failed to update progress');
@@ -132,29 +123,6 @@ export async function fetchUserProgress(): Promise<UserProgressData[]> {
     console.error('Error fetching progress:', error);
     throw error;
   }
-}
-
-/**
- * Session answer data
- */
-export interface SessionAnswer {
-  wordId: string;
-  isCorrect: boolean;
-  timestamp: number;
-  mode: string;
-}
-
-/**
- * Word status change data
- */
-export interface WordStatusChange {
-  wordId: string;
-  english: string;
-  japanese: string;
-  from: string;
-  to: string;
-  isUpgrade: boolean;
-  isDowngrade: boolean;
 }
 
 /**

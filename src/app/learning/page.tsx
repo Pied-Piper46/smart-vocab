@@ -5,7 +5,9 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import SessionManager from '@/components/learning/SessionManager';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { DifficultyLevel } from '@/types/word-data';
+
+// Note: Difficulty selection is deprecated (words are selected by mastery status instead)
+type DifficultyLevel = 'easy' | 'medium' | 'hard';
 
 export default function LearningPage() {
   const { data: session, status } = useSession();

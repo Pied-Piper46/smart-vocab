@@ -7,8 +7,10 @@ import { fetchSessionWords, recordSessionCompletion, WordData, SessionAnswer, Wo
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import SessionFeedbackComponent from './SessionFeedback';
 import ExitConfirmationDialog from './ExitConfirmationDialog';
-import { DifficultyLevel } from '@/types/word-data';
 import { mutate } from 'swr';
+
+// Note: Difficulty selection is deprecated (words are selected by mastery status instead)
+type DifficultyLevel = 'easy' | 'medium' | 'hard';
 
 // Remove unused interfaces since they're now imported from api-client
 

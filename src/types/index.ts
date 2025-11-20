@@ -1,50 +1,23 @@
-// Central type definitions for VocabMaster
+/**
+ * Central Type Definitions for VocabMaster
+ *
+ * This file serves as the single source of truth for:
+ * 1. Prisma database types (re-exported for convenience)
+ * 2. Cross-cutting concerns (API, UI common types)
+ *
+ * Domain-specific types should be co-located with their logic:
+ * - MasteryStatus → lib/mastery.ts
+ * - Review scheduling → lib/review-scheduler.ts
+ */
 
-// === Database Models ===
-export interface User {
-  id: string;
-  email: string;
-  emailVerified?: Date | null;
-  hashedPassword?: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import type { MasteryStatus } from '@/lib/mastery';
 
-export interface Word {
-  id: string;
-  english: string;
-  japanese: string;
-  phonetic?: string | null;
-  partOfSpeech: string;
-  exampleEnglish: string;
-  exampleJapanese: string;
-  createdAt: Date;
-  updatedAt: Date;
-  progress?: WordProgress;
-}
+// === Database Models (from Prisma) ===
+// Re-export Prisma-generated types as the single source of truth
+export type { User, Word, WordProgress, LearningSession } from '@prisma/client';
 
-export interface WordProgress {
-  id: string;
-  userId: string;
-  wordId: string;
-  totalReviews: number;
-  correctAnswers: number;
-  streak: number;
-  lastReviewedAt?: Date | null;
-  recommendedReviewDate: Date;
-  status: MasteryStatus;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface LearningSession {
-  id: string;
-  userId: string;
-  completedAt: Date;
-}
-
-// === Learning System Types ===
-export type MasteryStatus = 'new' | 'learning' | 'reviewing' | 'mastered';
+// Re-export domain-specific types for convenience
+export type { MasteryStatus } from '@/lib/mastery';
 
 export type LearningMode = 'eng_to_jpn' | 'jpn_to_eng' | 'audio_recognition' | 'context_fill';
 
