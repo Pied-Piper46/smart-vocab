@@ -136,6 +136,13 @@ export interface SessionCompletionData {
     downgrades: WordStatusChange[];
     maintained: WordStatusChange[];
   };
+  progressData?: Array<{ // Phase 4: for client comparison (optional)
+    wordId: string;
+    totalReviews: number;
+    correctAnswers: number;
+    streak: number;
+    status: string;
+  }>;
 }
 
 /**

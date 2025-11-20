@@ -56,6 +56,14 @@ export async function POST(request: NextRequest) {
         maintained: [] as Array<{wordId: string; english: string; japanese: string; from: string; to: string; isUpgrade: boolean; isDowngrade: boolean}>
       };
 
+      // Progress cache for API response (Phase 4: client comparison)
+      const progressCache = new Map<string, {
+        totalReviews: number;
+        correctAnswers: number;
+        streak: number;
+        status: string;
+      }>();
+
       // Fetch word data for all words in the session
       const wordIds = answers.map((answer: {wordId: string; isCorrect: boolean}) => answer.wordId);
       const words = await tx.word.findMany({
@@ -151,6 +159,14 @@ export async function POST(request: NextRequest) {
           },
         });
 
+        // Store in progress cache for API response (Phase 4)
+        progressCache.set(answer.wordId, {
+          totalReviews: newTotalReviews,
+          correctAnswers: newCorrectAnswers,
+          streak: newStreak,
+          status: newStatus
+        });
+
         console.log(`✅ Progress updated for word ${answer.wordId}:`, {
           status: `${previousStatus} → ${newStatus}`,
           streak: newStreak,
@@ -189,6 +205,16 @@ export async function POST(request: NextRequest) {
       return {
         session,
         statusChanges,
+        progressData: answers.map(answer => {
+          const progress = progressCache.get(answer.wordId);
+          return progress || {
+            wordId: answer.wordId,
+            totalReviews: 0,
+            correctAnswers: 0,
+            streak: 0,
+            status: 'new'
+          };
+        })
       };
     }, {
       timeout: 30000,
@@ -200,6 +226,7 @@ export async function POST(request: NextRequest) {
         sessionId: result.session.id,
         completedAt: result.session.completedAt.toISOString(),
         statusChanges: result.statusChanges,
+        progressData: result.progressData, // Phase 4: for client comparison
       },
     });
   } catch (error) {
