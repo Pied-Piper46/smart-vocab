@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getCurrentUser, createUnauthorizedResponse } from '@/lib/auth-utils';
-import { calculateMasteryStatus, calculateRecommendedReviewDate } from '@/lib/mastery';
+import { calculateMasteryStatus } from '@/lib/mastery';
+import { calculateRecommendedReviewDate } from '@/lib/review-scheduler';
 
 const prisma = new PrismaClient();
 
@@ -113,6 +114,9 @@ export async function POST(request: NextRequest) {
         // Calculate streak (consecutive correct answers)
         const newStreak = answer.isCorrect ? progress.streak + 1 : 0;
 
+        // Calculate accuracy
+        const accuracy = newTotalReviews > 0 ? newCorrectAnswers / newTotalReviews : 0;
+
         // Calculate new status using simplified logic
         const newStatus = calculateMasteryStatus({
           totalReviews: newTotalReviews,
@@ -120,8 +124,14 @@ export async function POST(request: NextRequest) {
           streak: newStreak
         });
 
-        // Calculate recommended review date based on streak
-        const newRecommendedReviewDate = calculateRecommendedReviewDate(newStreak);
+        // Calculate recommended review date with all required parameters
+        const newRecommendedReviewDate = calculateRecommendedReviewDate(
+          newStreak,
+          accuracy,
+          newTotalReviews,
+          newStatus as 'new' | 'learning' | 'reviewing' | 'mastered',
+          new Date()
+        );
 
         // Update progress with new schema fields
         await tx.wordProgress.update({
