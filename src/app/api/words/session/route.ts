@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, type Word } from '@prisma/client';
 import { getCurrentUser, createUnauthorizedResponse } from '@/lib/auth-utils';
-import { getOptimalSessionComposition, selectOptimalWords, type MasteryStatus } from '@/lib/mastery';
+import { SESSION_PATTERNS } from '@/config/session-patterns';
+import { selectRandomPattern } from '@/lib/pattern-selector';
+import { buildSession, getCandidateQuerySpecs, type WordProgressForSession } from '@/lib/session-builder';
 
 const prisma = new PrismaClient();
+
+// API layer type: WordProgress with Word data (from Prisma include)
+type WordProgressWithWord = WordProgressForSession & {
+  word: Word;
+};
 
 // GET /api/words/session - Get words for learning session
 export async function GET(request: NextRequest) {
@@ -14,113 +21,98 @@ export async function GET(request: NextRequest) {
       return createUnauthorizedResponse();
     }
 
-    const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get('limit') || '10');
     const userId = currentUser.id;
 
-    // Get all words with progress data (no difficulty filtering)
-    const allWords = await prisma.word.findMany({
-      include: {
-        progress: {
+    // Step 1: Select random pattern
+    const patternName = selectRandomPattern();
+    const pattern = SESSION_PATTERNS[patternName];
+    const specs = getCandidateQuerySpecs(pattern);
+
+    // Step 2: Fetch candidates from each status (parallel execution)
+    const [newCandidates, learningCandidates, reviewingCandidates, masteredCandidates] =
+      await Promise.all([
+        // new: Random-like (newest first)
+        prisma.wordProgress.findMany({
           where: {
             userId,
+            status: 'new'
           },
-        },
-      },
-    });
+          orderBy: specs.new.orderBy,
+          take: specs.new.count,
+          include: { word: true }
+        }),
 
-    // Categorize words by mastery status
-    const categorizedWords: Record<MasteryStatus, Array<{
-      id: string;
-      english: string;
-      japanese: string;
-      phonetic: string | null;
-      partOfSpeech: string;
-      exampleEnglish: string;
-      exampleJapanese: string;
-      createdAt: Date;
-      updatedAt: Date;
-      progress: Array<{
-        id: string;
-        userId: string;
-        wordId: string;
-        totalReviews: number;
-        correctAnswers: number;
-        streak: number;
-        lastReviewedAt: Date | null;
-        recommendedReviewDate: Date;
-        status: string;
-        createdAt: Date;
-        updatedAt: Date;
-      }>;
-      // Extended properties for selection
-      recommendedReviewDate: Date;
-      lastReviewedAt: Date | null;
-      streak: number;
-      totalReviews: number;
-      correctAnswers: number;
-      status: string;
-    }>> = {
-      new: [],
-      learning: [],
-      reviewing: [],
-      mastered: []
+        // learning: Recommended review date order (urgent first)
+        prisma.wordProgress.findMany({
+          where: {
+            userId,
+            status: 'learning'
+          },
+          orderBy: specs.learning.orderBy,
+          take: specs.learning.count,
+          include: { word: true }
+        }),
+
+        // reviewing: Recommended review date order
+        prisma.wordProgress.findMany({
+          where: {
+            userId,
+            status: 'reviewing'
+          },
+          orderBy: specs.reviewing.orderBy,
+          take: specs.reviewing.count,
+          include: { word: true }
+        }),
+
+        // mastered: Recommended review date order
+        prisma.wordProgress.findMany({
+          where: {
+            userId,
+            status: 'mastered'
+          },
+          orderBy: specs.mastered.orderBy,
+          take: specs.mastered.count,
+          include: { word: true }
+        })
+      ]);
+
+    // Step 3: Build session from candidates
+    // Note: buildSession expects WordProgressForSession[], but we have WordProgressWithWord[]
+    // The function only uses WordProgressForSession fields, so we can safely pass the extended type
+    const candidates = {
+      new: newCandidates as WordProgressForSession[],
+      learning: learningCandidates as WordProgressForSession[],
+      reviewing: reviewingCandidates as WordProgressForSession[],
+      mastered: masteredCandidates as WordProgressForSession[]
     };
 
-    allWords.forEach(word => {
-      const progress = word.progress[0]; // Get user's progress for this word
+    const session = buildSession(pattern, candidates);
 
-      // Prepare word with extended properties for selection algorithm
-      const wordWithProgress = {
-        ...word,
-        recommendedReviewDate: progress?.recommendedReviewDate || new Date(),
-        lastReviewedAt: progress?.lastReviewedAt || null,
-        streak: progress?.streak || 0,
-        totalReviews: progress?.totalReviews || 0,
-        correctAnswers: progress?.correctAnswers || 0,
-        status: progress?.status || 'new'
-      };
+    // Cast back to WordProgressWithWord[] to access word data
+    const sessionWithWords = session as unknown as WordProgressWithWord[];
 
-      if (!progress) {
-        // No progress = new word
-        categorizedWords.new.push(wordWithProgress);
-      } else {
-        const status = progress.status as MasteryStatus || 'new';
-        categorizedWords[status].push(wordWithProgress);
-      }
-    });
-
-    // Get optimal composition
-    const available = {
-      new: categorizedWords.new.length,
-      learning: categorizedWords.learning.length,
-      reviewing: categorizedWords.reviewing.length,
-      mastered: categorizedWords.mastered.length
-    };
-
-    const composition = getOptimalSessionComposition(available, limit);
-
-    // Use advanced selection algorithm
-    const selectedWords = selectOptimalWords(categorizedWords, composition);
+    // Log session size for monitoring
+    if (session.length < 10) {
+      console.warn(`⚠️ Session size: ${session.length}/10 (pattern: ${patternName})`);
+    }
 
     // Transform data to match frontend expectations
-    const sessionWords = selectedWords.map(word => ({
-      id: word.id,
-      english: word.english,
-      japanese: word.japanese,
-      phonetic: word.phonetic,
-      partOfSpeech: word.partOfSpeech,
-      exampleEnglish: word.exampleEnglish,
-      exampleJapanese: word.exampleJapanese,
-      // Add progress info if exists
-      progress: word.progress[0] ? {
-        totalReviews: word.progress[0].totalReviews,
-        correctAnswers: word.progress[0].correctAnswers,
-        streak: word.progress[0].streak,
-        lastReviewedAt: word.progress[0].lastReviewedAt?.toISOString() || null,
-        recommendedReviewDate: word.progress[0].recommendedReviewDate.toISOString(),
-        status: word.progress[0].status,
-      } : undefined,
+    const sessionWords = sessionWithWords.map(wp => ({
+      id: wp.word.id,
+      english: wp.word.english,
+      japanese: wp.word.japanese,
+      phonetic: wp.word.phonetic,
+      partOfSpeech: wp.word.partOfSpeech,
+      exampleEnglish: wp.word.exampleEnglish,
+      exampleJapanese: wp.word.exampleJapanese,
+      progress: {
+        totalReviews: wp.totalReviews,
+        correctAnswers: wp.correctAnswers,
+        streak: wp.streak,
+        lastReviewedAt: wp.lastReviewedAt?.toISOString() || null,
+        recommendedReviewDate: wp.recommendedReviewDate.toISOString(),
+        status: wp.status,
+      }
     }));
 
     return NextResponse.json({
