@@ -25,35 +25,8 @@ export type BatchUpdateResult = {
   };
 };
 
-export async function updateWordProgress(
-  prisma: PrismaClient,
-  userId: string,
-  wordId: string,
-  isCorrect: boolean
-): Promise<ProgressUpdateResult> {
-  const existingProgress = await prisma.wordProgress.findUnique({
-    where: { userId_wordId: { userId, wordId } },
-  });
-
-  if (!existingProgress) {
-    throw new Error(`Progress not found for user ${userId} and word ${wordId}`);
-  }
-
-  const updates = calculateProgressUpdate(existingProgress, isCorrect);
-  
-  const updatedProgress = await prisma.wordProgress.update({
-    where: { userId_wordId: { userId, wordId } },
-    data: updates,
-  });
-
-  return {
-    wordId,
-    statusChanged: existingProgress.status !== updatedProgress.status,
-    newStatus: updatedProgress.status,
-    previousStatus: existingProgress.status,
-    isUpgrade: isStatusUpgrade(existingProgress.status, updatedProgress.status),
-  };
-}
+// updateWordProgress removed - single word updates are no longer used
+// All progress updates are now batch-processed via batchUpdateProgress
 
 export async function batchUpdateProgress(
   prisma: PrismaClient,

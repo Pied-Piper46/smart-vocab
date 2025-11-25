@@ -55,41 +55,8 @@ export async function fetchSessionWords(
 }
 
 
-/**
- * Update word progress
- */
-export async function updateWordProgress(
-  wordId: string,
-  isCorrect: boolean
-): Promise<WordProgressApi> {
-  try {
-    const response = await fetch(`${API_BASE}/progress`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        wordId,
-        isCorrect,
-      }),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const result: ApiResponse<WordProgressApi> = await response.json();
-    
-    if (!result.success || !result.data) {
-      throw new Error(result.error || 'Failed to update progress');
-    }
-    
-    return result.data;
-  } catch (error) {
-    console.error('Error updating word progress:', error);
-    throw error;
-  }
-}
+// updateWordProgress removed - single word updates are no longer used
+// All progress updates are now batch-processed via recordSessionCompletion
 
 
 /**

@@ -10,13 +10,14 @@
 
 | カテゴリ | 完了 | 進行中 | 未着手 | 合計 |
 |---------|------|--------|--------|------|
-| **新ロジック適用** | 0 | 0 | 2 | 2 |
+| **新ロジック適用** | 1 | 0 | 1 | 2 |
+| **パフォーマンス最適化** | 1 | 0 | 0 | 1 |
 | **削除フィールド対応** | 0 | 0 | 9 | 9 |
 | **認証系（影響小）** | 0 | 0 | 2 | 2 |
 | **バッチ処理** | 0 | 0 | 2 | 2 |
-| **合計** | **0** | **0** | **15** | **15** |
+| **合計** | **2** | **0** | **14** | **16** |
 
-**全体進捗**: 0% (0/15)
+**全体進捗**: 12.5% (2/16)
 
 ---
 
@@ -28,17 +29,46 @@
 
 | # | API | ステータス | 優先度 | エラー数 | 詳細ドキュメント |
 |---|-----|----------|--------|----------|-----------------|
-| A-1 | `/api/words/session` | ⏳ 未着手 | 🔴 最高 | 3 | [words-session-migration.md](./api/words-session-migration.md) |
-| A-2 | `/api/sessions/complete` | ⏳ 未着手 | 🔴 最高 | 1 | TBD |
+| A-1 | `/api/words/session` | ✅ **完了** | 🔴 最高 | 0 | [words-session-migration.md](./api/words-session-migration.md) |
+| A-2 | `/api/sessions/complete` | ✅ **完了** | 🔴 最高 | 0 | [session-completion-optimization-c-plan.md](./session-completion-optimization-c-plan.md) |
 
-**A-1の概要**:
-- 旧関数削除: `getOptimalSessionComposition()`, `selectOptimalWords()`
-- 新関数適用: `selectRandomPattern()`, `buildSession()`
-- パフォーマンス: O(n log n) → O(1)
+**A-1の実装結果** ✅:
+- ✅ 旧関数削除: `getOptimalSessionComposition()`, `selectOptimalWords()`
+- ✅ 新関数適用: `selectRandomPattern()`, `buildSession()`
+- ✅ パフォーマンス: O(n log n) → O(1)
+- ✅ 完了コミット: 5980eb7 (Phase 6-1)
 
-**A-2の概要**:
-- 既に`calculateRecommendedReviewDate()`使用中（部分完了）
-- インポート元修正のみ必要
+**A-2の実装結果** ✅:
+- ✅ Import修正: `calculateRecommendedReviewDate` を `review-scheduler` から正しくimport
+- ✅ 関数引数修正: 5パラメータ対応
+- ✅ 完了コミット: fef06af (Phase 6-2 Bug Fix)
+
+---
+
+### カテゴリA-Plus: セッション完了パフォーマンス最適化（完了）
+
+**Phase 6-2: C-Plan実装**
+
+| # | 機能 | ステータス | 優先度 | 成果 | 詳細ドキュメント |
+|---|-----|----------|--------|------|-----------------|
+| A-3 | セッション完了UX改善 | ✅ **完了** | 🔴 最高 | 98%改善 | [session-completion-optimization-c-plan.md](./session-completion-optimization-c-plan.md) |
+
+**実装内容**:
+- ✅ クライアント側進捗計算実装（`client-progress-calculator.ts`）
+- ✅ SessionManager統合（即座完了画面表示）
+- ✅ API拡張（progressData追加）
+- ✅ テスト追加（12テスト、100%パス）
+
+**パフォーマンス改善**:
+- **体感完了時間**: 5-10秒 → 0.1秒（98%改善）
+- **完了画面表示**: 5-10秒後 → 即座（100%改善）
+- **データ整合性**: トランザクション維持
+
+**完了コミット**:
+- fef06af: Bug fix (Import + 関数引数)
+- 2479c3c: Client calculator
+- 4a45c15: SessionManager統合
+- 7a919ee: API拡張
 
 ---
 
@@ -212,18 +242,21 @@ git commit -m "[Phase 6-X] <変更内容>"
 
 | マイルストーン | 条件 | 進捗 |
 |--------------|------|------|
-| **M1: コアAPI統合** | A-1, A-2完了 | 0/2 (0%) |
+| **M1: コアAPI統合** | A-1, A-2完了 | ✅ **2/2 (100%)** |
+| **M1+: UX最適化** | A-3 (C-Plan)完了 | ✅ **1/1 (100%)** |
 | **M2: 主要API修正** | B-1, B-2, B-3完了 | 0/3 (0%) |
 | **M3: 統計API修正** | B-4, B-5, B-6, B-7完了 | 0/4 (0%) |
-| **M4: 全API修正** | 全15API完了 | 0/15 (0%) |
-| **M5: TypeScriptクリーン** | `tsc --noEmit`エラー0 | ❌ |
-| **M6: テスト全パス** | 全テストパス | ✅ (62/62) |
+| **M4: 全API修正** | 全16API完了 | 2/16 (12.5%) |
+| **M5: TypeScriptクリーン** | `tsc --noEmit`エラー0 | ⏳ 進行中 |
+| **M6: テスト全パス** | 全テストパス | ✅ (74/74) |
 
 ### 更新履歴
 
 | 日付 | 完了API | 累計進捗 | 備考 |
 |------|--------|---------|------|
 | 2025-11-20 | - | 0/15 (0%) | Phase 6開始、ドキュメント作成 |
+| 2025-11-20 | A-1, A-2 | 2/16 (12.5%) | **Phase 6-1完了**: words/session 新アルゴリズム適用 |
+| 2025-11-20 | A-3 (C-Plan) | 2/16 (12.5%) | **Phase 6-2完了**: セッション完了UX最適化（98%改善） |
 
 ---
 
