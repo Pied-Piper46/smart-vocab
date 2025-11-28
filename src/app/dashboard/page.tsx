@@ -195,7 +195,7 @@ export default function Dashboard() {
 
         {/* Learning Action */}
         <div className="text-center">
-          <div 
+          <div
             className="flex items-center justify-center gap-4 mb-8 opacity-0 animate-fade-in-up"
             style={{
               animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.5}s`,
@@ -208,43 +208,20 @@ export default function Dashboard() {
             </p>
             <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
           </div>
-          
-          {/* Difficulty Selection Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-2xl mx-auto mb-12">
+
+          {/* Start Learning Button */}
+          <div className="flex justify-center items-center mb-12">
             <button
-              onClick={() => router.push('/learning?difficulty=easy')}
-              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 opacity-0 animate-fade-in-up"
+              onClick={() => router.push('/learning')}
+              className="inline-flex items-center justify-center gap-3 glass-light rounded-full px-12 py-5 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-400/20 opacity-0 animate-fade-in-up"
               style={{
                 animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.7}s`,
                 animationFillMode: 'forwards'
               }}
             >
-              <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-              <span className="text-sm text-white/70 font-medium">ELEMENTARY</span>
-            </button>
-
-            <button
-              onClick={() => router.push('/learning?difficulty=medium')}
-              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 opacity-0 animate-fade-in-up"
-              style={{
-                animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.8}s`,
-                animationFillMode: 'forwards'
-              }}
-            >
-              <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-              <span className="text-sm text-white/70 font-medium">INTERMEDIATE</span>
-            </button>
-
-            <button
-              onClick={() => router.push('/learning?difficulty=hard')}
-              className="w-50 inline-flex items-center justify-center gap-3 glass-light rounded-full px-8 py-4 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 opacity-0 animate-fade-in-up"
-              style={{
-                animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.9}s`,
-                animationFillMode: 'forwards'
-              }}
-            >
-              <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
-              <span className="text-sm text-white/70 font-medium">ADVANCED</span>
+              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-lg text-white/80 font-medium">学習を開始</span>
+              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
             </button>
           </div>
         </div>
