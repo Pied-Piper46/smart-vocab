@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getCurrentUser, createUnauthorizedResponse } from '@/lib/auth-utils';
+import { SESSION_SIZE } from '@/config/session-patterns';
 
 const prisma = new PrismaClient();
 
@@ -18,13 +19,13 @@ export async function GET() {
     const today = new Date();
     const startOfDay = new Date(today);
     startOfDay.setHours(0, 0, 0, 0);
-    
+
     const endOfDay = new Date(today);
     endOfDay.setHours(23, 59, 59, 999);
 
     // Fetch user profile and daily progress data in parallel
-    const [user, wordsStudiedResult, sessionsToday] = await Promise.all([
-      // User profile (including pre-calculated totalWordsLearned)
+    const [user, sessionsToday] = await Promise.all([
+      // User profile
       prisma.user.findUnique({
         where: { id: userId },
         select: {
@@ -32,30 +33,9 @@ export async function GET() {
           name: true,
           email: true,
           createdAt: true,
-          dailyGoal: true,
-          sessionDuration: true,
-          preferredLanguage: true,
-          currentStreak: true,
-          longestStreak: true,
-          totalStudyTime: true,
-          totalWordsLearned: true, // Pre-calculated field
         },
       }),
-      
-      // Words studied today
-      prisma.learningSession.aggregate({
-        where: {
-          userId,
-          completedAt: {
-            gte: startOfDay,
-            lte: endOfDay,
-          },
-        },
-        _sum: {
-          wordsStudied: true,
-        },
-      }),
-      
+
       // Sessions completed today
       prisma.learningSession.count({
         where: {
@@ -75,25 +55,25 @@ export async function GET() {
       );
     }
 
-    const wordsStudiedToday = wordsStudiedResult._sum.wordsStudied || 0;
-    
+    // Calculate words studied today: sessions × SESSION_SIZE
+    const wordsStudiedToday = sessionsToday * SESSION_SIZE;
+
     // Calculate progress percentage
     const progressPercentage = Math.min(
-      Math.round((wordsStudiedToday / user.dailyGoal) * 100),
+      Math.round((wordsStudiedToday / SESSION_SIZE) * 100),
       100
     );
 
     const dashboardData = {
       profile: {
         ...user,
-        // totalWordsLearned is already included from user object
       },
       dailyProgress: {
-        dailyGoal: user.dailyGoal,
+        dailyGoal: SESSION_SIZE,
         wordsStudiedToday,
         sessionsToday,
         progressPercentage,
-        isGoalReached: wordsStudiedToday >= user.dailyGoal,
+        isGoalReached: wordsStudiedToday >= SESSION_SIZE,
       }
     };
 
@@ -102,7 +82,7 @@ export async function GET() {
       data: dashboardData,
     }, {
       headers: {
-        'Cache-Control': 'private, max-age=300, stale-while-revalidate=60', // 5分間キャッシュ、1分間のstale-while-revalidate
+        'Cache-Control': 'private, max-age=300, stale-while-revalidate=60',
       }
     });
   } catch (error) {
