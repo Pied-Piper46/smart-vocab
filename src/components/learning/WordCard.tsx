@@ -156,10 +156,10 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
           <div className={`font-bold text-white/70 break-words ${word.japanese.length > 6 ? 'text-2xl sm:text-4xl' : 'text-3xl sm:text-5xl'}`}>{word.japanese}</div>
         </div>
 
-        {word.examples.length > 0 && (
+        {word.exampleEnglish && (
           <div className="mb-8 max-w-2xl mx-auto mb-15">
-            <div className="text-lg font-medium mb-2 text-white/60">{word.examples[0].english}</div>
-            <div className="text-white/60">{word.examples[0].japanese}</div>
+            <div className="text-lg font-medium mb-2 text-white/60">{word.exampleEnglish}</div>
+            <div className="text-white/60">{word.exampleJapanese}</div>
           </div>
         )}
         <div className="flex justify-center gap-6">
