@@ -163,7 +163,7 @@ export default function Dashboard() {
 
         {/* Today's Progress */}
         <div 
-          className="mb-30 sm:mb-40 opacity-0 animate-fade-in-up"
+          className="mb-10 sm:mb-15 opacity-0 animate-fade-in-up"
           style={{
             animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.3}s`,
             animationFillMode: 'forwards'
@@ -194,7 +194,7 @@ export default function Dashboard() {
         </div>
 
         {/* Start Learning Button */}
-        <div className="flex justify-center items-center mb-12">
+        <div className="flex justify-center items-center">
           <button
             onClick={() => router.push('/session')}
             className="inline-flex items-center justify-center gap-3 glass-light rounded-full px-12 py-5 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-400/20 opacity-0 animate-fade-in-up"

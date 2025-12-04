@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Target } from 'lucide-react';
 import WordCard, { LearningMode } from './WordCard';
 import { fetchSessionWords, recordSessionCompletion, WordData, SessionAnswer, WordStatusChange } from '@/lib/api-client';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
@@ -10,11 +9,6 @@ import ExitConfirmationDialog from './ExitConfirmationDialog';
 import { mutate } from 'swr';
 import { calculateSessionProgressClient, type CurrentProgress, type ClientProgressResult } from '@/lib/client-progress-calculator';
 import type { MasteryStatus } from '@/lib/mastery';
-
-// Note: Difficulty selection is deprecated (words are selected by mastery status instead)
-type DifficultyLevel = 'easy' | 'medium' | 'hard';
-
-// Remove unused interfaces since they're now imported from api-client
 
 export interface SessionFeedback {
   totalWords: number;
@@ -31,10 +25,7 @@ export interface SessionFeedback {
   wordsReinforced: number;
 }
 
-// Batch processing - collect all answers during session
-
 interface SessionManagerProps {
-  initialDifficulty?: DifficultyLevel | null;
   onSessionComplete?: (stats: SessionStats, feedback?: SessionFeedback) => void;
 }
 
@@ -47,19 +38,17 @@ interface SessionStats {
 // Use WordData type from API client
 type Word = WordData;
 
-export default function SessionManager({ 
-  initialDifficulty = null,
-  onSessionComplete 
+export default function SessionManager({
+  onSessionComplete
 }: SessionManagerProps) {
-  const [sessionState, setSessionState] = useState<'setup' | 'active' | 'completed'>('setup');
+  const [sessionState, setSessionState] = useState<'loading' | 'active' | 'completed'>('loading');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [sessionWords, setSessionWords] = useState<Word[]>([]);
   const [currentMode, setCurrentMode] = useState<LearningMode>('eng_to_jpn');
-  const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | null>(initialDifficulty);
   const [sessionStats, setSessionStats] = useState<SessionStats>({
     wordsStudied: 0,
     wordsCorrect: 0,
-    sessionType: 'single_difficulty'
+    sessionType: 'progress_based'
   });
   const [sessionAnswers, setSessionAnswers] = useState<SessionAnswer[]>([]);
   const [sessionFeedback, setSessionFeedback] = useState<SessionFeedback | null>(null);
@@ -72,7 +61,7 @@ export default function SessionManager({
     const finalStats: SessionStats = {
       wordsStudied: finalWordsStudied ?? sessionStats.wordsStudied,
       wordsCorrect: finalWordsCorrect ?? sessionStats.wordsCorrect,
-      sessionType: selectedDifficulty || 'single_difficulty'
+      sessionType: 'progress_based'
     };
     
     setSessionStats(finalStats);
@@ -163,7 +152,7 @@ export default function SessionManager({
         console.warn('⚠️ Failed to invalidate cache after session error:', cacheError);
       }
     }
-  }, [sessionStats, selectedDifficulty, sessionAnswers, onSessionComplete]);
+  }, [sessionStats, sessionAnswers, onSessionComplete]);
 
   // ✨ C-Plan: Complete session with immediate client feedback + background server processing
   const completeSessionWithFinalAnswer = useCallback(async (
@@ -176,7 +165,7 @@ export default function SessionManager({
     const finalStats: SessionStats = {
       wordsStudied: finalWordsStudied,
       wordsCorrect: finalWordsCorrect,
-      sessionType: selectedDifficulty || 'single_difficulty'
+      sessionType: 'progress_based'
     };
 
     setSessionStats(finalStats);
@@ -243,7 +232,7 @@ export default function SessionManager({
       });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionWords, selectedDifficulty, onSessionComplete]);
+  }, [sessionWords, onSessionComplete]);
 
   // Generate session feedback from batch result
   const generateSessionFeedbackFromBatch = (stats: SessionStats, statusChanges: { upgrades: WordStatusChange[]; downgrades: WordStatusChange[]; maintained: WordStatusChange[]; }): SessionFeedback => {
@@ -334,20 +323,18 @@ export default function SessionManager({
 
   // Handle feedback actions
   const handleStartNewSession = () => {
-    setSessionState('setup');
+    setSessionState('loading');
     setCurrentWordIndex(0);
     setSessionWords([]);
     setSessionStats({
       wordsStudied: 0,
       wordsCorrect: 0,
-      sessionType: 'single_difficulty'
+      sessionType: 'progress_based'
     });
     setSessionAnswers([]);
     setSessionFeedback(null);
-    // Keep the same difficulty for new session and reload data
-    if (selectedDifficulty) {
-      loadSessionData();
-    }
+    // Reload session data
+    loadSessionData();
   };
 
   const handleGoHome = () => {
@@ -397,33 +384,30 @@ export default function SessionManager({
 
   const loadSessionData = useCallback(async () => {
     try {
-      // Load words from API
-      const words = await fetchSessionWords(selectedDifficulty!, 15);
+      // Load words from API (no difficulty parameter)
+      const words = await fetchSessionWords();
       setSessionWords(words);
-      
+
       console.log('Loaded session data:', {
-        difficulty: selectedDifficulty,
         wordsCount: words.length
       });
-      
+
     } catch (error) {
       console.error('Failed to load session data:', error);
     }
-  }, [selectedDifficulty]);
+  }, []);
 
-  // Load session data when difficulty is selected
+  // Load session data on mount
   useEffect(() => {
-    if (selectedDifficulty) {
-      loadSessionData();
-    }
-  }, [selectedDifficulty, loadSessionData]);
+    loadSessionData();
+  }, [loadSessionData]);
 
-  // Auto start session if initial difficulty is provided
+  // Auto start session when words are loaded
   useEffect(() => {
-    if (initialDifficulty && sessionWords.length > 0) {
+    if (sessionWords.length > 0 && sessionState === 'loading') {
       startSession();
     }
-  }, [sessionWords, initialDifficulty]);
+  }, [sessionWords, sessionState]);
 
   const startSession = () => {
     setSessionState('active');
@@ -482,53 +466,6 @@ export default function SessionManager({
   };
 
 
-  const renderSetup = () => (
-    <div className="max-w-3xl mx-auto">
-      <div className="glass-strong rounded-3xl p-10 mb-8">
-        <div className="text-center mb-10">
-          <h2 className="text-4xl font-bold mb-4 text-white">学習セッション</h2>
-          <p className="text-xl text-white/80">科学的根拠に基づく効率的な10分間学習</p>
-        </div>
-
-        {/* Difficulty Selection */}
-        <div className="glass-light rounded-2xl p-6 mb-8">
-          <h3 className="text-xl font-bold mb-6 text-white text-center">学習難易度を選択</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button
-              onClick={() => { setSelectedDifficulty('easy'); startSession(); }}
-              className="p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 glass text-white/80 hover:glass-strong"
-            >
-              <div className="text-2xl font-bold mb-2">初級</div>
-              <div className="text-sm text-white/70">基本単語・日常会話</div>
-            </button>
-            <button
-              onClick={() => { setSelectedDifficulty('medium'); startSession(); }}
-              className="p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 glass text-white/80 hover:glass-strong"
-            >
-              <div className="text-2xl font-bold mb-2">中級</div>
-              <div className="text-sm text-white/70">応用単語・ビジネス</div>
-            </button>
-            <button
-              onClick={() => { setSelectedDifficulty('hard'); startSession(); }}
-              className="p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 glass text-white/80 hover:glass-strong"
-            >
-              <div className="text-2xl font-bold mb-2">上級</div>
-              <div className="text-sm text-white/70">高度単語・学術的</div>
-            </button>
-          </div>
-        </div>
-
-        <div className="glass-light rounded-2xl p-6 text-center">
-          <div className="text-white/80">
-            <div className="flex items-center justify-center gap-3">
-              <Target className="text-white" size={20} />
-              <span>学習モード: 英→日、日→英、音声認識、文脈推測</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   const renderActive = () => (
     <div className="max-w-5xl mx-auto">
@@ -592,19 +529,18 @@ export default function SessionManager({
     );
   };
 
-  // Skip setup if initial difficulty is provided
-  if (initialDifficulty && sessionState === 'setup') {
+  // Render based on session state
+  if (sessionState === 'loading') {
     return <LoadingSpinner text="学習セッションを準備しています..." absolute />;
   }
 
-  switch (sessionState) {
-    case 'setup':
-      return renderSetup();
-    case 'active':
-      return renderActive();
-    case 'completed':
-      return renderCompleted();
-    default:
-      return null;
+  if (sessionState === 'active') {
+    return renderActive();
   }
+
+  if (sessionState === 'completed') {
+    return renderCompleted();
+  }
+
+  return null;
 }

@@ -26,27 +26,22 @@ export interface WordProgressApi extends Omit<DbWordProgress, 'id' | 'userId' | 
 const API_BASE = '/api';
 
 /**
- * Fetch words for learning session
+ * Fetch words for learning session (no difficulty parameter - uses progress-based selection)
  */
-export async function fetchSessionWords(
-  difficulty: 'easy' | 'medium' | 'hard',
-  limit: number = 15
-): Promise<WordData[]> {
+export async function fetchSessionWords(): Promise<WordData[]> {
   try {
-    const response = await fetch(
-      `${API_BASE}/words/session?difficulty=${difficulty}&limit=${limit}`
-    );
-    
+    const response = await fetch(`${API_BASE}/words/session`);
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const result: ApiResponse<WordData[]> = await response.json();
-    
+
     if (!result.success || !result.data) {
       throw new Error(result.error || 'Failed to fetch session words');
     }
-    
+
     return result.data;
   } catch (error) {
     console.error('Error fetching session words:', error);
