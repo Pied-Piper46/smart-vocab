@@ -105,14 +105,14 @@ describe('Session Builder', () => {
       expect(session.length).toBe(10) // 6 + 2 + 1 + 1
     })
 
-    it('should select words according to pattern counts', () => {
+    it('should select words according to pattern counts and backfill to SESSION_SIZE', () => {
       const pattern = { new: 3, learning: 2, reviewing: 1, mastered: 1 }
       const now = new Date('2024-01-01')
 
       const candidates = {
         new: Array.from({ length: 10 }, (_, i) => ({
           id: `new_${i}`,
-          wordId: `w${i}`,
+          wordId: `w_new_${i}`,
           status: 'new' as MasteryStatus,
           recommendedReviewDate: now,
           createdAt: now,
@@ -123,7 +123,7 @@ describe('Session Builder', () => {
         })),
         learning: Array.from({ length: 5 }, (_, i) => ({
           id: `learning_${i}`,
-          wordId: `w${i}`,
+          wordId: `w_learning_${i}`,
           status: 'learning' as MasteryStatus,
           recommendedReviewDate: now,
           createdAt: now,
@@ -134,7 +134,7 @@ describe('Session Builder', () => {
         })),
         reviewing: Array.from({ length: 5 }, (_, i) => ({
           id: `reviewing_${i}`,
-          wordId: `w${i}`,
+          wordId: `w_reviewing_${i}`,
           status: 'reviewing' as MasteryStatus,
           recommendedReviewDate: now,
           createdAt: now,
@@ -145,7 +145,7 @@ describe('Session Builder', () => {
         })),
         mastered: Array.from({ length: 5 }, (_, i) => ({
           id: `mastered_${i}`,
-          wordId: `w${i}`,
+          wordId: `w_mastered_${i}`,
           status: 'mastered' as MasteryStatus,
           recommendedReviewDate: now,
           createdAt: now,
@@ -158,7 +158,10 @@ describe('Session Builder', () => {
 
       const session = buildSession(pattern, candidates)
 
-      // Count each status
+      // Should be exactly SESSION_SIZE (10)
+      expect(session.length).toBe(10)
+
+      // Count each status (pattern sum = 7, so 3 will be backfilled from candidate pool)
       const counts = {
         new: session.filter(w => w.status === 'new').length,
         learning: session.filter(w => w.status === 'learning').length,
@@ -166,10 +169,14 @@ describe('Session Builder', () => {
         mastered: session.filter(w => w.status === 'mastered').length
       }
 
-      expect(counts.new).toBe(3)
-      expect(counts.learning).toBe(2)
-      expect(counts.reviewing).toBe(1)
-      expect(counts.mastered).toBe(1)
+      // At minimum, pattern counts should be satisfied
+      expect(counts.new).toBeGreaterThanOrEqual(3)
+      expect(counts.learning).toBeGreaterThanOrEqual(2)
+      expect(counts.reviewing).toBeGreaterThanOrEqual(1)
+      expect(counts.mastered).toBeGreaterThanOrEqual(1)
+
+      // Total should equal SESSION_SIZE
+      expect(counts.new + counts.learning + counts.reviewing + counts.mastered).toBe(10)
     })
 
     it('should handle cases where candidates are fewer than pattern requires', () => {

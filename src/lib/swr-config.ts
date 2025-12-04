@@ -1,19 +1,41 @@
 import useSWR from 'swr';
 
-// SWR fetcher function
+// Custom error class for better error handling
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public status: number,
+    public code?: string
+  ) {
+    super(message);
+    this.name = 'ApiError';
+  }
+}
+
+// SWR fetcher function with enhanced error handling
 export const fetcher = async (url: string) => {
   const res = await fetch(url);
-  
+
   if (!res.ok) {
-    throw new Error('Failed to fetch data');
+    // Create detailed error with status code
+    const errorMessage = res.status === 404
+      ? 'Resource not found'
+      : res.status === 401 || res.status === 403
+      ? 'Unauthorized'
+      : 'Failed to fetch data';
+
+    throw new ApiError(errorMessage, res.status);
   }
-  
+
   const data = await res.json();
-  
+
   if (!data.success) {
-    throw new Error(data.error || 'API request failed');
+    throw new ApiError(
+      data.error || 'API request failed',
+      res.status
+    );
   }
-  
+
   return data.data;
 };
 

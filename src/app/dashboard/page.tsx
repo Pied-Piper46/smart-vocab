@@ -28,13 +28,22 @@ export default function Dashboard() {
     }
   }, [session, status, router]);
 
-  // Handle SWR errors (e.g., authentication issues)
+  // Handle SWR errors (e.g., authentication issues, user not found)
   useEffect(() => {
     if (error && session) {
       console.error('Dashboard data fetch error:', error);
-      // If authentication error, sign out
-      if (error.message?.includes('unauthorized') || error.message?.includes('401')) {
-        signOut({ callbackUrl: '/auth/signin' });
+
+      // Check if it's an authentication or user-not-found error
+      const isAuthError = error.message?.toLowerCase().includes('unauthorized') ||
+                         error.message?.toLowerCase().includes('not found');
+      const isStatusError = (error as any).status === 401 ||
+                           (error as any).status === 403 ||
+                           (error as any).status === 404;
+
+      // Sign out if user doesn't exist or is unauthorized
+      if (isAuthError || isStatusError) {
+        console.warn('User session invalid or user not found - signing out');
+        signOut({ callbackUrl: '/auth/signin?error=account_not_found' });
       }
     }
   }, [error, session]);

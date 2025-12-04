@@ -44,8 +44,10 @@ export function selectWordsFromCategory<T>(
 
 /**
  * Build a session from categorized candidates
+ * If insufficient words are available, backfill from candidate pool by recommendedReviewDate
+ *
  * @param pattern - Session pattern (word counts per status)
- * @param candidates - Pre-fetched and sorted candidates
+ * @param candidates - Pre-fetched and sorted candidates (should be fetched with CANDIDATE_MULTIPLIER)
  * @returns Session words (shuffled for variety)
  */
 export function buildSession(
@@ -54,13 +56,34 @@ export function buildSession(
 ): WordProgressForSession[] {
   const session: WordProgressForSession[] = []
 
-  // Select words from each category according to pattern
-  session.push(...selectWordsFromCategory(candidates.new, pattern.new))
-  session.push(...selectWordsFromCategory(candidates.learning, pattern.learning))
-  session.push(...selectWordsFromCategory(candidates.reviewing, pattern.reviewing))
-  session.push(...selectWordsFromCategory(candidates.mastered, pattern.mastered))
+  // Step 1: Select words from each category according to pattern
+  const selectedNew = selectWordsFromCategory(candidates.new, pattern.new)
+  const selectedLearning = selectWordsFromCategory(candidates.learning, pattern.learning)
+  const selectedReviewing = selectWordsFromCategory(candidates.reviewing, pattern.reviewing)
+  const selectedMastered = selectWordsFromCategory(candidates.mastered, pattern.mastered)
 
-  // Shuffle for variety (avoid status-based ordering)
+  session.push(...selectedNew, ...selectedLearning, ...selectedReviewing, ...selectedMastered)
+
+  // Step 2: Build candidate pool from remaining words (not yet selected)
+  const candidatePool = [
+    ...candidates.new.slice(pattern.new),
+    ...candidates.learning.slice(pattern.learning),
+    ...candidates.reviewing.slice(pattern.reviewing),
+    ...candidates.mastered.slice(pattern.mastered)
+  ]
+
+  // Step 3: If session is not full, backfill from candidate pool
+  const shortage = SESSION_SIZE - session.length
+  if (shortage > 0 && candidatePool.length > 0) {
+    // Sort by recommendedReviewDate (most urgent first)
+    const fillers = candidatePool
+      .sort((a, b) => a.recommendedReviewDate.getTime() - b.recommendedReviewDate.getTime())
+      .slice(0, shortage)
+
+    session.push(...fillers)
+  }
+
+  // Step 4: Shuffle for variety (avoid status-based ordering)
   return session.sort(() => Math.random() - 0.5)
 }
 
