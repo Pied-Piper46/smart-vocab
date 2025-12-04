@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { initializeUserWordProgress } from '@/lib/word-progress-initialization';
 
 const prisma = new PrismaClient();
 
@@ -89,11 +90,24 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // Initialize WordProgress for new user
+    console.log('Initializing WordProgress for new user:', user.id);
+    const initResult = await initializeUserWordProgress(user.id, prisma);
+
+    if (!initResult.success) {
+      console.error('Failed to initialize WordProgress:', initResult.error);
+      // Note: User is already created, so we don't roll back
+      // The user can still use the app, but may need to contact support
+    } else {
+      console.log(`Successfully initialized ${initResult.count} words for user ${user.id}`);
+    }
+
     return NextResponse.json({
       success: true,
       data: {
         user,
         message: 'User created successfully',
+        wordsInitialized: initResult.count || 0,
       },
     });
   } catch (error) {
