@@ -110,15 +110,14 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
         );
       
       case 'context_fill':
-        if (word.examples.length === 0) return null;
-        const example = word.examples[0];
-        const blankedExample = example.english.replace(new RegExp(word.english, 'gi'), '______');
-        
+        if (!word.exampleEnglish) return null;
+        const blankedExample = word.exampleEnglish.replace(new RegExp(word.english, 'gi'), '______');
+
         return (
           <div className="text-center">
             <div className="mb-10">
               <div className="text-xl font-medium mb-3 text-white/80">{blankedExample}</div>
-              <div className="text-lg text-white/70">{example.japanese}</div>
+              <div className="text-lg text-white/70">{word.exampleJapanese}</div>
             </div>
             <input
               type="text"
