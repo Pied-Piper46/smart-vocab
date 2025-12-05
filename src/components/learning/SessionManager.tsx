@@ -9,6 +9,7 @@ import ExitConfirmationDialog from './ExitConfirmationDialog';
 import { mutate } from 'swr';
 import { calculateSessionProgressClient, type CurrentProgress, type ClientProgressResult } from '@/lib/client-progress-calculator';
 import type { MasteryStatus } from '@/lib/mastery';
+import { saveSession, loadSession, clearSession, hasSavedSession, addSessionAnswer } from '@/lib/session-resume';
 
 export interface SessionFeedback {
   totalWords: number;
@@ -50,26 +51,31 @@ export default function SessionManager({
     wordsCorrect: 0,
     sessionType: 'progress_based'
   });
-  const [sessionAnswers, setSessionAnswers] = useState<SessionAnswer[]>([]);
   const [sessionFeedback, setSessionFeedback] = useState<SessionFeedback | null>(null);
   const [showExitDialog, setShowExitDialog] = useState(false);
+  const [showResumeDialog, setShowResumeDialog] = useState(false);
+  const [sessionId] = useState(() => `session-${Date.now()}`);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const completeSession = useCallback(async (finalWordsStudied?: number, finalWordsCorrect?: number) => {
     setSessionState('completed');
-    
+
     const finalStats: SessionStats = {
       wordsStudied: finalWordsStudied ?? sessionStats.wordsStudied,
       wordsCorrect: finalWordsCorrect ?? sessionStats.wordsCorrect,
       sessionType: 'progress_based'
     };
-    
+
     setSessionStats(finalStats);
-    
+
     // 🚀 Batch process all answers at session completion
     console.log('🏁 Session completing, processing all answers in batch...');
+
+    // Load answers from localStorage
+    const session = loadSession();
+    const sessionAnswers = session?.answers || [];
     console.log('📊 Session answers:', sessionAnswers);
-    
+
     try {
       // Send all answers to backend for batch processing
       const result = await recordSessionCompletion(finalStats.wordsStudied, sessionAnswers);
@@ -90,15 +96,15 @@ export default function SessionManager({
         mutate('/api/progress/struggling-words')
       ]);
       console.log('✅ SWR cache invalidated successfully');
-      
+
       onSessionComplete?.(finalStats, feedback);
     } catch (error) {
       console.error('❌ Failed to complete session with batch processing:', error);
-      
+
       // Enhanced error handling with retry mechanism
       let retryCount = 0;
       const maxRetries = 2;
-      
+
       while (retryCount < maxRetries) {
         try {
           console.log(`🔄 Retrying session completion (attempt ${retryCount + 1}/${maxRetries})...`);
@@ -152,7 +158,7 @@ export default function SessionManager({
         console.warn('⚠️ Failed to invalidate cache after session error:', cacheError);
       }
     }
-  }, [sessionStats, sessionAnswers, onSessionComplete]);
+  }, [sessionStats, onSessionComplete]);
 
   // ✨ C-Plan: Complete session with immediate client feedback + background server processing
   const completeSessionWithFinalAnswer = useCallback(async (
@@ -331,7 +337,6 @@ export default function SessionManager({
       wordsCorrect: 0,
       sessionType: 'progress_based'
     });
-    setSessionAnswers([]);
     setSessionFeedback(null);
     // Reload session data
     loadSessionData();
@@ -346,33 +351,14 @@ export default function SessionManager({
     }
   };
 
-  const handleConfirmExit = async () => {
-    console.log('🚪 User confirmed exit, saving progress for answered words...');
-    
-    // Save progress for answered words only (no session record)
-    if (sessionAnswers.length > 0) {
-      try {
-        // Create a batch progress update API call (without session completion)
-        const response = await fetch('/api/progress/batch', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            answers: sessionAnswers,
-          }),
-        });
-        
-        if (response.ok) {
-          console.log(`✅ Progress saved for ${sessionAnswers.length} answered words`);
-        } else {
-          console.warn('⚠️ Failed to save progress, but continuing exit');
-        }
-      } catch (error) {
-        console.warn('⚠️ Error saving progress on exit:', error);
-      }
-    }
-    
+  const handleConfirmExit = () => {
+    console.log('🚪 User confirmed exit without saving');
+
+    // Note: Progress is NOT saved to maintain data consistency
+    // Reason: 1 session = 10 words fixed structure
+    // Partial progress would break this constraint
+    // Session data is saved to localStorage for resume feature
+
     setShowExitDialog(false);
     window.location.href = '/dashboard';
   };
@@ -381,9 +367,60 @@ export default function SessionManager({
     setShowExitDialog(false);
   };
 
+  const handleResumeSession = () => {
+    console.log('▶️ User chose to resume session');
+    const saved = loadSession();
+    if (!saved) {
+      console.error('❌ Failed to load saved session');
+      setShowResumeDialog(false);
+      loadSessionData(); // Start new session
+      return;
+    }
+
+    // Restore session state (answers are in localStorage, not in memory)
+    setSessionWords(saved.words);
+    setCurrentWordIndex(saved.currentWordIndex);
+    setSessionStats({
+      ...saved.stats,
+      sessionType: 'progress_based'
+    });
+    setSessionState('active');
+    setShowResumeDialog(false);
+
+    console.log('✅ Session resumed from localStorage:', {
+      currentWordIndex: saved.currentWordIndex,
+      totalWords: saved.words.length,
+      answersCount: saved.answers.length
+    });
+  };
+
+  const handleDeclineResume = async () => {
+    console.log('🆕 User chose to start new session');
+    clearSession();
+    setShowResumeDialog(false);
+
+    // Load fresh session
+    try {
+      const words = await fetchSessionWords();
+      setSessionWords(words);
+      console.log('Loaded fresh session data:', {
+        wordsCount: words.length
+      });
+    } catch (error) {
+      console.error('Failed to load session data:', error);
+    }
+  };
+
 
   const loadSessionData = useCallback(async () => {
     try {
+      // Check if there's a saved session in localStorage
+      if (hasSavedSession()) {
+        console.log('💾 Found saved session in localStorage');
+        setShowResumeDialog(true);
+        return; // Wait for user decision
+      }
+
       // Load words from API (no difficulty parameter)
       const words = await fetchSessionWords();
       setSessionWords(words);
@@ -412,6 +449,21 @@ export default function SessionManager({
   const startSession = () => {
     setSessionState('active');
     setCurrentWordIndex(0);
+
+    // 💾 Save initial session to localStorage (one-time save of words data)
+    saveSession({
+      sessionId,
+      startedAt: new Date().toISOString(),
+      words: sessionWords,
+      currentWordIndex: 0,
+      answers: [],
+      stats: {
+        wordsStudied: 0,
+        wordsCorrect: 0,
+      }
+    });
+    console.log('💾 Initial session saved to localStorage');
+
     // Set random initial learning mode
     const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
@@ -421,7 +473,7 @@ export default function SessionManager({
 
   const handleWordAnswer = (correct: boolean) => {
     const currentWord = sessionWords[currentWordIndex];
-    
+
     // 🚀 BATCH PROCESSING - Collect answer for later processing
     const sessionAnswer: SessionAnswer = {
       wordId: currentWord.id,
@@ -429,20 +481,27 @@ export default function SessionManager({
       responseTime: Date.now(),
       mode: currentMode
     };
-    
+
     // Update session stats instantly for UI
-    setSessionStats(prev => ({
-      ...prev,
-      wordsStudied: prev.wordsStudied + 1,
-      wordsCorrect: prev.wordsCorrect + (correct ? 1 : 0)
-    }));
+    const updatedStats = {
+      wordsStudied: sessionStats.wordsStudied + 1,
+      wordsCorrect: sessionStats.wordsCorrect + (correct ? 1 : 0),
+      sessionType: sessionStats.sessionType
+    };
+    setSessionStats(updatedStats);
 
     if (currentWordIndex < sessionWords.length - 1) {
       // Not the last word - move to next immediately
-      // Add answer to batch collection
-      setSessionAnswers(prev => [...prev, sessionAnswer]);
       console.log('📝 Answer collected for batch processing:', sessionAnswer);
-      
+
+      // 💾 AUTO-SAVE to localStorage after each answer
+      // Uses addSessionAnswer() - only updates progress, not words data
+      addSessionAnswer(sessionAnswer, {
+        wordsStudied: updatedStats.wordsStudied,
+        wordsCorrect: updatedStats.wordsCorrect
+      });
+      console.log('💾 Session progress auto-saved to localStorage');
+
       setCurrentWordIndex(prev => prev + 1);
       // Randomly select learning mode for variety
       const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
@@ -451,20 +510,30 @@ export default function SessionManager({
     } else {
       // Last word - complete session with batch processing
       console.log('🏁 Last word answered, completing session with batch processing...');
-      
+
       // Calculate final stats including current word
       const finalWordsStudied = sessionStats.wordsStudied + 1;
       const finalWordsCorrect = sessionStats.wordsCorrect + (correct ? 1 : 0);
-      
-      // 🔥 CRITICAL: Pass the final answer directly to avoid React state race condition
-      const updatedAnswers = [...sessionAnswers, sessionAnswer];
+
+      // Add final answer to localStorage
+      addSessionAnswer(sessionAnswer, {
+        wordsStudied: finalWordsStudied,
+        wordsCorrect: finalWordsCorrect
+      });
+
+      // Load all answers from localStorage
+      const session = loadSession();
+      const allAnswers = session?.answers || [];
       console.log('📝 Final answer included in batch:', sessionAnswer);
-      console.log('📊 Complete batch for processing:', updatedAnswers);
-      
-      completeSessionWithFinalAnswer(finalWordsStudied, finalWordsCorrect, updatedAnswers);
+      console.log('📊 Complete batch for processing:', allAnswers);
+
+      // 🗑️ Clear localStorage as session is completing
+      clearSession();
+      console.log('🗑️ Cleared session from localStorage (session completing)');
+
+      completeSessionWithFinalAnswer(finalWordsStudied, finalWordsCorrect, allAnswers);
     }
   };
-
 
 
   const renderActive = () => (
@@ -529,7 +598,37 @@ export default function SessionManager({
     );
   };
 
+  // Resume confirmation dialog
+  const renderResumeDialog = () => (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="glass-card p-8 max-w-md mx-4 rounded-2xl shadow-2xl">
+        <h3 className="text-2xl font-bold mb-4 text-white">セッション再開</h3>
+        <p className="text-white/80 mb-6">
+          前回のセッションが途中で終了しています。続きから再開しますか？
+        </p>
+        <div className="flex gap-3">
+          <button
+            onClick={handleResumeSession}
+            className="flex-1 glass-button py-3 px-6 rounded-xl font-semibold text-white hover:scale-105 transition-all duration-300"
+          >
+            続きから再開
+          </button>
+          <button
+            onClick={handleDeclineResume}
+            className="flex-1 bg-white/10 hover:bg-white/20 py-3 px-6 rounded-xl font-semibold text-white transition-all duration-300"
+          >
+            新しいセッション
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
   // Render based on session state
+  if (showResumeDialog) {
+    return renderResumeDialog();
+  }
+
   if (sessionState === 'loading') {
     return <LoadingSpinner text="学習セッションを準備しています..." absolute />;
   }
