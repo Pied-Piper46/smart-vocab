@@ -23,7 +23,7 @@ import {
 import { signOut } from 'next-auth/react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useAnalyticsData, useStrugglingWords, useLearningHistory, useProfileData } from '@/lib/swr-config';
-import { sessionStorageCache } from '@/lib/session-storage';
+import { sessionStorageCache } from '@/lib/dashboard-cache';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface AnalyticsData {

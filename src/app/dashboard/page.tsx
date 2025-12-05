@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { User } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useDashboardData } from '@/lib/swr-config';
-import { sessionStorageCache } from '@/lib/session-storage';
+import { sessionStorageCache } from '@/lib/dashboard-cache';
 
 
 export default function Dashboard() {
