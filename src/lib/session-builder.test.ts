@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import type { MasteryStatus } from './mastery'
 import { buildSession, selectWordsFromCategory, getCandidateQuerySpecs, type WordProgressForSession } from './session-builder'
-import { SESSION_PATTERNS, CANDIDATE_MULTIPLIER } from '@/config/session-patterns'
+import { SESSION_PATTERNS, CANDIDATE_MULTIPLIER, NEW_CANDIDATE_MULTIPLIER } from '@/config/session-patterns'
 
 describe('Session Builder', () => {
   describe('getCandidateQuerySpecs', () => {
@@ -9,7 +9,7 @@ describe('Session Builder', () => {
       const pattern = SESSION_PATTERNS.newFocused
       const specs = getCandidateQuerySpecs(pattern)
 
-      expect(specs.new.count).toBe(pattern.new * CANDIDATE_MULTIPLIER)
+      expect(specs.new.count).toBe(pattern.new * NEW_CANDIDATE_MULTIPLIER)  // NEW uses higher multiplier
       expect(specs.learning.count).toBe(pattern.learning * CANDIDATE_MULTIPLIER)
       expect(specs.reviewing.count).toBe(pattern.reviewing * CANDIDATE_MULTIPLIER)
       expect(specs.mastered.count).toBe(pattern.mastered * CANDIDATE_MULTIPLIER)
@@ -31,14 +31,14 @@ describe('Session Builder', () => {
       expect(specs.mastered.orderBy).toEqual({ recommendedReviewDate: 'asc' })
     })
 
-    it('should use CANDIDATE_MULTIPLIER correctly', () => {
+    it('should use multipliers correctly', () => {
       const pattern = { new: 5, learning: 3, reviewing: 1, mastered: 1 }
       const specs = getCandidateQuerySpecs(pattern)
 
-      expect(specs.new.count).toBe(5 * 3) // CANDIDATE_MULTIPLIER = 3
-      expect(specs.learning.count).toBe(3 * 3)
-      expect(specs.reviewing.count).toBe(1 * 3)
-      expect(specs.mastered.count).toBe(1 * 3)
+      expect(specs.new.count).toBe(5 * NEW_CANDIDATE_MULTIPLIER) // NEW_CANDIDATE_MULTIPLIER = 10
+      expect(specs.learning.count).toBe(3 * CANDIDATE_MULTIPLIER) // CANDIDATE_MULTIPLIER = 3
+      expect(specs.reviewing.count).toBe(1 * CANDIDATE_MULTIPLIER)
+      expect(specs.mastered.count).toBe(1 * CANDIDATE_MULTIPLIER)
     })
   })
 

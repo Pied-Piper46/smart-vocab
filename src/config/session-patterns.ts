@@ -49,3 +49,10 @@ export const SESSION_SIZE = 10
  * Fetch N times the required count to ensure enough candidates
  */
 export const CANDIDATE_MULTIPLIER = 3
+
+/**
+ * NEW words candidate fetch multiplier
+ * Fetch more candidates for 'new' status words to increase randomness
+ * Higher value = more variety in word selection for new users
+ */
+export const NEW_CANDIDATE_MULTIPLIER = 100

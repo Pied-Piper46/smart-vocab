@@ -3,7 +3,7 @@
  * Builds learning sessions based on session patterns
  */
 
-import { SESSION_SIZE, CANDIDATE_MULTIPLIER, type SessionPattern } from '@/config/session-patterns'
+import { SESSION_SIZE, CANDIDATE_MULTIPLIER, NEW_CANDIDATE_MULTIPLIER, type SessionPattern } from '@/config/session-patterns'
 import type { MasteryStatus } from './mastery'
 
 export interface WordProgressForSession {
@@ -26,20 +26,30 @@ export interface CategorizedCandidates {
 }
 
 /**
- * Select first N words from a category
- * @param words - Array of words (already sorted by priority)
+ * Select N words from a category
+ * For 'new' status words with same recommendedReviewDate, shuffle for randomness
+ * For other statuses, take first N (already sorted by priority)
+ *
+ * @param words - Array of words (sorted by priority for learning/reviewing/mastered)
  * @param count - Number of words to select
+ * @param randomize - If true, shuffle before selecting (for 'new' status words)
  * @returns Selected words
  */
 export function selectWordsFromCategory<T>(
   words: T[],
-  count: number
+  count: number,
+  randomize: boolean = false
 ): T[] {
   if (count === 0 || words.length === 0) {
     return []
   }
 
-  return words.slice(0, Math.min(count, words.length))
+  // For 'new' status: shuffle candidates to provide variety
+  const candidates = randomize
+    ? [...words].sort(() => Math.random() - 0.5)
+    : words
+
+  return candidates.slice(0, Math.min(count, candidates.length))
 }
 
 /**
@@ -57,7 +67,8 @@ export function buildSession(
   const session: WordProgressForSession[] = []
 
   // Step 1: Select words from each category according to pattern
-  const selectedNew = selectWordsFromCategory(candidates.new, pattern.new)
+  // For 'new' status: randomize to provide variety for new users
+  const selectedNew = selectWordsFromCategory(candidates.new, pattern.new, true)
   const selectedLearning = selectWordsFromCategory(candidates.learning, pattern.learning)
   const selectedReviewing = selectWordsFromCategory(candidates.reviewing, pattern.reviewing)
   const selectedMastered = selectWordsFromCategory(candidates.mastered, pattern.mastered)
@@ -75,9 +86,10 @@ export function buildSession(
   // Step 3: If session is not full, backfill from candidate pool
   const shortage = SESSION_SIZE - session.length
   if (shortage > 0 && candidatePool.length > 0) {
-    // Sort by recommendedReviewDate (most urgent first)
+    // Shuffle candidate pool for randomness
+    // (especially important for new users where all words have same recommendedReviewDate)
     const fillers = candidatePool
-      .sort((a, b) => a.recommendedReviewDate.getTime() - b.recommendedReviewDate.getTime())
+      .sort(() => Math.random() - 0.5)
       .slice(0, shortage)
 
     session.push(...fillers)
@@ -101,8 +113,8 @@ export function getCandidateQuerySpecs(
 ) {
   return {
     new: {
-      count: pattern.new * CANDIDATE_MULTIPLIER,
-      orderBy: { createdAt: 'desc' as const }  // Random-ish for new words
+      count: pattern.new * NEW_CANDIDATE_MULTIPLIER,  // Use higher multiplier for more variety
+      orderBy: { createdAt: 'desc' as const }  // Order doesn't matter (will be shuffled)
     },
     learning: {
       count: pattern.learning * CANDIDATE_MULTIPLIER,
