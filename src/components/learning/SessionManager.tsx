@@ -334,14 +334,7 @@ export default function SessionManager({
     loadSessionData();
   }, [loadSessionData]);
 
-  // Auto start session when words are loaded
-  useEffect(() => {
-    if (sessionWords.length > 0 && sessionState === 'loading') {
-      startSession();
-    }
-  }, [sessionWords, sessionState]);
-
-  const startSession = () => {
+  const startSession = useCallback(() => {
     setSessionState('active');
     setCurrentWordIndex(0);
 
@@ -363,7 +356,14 @@ export default function SessionManager({
     const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     setCurrentMode(randomMode);
-  };
+  }, [sessionId, sessionWords]);
+
+  // Auto start session when words are loaded
+  useEffect(() => {
+    if (sessionWords.length > 0 && sessionState === 'loading') {
+      startSession();
+    }
+  }, [sessionWords, sessionState, startSession]);
 
 
   const handleWordAnswer = (correct: boolean) => {
