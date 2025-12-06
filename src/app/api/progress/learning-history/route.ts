@@ -42,9 +42,11 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    // Group sessions by date
+    // Group sessions by date (convert UTC to JST)
     const sessionsByDate = sessions.reduce((acc, session) => {
-      const date = session.completedAt.toISOString().split('T')[0];
+      // Convert UTC to JST (UTC+9)
+      const jstDate = new Date(session.completedAt.getTime() + 9 * 60 * 60 * 1000);
+      const date = jstDate.toISOString().split('T')[0];
       if (!acc[date]) {
         acc[date] = {
           sessionCount: 0,
@@ -60,8 +62,8 @@ export async function GET(request: NextRequest) {
     const dailyData = [];
 
     for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month - 1, day);
-      const dateStr = date.toISOString().split('T')[0];
+      // Format date as YYYY-MM-DD without timezone conversion
+      const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const sessionData = sessionsByDate[dateStr];
 
       dailyData.push({
