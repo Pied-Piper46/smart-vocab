@@ -81,10 +81,6 @@ export const useProfileData = () => {
   return useSWR('/api/user/profile', fetcher, swrConfig.profile);
 };
 
-export const useDailyProgress = () => {
-  return useSWR('/api/progress/daily', fetcher, swrConfig.dailyProgress);
-};
-
 // Progress page specific hooks - optimized for learning session-based updates
 export const useAnalyticsData = () => {
   return useSWR('/api/progress/analytics', fetcher, {

@@ -119,7 +119,6 @@ export default function SessionManager({
         await Promise.all([
           mutate('/api/dashboard'),
           mutate('/api/user/profile'),
-          mutate('/api/progress/daily'),
           mutate('/api/progress/analytics'),
           mutate('/api/progress/struggling-words')
         ]);
