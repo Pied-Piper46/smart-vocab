@@ -193,46 +193,6 @@ export async function recordSessionCompletion(
 }
 
 /**
- * Fetch session history and statistics
- */
-export interface SessionHistoryData {
-  totalSessions: number;
-  recentSessions: Array<{
-    id: string;
-    completedAt: string; // ISO string from API
-  }>;
-  thisWeek: number;
-  thisMonth: number;
-  streak: number;
-}
-
-export async function fetchSessionHistory(
-  limit?: number
-): Promise<SessionHistoryData> {
-  try {
-    const params = new URLSearchParams();
-    if (limit) params.append('limit', limit.toString());
-    
-    const response = await fetch(`${API_BASE}/sessions/history?${params}`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const result: ApiResponse<SessionHistoryData> = await response.json();
-    
-    if (!result.success || !result.data) {
-      throw new Error(result.error || 'Failed to fetch session history');
-    }
-    
-    return result.data;
-  } catch (error) {
-    console.error('Error fetching session history:', error);
-    throw error;
-  }
-}
-
-/**
  * Change user password
  */
 export async function changePassword(
