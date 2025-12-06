@@ -36,7 +36,6 @@ export async function GET(request: NextRequest) {
       },
       select: {
         completedAt: true,
-        wordsStudied: true,
       },
       orderBy: {
         completedAt: 'asc',
@@ -49,40 +48,36 @@ export async function GET(request: NextRequest) {
       if (!acc[date]) {
         acc[date] = {
           sessionCount: 0,
-          totalWords: 0,
         };
       }
       acc[date].sessionCount += 1;
-      acc[date].totalWords += session.wordsStudied;
       return acc;
-    }, {} as Record<string, { sessionCount: number; totalWords: number }>);
+    }, {} as Record<string, { sessionCount: number }>);
 
     // Generate data for the specific month
     const monthName = startDate.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long' });
     const daysInMonth = new Date(year, month, 0).getDate();
     const dailyData = [];
-    
+
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month - 1, day);
       const dateStr = date.toISOString().split('T')[0];
       const sessionData = sessionsByDate[dateStr];
-      
+
       dailyData.push({
         day,
         date: dateStr,
         sessionCount: sessionData?.sessionCount || 0,
-        totalWords: sessionData?.totalWords || 0,
         hasSession: (sessionData?.sessionCount || 0) > 0,
       });
     }
-    
+
     const monthData = {
       month: monthName,
       year,
       monthNum: month,
       days: dailyData,
       totalSessions: dailyData.reduce((sum, day) => sum + day.sessionCount, 0),
-      totalWords: dailyData.reduce((sum, day) => sum + day.totalWords, 0),
       activeDays: dailyData.filter(day => day.hasSession).length,
     };
 

@@ -3,17 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { 
-  BarChart3, 
-  Target, 
-  Award, 
-  TrendingUp, 
-  BookOpen, 
-  AlertTriangle, 
+import {
+  Target,
+  BookOpen,
+  AlertTriangle,
   Home,
   Star,
   History,
-  User,
   Menu,
   X,
   LogOut,
@@ -22,21 +18,15 @@ import {
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { useAnalyticsData, useStrugglingWords, useLearningHistory, useProfileData } from '@/lib/swr-config';
+import { useAnalyticsData, useStrugglingWords, useLearningHistory } from '@/lib/swr-config';
 import { sessionStorageCache } from '@/lib/dashboard-cache';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface AnalyticsData {
-  streaks: {
-    current: number;
-    longest: number;
-  };
   masteryStats: {
     learning: number;
     reviewing: number;
     mastered: number;
   };
-  learningProgress: Record<string, number>;
   recentlyMastered: Array<{
     word: {
       english: string;
@@ -44,10 +34,8 @@ interface AnalyticsData {
     };
     updatedAt: string;
   }>;
-  goalAchievementRate: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface StrugglingWord {
   word: {
     english: string;
@@ -60,7 +48,6 @@ interface StrugglingWord {
   status: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface LearningHistoryData {
   month: string;
   year: number;
@@ -69,43 +56,25 @@ interface LearningHistoryData {
     day: number;
     date: string;
     sessionCount: number;
-    totalWords: number;
     hasSession: boolean;
   }>;
   totalSessions: number;
-  totalWords: number;
   activeDays: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: string;
-  dailyGoal: number;
-  sessionDuration: number;
-  preferredLanguage: string;
-  currentStreak: number;
-  longestStreak: number;
-  totalStudyTime: number;
-  totalWordsLearned: number;
-}
-
-type MenuType = 'progress' | 'mastery' | 'recent' | 'struggling' | 'history' | 'profile';
+type MenuType = 'mastery' | 'recent' | 'struggling' | 'history';
 
 export default function ProgressPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [activeMenu, setActiveMenu] = useState<MenuType>('progress');
+  const [activeMenu, setActiveMenu] = useState<MenuType>('mastery');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [currentHistoryMonth, setCurrentHistoryMonth] = useState(new Date());
-  
+
   // SWR hooks for efficient data fetching and caching
   const { data: analytics, error: analyticsError, isLoading: isLoadingAnalytics } = useAnalyticsData();
   const { data: strugglingWords, error: strugglingError, isLoading: isLoadingStrugglingWords } = useStrugglingWords();
-  const { data: userProfile, error: profileError, isLoading: isLoadingProfile } = useProfileData();
   const { data: learningHistory, error: historyError, isLoading: isLoadingHistory } = useLearningHistory(
     currentHistoryMonth.getFullYear(),
     currentHistoryMonth.getMonth() + 1
@@ -121,15 +90,14 @@ export default function ProgressPage() {
 
   // Handle SWR errors
   useEffect(() => {
-    if (analyticsError || strugglingError || profileError || historyError) {
+    if (analyticsError || strugglingError || historyError) {
       console.error('Progress page data fetch errors:', {
         analytics: analyticsError,
         struggling: strugglingError,
-        profile: profileError,
         history: historyError
       });
     }
-  }, [analyticsError, strugglingError, profileError, historyError]);
+  }, [analyticsError, strugglingError, historyError]);
 
   // Cache data in sessionStorage for faster subsequent loads
   useEffect(() => {
@@ -143,12 +111,6 @@ export default function ProgressPage() {
       sessionStorageCache.set('progress-struggling-words', strugglingWords);
     }
   }, [strugglingWords]);
-
-  useEffect(() => {
-    if (userProfile) {
-      sessionStorageCache.set('progress-user-profile', userProfile);
-    }
-  }, [userProfile]);
 
   useEffect(() => {
     if (learningHistory) {
@@ -203,12 +165,10 @@ export default function ProgressPage() {
   };
 
   const menuItems = [
-    { id: 'progress' as MenuType, label: '学習進捗', icon: BarChart3, title: '学習進捗' },
     { id: 'mastery' as MenuType, label: '単語習得状況', icon: Target, title: '単語習得状況' },
     { id: 'recent' as MenuType, label: '最近習得した単語', icon: BookOpen, title: '最近習得した単語' },
     { id: 'struggling' as MenuType, label: '苦手な単語', icon: AlertTriangle, title: '苦手な単語' },
     { id: 'history' as MenuType, label: 'セッション学習記録', icon: History, title: 'セッション学習記録' },
-    { id: 'profile' as MenuType, label: 'プロフィール', icon: User, title: 'プロフィール' },
   ];
 
   const getCurrentMenuTitle = () => {
@@ -218,7 +178,7 @@ export default function ProgressPage() {
 
   const getCurrentMenuIcon = () => {
     const currentMenuItem = menuItems.find(item => item.id === activeMenu);
-    return currentMenuItem ? currentMenuItem.icon : BarChart3;
+    return currentMenuItem ? currentMenuItem.icon : Target;
   };
 
   if (status === 'loading' || isLoadingAnalytics) {
@@ -246,7 +206,7 @@ export default function ProgressPage() {
             <div className="flex items-center gap-3 ml-3">
               {(() => {
                 if (isSidebarOpen) {
-                  return <BarChart3 className="text-white/80 w-6 h-6" />;
+                  return <Target className="text-white/80 w-6 h-6" />;
                 }
                 const IconComponent = getCurrentMenuIcon();
                 return <IconComponent className="text-white/80 w-6 h-6" />;
@@ -368,8 +328,6 @@ export default function ProgressPage() {
 
   function renderContent() {
     switch (activeMenu) {
-      case 'progress':
-        return renderProgressContent();
       case 'mastery':
         return renderMasteryContent();
       case 'recent':
@@ -378,94 +336,9 @@ export default function ProgressPage() {
         return renderStrugglingContent();
       case 'history':
         return renderHistoryContent();
-      case 'profile':
-        return renderProfileContent();
       default:
-        return renderProgressContent();
+        return renderMasteryContent();
     }
-  }
-
-  function renderProgressContent() {
-    if (!analytics) return null;
-    
-    return (
-      <div className="space-y-8">
-        <div className="hidden lg:flex items-center gap-3 mb-15 ml-7">
-          <BarChart3 className="text-white/80 w-8 h-8" />
-          <h2 className="text-white/80 text-3xl font-bold">学習進捗</h2>
-        </div>
-
-        <div className="space-y-8">
-          {/* Current Streak */}
-          <div className="flex items-center gap-8 sm:ml-5 mb-10">
-            <div className="p-3 bg-orange-400/20 rounded-xl">
-              <Target className="text-orange-300" size={32} />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-baseline gap-3 mb-2">
-                <span className="text-3xl font-bold text-white/80">{analytics.streaks.current}</span>
-                <span className="text-white/70 text-lg">日</span>
-              </div>
-              <h3 className="text-white/80 font-semibold text-lg mb-1">現在の連続学習日数</h3>
-              <p className="text-white/60 text-sm">
-                1日10分、継続は力なり。毎日の学習習慣があなたの英語力向上の基盤となっています。
-              </p>
-            </div>
-          </div>
-
-          {/* Longest Streak */}
-          <div className="flex items-center gap-8 sm:ml-5 mb-10">
-            <div className="p-3 bg-yellow-400/20 rounded-xl">
-              <Award className="text-yellow-300" size={32} />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-baseline gap-3 mb-2">
-                <span className="text-3xl font-bold text-white/80">{analytics.streaks.longest}</span>
-                <span className="text-white/70 text-lg">日</span>
-              </div>
-              <h3 className="text-white/80 font-semibold text-lg mb-1">最長連続学習記録</h3>
-              <p className="text-white/60 text-sm">
-                これまでの最高記録です。この記録を更新することを目標に頑張りましょう！
-              </p>
-            </div>
-          </div>
-
-          {/* Goal Achievement Rate */}
-          <div className="flex items-center gap-8 sm:ml-5 mb-10">
-            <div className="p-3 bg-green-400/20 rounded-xl">
-              <TrendingUp className="text-green-300" size={32} />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-baseline gap-3 mb-2">
-                <span className="text-3xl font-bold text-white/80">{analytics.goalAchievementRate}</span>
-                <span className="text-white/70 text-lg">%</span>
-              </div>
-              <h3 className="text-white/80 font-semibold text-lg mb-1">週次目標達成率</h3>
-              <p className="text-white/60 text-sm">
-                過去7日間で、設定した日次目標を達成した日の割合です。80%以上を目指しましょう。
-              </p>
-            </div>
-          </div>
-
-          {/* Mastery Rate */}
-          <div className="flex items-center gap-8 sm:ml-5 mb-10">
-            <div className="p-3 bg-purple-400/20 rounded-xl">
-              <Star className="text-purple-300" size={32} />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-baseline gap-3 mb-2">
-                <span className="text-3xl font-bold text-white/80">{masteryPercentage}</span>
-                <span className="text-white/70 text-lg">%</span>
-              </div>
-              <h3 className="text-white/80 font-semibold text-lg mb-1">単語習得率</h3>
-              <p className="text-white/60 text-sm">
-                学習を開始した単語のうち、完全に習得したとみなされる単語の割合です。習得後も稀に出題されます。
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   function renderMasteryContent() {
@@ -736,78 +609,4 @@ export default function ProgressPage() {
     );
   }
 
-  function renderProfileContent() {
-    if (isLoadingProfile || !userProfile) {
-      return (
-        <div className="space-y-8">
-          <div className="hidden lg:flex items-center gap-3 mb-15 ml-7">
-            <User className="text-white/80 w-8 h-8" />
-            <h2 className="text-white/80 text-3xl font-bold">プロフィール</h2>
-          </div>
-          <LoadingSpinner fullScreen={false} />
-        </div>
-      );
-    }
-
-    return (
-      <div className="space-y-8">
-        <div className="hidden lg:flex items-center gap-3 mb-15 ml-7">
-          <User className="text-white/80 w-8 h-8" />
-          <h2 className="text-white/80 text-3xl font-bold">プロフィール</h2>
-        </div>
-
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 sm:mr-5 sm:ml-5">
-          {/* Basic Info */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white/90 mb-6 flex items-center gap-2">
-              <User className="text-blue-300" size={20} />
-              基本情報
-            </h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="text-white/70 text-sm">名前</label>
-                <div className="text-white/90 font-medium">{userProfile.name}</div>
-              </div>
-              <div>
-                <label className="text-white/70 text-sm">メールアドレス</label>
-                <div className="text-white/90 font-medium">{userProfile.email}</div>
-              </div>
-              <div>
-                <label className="text-white/70 text-sm">登録日</label>
-                <div className="text-white/90 font-medium">
-                  {new Date(userProfile.createdAt).toLocaleDateString('ja-JP')}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Learning Settings */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white/90 mb-6 flex items-center gap-2">
-              <BookOpen className="text-green-300" size={20} />
-              学習設定
-            </h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="text-white/70 text-sm">1日の目標単語数</label>
-                <div className="text-white/90 font-medium">{userProfile.dailyGoal}語</div>
-              </div>
-              <div>
-                <label className="text-white/70 text-sm">セッション時間</label>
-                <div className="text-white/90 font-medium">{userProfile.sessionDuration}分</div>
-              </div>
-              <div>
-                <label className="text-white/70 text-sm">言語設定</label>
-                <div className="text-white/90 font-medium">
-                  {userProfile.preferredLanguage === 'ja' ? '日本語' : 'English'}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 }
