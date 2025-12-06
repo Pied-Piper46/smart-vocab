@@ -6,7 +6,7 @@
  * For database types, see @/types or @prisma/client
  */
 
-import type { Word, WordProgress as DbWordProgress, SessionAnswer, WordStatusChange } from '@/types';
+import type { Word, WordProgress as DbWordProgress, SessionAnswer, WordStatusChange, ApiResponse } from '@/types';
 
 // Re-export common types from central location
 export type { ApiResponse, SessionAnswer, WordStatusChange } from '@/types';

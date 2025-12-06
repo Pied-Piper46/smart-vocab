@@ -36,9 +36,9 @@ export default function Dashboard() {
       // Check if it's an authentication or user-not-found error
       const isAuthError = error.message?.toLowerCase().includes('unauthorized') ||
                          error.message?.toLowerCase().includes('not found');
-      const isStatusError = (error as any).status === 401 ||
-                           (error as any).status === 403 ||
-                           (error as any).status === 404;
+      const isStatusError = (error as { status?: number }).status === 401 ||
+                           (error as { status?: number }).status === 403 ||
+                           (error as { status?: number }).status === 404;
 
       // Sign out if user doesn't exist or is unauthorized
       if (isAuthError || isStatusError) {

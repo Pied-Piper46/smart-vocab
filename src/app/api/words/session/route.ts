@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { PrismaClient, type Word } from '@prisma/client';
 import { getCurrentUser, createUnauthorizedResponse } from '@/lib/auth-utils';
 import { SESSION_PATTERNS } from '@/config/session-patterns';
@@ -13,7 +13,7 @@ type WordProgressWithWord = WordProgressForSession & {
 };
 
 // GET /api/words/session - Get words for learning session
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Get current user from session
     const currentUser = await getCurrentUser();

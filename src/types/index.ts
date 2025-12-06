@@ -79,68 +79,7 @@ export interface BatchUpdateResult {
   };
 }
 
-export interface AnalyticsData {
-  streaks: {
-    current: number;
-    longest: number;
-  };
-  masteryStats: {
-    learning: number;
-    reviewing: number;
-    mastered: number;
-  };
-  learningProgress: Record<string, number>;
-  recentlyMastered: Word[];
-  goalAchievementRate: number;
-}
 
-export interface DailyProgress {
-  dailyGoal: number;
-  wordsStudiedToday: number;
-  sessionsToday: number;
-  progressPercentage: number;
-  isGoalReached: boolean;
-}
-
-export interface LearningHistory {
-  month: string;
-  year: number;
-  days: Array<{
-    day: number;
-    sessionCount: number;
-    totalWords: number;
-  }>;
-  totalSessions: number;
-  totalWords: number;
-  activeDays: number;
-}
-
-export interface StrugglingWord {
-  word: Word;
-  totalReviews: number;
-  correctAnswers: number;
-  accuracy: number;
-  status: MasteryStatus;
-}
-
-export interface SessionHistory {
-  totalSessions: number;
-  recentSessions: LearningSession[];
-  thisWeek: number;
-  thisMonth: number;
-  streak: number;
-}
-
-// === UI Component Types ===
-export interface UserProfile {
-  email: string;
-  createdAt: Date;
-  // Computed fields (calculated from other tables)
-  currentStreak?: number;
-  longestStreak?: number;
-  totalWordsLearned?: number;
-  totalStudyTime?: number;
-}
 
 export interface DifficultyOption {
   value: string;

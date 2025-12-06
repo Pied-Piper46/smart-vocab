@@ -19,13 +19,6 @@ export async function GET() {
         name: true,
         email: true,
         createdAt: true,
-        dailyGoal: true,
-        sessionDuration: true,
-        preferredLanguage: true,
-        currentStreak: true,
-        longestStreak: true,
-        totalStudyTime: true,
-        totalWordsLearned: true, // Pre-calculated field
       },
     });
 
@@ -62,41 +55,18 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, dailyGoal, sessionDuration, preferredLanguage } = body;
-
-    // Validate input
-    if (dailyGoal && (dailyGoal < 1 || dailyGoal > 100)) {
-      return NextResponse.json(
-        { success: false, error: 'Daily goal must be between 1 and 100' },
-        { status: 400 }
-      );
-    }
-
-    if (sessionDuration && (sessionDuration < 5 || sessionDuration > 60)) {
-      return NextResponse.json(
-        { success: false, error: 'Session duration must be between 5 and 60 minutes' },
-        { status: 400 }
-      );
-    }
+    const { name } = body;
 
     const updatedUser = await prisma.user.update({
       where: { id: currentUser.id },
       data: {
         ...(name && { name }),
-        ...(dailyGoal && { dailyGoal: parseInt(dailyGoal) }),
-        ...(sessionDuration && { sessionDuration: parseInt(sessionDuration) }),
-        ...(preferredLanguage && { preferredLanguage }),
       },
       select: {
         id: true,
         name: true,
         email: true,
-        dailyGoal: true,
-        sessionDuration: true,
-        preferredLanguage: true,
-        currentStreak: true,
-        longestStreak: true,
-        totalStudyTime: true,
+        createdAt: true,
       },
     });
 

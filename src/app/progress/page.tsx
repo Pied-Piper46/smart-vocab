@@ -21,47 +21,6 @@ import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useAnalyticsData, useStrugglingWords, useLearningHistory } from '@/lib/swr-config';
 import { sessionStorageCache } from '@/lib/dashboard-cache';
 
-interface AnalyticsData {
-  masteryStats: {
-    learning: number;
-    reviewing: number;
-    mastered: number;
-  };
-  recentlyMastered: Array<{
-    word: {
-      english: string;
-      japanese: string;
-    };
-    updatedAt: string;
-  }>;
-}
-
-interface StrugglingWord {
-  word: {
-    english: string;
-    japanese: string;
-    partOfSpeech: string;
-  };
-  totalReviews: number;
-  correctAnswers: number;
-  accuracy: number;
-  status: string;
-}
-
-interface LearningHistoryData {
-  month: string;
-  year: number;
-  monthNum: number;
-  days: Array<{
-    day: number;
-    date: string;
-    sessionCount: number;
-    hasSession: boolean;
-  }>;
-  totalSessions: number;
-  activeDays: number;
-}
-
 type MenuType = 'mastery' | 'recent' | 'struggling' | 'history';
 
 export default function ProgressPage() {
@@ -190,7 +149,6 @@ export default function ProgressPage() {
   }
 
   const totalWords = analytics.masteryStats.learning + analytics.masteryStats.reviewing + analytics.masteryStats.mastered;
-  const masteryPercentage = totalWords > 0 ? Math.round((analytics.masteryStats.mastered / totalWords) * 100) : 0;
 
   return (
     <div className="min-h-screen relative overflow-hidden">

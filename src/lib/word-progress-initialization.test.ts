@@ -4,7 +4,6 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { initializeUserWordProgress } from './word-progress-initialization';
-import { PrismaClient } from '@prisma/client';
 
 // Mock Prisma Client
 const mockPrismaClient = {
@@ -19,7 +18,7 @@ const mockPrismaClient = {
 
 vi.mock('@prisma/client', () => {
   return {
-    PrismaClient: vi.fn(function(this: any) {
+    PrismaClient: vi.fn(function(this: { word: typeof mockPrismaClient.word; wordProgress: typeof mockPrismaClient.wordProgress; $disconnect: typeof mockPrismaClient.$disconnect }) {
       return mockPrismaClient;
     }),
   };
@@ -39,7 +38,7 @@ describe('initializeUserWordProgress', () => {
     ];
 
     // Mock word.findMany to return test words
-    vi.mocked(mockPrismaClient.word.findMany).mockResolvedValue(mockWords as any);
+    vi.mocked(mockPrismaClient.word.findMany).mockResolvedValue(mockWords as Array<{ id: string }>);
 
     // Mock wordProgress.createMany to return success
     vi.mocked(mockPrismaClient.wordProgress.createMany).mockResolvedValue({ count: 3 });
