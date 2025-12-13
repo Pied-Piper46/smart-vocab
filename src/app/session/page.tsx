@@ -30,12 +30,13 @@ export default function SessionPage() {
 
   // Show learning session immediately (no difficulty selection)
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Floating Elements */}
-      <div className="absolute top-10 right-4 w-16 h-16 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-lg float-animation"></div>
-      <div className="absolute bottom-20 left-4 w-20 h-20 rounded-full bg-gradient-to-br from-green-400/20 to-cyan-400/20 blur-lg float-animation" style={{ animationDelay: '1.5s' }}></div>
-
-      <div className="container mx-auto px-4 py-8 relative z-10">
+    <div 
+      className="min-h-screen"
+      style={{ 
+        background: 'linear-gradient(135deg, #f0f8f5 0%, #f8fcfa 100%)'
+      }}
+    >
+      <div className="container mx-auto px-4 py-8">
         <div className="mb-20" />
         <SessionManager
           onSessionComplete={(stats, feedback) => {
