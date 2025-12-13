@@ -3,16 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Volume2, ArrowRight } from 'lucide-react';
 import { getMasteryDisplayInfo, type MasteryStatus } from '@/lib/mastery';
-
-const COLORS = {
-  primary: '#10b981',
-  primaryDark: '#047857',
-  text: '#2C3538',
-  textLight: '#6B7280',
-  bg: '#ffffff',
-  accent: '#f0f8f5',
-  border: '#e5e7eb',
-};
+import { COLORS } from '@/styles/colors';
 
 export type LearningMode = 'eng_to_jpn' | 'jpn_to_eng' | 'audio_recognition';
 

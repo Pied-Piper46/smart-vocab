@@ -257,7 +257,7 @@ export default function Dashboard() {
               color: 'white'
             }}
           >
-            <User size={40} />
+            <User size={36} />
             <div className="hidden sm:block">
               <p className="font-bold text-left text-xl">{session.user.name}</p>
               <p className="font-bold text-sm">{session.user?.email}</p>

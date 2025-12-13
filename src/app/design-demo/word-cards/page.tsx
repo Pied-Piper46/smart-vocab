@@ -2,16 +2,7 @@
 
 import React, { useState } from 'react';
 import { Volume2, ArrowRight } from 'lucide-react';
-
-const DEMO_COLORS = {
-  primary: '#10b981',
-  primaryDark: '#047857',
-  text: '#2C3538',
-  textLight: '#6B7280',
-  bg: '#ffffff',
-  accent: '#f0f8f5',
-  border: '#e5e7eb',
-};
+import { COLORS } from '@/styles/colors';
 
 // Mock word data matching the actual WordData structure
 const DEMO_WORDS = [
@@ -78,7 +69,7 @@ const StatusBadge = ({ status }: { status: string }) => {
       case 'reviewing':
         return { label: '復習中', color: '#8b5cf6' };
       case 'mastered':
-        return { label: '習得済', color: DEMO_COLORS.primary };
+        return { label: '習得済', color: COLORS.primary };
       default:
         return { label: '不明', color: '#6b7280' };
     }
@@ -124,7 +115,7 @@ const WordCard = ({
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         {/* 左上：前回復習日 */}
-        <div className="text-xs" style={{ color: DEMO_COLORS.textLight }}>
+        <div className="text-xs" style={{ color: COLORS.textLight }}>
           {word.progress.lastReviewedAt && (
             <div>
               前回: {formatLastReview(word.progress.lastReviewedAt)}
@@ -141,13 +132,13 @@ const WordCard = ({
         {mode === 'question' ? (
           // Question Mode
           <div className="text-center space-y-3">
-            <h2 className="text-3xl font-bold" style={{ color: DEMO_COLORS.text }}>
+            <h2 className="text-3xl font-bold" style={{ color: COLORS.text }}>
               {word.english}
             </h2>
-            <p className="text-lg" style={{ color: DEMO_COLORS.textLight }}>
+            <p className="text-lg" style={{ color: COLORS.textLight }}>
               {word.phonetic}
             </p>
-            <p className="text-sm" style={{ color: DEMO_COLORS.textLight }}>
+            <p className="text-sm" style={{ color: COLORS.textLight }}>
               {word.partOfSpeech}
             </p>
           </div>
@@ -155,16 +146,16 @@ const WordCard = ({
           // Answer Mode
           <div className="space-y-4">
             <div className="text-center space-y-3">
-              <h2 className="text-3xl font-bold" style={{ color: DEMO_COLORS.text }}>
+              <h2 className="text-3xl font-bold" style={{ color: COLORS.text }}>
                 {word.english}
               </h2>
-              <p className="text-lg" style={{ color: DEMO_COLORS.textLight }}>
+              <p className="text-lg" style={{ color: COLORS.textLight }}>
                 {word.phonetic}
               </p>
-              <p className="text-xl font-semibold" style={{ color: DEMO_COLORS.primary }}>
+              <p className="text-xl font-semibold" style={{ color: COLORS.primary }}>
                 {word.japanese}
               </p>
-              <p className="text-sm" style={{ color: DEMO_COLORS.textLight }}>
+              <p className="text-sm" style={{ color: COLORS.textLight }}>
                 {word.partOfSpeech}
               </p>
             </div>
@@ -172,16 +163,16 @@ const WordCard = ({
             {/* Example */}
             <div 
               className="p-4 rounded-lg"
-              style={{ backgroundColor: DEMO_COLORS.accent }}
+              style={{ backgroundColor: COLORS.accent }}
             >
               <div className="space-y-2">
-                <p className="text-sm font-medium" style={{ color: DEMO_COLORS.text }}>
+                <p className="text-sm font-medium" style={{ color: COLORS.text }}>
                   例文:
                 </p>
-                <p className="text-sm" style={{ color: DEMO_COLORS.text }}>
+                <p className="text-sm" style={{ color: COLORS.text }}>
                   {word.exampleEnglish}
                 </p>
-                <p className="text-sm" style={{ color: DEMO_COLORS.textLight }}>
+                <p className="text-sm" style={{ color: COLORS.textLight }}>
                   {word.exampleJapanese}
                 </p>
               </div>
@@ -192,24 +183,24 @@ const WordCard = ({
 
       {/* Progress Section - questionモードのみ表示 */}
       {mode === 'question' && (
-        <div className="border-t pt-4" style={{ borderColor: DEMO_COLORS.border }}>
+        <div className="border-t pt-4" style={{ borderColor: COLORS.border }}>
           <div className="flex justify-between items-center">
             {/* 左下：前回の正誤 */}
             <div className="flex items-center gap-2">
               <div className={`w-3 h-3 rounded-full ${
                 lastAnswerCorrect ? 'bg-green-500' : 'bg-red-500'
               }`} />
-              <span className="text-xs" style={{ color: DEMO_COLORS.textLight }}>
+              <span className="text-xs" style={{ color: COLORS.textLight }}>
                 前回{lastAnswerCorrect ? '正解' : '不正解'}
               </span>
             </div>
             
             {/* 右下：正答率 */}
             <div className="text-right">
-              <p className="text-lg font-bold" style={{ color: DEMO_COLORS.primary }}>
+              <p className="text-lg font-bold" style={{ color: COLORS.primary }}>
                 {accuracy}%
               </p>
-              <p className="text-xs" style={{ color: DEMO_COLORS.textLight }}>
+              <p className="text-xs" style={{ color: COLORS.textLight }}>
                 {word.progress.correctAnswers}/{word.progress.totalReviews}
               </p>
             </div>
@@ -248,8 +239,8 @@ const ActionButtons = ({
           onClick={playAudio}
           className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
           style={{
-            borderColor: DEMO_COLORS.primary,
-            color: DEMO_COLORS.primary,
+            borderColor: COLORS.primary,
+            color: COLORS.primary,
             backgroundColor: 'transparent'
           }}
         >
@@ -260,7 +251,7 @@ const ActionButtons = ({
           onClick={onShowAnswer}
           className="flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
           style={{
-            backgroundColor: DEMO_COLORS.primary,
+            backgroundColor: COLORS.primary,
             color: 'white'
           }}
         >
@@ -289,7 +280,7 @@ const ActionButtons = ({
         onClick={() => onAnswer?.(true)}
         className="px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
         style={{
-          backgroundColor: DEMO_COLORS.primary,
+          backgroundColor: COLORS.primary,
           color: 'white'
         }}
       >
@@ -323,10 +314,10 @@ export default function WordCardsDemo() {
     >
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold mb-4" style={{ color: DEMO_COLORS.text }}>
+          <h1 className="text-3xl font-bold mb-4" style={{ color: COLORS.text }}>
             📚 新しい単語カードデザイン
           </h1>
-          <p className="text-lg" style={{ color: DEMO_COLORS.textLight }}>
+          <p className="text-lg" style={{ color: COLORS.textLight }}>
             白背景カード + 進捗表示 + 分離された解答ボタン
           </p>
         </div>
@@ -346,7 +337,7 @@ export default function WordCardsDemo() {
                   : 'text-gray-600 bg-white hover:bg-gray-50'
               }`}
               style={{
-                backgroundColor: selectedCard === index ? DEMO_COLORS.primary : undefined
+                backgroundColor: selectedCard === index ? COLORS.primary : undefined
               }}
             >
               {word.english}
@@ -372,15 +363,15 @@ export default function WordCardsDemo() {
         {/* Features */}
         <div className="mt-16">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-            <h3 className="text-xl font-bold mb-6" style={{ color: DEMO_COLORS.text }}>
+            <h3 className="text-xl font-bold mb-6" style={{ color: COLORS.text }}>
               ✨ 新デザインの特徴
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="font-semibold mb-3" style={{ color: DEMO_COLORS.text }}>
+                <h4 className="font-semibold mb-3" style={{ color: COLORS.text }}>
                   📱 UI改善
                 </h4>
-                <ul className="space-y-2 text-sm" style={{ color: DEMO_COLORS.textLight }}>
+                <ul className="space-y-2 text-sm" style={{ color: COLORS.textLight }}>
                   <li>• 白背景で読みやすさ向上</li>
                   <li>• カードと解答ボタンを分離</li>
                   <li>• ステータスバッジで一目で把握</li>
@@ -388,10 +379,10 @@ export default function WordCardsDemo() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-3" style={{ color: DEMO_COLORS.text }}>
+                <h4 className="font-semibold mb-3" style={{ color: COLORS.text }}>
                   📊 進捗表示
                 </h4>
-                <ul className="space-y-2 text-sm" style={{ color: DEMO_COLORS.textLight }}>
+                <ul className="space-y-2 text-sm" style={{ color: COLORS.textLight }}>
                   <li>• 前回の復習日表示</li>
                   <li>• 前回の正誤表示</li>
                   <li>• 正解率の可視化</li>

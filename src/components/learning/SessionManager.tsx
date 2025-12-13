@@ -10,6 +10,8 @@ import { mutate } from 'swr';
 import { calculateSessionProgressClient, type CurrentProgress, type ClientProgressResult } from '@/lib/client-progress-calculator';
 import type { MasteryStatus } from '@/lib/mastery';
 import { saveSession, loadSession, clearSession, hasSavedSession, addSessionAnswer } from '@/lib/session-resume';
+import { COLORS } from '@/styles/colors';
+import { RefreshCw, Plus } from 'lucide-react';
 
 export interface SessionFeedback {
   totalWords: number;
@@ -444,7 +446,7 @@ export default function SessionManager({
             backgroundColor: 'transparent'
           }}
         >
-          × 終了
+          × 中断
         </button>
       </div>
 
@@ -477,8 +479,6 @@ export default function SessionManager({
       {/* Exit Confirmation Dialog */}
       <ExitConfirmationDialog
         isOpen={showExitDialog}
-        wordsStudied={currentWordIndex}
-        totalWords={sessionWords.length}
         onConfirmExit={handleConfirmExit}
         onCancel={handleCancelExit}
       />
@@ -504,23 +504,44 @@ export default function SessionManager({
   // Resume confirmation dialog
   const renderResumeDialog = () => (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="glass-card p-8 max-w-md mx-4 rounded-2xl shadow-2xl">
-        <h3 className="text-2xl font-bold mb-4 text-white">セッション再開</h3>
-        <p className="text-white/80 mb-6">
-          前回のセッションが途中で終了しています。続きから再開しますか？
-        </p>
-        <div className="flex gap-3">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 scale-100 transition-all duration-300">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ backgroundColor: COLORS.accent }}>
+            <RefreshCw style={{ color: COLORS.primary }} size={32} />
+          </div>
+          <h3 className="text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
+            セッション再開
+          </h3>
+          <p className="text-sm" style={{ color: COLORS.textLight }}>
+            前回の続きから再開しますか？
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-4">
           <button
             onClick={handleResumeSession}
-            className="flex-1 glass-button py-3 px-6 rounded-xl font-semibold text-white hover:scale-105 transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold transition-all duration-100 hover:scale-105"
+            style={{
+              backgroundColor: COLORS.primary,
+              color: 'white'
+            }}
           >
-            続きから再開
+            <RefreshCw size={16} />
+            続きから
           </button>
           <button
             onClick={handleDeclineResume}
-            className="flex-1 bg-white/10 hover:bg-white/20 py-3 px-6 rounded-xl font-semibold text-white transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold transition-all duration-100 hover:scale-105 border-2"
+            style={{
+              borderColor: COLORS.textLight,
+              color: COLORS.textLight,
+              backgroundColor: 'transparent'
+            }}
           >
-            新しいセッション
+            <Plus size={16} />
+            新しく
           </button>
         </div>
       </div>

@@ -1,17 +1,7 @@
 'use client';
 
 import React from 'react';
-
-const DEMO_COLORS = {
-  primary: '#10b981', // Balanced emerald green
-  primaryDark: '#047857', // Balanced darker emerald
-  text: '#2C3538',
-  textLight: '#6B7280',
-  bg: '#ffffff',
-  cardBg: '#ffffff',
-  border: '#e5e7eb',
-  accent: '#f0f8f5', // Slightly more noticeable green tint
-};
+import { COLORS } from '@/styles/colors';
 
 const VocabCard = ({ 
   english, 
@@ -28,26 +18,26 @@ const VocabCard = ({
 }) => (
   <div 
     className={`bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200 ${className}`}
-    style={{ backgroundColor: DEMO_COLORS.cardBg }}
+    style={{ backgroundColor: COLORS.cardBg }}
   >
     <div className="text-center space-y-3">
       <h3 
         className="text-2xl font-bold"
-        style={{ color: DEMO_COLORS.text }}
+        style={{ color: COLORS.text }}
       >
         {english}
       </h3>
       {phonetic && (
         <p 
           className="text-sm"
-          style={{ color: DEMO_COLORS.textLight }}
+          style={{ color: COLORS.textLight }}
         >
           {phonetic}
         </p>
       )}
       <p 
         className="text-lg"
-        style={{ color: DEMO_COLORS.text }}
+        style={{ color: COLORS.text }}
       >
         {japanese}
       </p>
@@ -55,8 +45,8 @@ const VocabCard = ({
         <div 
           className="mt-4 p-3 rounded-lg text-sm"
           style={{ 
-            backgroundColor: DEMO_COLORS.accent,
-            color: DEMO_COLORS.text 
+            backgroundColor: COLORS.accent,
+            color: COLORS.text 
           }}
         >
           <strong>例文:</strong> {example}
@@ -81,21 +71,21 @@ const ActionButton = ({
     switch (variant) {
       case 'primary':
         return {
-          backgroundColor: DEMO_COLORS.primary,
+          backgroundColor: COLORS.primary,
           color: 'white',
           border: 'none'
         };
       case 'secondary':
         return {
-          backgroundColor: DEMO_COLORS.accent,
-          color: DEMO_COLORS.text,
-          border: `1px solid ${DEMO_COLORS.border}`
+          backgroundColor: COLORS.accent,
+          color: COLORS.text,
+          border: `1px solid ${COLORS.border}`
         };
       case 'outline':
         return {
           backgroundColor: 'transparent',
-          color: DEMO_COLORS.primary,
-          border: `2px solid ${DEMO_COLORS.primary}`
+          color: COLORS.primary,
+          border: `2px solid ${COLORS.primary}`
         };
       default:
         return {};
@@ -126,32 +116,32 @@ const LearningProgressCard = ({
 }) => (
   <div 
     className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
-    style={{ backgroundColor: DEMO_COLORS.cardBg }}
+    style={{ backgroundColor: COLORS.cardBg }}
   >
     <div className="flex items-center justify-between">
       <div>
         <p 
           className="text-sm font-medium"
-          style={{ color: DEMO_COLORS.textLight }}
+          style={{ color: COLORS.textLight }}
         >
           {title}
         </p>
         <p 
           className="text-3xl font-bold mt-1"
-          style={{ color: DEMO_COLORS.text }}
+          style={{ color: COLORS.text }}
         >
           {count}
         </p>
         <p 
           className="text-xs mt-1"
-          style={{ color: DEMO_COLORS.textLight }}
+          style={{ color: COLORS.textLight }}
         >
           {description}
         </p>
       </div>
       <div 
         className="text-4xl"
-        style={{ color: DEMO_COLORS.primary }}
+        style={{ color: COLORS.primary }}
       >
         {icon}
       </div>
@@ -164,7 +154,7 @@ export default function DesignDemoPage() {
     <div 
       className="min-h-screen"
       style={{ 
-        backgroundColor: DEMO_COLORS.bg,
+        backgroundColor: COLORS.bg,
         backgroundImage: 'linear-gradient(135deg, #f0f8f5 0%, #f8fcfa 100%)'
       }}
     >
@@ -174,7 +164,7 @@ export default function DesignDemoPage() {
           <div className="flex items-center justify-between">
             <h1 
               className="text-2xl font-bold"
-              style={{ color: DEMO_COLORS.text }}
+              style={{ color: COLORS.text }}
             >
               📚 VocabMaster
             </h1>
@@ -182,21 +172,21 @@ export default function DesignDemoPage() {
               <a 
                 href="#" 
                 className="font-medium hover:underline"
-                style={{ color: DEMO_COLORS.textLight }}
+                style={{ color: COLORS.textLight }}
               >
                 学習
               </a>
               <a 
                 href="#" 
                 className="font-medium hover:underline"
-                style={{ color: DEMO_COLORS.textLight }}
+                style={{ color: COLORS.textLight }}
               >
                 進捗
               </a>
               <a 
                 href="#" 
                 className="font-medium hover:underline"
-                style={{ color: DEMO_COLORS.textLight }}
+                style={{ color: COLORS.textLight }}
               >
                 設定
               </a>
@@ -213,14 +203,14 @@ export default function DesignDemoPage() {
         <div className="text-center mb-12">
           <h2 
             className="text-4xl md:text-5xl font-bold mb-4"
-            style={{ color: DEMO_COLORS.text }}
+            style={{ color: COLORS.text }}
           >
             科学的な手法で
-            <span style={{ color: DEMO_COLORS.primary }}>英単語学習</span>
+            <span style={{ color: COLORS.primary }}>英単語学習</span>
           </h2>
           <p 
             className="text-xl mb-8"
-            style={{ color: DEMO_COLORS.textLight }}
+            style={{ color: COLORS.textLight }}
           >
             スペースド・リピティション法で効率的な記憶定着を実現
           </p>
@@ -260,7 +250,7 @@ export default function DesignDemoPage() {
         <section className="mb-12">
           <h3 
             className="text-2xl font-bold mb-6"
-            style={{ color: DEMO_COLORS.text }}
+            style={{ color: COLORS.text }}
           >
             📖 単語カードデモ
           </h3>
@@ -290,31 +280,31 @@ export default function DesignDemoPage() {
         <section className="mb-12">
           <h3 
             className="text-2xl font-bold mb-6"
-            style={{ color: DEMO_COLORS.text }}
+            style={{ color: COLORS.text }}
           >
             🎮 学習モード
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div 
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8"
-              style={{ backgroundColor: DEMO_COLORS.cardBg }}
+              style={{ backgroundColor: COLORS.cardBg }}
             >
               <div className="text-center">
                 <div 
                   className="text-6xl mb-4"
-                  style={{ color: DEMO_COLORS.primary }}
+                  style={{ color: COLORS.primary }}
                 >
                   🇬🇧
                 </div>
                 <h4 
                   className="text-xl font-semibold mb-2"
-                  style={{ color: DEMO_COLORS.text }}
+                  style={{ color: COLORS.text }}
                 >
                   英→日モード
                 </h4>
                 <p 
                   className="text-sm mb-4"
-                  style={{ color: DEMO_COLORS.textLight }}
+                  style={{ color: COLORS.textLight }}
                 >
                   英単語を見て日本語意味を答える
                 </p>
@@ -326,24 +316,24 @@ export default function DesignDemoPage() {
             
             <div 
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8"
-              style={{ backgroundColor: DEMO_COLORS.cardBg }}
+              style={{ backgroundColor: COLORS.cardBg }}
             >
               <div className="text-center">
                 <div 
                   className="text-6xl mb-4"
-                  style={{ color: DEMO_COLORS.primary }}
+                  style={{ color: COLORS.primary }}
                 >
                   🇯🇵
                 </div>
                 <h4 
                   className="text-xl font-semibold mb-2"
-                  style={{ color: DEMO_COLORS.text }}
+                  style={{ color: COLORS.text }}
                 >
                   日→英モード
                 </h4>
                 <p 
                   className="text-sm mb-4"
-                  style={{ color: DEMO_COLORS.textLight }}
+                  style={{ color: COLORS.textLight }}
                 >
                   日本語意味を見て英単語を答える
                 </p>
@@ -359,30 +349,30 @@ export default function DesignDemoPage() {
         <section>
           <h3 
             className="text-2xl font-bold mb-6"
-            style={{ color: DEMO_COLORS.text }}
+            style={{ color: COLORS.text }}
           >
             ✨ 主な機能
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div 
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
-              style={{ backgroundColor: DEMO_COLORS.cardBg }}
+              style={{ backgroundColor: COLORS.cardBg }}
             >
               <div 
                 className="text-4xl mb-4"
-                style={{ color: DEMO_COLORS.primary }}
+                style={{ color: COLORS.primary }}
               >
                 🧠
               </div>
               <h4 
                 className="text-lg font-semibold mb-2"
-                style={{ color: DEMO_COLORS.text }}
+                style={{ color: COLORS.text }}
               >
                 スペースド・リピティション
               </h4>
               <p 
                 className="text-sm"
-                style={{ color: DEMO_COLORS.textLight }}
+                style={{ color: COLORS.textLight }}
               >
                 科学的に証明された間隔反復法で記憶定着率を最大化
               </p>
@@ -390,23 +380,23 @@ export default function DesignDemoPage() {
             
             <div 
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
-              style={{ backgroundColor: DEMO_COLORS.cardBg }}
+              style={{ backgroundColor: COLORS.cardBg }}
             >
               <div 
                 className="text-4xl mb-4"
-                style={{ color: DEMO_COLORS.primary }}
+                style={{ color: COLORS.primary }}
               >
                 📊
               </div>
               <h4 
                 className="text-lg font-semibold mb-2"
-                style={{ color: DEMO_COLORS.text }}
+                style={{ color: COLORS.text }}
               >
                 詳細な進捗追跡
               </h4>
               <p 
                 className="text-sm"
-                style={{ color: DEMO_COLORS.textLight }}
+                style={{ color: COLORS.textLight }}
               >
                 学習進捗を可視化し、モチベーション維持をサポート
               </p>
@@ -414,23 +404,23 @@ export default function DesignDemoPage() {
             
             <div 
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
-              style={{ backgroundColor: DEMO_COLORS.cardBg }}
+              style={{ backgroundColor: COLORS.cardBg }}
             >
               <div 
                 className="text-4xl mb-4"
-                style={{ color: DEMO_COLORS.primary }}
+                style={{ color: COLORS.primary }}
               >
                 🎯
               </div>
               <h4 
                 className="text-lg font-semibold mb-2"
-                style={{ color: DEMO_COLORS.text }}
+                style={{ color: COLORS.text }}
               >
                 適応的難易度調整
               </h4>
               <p 
                 className="text-sm"
-                style={{ color: DEMO_COLORS.textLight }}
+                style={{ color: COLORS.textLight }}
               >
                 個人の習熟度に合わせて最適な学習体験を提供
               </p>
