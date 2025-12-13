@@ -353,7 +353,7 @@ export default function SessionManager({
     console.log('💾 Initial session saved to localStorage');
 
     // Set random initial learning mode
-    const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
+    const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition'];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     setCurrentMode(randomMode);
   }, [sessionId, sessionWords]);
@@ -399,7 +399,7 @@ export default function SessionManager({
 
       setCurrentWordIndex(prev => prev + 1);
       // Randomly select learning mode for variety
-      const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
+      const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition'];
       const randomMode = modes[Math.floor(Math.random() * modes.length)];
       setCurrentMode(randomMode);
     } else {
@@ -432,27 +432,35 @@ export default function SessionManager({
 
 
   const renderActive = () => (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-3xl mx-auto">
       {/* Header with Return Button */}
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={handleGoHome}
-          className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:scale-105 border-2"
+          style={{
+            borderColor: '#6B7280',
+            color: '#6B7280',
+            backgroundColor: 'transparent'
+          }}
         >
-          ×
+          × 終了
         </button>
       </div>
 
       {/* Progress Bar */}
       <div className="mb-10">
-        <div className="flex justify-between items-center text-sm text-white/80 mb-3">
+        <div className="flex justify-between items-center text-sm mb-3" style={{ color: '#2C3538' }}>
           <span className="font-medium">学習進捗</span>
-          <span className="text-bold">{currentWordIndex + 1} / {sessionWords.length}</span>
+          <span className="font-bold">{currentWordIndex + 1} / {sessionWords.length}</span>
         </div>
-        <div className="glass-progress rounded-full h-4">
+        <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
           <div 
-            className="glass-progress-fill h-full rounded-full transition-all duration-500"
-            style={{ width: `${(currentWordIndex / sessionWords.length) * 100}%` }}
+            className="h-full rounded-full transition-all duration-500 shadow-sm"
+            style={{ 
+              width: `${(currentWordIndex / sessionWords.length) * 100}%`,
+              backgroundColor: '#10b981'
+            }}
           />
         </div>
       </div>
