@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { COLORS } from '@/styles/colors';
 
 export default function SignUpPage() {
   const { data: session } = useSession();
@@ -79,17 +80,41 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="glass-strong rounded-3xl p-10 w-full max-w-md">
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{
+        background: 'linear-gradient(135deg, #f0f8f5 0%, #f8fcfa 100%)'
+      }}
+    >
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 w-full max-w-md">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-white/80 mb-4 smart-vocab-title">Smart Vocab</h1>
-          <h2 className="text-2xl text-white/80 mb-2 font-bold">新規登録</h2>
-          <p className="text-sm text-white/80">新しいアカウントを作成して下さい</p>
+          <h1
+            className="text-4xl font-bold mb-4"
+            style={{ color: COLORS.text }}
+          >
+            Smart Vocab
+          </h1>
+          <h2
+            className="text-2xl mb-2 font-bold"
+            style={{ color: COLORS.text }}
+          >
+            SIGNUP
+          </h2>
+          <p
+            className="text-sm"
+            style={{ color: COLORS.textLight }}
+          >
+            新しいアカウントを作成して下さい
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium mb-2"
+              style={{ color: COLORS.text }}
+            >
               お名前
             </label>
             <input
@@ -98,13 +123,30 @@ export default function SignUpPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none transition-all"
+              style={{
+                color: COLORS.text,
+                backgroundColor: COLORS.bgGray,
+                borderColor: COLORS.border
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = COLORS.primary;
+                e.target.style.boxShadow = `0 0 0 3px ${COLORS.primary}33`;
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = COLORS.border;
+                e.target.style.boxShadow = 'none';
+              }}
               placeholder="山田太郎"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium mb-2"
+              style={{ color: COLORS.text }}
+            >
               メールアドレス
             </label>
             <input
@@ -113,13 +155,30 @@ export default function SignUpPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none transition-all"
+              style={{
+                color: COLORS.text,
+                backgroundColor: COLORS.bgGray,
+                borderColor: COLORS.border
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = COLORS.primary;
+                e.target.style.boxShadow = `0 0 0 3px ${COLORS.primary}33`;
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = COLORS.border;
+                e.target.style.boxShadow = 'none';
+              }}
               placeholder="your.email@example.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium mb-2"
+              style={{ color: COLORS.text }}
+            >
               パスワード
             </label>
             <input
@@ -128,13 +187,30 @@ export default function SignUpPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none transition-all"
+              style={{
+                color: COLORS.text,
+                backgroundColor: COLORS.bgGray,
+                borderColor: COLORS.border
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = COLORS.primary;
+                e.target.style.boxShadow = `0 0 0 3px ${COLORS.primary}33`;
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = COLORS.border;
+                e.target.style.boxShadow = 'none';
+              }}
               placeholder="8文字以上、英字と数字を含む"
             />
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium mb-2"
+              style={{ color: COLORS.text }}
+            >
               パスワード確認
             </label>
             <input
@@ -143,35 +219,62 @@ export default function SignUpPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50 mb-4"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none transition-all"
+              style={{
+                color: COLORS.text,
+                backgroundColor: COLORS.bgGray,
+                borderColor: COLORS.border
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = COLORS.primary;
+                e.target.style.boxShadow = `0 0 0 3px ${COLORS.primary}33`;
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = COLORS.border;
+                e.target.style.boxShadow = 'none';
+              }}
             />
           </div>
 
           {error && (
-            <div className="glass rounded-xl p-4 border-red-500/30">
-              <p className="text-red-200 text-sm text-center">{error}</p>
+            <div
+              className="rounded-xl p-4 border"
+              style={{
+                backgroundColor: '#fee2e2',
+                borderColor: '#fecaca'
+              }}
+            >
+              <p
+                className="text-sm text-center"
+                style={{ color: COLORS.error }}
+              >
+                {error}
+              </p>
             </div>
           )}
 
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-gradient-to-r from-blue-400 to-purple-400 w-full py-4 rounded-xl font-bold text-lg hover:scale-103 hover:from-blue-500 hover:to-purple-500 transition-all duration-300 disabled:opacity-50 shadow-lg group"
+            className="w-full py-4 rounded-full font-bold text-lg transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              backgroundColor: COLORS.primary,
+              color: 'white'
+            }}
           >
-            <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-white text-transparent group-hover:from-blue-50 group-hover:to-purple-50 transition-all duration-300">
-              {isLoading ? 'アカウント作成中...' : 'アカウント作成'}
-            </span>
+            {isLoading ? 'アカウント作成中...' : 'アカウント作成'}
           </button>
         </form>
 
         <div className="mt-8 text-center">
-          <p className="text-white/70">
+          <p style={{ color: COLORS.textLight }}>
             すでにアカウントをお持ちですか？{' '}
-            <button 
+            <button
               onClick={handleLoginClick}
-              className="text-blue-300 hover:text-blue-200 font-medium underline bg-transparent border-none cursor-pointer"
+              className="font-medium hover:underline bg-transparent border-none cursor-pointer"
+              style={{ color: COLORS.primary }}
             >
-              ログイン
+              LOGIN→
             </button>
           </p>
         </div>
