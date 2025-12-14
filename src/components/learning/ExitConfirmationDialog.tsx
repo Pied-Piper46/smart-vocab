@@ -32,7 +32,7 @@ export default function ExitConfirmationDialog({
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ backgroundColor: COLORS.accent }}>
               <AlertTriangle style={{ color: COLORS.primary }} size={32} />
             </div>
-            <h2 className="text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
+            <h2 className="text-xl md:text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
               セッションを中断しますか？
             </h2>
             <p className="text-sm" style={{ color: COLORS.textLight }}>

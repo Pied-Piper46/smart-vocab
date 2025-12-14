@@ -188,7 +188,7 @@ export default function Dashboard() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-36">
-          <h1 className="text-3xl font-bold" style={{ color: '#2C3538' }}>
+          <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#2C3538' }}>
             Smart Vocab
           </h1>
           <button
@@ -199,7 +199,7 @@ export default function Dashboard() {
               color: 'white'
             }}
           >
-            <User size={36} />
+            <User className="w-6 h-6 md:w-9 md:h-9" />
             <div className="hidden sm:block">
               <p className="font-bold text-left text-xl">{session.user.name}</p>
               <p className="font-bold text-sm">{session.user?.email}</p>
@@ -210,7 +210,7 @@ export default function Dashboard() {
         {/* Welcome Section */}
         <div className="text-center mb-12">
           <h2 
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-2xl md:text-4xl font-bold mb-4"
             style={{ color: '#686b70ff' }}
           >
             おかえりなさい、{profile.name}さん

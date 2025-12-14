@@ -272,7 +272,7 @@ export default function ProgressPage() {
                 <h2 className="text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
                   ログアウトしますか？
                 </h2>
-                <p className="text-sm" style={{ color: COLORS.textLight }}>
+                <p className="text-xs md:text-sm" style={{ color: COLORS.textLight }}>
                   再度ログインして学習を続けることができます
                 </p>
               </div>
@@ -280,7 +280,7 @@ export default function ProgressPage() {
               <div className="flex justify-center gap-4">
                 <button
                   onClick={handleLogoutCancel}
-                  className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
+                  className="flex items-center gap-2 px-6 py-3 rounded-full text-xs md:text-base font-semibold transition-all duration-200 hover:scale-105 border-2 whitespace-nowrap"
                   style={{
                     borderColor: COLORS.textLight,
                     color: COLORS.textLight,
@@ -292,7 +292,7 @@ export default function ProgressPage() {
                 </button>
                 <button
                   onClick={handleLogoutConfirm}
-                  className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
+                  className="flex items-center gap-2 px-6 py-3 rounded-full text-xs md:text-base font-semibold transition-all duration-200 hover:scale-105 whitespace-nowrap"
                   style={{
                     backgroundColor: COLORS.error,
                     color: 'white'
@@ -434,8 +434,8 @@ export default function ProgressPage() {
         ) : (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
             <BookOpen style={{ color: COLORS.border }} className="w-16 h-16 mx-auto mb-4" />
-            <p className="text-xl mb-2" style={{ color: COLORS.text }}>まだ習得した単語がありません</p>
-            <p style={{ color: COLORS.textLight }}>学習を続けて、最初の単語を習得しましょう</p>
+            <p className="text-lg md:text-xl mb-2" style={{ color: COLORS.text }}>まだ習得した単語がありません</p>
+            <p className="text-xs md:text-sm" style={{ color: COLORS.textLight }}>学習を続けて、最初の単語を習得しましょう</p>
           </div>
         )}
       </div>
@@ -497,8 +497,8 @@ export default function ProgressPage() {
         ) : (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
             <AlertTriangle style={{ color: COLORS.border }} className="w-16 h-16 mx-auto mb-4" />
-            <p className="text-xl mb-2" style={{ color: COLORS.text }}>苦手な単語はありません</p>
-            <p style={{ color: COLORS.textLight }}>素晴らしい学習成果です！</p>
+            <p className="text-lg md:text-xl mb-2" style={{ color: COLORS.text }}>苦手な単語はありません</p>
+            <p className="text-xs md:text-sm" style={{ color: COLORS.textLight }}>素晴らしい学習成果です！</p>
           </div>
         )}
       </div>

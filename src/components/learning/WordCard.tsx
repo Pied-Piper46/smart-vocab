@@ -62,7 +62,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
       case 'eng_to_jpn':
         return (
           <div className="mb-10">
-            <h2 className="text-5xl font-bold mb-2" style={{ color: COLORS.text }}>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2" style={{ color: COLORS.text }}>
               {word.english}
             </h2>
             <p className="text-lg" style={{ color: COLORS.textLight }}>
@@ -77,7 +77,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
       case 'jpn_to_eng':
         return (
           <div className="mb-10">
-            <h2 className="text-5xl font-bold mb-2" style={{ color: COLORS.text }}>
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-2" style={{ color: COLORS.text }}>
               {word.japanese}
             </h2>
             <p className="text-lg" style={{ color: COLORS.textLight }}>
@@ -119,16 +119,16 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
     return (
       <div className="text-center space-y-4">
         <div className="space-y-3 mb-10">
-          <h2 className="text-5xl font-bold" style={{ color: COLORS.text }}>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold" style={{ color: COLORS.text }}>
             {word.english}
           </h2>
-          <p className="text-lg mb-3" style={{ color: COLORS.textLight }}>
+          <p className="text-sm md:text-base lg:text-lg mb-3" style={{ color: COLORS.textLight }}>
             {word.phonetic}
           </p>
-          <p className="text-lg" style={{ color: COLORS.textLight }}>
+          <p className="text-sm md:text-base lg:text-lg" style={{ color: COLORS.textLight }}>
             ({word.partOfSpeech})
           </p>
-          <p className="text-3xl font-bold" style={{ color: COLORS.primary }}>
+          <p className="text-xl md:text-2xl lg:text-3xl font-bold" style={{ color: COLORS.primary }}>
             {word.japanese}
           </p>
         </div>
@@ -139,10 +139,10 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
             style={{ backgroundColor: COLORS.accent }}
           >
             <div className="space-y-2">
-              <p className="text-lg font-bold" style={{ color: COLORS.text }}>
+              <p className="text-base md:text-lg font-bold" style={{ color: COLORS.text }}>
                 {word.exampleEnglish}
               </p>
-              <p className="text-lg" style={{ color: COLORS.textLight }}>
+              <p className="text-base md:text-lg" style={{ color: COLORS.textLight }}>
                 {word.exampleJapanese}
               </p>
             </div>
