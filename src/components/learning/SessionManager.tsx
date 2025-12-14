@@ -445,8 +445,7 @@ export default function SessionManager({
 
       {/* Progress Bar */}
       <div className="mb-10">
-        <div className="flex justify-between items-center text-sm mb-3" style={{ color: '#2C3538' }}>
-          <span className="font-medium">学習進捗</span>
+        <div className="text-right text-sm mb-3" style={{ color: '#2C3538' }}>
           <span className="font-bold">{currentWordIndex + 1} / {sessionWords.length}</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">

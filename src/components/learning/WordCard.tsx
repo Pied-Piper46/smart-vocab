@@ -80,9 +80,24 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
             <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-2" style={{ color: COLORS.text }}>
               {word.japanese}
             </h2>
-            <p className="text-lg" style={{ color: COLORS.textLight }}>
+            <p className="text-lg mb-8" style={{ color: COLORS.textLight }}>
               ({word.partOfSpeech})
             </p>
+            <div className="max-w-lg mx-auto">
+              <input
+                type="text"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                className="w-full border-0 border-b-2 outline-none px-2 py-3 text-lg font-medium text-center transition-colors duration-300"
+                style={{ 
+                  borderColor: COLORS.border, 
+                  color: COLORS.text,
+                  backgroundColor: 'transparent'
+                }}
+                onKeyDown={(e) => e.key === 'Enter' && handleShowAnswer()}
+                placeholder="入力する"
+              />
+            </div>
           </div>
         );
       
