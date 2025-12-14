@@ -20,12 +20,7 @@ export interface SessionFeedback {
   statusChanges: {
     upgrades: WordStatusChange[];
     downgrades: WordStatusChange[];
-    maintained: WordStatusChange[];
   };
-  totalUpgrades: number;
-  totalDowngrades: number;
-  newWordsLearned: number;
-  wordsReinforced: number;
 }
 
 interface SessionManagerProps {
@@ -109,8 +104,8 @@ export default function SessionManager({
         // Check discrepancy and update if needed
         if (hasDiscrepancy(clientFeedback, serverFeedback)) {
           console.log('⚠️ Discrepancy detected between client and server results, updating...');
-          console.log('Client upgrades:', clientFeedback.totalUpgrades, 'Server upgrades:', serverFeedback.totalUpgrades);
-          console.log('Client downgrades:', clientFeedback.totalDowngrades, 'Server downgrades:', serverFeedback.totalDowngrades);
+          console.log('Client upgrades:', clientFeedback.statusChanges.upgrades.length, 'Server upgrades:', serverFeedback.statusChanges.upgrades.length);
+          console.log('Client downgrades:', clientFeedback.statusChanges.downgrades.length, 'Server downgrades:', serverFeedback.statusChanges.downgrades.length);
           setSessionFeedback(serverFeedback);
         } else {
           console.log('✅ Client and server results match perfectly');
@@ -143,11 +138,10 @@ export default function SessionManager({
       totalWords: stats.wordsStudied,
       correctAnswers: stats.wordsCorrect,
       accuracy: stats.wordsStudied > 0 ? (stats.wordsCorrect / stats.wordsStudied) * 100 : 0,
-      statusChanges,
-      totalUpgrades: statusChanges.upgrades.length,
-      totalDowngrades: statusChanges.downgrades.length,
-      newWordsLearned: statusChanges.upgrades.filter(c => c.from === 'new' && c.to === 'learning').length,
-      wordsReinforced: statusChanges.upgrades.filter(c => c.from === 'learning' && c.to === 'reviewing').length,
+      statusChanges: {
+        upgrades: statusChanges.upgrades,
+        downgrades: statusChanges.downgrades
+      }
     };
   };
 
@@ -205,11 +199,10 @@ export default function SessionManager({
       totalWords: stats.wordsStudied,
       correctAnswers: stats.wordsCorrect,
       accuracy: stats.wordsStudied > 0 ? (stats.wordsCorrect / stats.wordsStudied) * 100 : 0,
-      statusChanges: { upgrades, downgrades, maintained },
-      totalUpgrades: upgrades.length,
-      totalDowngrades: downgrades.length,
-      newWordsLearned: upgrades.filter(c => c.from === 'new' && c.to === 'learning').length,
-      wordsReinforced: upgrades.filter(c => c.from === 'learning' && c.to === 'reviewing').length,
+      statusChanges: {
+        upgrades,
+        downgrades
+      }
     };
   };
 
@@ -219,8 +212,8 @@ export default function SessionManager({
     serverFeedback: SessionFeedback
   ): boolean => {
     return (
-      clientFeedback.totalUpgrades !== serverFeedback.totalUpgrades ||
-      clientFeedback.totalDowngrades !== serverFeedback.totalDowngrades
+      clientFeedback.statusChanges.upgrades.length !== serverFeedback.statusChanges.upgrades.length ||
+      clientFeedback.statusChanges.downgrades.length !== serverFeedback.statusChanges.downgrades.length
     );
   };
 

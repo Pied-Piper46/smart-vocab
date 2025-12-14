@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Volume2, ArrowRight } from 'lucide-react';
-import { getMasteryDisplayInfo, type MasteryStatus } from '@/lib/mastery';
 import { COLORS } from '@/styles/colors';
+import StatusBadge from '@/components/ui/StatusBadge';
 
 export type LearningMode = 'eng_to_jpn' | 'jpn_to_eng' | 'audio_recognition';
 
@@ -44,16 +44,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
 
   const renderStatusBadge = () => {
     const status = word.progress?.status || 'new';
-    const masteryInfo = getMasteryDisplayInfo(status as MasteryStatus);
-    
-    return (
-      <span 
-        className={`px-3 py-1 rounded-full text-sm font-bold text-white`}
-        style={{ backgroundColor: masteryInfo.color }}
-      >
-        {masteryInfo.label}
-      </span>
-    );
+    return <StatusBadge status={status} />;
   };
   
   const formatLastReview = (dateString: string) => {
