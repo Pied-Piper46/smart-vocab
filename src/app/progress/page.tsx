@@ -160,14 +160,11 @@ export default function ProgressPage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {(() => {
-              if (isSidebarOpen) {
-                return <Target style={{ color: COLORS.primary }} className="w-6 h-6" />;
-              }
               const IconComponent = getCurrentMenuIcon();
               return <IconComponent style={{ color: COLORS.primary }} className="w-6 h-6" />;
             })()}
             <h1 className="text-xl font-bold" style={{ color: COLORS.text }}>
-              {isSidebarOpen ? '学習進捗管理' : getCurrentMenuTitle()}
+              {getCurrentMenuTitle()}
             </h1>
           </div>
           <button
@@ -179,12 +176,15 @@ export default function ProgressPage() {
         </div>
       </div>
 
-      {/* Sidebar - Fixed with white background */}
+      {/* Sidebar */}
       <div className={`
-        fixed lg:sticky lg:top-0 lg:translate-x-0 transition-transform duration-300 ease-in-out
-        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        w-80 h-screen bg-white border-r border-gray-100 shadow-sm z-20
-        pt-20 lg:pt-8 flex flex-col overflow-y-auto
+        fixed lg:sticky lg:top-0 transition-all duration-300 ease-in-out
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-[calc(100%+3rem)]'}
+        lg:translate-x-0
+        lg:w-80 lg:h-screen lg:bg-white lg:border-r lg:border-gray-100 lg:shadow-sm lg:rounded-none lg:left-0
+        w-[calc(100%-6rem)] max-w-sm h-[calc(100vh-6rem)] top-20 left-4
+        bg-white rounded-2xl shadow-2xl border border-gray-100
+        z-20 pt-6 lg:pt-8 flex flex-col overflow-y-auto
       `}>
         <div className="p-6 flex-1 flex flex-col">
           <nav className="space-y-2 flex-1">
@@ -448,7 +448,7 @@ export default function ProgressPage() {
       return (
         <div className="space-y-6">
           <div className="hidden lg:flex items-center gap-3 mb-6">
-            <AlertTriangle style={{ color: COLORS.warning }} className="w-8 h-8" />
+            <AlertTriangle style={{ color: COLORS.primary }} className="w-8 h-8" />
             <h2 className="text-3xl font-bold" style={{ color: COLORS.text }}>苦手な単語</h2>
           </div>
           <LoadingSpinner fullScreen={false} />
@@ -459,7 +459,7 @@ export default function ProgressPage() {
     return (
       <div className="space-y-6">
         <div className="hidden lg:flex items-center gap-3 mb-6">
-          <AlertTriangle style={{ color: COLORS.warning }} className="w-8 h-8" />
+          <AlertTriangle style={{ color: COLORS.primary }} className="w-8 h-8" />
           <h2 className="text-3xl font-bold" style={{ color: COLORS.text }}>苦手な単語</h2>
         </div>
 
