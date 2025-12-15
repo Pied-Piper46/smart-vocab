@@ -7,12 +7,14 @@ interface ExitConfirmationDialogProps {
   isOpen: boolean;
   onConfirmExit: () => void;
   onCancel: () => void;
+  isAuthenticated: boolean;
 }
 
 export default function ExitConfirmationDialog({
   isOpen,
   onConfirmExit,
-  onCancel
+  onCancel,
+  isAuthenticated
 }: ExitConfirmationDialogProps) {
   if (!isOpen) return null;
 
@@ -35,9 +37,22 @@ export default function ExitConfirmationDialog({
             <h2 className="text-xl md:text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
               セッションを中断しますか？
             </h2>
-            <p className="text-sm" style={{ color: COLORS.textLight }}>
-              中断した単語から再開することが可能です
-            </p>
+
+            {/* Authentication-specific message */}
+            {isAuthenticated ? (
+              <p className="text-sm" style={{ color: COLORS.textLight }}>
+                中断した単語から再開することが可能です
+              </p>
+            ) : (
+              <div className="space-y-2">
+                <p className="text-sm font-semibold" style={{ color: COLORS.warning }}>
+                  ゲストモードでは途中再開できません
+                </p>
+                <p className="text-xs" style={{ color: COLORS.textLight }}>
+                  セッションを完了すると、登録して進捗を保存できます
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Action Buttons */}

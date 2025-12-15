@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useSession } from 'next-auth/react';
 import WordCard, { LearningMode } from './WordCard';
 import { fetchSessionWords, recordSessionCompletion, WordData, SessionAnswer, WordStatusChange } from '@/lib/api-client';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
@@ -9,7 +10,7 @@ import ExitConfirmationDialog from './ExitConfirmationDialog';
 import { mutate } from 'swr';
 import { calculateSessionProgressClient, type CurrentProgress, type ClientProgressResult } from '@/lib/client-progress-calculator';
 import type { MasteryStatus } from '@/lib/mastery';
-import { saveSession, loadSession, clearSession, hasSavedSession, addSessionAnswer } from '@/lib/session-resume';
+import { saveSession, loadSession, clearSession, hasSavedSession, addSessionAnswer, discardGuestSessionIfNeeded } from '@/lib/session-storage';
 import { COLORS } from '@/styles/colors';
 import { RefreshCw, Plus } from 'lucide-react';
 
@@ -39,6 +40,10 @@ type Word = WordData;
 export default function SessionManager({
   onSessionComplete
 }: SessionManagerProps) {
+  // ✨ Authentication state
+  const { data: session } = useSession();
+  const isAuthenticated = !!session;
+
   const [sessionState, setSessionState] = useState<'loading' | 'active' | 'completed'>('loading');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [sessionWords, setSessionWords] = useState<Word[]>([]);
@@ -93,44 +98,54 @@ export default function SessionManager({
     setSessionFeedback(clientFeedback);
     console.log('🎉 Completion screen shown immediately with client results (0.1s)');
 
-    // ✨ Step 3: Background server processing (5-10s, non-blocking)
-    recordSessionCompletion(finalStats.wordsStudied, finalAnswers)
-      .then(async (serverResult) => {
-        console.log('✅ Server processing completed:', serverResult);
+    // ✨ Step 3: Background server processing (authenticated only)
+    if (isAuthenticated) {
+      // Authenticated: Save to server
+      recordSessionCompletion(finalStats.wordsStudied, finalAnswers)
+        .then(async (serverResult) => {
+          console.log('✅ Server processing completed:', serverResult);
 
-        // Generate server feedback
-        const serverFeedback = generateSessionFeedbackFromBatch(finalStats, serverResult.statusChanges);
+          // Generate server feedback
+          const serverFeedback = generateSessionFeedbackFromBatch(finalStats, serverResult.statusChanges);
 
-        // Check discrepancy and update if needed
-        if (hasDiscrepancy(clientFeedback, serverFeedback)) {
-          console.log('⚠️ Discrepancy detected between client and server results, updating...');
-          console.log('Client upgrades:', clientFeedback.statusChanges.upgrades.length, 'Server upgrades:', serverFeedback.statusChanges.upgrades.length);
-          console.log('Client downgrades:', clientFeedback.statusChanges.downgrades.length, 'Server downgrades:', serverFeedback.statusChanges.downgrades.length);
-          setSessionFeedback(serverFeedback);
-        } else {
-          console.log('✅ Client and server results match perfectly');
-        }
+          // Check discrepancy and update if needed
+          if (hasDiscrepancy(clientFeedback, serverFeedback)) {
+            console.log('⚠️ Discrepancy detected between client and server results, updating...');
+            console.log('Client upgrades:', clientFeedback.statusChanges.upgrades.length, 'Server upgrades:', serverFeedback.statusChanges.upgrades.length);
+            console.log('Client downgrades:', clientFeedback.statusChanges.downgrades.length, 'Server downgrades:', serverFeedback.statusChanges.downgrades.length);
+            setSessionFeedback(serverFeedback);
+          } else {
+            console.log('✅ Client and server results match perfectly');
+          }
 
-        // SWR Cache Invalidation
-        console.log('📋 Invalidating SWR cache for dashboard and progress data...');
-        await Promise.all([
-          mutate('/api/dashboard'),
-          mutate('/api/user/profile'),
-          mutate('/api/progress/analytics'),
-          mutate('/api/progress/struggling-words')
-        ]);
-        console.log('✅ SWR cache invalidated successfully');
+          // SWR Cache Invalidation
+          console.log('📋 Invalidating SWR cache for dashboard and progress data...');
+          await Promise.all([
+            mutate('/api/dashboard'),
+            mutate('/api/user/profile'),
+            mutate('/api/progress/analytics'),
+            mutate('/api/progress/struggling-words')
+          ]);
+          console.log('✅ SWR cache invalidated successfully');
 
-        onSessionComplete?.(finalStats, serverFeedback);
-      })
-      .catch(error => {
-        console.error('❌ Server processing failed:', error);
-        // Client feedback is already displayed, so user experience is not affected
-        // Error notification could be shown here (optional)
-      });
+          // Clear localStorage after successful server save
+          clearSession(isAuthenticated);
+
+          onSessionComplete?.(finalStats, serverFeedback);
+        })
+        .catch(error => {
+          console.error('❌ Server processing failed:', error);
+          // Client feedback is already displayed, so user experience is not affected
+        });
+    } else {
+      // Guest: localStorage only (keep for potential signup)
+      console.log('✅ Guest session completed - kept in localStorage for potential signup');
+      // Don't clear session - keep for migration
+      onSessionComplete?.(finalStats, clientFeedback);
+    }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionWords, onSessionComplete]);
+  }, [sessionWords, onSessionComplete, isAuthenticated]);
 
   // Generate session feedback from batch result
   const generateSessionFeedbackFromBatch = (stats: SessionStats, statusChanges: { upgrades: WordStatusChange[]; downgrades: WordStatusChange[]; maintained: WordStatusChange[]; }): SessionFeedback => {
@@ -259,7 +274,7 @@ export default function SessionManager({
 
   const handleResumeSession = () => {
     console.log('▶️ User chose to resume session');
-    const saved = loadSession();
+    const saved = loadSession(isAuthenticated);
     if (!saved) {
       console.error('❌ Failed to load saved session');
       setShowResumeDialog(false);
@@ -286,7 +301,7 @@ export default function SessionManager({
 
   const handleDeclineResume = async () => {
     console.log('🆕 User chose to start new session');
-    clearSession();
+    clearSession(isAuthenticated);
     setShowResumeDialog(false);
 
     // Load fresh session
@@ -304,25 +319,51 @@ export default function SessionManager({
 
   const loadSessionData = useCallback(async () => {
     try {
-      // Check if there's a saved session in localStorage
-      if (hasSavedSession()) {
-        console.log('💾 Found saved session in localStorage');
-        setShowResumeDialog(true);
-        return; // Wait for user decision
+      // Check for saved session (auth-specific key)
+      const savedSession = loadSession(isAuthenticated);
+
+      if (savedSession) {
+        const isCompleted = savedSession.currentWordIndex >= savedSession.words.length;
+
+        if (isCompleted && !isAuthenticated) {
+          // Guest completed session - discard to start fresh
+          console.log('🗑️ Guest completed session found - discarding to start fresh');
+          clearSession(isAuthenticated);
+          // Continue to load new session
+        } else if (!isCompleted) {
+          // Session in progress
+          if (isAuthenticated) {
+            // Authenticated: Show resume dialog
+            console.log('💾 Found in-progress session (authenticated)');
+            setShowResumeDialog(true);
+            return; // Wait for user decision
+          } else {
+            // Guest: Discard and start fresh (no resume for guests)
+            console.log('🗑️ Guest in-progress session found - discarding (no resume for guests)');
+            clearSession(isAuthenticated);
+            // Continue to load new session
+          }
+        }
       }
 
-      // Load words from API (no difficulty parameter)
+      // Discard any previous guest session
+      if (!isAuthenticated) {
+        discardGuestSessionIfNeeded(isAuthenticated);
+      }
+
+      // Load new session words
       const words = await fetchSessionWords();
       setSessionWords(words);
 
       console.log('Loaded session data:', {
-        wordsCount: words.length
+        wordsCount: words.length,
+        isAuthenticated
       });
 
     } catch (error) {
       console.error('Failed to load session data:', error);
     }
-  }, []);
+  }, [isAuthenticated]);
 
   // Load session data on mount
   useEffect(() => {
@@ -344,14 +385,14 @@ export default function SessionManager({
         wordsStudied: 0,
         wordsCorrect: 0,
       }
-    });
+    }, isAuthenticated);
     console.log('💾 Initial session saved to localStorage');
 
     // Set random initial learning mode
     const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition'];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     setCurrentMode(randomMode);
-  }, [sessionId, sessionWords]);
+  }, [sessionId, sessionWords, isAuthenticated]);
 
   // Auto start session when words are loaded
   useEffect(() => {
@@ -389,7 +430,7 @@ export default function SessionManager({
       addSessionAnswer(sessionAnswer, {
         wordsStudied: updatedStats.wordsStudied,
         wordsCorrect: updatedStats.wordsCorrect
-      });
+      }, isAuthenticated);
       console.log('💾 Session progress auto-saved to localStorage');
 
       setCurrentWordIndex(prev => prev + 1);
@@ -409,17 +450,16 @@ export default function SessionManager({
       addSessionAnswer(sessionAnswer, {
         wordsStudied: finalWordsStudied,
         wordsCorrect: finalWordsCorrect
-      });
+      }, isAuthenticated);
 
       // Load all answers from localStorage
-      const session = loadSession();
+      const session = loadSession(isAuthenticated);
       const allAnswers = session?.answers || [];
       console.log('📝 Final answer included in batch:', sessionAnswer);
       console.log('📊 Complete batch for processing:', allAnswers);
 
-      // 🗑️ Clear localStorage as session is completing
-      clearSession();
-      console.log('🗑️ Cleared session from localStorage (session completing)');
+      // Note: clearSession is now handled in completeSessionWithFinalAnswer
+      // based on authentication status
 
       completeSessionWithFinalAnswer(finalWordsStudied, finalWordsCorrect, allAnswers);
     }
@@ -473,6 +513,7 @@ export default function SessionManager({
         isOpen={showExitDialog}
         onConfirmExit={handleConfirmExit}
         onCancel={handleCancelExit}
+        isAuthenticated={isAuthenticated}
       />
     </div>
   );
