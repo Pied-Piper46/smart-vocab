@@ -41,11 +41,11 @@ export const fetcher = async (url: string) => {
 
 // SWR configuration presets - optimized for learning session-based updates
 export const swrConfig = {
-  // Dashboard data - long cache since updates happen via mutate() on session completion
+  // Dashboard data - optimized for session completion updates
   dashboard: {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
-    dedupingInterval: 12 * 60 * 60 * 1000, // 12 hours deduping
+    dedupingInterval: 2000, // 2 seconds - allow immediate updates after session completion
     refreshInterval: 0, // No automatic refresh
     errorRetryCount: 2,
     errorRetryInterval: 1000,

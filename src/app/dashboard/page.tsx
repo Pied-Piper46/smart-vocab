@@ -252,7 +252,7 @@ function DashboardContent() {
             className="text-2xl md:text-4xl font-bold mb-4"
             style={{ color: '#686b70ff' }}
           >
-            おかえりなさい、{isAuthenticated ? profile?.name : 'ゲスト'}さん
+            おかえりなさい、{isAuthenticated ? session.user.name : 'ゲスト'}さん
           </h2>
         </div>
 
