@@ -9,10 +9,11 @@ interface CacheData<T> {
 }
 
 export const sessionStorageCache = {
-  set: <T>(key: string, data: T, duration: number = CACHE_DURATION) => {
+  set: <T>(key: string, data: T, duration: number = CACHE_DURATION, userId?: string) => {
     if (typeof window === 'undefined') return;
-    
-    const cacheKey = `${CACHE_PREFIX}-${key}`;
+
+    // Include userId in cache key to prevent cross-user data leakage
+    const cacheKey = userId ? `${CACHE_PREFIX}-${userId}-${key}` : `${CACHE_PREFIX}-${key}`;
     const timestamp = Date.now();
     const cacheData: CacheData<T> = {
       data,
@@ -27,10 +28,11 @@ export const sessionStorageCache = {
     }
   },
 
-  get: <T>(key: string): T | null => {
+  get: <T>(key: string, userId?: string): T | null => {
     if (typeof window === 'undefined') return null;
-    
-    const cacheKey = `${CACHE_PREFIX}-${key}`;
+
+    // Include userId in cache key to prevent cross-user data leakage
+    const cacheKey = userId ? `${CACHE_PREFIX}-${userId}-${key}` : `${CACHE_PREFIX}-${key}`;
     
     try {
       const cached = sessionStorage.getItem(cacheKey);
@@ -51,11 +53,11 @@ export const sessionStorageCache = {
     }
   },
 
-  clear: (key?: string) => {
+  clear: (key?: string, userId?: string) => {
     if (typeof window === 'undefined') return;
-    
+
     if (key) {
-      const cacheKey = `${CACHE_PREFIX}-${key}`;
+      const cacheKey = userId ? `${CACHE_PREFIX}-${userId}-${key}` : `${CACHE_PREFIX}-${key}`;
       sessionStorage.removeItem(cacheKey);
     } else {
       // Clear all cache
@@ -68,10 +70,10 @@ export const sessionStorageCache = {
     }
   },
 
-  isExpired: (key: string): boolean => {
+  isExpired: (key: string, userId?: string): boolean => {
     if (typeof window === 'undefined') return true;
-    
-    const cacheKey = `${CACHE_PREFIX}-${key}`;
+
+    const cacheKey = userId ? `${CACHE_PREFIX}-${userId}-${key}` : `${CACHE_PREFIX}-${key}`;
     
     try {
       const cached = sessionStorage.getItem(cacheKey);

@@ -157,10 +157,10 @@ function DashboardContent() {
 
   // Cache data in sessionStorage for faster subsequent loads
   useEffect(() => {
-    if (dashboardData && !error) {
-      sessionStorageCache.set('dashboard-data', dashboardData);
+    if (dashboardData && !error && session?.user?.id) {
+      sessionStorageCache.set('dashboard-data', dashboardData, undefined, session.user.id);
     }
-  }, [dashboardData, error]);
+  }, [dashboardData, error, session]);
 
   // Show completion message after all checkmarks have been animated
   useEffect(() => {

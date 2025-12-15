@@ -6,15 +6,21 @@
 import type { SessionAnswer } from '@/types';
 import type { WordData } from '@/lib/api-client';
 
-// Storage keys for authenticated and guest sessions
-const AUTH_SESSION_KEY = 'smart-vocab-session-resume';
+// Storage key prefixes for authenticated and guest sessions
+const AUTH_SESSION_PREFIX = 'smart-vocab-session-resume';
 const GUEST_SESSION_KEY = 'smart-vocab-guest-session';
 
 /**
- * Get storage key based on authentication status
+ * Get storage key based on authentication status and user ID
+ * For authenticated users, include userId to prevent cross-user data leakage
+ * For guest users, use a shared key (one guest per browser)
  */
-const getStorageKey = (isAuthenticated: boolean): string =>
-  isAuthenticated ? AUTH_SESSION_KEY : GUEST_SESSION_KEY;
+const getStorageKey = (isAuthenticated: boolean, userId?: string): string => {
+  if (isAuthenticated && userId) {
+    return `${AUTH_SESSION_PREFIX}-${userId}`;
+  }
+  return isAuthenticated ? AUTH_SESSION_PREFIX : GUEST_SESSION_KEY;
+};
 
 export interface SavedSession {
   sessionId: string;
@@ -31,9 +37,9 @@ export interface SavedSession {
 /**
  * Save current session state to localStorage
  */
-export function saveSession(session: SavedSession, isAuthenticated: boolean = true): void {
+export function saveSession(session: SavedSession, isAuthenticated: boolean = true, userId?: string): void {
   try {
-    const key = getStorageKey(isAuthenticated);
+    const key = getStorageKey(isAuthenticated, userId);
     localStorage.setItem(key, JSON.stringify(session));
   } catch (error) {
     console.error('Failed to save session to localStorage:', error);
@@ -43,9 +49,9 @@ export function saveSession(session: SavedSession, isAuthenticated: boolean = tr
 /**
  * Load saved session from localStorage
  */
-export function loadSession(isAuthenticated: boolean = true): SavedSession | null {
+export function loadSession(isAuthenticated: boolean = true, userId?: string): SavedSession | null {
   try {
-    const key = getStorageKey(isAuthenticated);
+    const key = getStorageKey(isAuthenticated, userId);
     const saved = localStorage.getItem(key);
     if (!saved) return null;
     return JSON.parse(saved) as SavedSession;
@@ -58,9 +64,9 @@ export function loadSession(isAuthenticated: boolean = true): SavedSession | nul
 /**
  * Clear saved session from localStorage
  */
-export function clearSession(isAuthenticated: boolean = true): void {
+export function clearSession(isAuthenticated: boolean = true, userId?: string): void {
   try {
-    const key = getStorageKey(isAuthenticated);
+    const key = getStorageKey(isAuthenticated, userId);
     localStorage.removeItem(key);
   } catch (error) {
     console.error('Failed to clear session from localStorage:', error);
@@ -70,9 +76,9 @@ export function clearSession(isAuthenticated: boolean = true): void {
 /**
  * Check if there's a saved session
  */
-export function hasSavedSession(isAuthenticated: boolean = true): boolean {
+export function hasSavedSession(isAuthenticated: boolean = true, userId?: string): boolean {
   try {
-    const key = getStorageKey(isAuthenticated);
+    const key = getStorageKey(isAuthenticated, userId);
     return localStorage.getItem(key) !== null;
   } catch (error) {
     console.error('Failed to check for saved session:', error);
@@ -94,10 +100,11 @@ export function hasSavedSession(isAuthenticated: boolean = true): boolean {
 export function addSessionAnswer(
   answer: SessionAnswer,
   stats: { wordsStudied: number; wordsCorrect: number },
-  isAuthenticated: boolean = true
+  isAuthenticated: boolean = true,
+  userId?: string
 ): void {
   try {
-    const session = loadSession(isAuthenticated);
+    const session = loadSession(isAuthenticated, userId);
     if (!session) {
       console.warn('No session found - cannot add answer');
       return;
@@ -111,7 +118,7 @@ export function addSessionAnswer(
       stats,
     };
 
-    saveSession(updatedSession, isAuthenticated);
+    saveSession(updatedSession, isAuthenticated, userId);
   } catch (error) {
     console.error('Failed to add session answer:', error);
   }

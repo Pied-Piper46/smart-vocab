@@ -43,6 +43,7 @@ export default function SessionManager({
   // ✨ Authentication state
   const { data: session } = useSession();
   const isAuthenticated = !!session;
+  const userId = session?.user?.id;
 
   const [sessionState, setSessionState] = useState<'loading' | 'active' | 'completed'>('loading');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -129,7 +130,7 @@ export default function SessionManager({
           console.log('✅ SWR cache invalidated successfully');
 
           // Clear localStorage after successful server save
-          clearSession(isAuthenticated);
+          clearSession(isAuthenticated, userId);
 
           onSessionComplete?.(finalStats, serverFeedback);
         })
@@ -145,7 +146,7 @@ export default function SessionManager({
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionWords, onSessionComplete, isAuthenticated]);
+  }, [sessionWords, onSessionComplete, isAuthenticated, userId]);
 
   // Generate session feedback from batch result
   const generateSessionFeedbackFromBatch = (stats: SessionStats, statusChanges: { upgrades: WordStatusChange[]; downgrades: WordStatusChange[]; maintained: WordStatusChange[]; }): SessionFeedback => {
@@ -274,7 +275,7 @@ export default function SessionManager({
 
   const handleResumeSession = () => {
     console.log('▶️ User chose to resume session');
-    const saved = loadSession(isAuthenticated);
+    const saved = loadSession(isAuthenticated, userId);
     if (!saved) {
       console.error('❌ Failed to load saved session');
       setShowResumeDialog(false);
@@ -301,7 +302,7 @@ export default function SessionManager({
 
   const handleDeclineResume = async () => {
     console.log('🆕 User chose to start new session');
-    clearSession(isAuthenticated);
+    clearSession(isAuthenticated, userId);
     setShowResumeDialog(false);
 
     // Load fresh session
@@ -320,7 +321,7 @@ export default function SessionManager({
   const loadSessionData = useCallback(async () => {
     try {
       // Check for saved session (auth-specific key)
-      const savedSession = loadSession(isAuthenticated);
+      const savedSession = loadSession(isAuthenticated, userId);
 
       if (savedSession) {
         const isCompleted = savedSession.currentWordIndex >= savedSession.words.length;
@@ -328,7 +329,7 @@ export default function SessionManager({
         if (isCompleted && !isAuthenticated) {
           // Guest completed session - discard to start fresh
           console.log('🗑️ Guest completed session found - discarding to start fresh');
-          clearSession(isAuthenticated);
+          clearSession(isAuthenticated, userId);
           // Continue to load new session
         } else if (!isCompleted) {
           // Session in progress
@@ -340,7 +341,7 @@ export default function SessionManager({
           } else {
             // Guest: Discard and start fresh (no resume for guests)
             console.log('🗑️ Guest in-progress session found - discarding (no resume for guests)');
-            clearSession(isAuthenticated);
+            clearSession(isAuthenticated, userId);
             // Continue to load new session
           }
         }
@@ -363,7 +364,7 @@ export default function SessionManager({
     } catch (error) {
       console.error('Failed to load session data:', error);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, userId]);
 
   // Load session data on mount
   useEffect(() => {
@@ -385,14 +386,14 @@ export default function SessionManager({
         wordsStudied: 0,
         wordsCorrect: 0,
       }
-    }, isAuthenticated);
+    }, isAuthenticated, userId);
     console.log('💾 Initial session saved to localStorage');
 
     // Set random initial learning mode
     const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition'];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     setCurrentMode(randomMode);
-  }, [sessionId, sessionWords, isAuthenticated]);
+  }, [sessionId, sessionWords, isAuthenticated, userId]);
 
   // Auto start session when words are loaded
   useEffect(() => {
@@ -430,7 +431,7 @@ export default function SessionManager({
       addSessionAnswer(sessionAnswer, {
         wordsStudied: updatedStats.wordsStudied,
         wordsCorrect: updatedStats.wordsCorrect
-      }, isAuthenticated);
+      }, isAuthenticated, userId);
       console.log('💾 Session progress auto-saved to localStorage');
 
       setCurrentWordIndex(prev => prev + 1);
@@ -450,10 +451,10 @@ export default function SessionManager({
       addSessionAnswer(sessionAnswer, {
         wordsStudied: finalWordsStudied,
         wordsCorrect: finalWordsCorrect
-      }, isAuthenticated);
+      }, isAuthenticated, userId);
 
       // Load all answers from localStorage
-      const session = loadSession(isAuthenticated);
+      const session = loadSession(isAuthenticated, userId);
       const allAnswers = session?.answers || [];
       console.log('📝 Final answer included in batch:', sessionAnswer);
       console.log('📊 Complete batch for processing:', allAnswers);
