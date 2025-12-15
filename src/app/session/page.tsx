@@ -1,34 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import SessionManager from '@/components/learning/SessionManager';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function SessionPage() {
   const { data: session, status } = useSession();
-  const router = useRouter();
 
-  // Redirect to signin if not authenticated
-  useEffect(() => {
-    if (status === 'loading') return;
-    if (!session) {
-      router.push('/auth/signin');
-    }
-  }, [session, status, router]);
-
-  // Show loading while checking authentication
+  // Show loading while checking session status
   if (status === 'loading') {
     return <LoadingSpinner />;
   }
 
-  // Redirect to signin if not authenticated
-  if (!session) {
-    return null;
-  }
-
-  // Show learning session immediately (no difficulty selection)
+  // Allow both guest and authenticated users to access session
   return (
     <div 
       className="min-h-screen"

@@ -17,8 +17,37 @@ export async function GET() {
   try {
     // Get current user from session
     const currentUser = await getCurrentUser();
+
+    // Guest user: return random words without progress data
     if (!currentUser) {
-      return createUnauthorizedResponse();
+      // Get total word count
+      const totalWords = await prisma.word.count();
+
+      // Generate random skip value
+      const randomSkip = Math.floor(Math.random() * Math.max(0, totalWords - 10));
+
+      const randomWords = await prisma.word.findMany({
+        skip: randomSkip,
+        take: 10
+      });
+
+      // Transform to match frontend expectations (without progress data)
+      const guestSessionWords = randomWords.map(word => ({
+        id: word.id,
+        english: word.english,
+        japanese: word.japanese,
+        phonetic: word.phonetic,
+        partOfSpeech: word.partOfSpeech,
+        exampleEnglish: word.exampleEnglish,
+        exampleJapanese: word.exampleJapanese,
+        progress: null // Guest users have no progress
+      }));
+
+      return NextResponse.json({
+        success: true,
+        data: guestSessionWords,
+        count: guestSessionWords.length,
+      });
     }
 
     const userId = currentUser.id;

@@ -77,7 +77,7 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
       case 'jpn_to_eng':
         return (
           <div className="mb-10">
-            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-2" style={{ color: COLORS.text }}>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2" style={{ color: COLORS.text }}>
               {word.japanese}
             </h2>
             <p className="text-lg mb-8" style={{ color: COLORS.textLight }}>

@@ -38,7 +38,7 @@ function LoginPromptOverlay() {
       <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full">
         <div className="text-center mb-6">
           <Target style={{ color: COLORS.primary }} size={48} className="mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-4" style={{ color: COLORS.text }}>
+          <h2 className="text-xl font-bold mb-4" style={{ color: COLORS.text }}>
             進捗を確認するにはログインが必要です
           </h2>
           <p className="mb-6" style={{ color: COLORS.textLight }}>
