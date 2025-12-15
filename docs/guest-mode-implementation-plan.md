@@ -348,26 +348,34 @@ export async function POST(req: Request) {
 
 ---
 
-### Phase 2: UI実装（2-3日）
+### Phase 2: UI実装（2-3日） ✅ 完了
 
 **目標**: ユーザーに認証状態を明示
 
-- [ ] Dashboard のゲストUI
-  - [ ] `GuestModeBanner` コンポーネント作成
-  - [ ] ゲスト時のウェルカムメッセージ変更
-  - [ ] セッション完了後の登録促進バナー
-- [ ] Progress ページ
-  - [ ] `LoginPromptOverlay` コンポーネント作成
-  - [ ] ゲスト時は即座に表示
+- [x] Dashboard のゲストUI
+  - [x] `GuestModeBanner` コンポーネント作成
+  - [x] ゲスト時のウェルカムメッセージ変更（`おかえりなさい、ゲストさん`）
+  - [x] セッション進捗チェックマークを認証済みのみ表示
+  - [x] ゲスト時にセッション破棄処理（新規セッション開始前）
+- [x] Progress ページ
+  - [x] `LoginPromptOverlay` コンポーネント作成
+  - [x] ゲスト時は即座に表示（ログイン/登録/学習継続の選択肢）
 - [x] ExitConfirmationDialog
   - [x] `isAuthenticated` prop 追加
   - [x] ゲスト用メッセージ表示（Phase 1 で完了）
-- [ ] SessionFeedback
+- [ ] SessionFeedback（Phase 3以降に実装）
   - [ ] ゲスト完了時の登録促進CTA追加
 
 **成果物**:
-- ゲストモードが視覚的に明確
-- 登録促進の導線が整備
+- ✅ ゲストモードが視覚的に明確（黄色バナー、ゲスト表示）
+- ✅ 登録促進の導線が整備（Progress ページのログインプロンプト）
+- ✅ 認証状態に応じた UI の出し分け完了
+
+**実装ファイル**:
+- `src/components/ui/GuestModeBanner.tsx` - ゲストモードバナーコンポーネント
+- `src/app/dashboard/page.tsx` - ゲストモード対応UI（バナー、メッセージ、条件付きデータ取得）
+- `src/app/progress/page.tsx` - LoginPromptOverlay 実装（ゲスト用インラインプロンプト）
+- `src/lib/swr-config.ts` - SWRフック条件付きフェッチ対応（`shouldFetch` パラメータ追加）
 
 ---
 
@@ -540,7 +548,8 @@ const guestRateLimits = {
 |------|---------|------|
 | 2025-12-15 | 初版作成 | Claude |
 | 2025-12-15 | Phase 1 完了（基盤整備） | Claude |
+| 2025-12-15 | Phase 2 完了（UI実装） | Claude |
 
 ---
 
-**次のアクション**: Phase 2 の実装開始（Dashboard のゲストUI実装）
+**次のアクション**: Phase 3 の実装開始（データ移行実装 - signup/signin integration）

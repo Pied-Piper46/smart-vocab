@@ -25,6 +25,56 @@ import { COLORS } from '@/styles/colors';
 
 type MenuType = 'mastery' | 'recent' | 'struggling' | 'history';
 
+function LoginPromptOverlay() {
+  const router = useRouter();
+
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{
+        background: 'linear-gradient(135deg, #f0f8f5 0%, #f8fcfa 100%)'
+      }}
+    >
+      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full">
+        <div className="text-center mb-6">
+          <Target style={{ color: COLORS.primary }} size={48} className="mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-4" style={{ color: COLORS.text }}>
+            進捗を確認するにはログインが必要です
+          </h2>
+          <p className="mb-6" style={{ color: COLORS.textLight }}>
+            ゲストモードでは学習データが保存されません。
+            <br />
+            アカウントを作成して進捗を記録しましょう。
+          </p>
+        </div>
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={() => router.push('/auth/signin')}
+            className="flex-1 py-3 rounded-full font-semibold border-2 transition-all duration-200 hover:scale-105"
+            style={{ borderColor: COLORS.primary, color: COLORS.primary }}
+          >
+            ログイン
+          </button>
+          <button
+            onClick={() => router.push('/auth/signup')}
+            className="flex-1 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
+            style={{ backgroundColor: COLORS.primary, color: 'white' }}
+          >
+            新規登録
+          </button>
+        </div>
+        <button
+          onClick={() => router.push('/dashboard')}
+          className="w-full mt-4 text-sm transition-all duration-200 hover:underline"
+          style={{ color: COLORS.textLight }}
+        >
+          ← ゲストとして学習を続ける
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ProgressPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -32,22 +82,15 @@ export default function ProgressPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [currentHistoryMonth, setCurrentHistoryMonth] = useState(new Date());
+  const isAuthenticated = !!session;
 
-  // SWR hooks for efficient data fetching and caching
-  const { data: analytics, error: analyticsError, isLoading: isLoadingAnalytics } = useAnalyticsData();
-  const { data: strugglingWords, error: strugglingError, isLoading: isLoadingStrugglingWords } = useStrugglingWords();
+  // SWR hooks for efficient data fetching and caching (only for authenticated users)
+  const { data: analytics, error: analyticsError, isLoading: isLoadingAnalytics } = useAnalyticsData(isAuthenticated);
+  const { data: strugglingWords, error: strugglingError, isLoading: isLoadingStrugglingWords } = useStrugglingWords(isAuthenticated);
   const { data: learningHistory, error: historyError, isLoading: isLoadingHistory } = useLearningHistory(
-    currentHistoryMonth.getFullYear(),
-    currentHistoryMonth.getMonth() + 1
+    isAuthenticated ? currentHistoryMonth.getFullYear() : undefined,
+    isAuthenticated ? currentHistoryMonth.getMonth() + 1 : undefined
   );
-
-  useEffect(() => {
-    if (status === 'loading') return;
-    if (!session) {
-      router.push('/auth/signin');
-      return;
-    }
-  }, [session, status, router]);
 
   // Handle SWR errors
   useEffect(() => {
@@ -142,12 +185,22 @@ export default function ProgressPage() {
     return currentMenuItem ? currentMenuItem.icon : Target;
   };
 
-  if (status === 'loading' || isLoadingAnalytics) {
+  if (status === 'loading') {
     return <LoadingSpinner />;
   }
 
-  if (!session || !analytics) {
-    return null;
+  // Guest users: Show login prompt
+  if (!isAuthenticated) {
+    return <LoginPromptOverlay />;
+  }
+
+  // Authenticated users: Wait for data
+  if (isLoadingAnalytics) {
+    return <LoadingSpinner />;
+  }
+
+  if (!analytics) {
+    return <LoadingSpinner />;
   }
 
   const totalWords = analytics.masteryStats.learning + analytics.masteryStats.reviewing + analytics.masteryStats.mastered;

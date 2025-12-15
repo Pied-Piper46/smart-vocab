@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation';
 import { User } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import TypewriterText from '@/components/ui/TypewriterText';
+import GuestModeBanner from '@/components/ui/GuestModeBanner';
 import { useDashboardData } from '@/lib/swr-config';
 import { sessionStorageCache } from '@/lib/dashboard-cache';
+import { discardGuestSessionIfNeeded } from '@/lib/session-storage';
 
 const CheckMark = ({ 
   isCompleted, 
@@ -100,20 +102,20 @@ export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [showCompletionMessage, setShowCompletionMessage] = useState(false);
-  
-  // Use SWR for data fetching with caching
-  const { data: dashboardData, error, isLoading } = useDashboardData();
-  
+  const isAuthenticated = !!session;
+
+  // Use SWR for data fetching with caching (only for authenticated users)
+  const { data: dashboardData, error, isLoading } = useDashboardData(isAuthenticated);
+
   const profile = dashboardData?.profile;
   const dailyProgress = dashboardData?.dailyProgress;
 
-  // Redirect to signin if not authenticated
+  // Discard guest session when returning to dashboard
   useEffect(() => {
-    if (status === 'loading') return; // Still loading
-    if (!session) {
-      router.push('/auth/signin');
+    if (!isAuthenticated) {
+      discardGuestSessionIfNeeded(false);
     }
-  }, [session, status, router]);
+  }, [isAuthenticated]);
 
   // Handle SWR errors (e.g., authentication issues, user not found)
   useEffect(() => {
@@ -163,18 +165,18 @@ export default function Dashboard() {
   }, [dailyProgress?.sessionsToday]);
 
 
-  // Show loading while checking authentication or fetching data
-  if (status === 'loading' || isLoading) {
+  // Show loading while checking authentication status
+  if (status === 'loading') {
     return <LoadingSpinner />;
   }
 
-  // Redirect to signin if not authenticated
-  if (!session) {
-    return null;
+  // Show loading while fetching data (authenticated users only)
+  if (isAuthenticated && isLoading) {
+    return <LoadingSpinner />;
   }
 
-  // If data is still loading or not available, show loading
-  if (!profile || !dailyProgress) {
+  // For authenticated users, wait for data
+  if (isAuthenticated && (!profile || !dailyProgress)) {
     return <LoadingSpinner />;
   }
 
@@ -194,57 +196,63 @@ export default function Dashboard() {
           <button
             onClick={() => router.push('/progress')}
             className="flex items-center gap-3 p-3 rounded-sm hover:scale-104 transition-all duration-200"
-            style={{ 
+            style={{
               backgroundColor: '#10b981',
               color: 'white'
             }}
           >
             <User className="w-6 h-6 md:w-9 md:h-9" />
-            <div className="hidden sm:block">
-              <p className="font-bold text-left text-xl">{session.user.name}</p>
-              <p className="font-bold text-sm">{session.user?.email}</p>
-            </div>
+            {isAuthenticated && (
+              <div className="hidden sm:block">
+                <p className="font-bold text-left text-xl">{session.user.name}</p>
+                <p className="font-bold text-sm">{session.user?.email}</p>
+              </div>
+            )}
           </button>
         </div>
 
+        {/* Guest Mode Banner */}
+        {!isAuthenticated && <GuestModeBanner />}
+
         {/* Welcome Section */}
         <div className="text-center mb-12">
-          <h2 
+          <h2
             className="text-2xl md:text-4xl font-bold mb-4"
             style={{ color: '#686b70ff' }}
           >
-            おかえりなさい、{profile.name}さん
-            {/* <span style={{ color: '#10b981' }}>{profile.name}</span>さん */}
+            おかえりなさい、{isAuthenticated ? profile?.name : 'ゲスト'}さん
           </h2>
         </div>
 
-        {/* Session Progress with Checkmarks */}
-        <div className="text-center mb-8">
-          <div className="space-y-4">
-            {/* Checkmarks Progress */}
-            <div className="flex justify-center items-center gap-3 flex-wrap">
-              {Array.from({ length: Math.max(1, dailyProgress.sessionsToday) }, (_, index) => (
-                <CheckMark
-                  key={index}
-                  isCompleted={index < dailyProgress.sessionsToday}
-                  animationDelay={(index + 0.1) * 450}
-                  size="md"
+        {/* Session Progress with Checkmarks (authenticated only) */}
+        {isAuthenticated && dailyProgress && (
+          <div className="text-center mb-8">
+            <div className="space-y-4">
+              {/* Checkmarks Progress */}
+              <div className="flex justify-center items-center gap-3 flex-wrap">
+                {Array.from({ length: Math.max(1, dailyProgress.sessionsToday) }, (_, index) => (
+                  <CheckMark
+                    key={index}
+                    isCompleted={index < dailyProgress.sessionsToday}
+                    animationDelay={(index + 0.1) * 450}
+                    size="md"
+                  />
+                ))}
+              </div>
+
+              {/* Message area - always reserve space */}
+              <div className="h-8 flex items-center justify-center">
+                <TypewriterText
+                  text="今日の目標は完了です...!"
+                  show={showCompletionMessage}
+                  speed={80}
+                  className="font-bold"
+                  style={{ color: '#10b981' }}
                 />
-              ))}
-            </div>
-            
-            {/* Message area - always reserve space */}
-            <div className="h-8 flex items-center justify-center">
-              <TypewriterText
-                text="今日の目標は完了です...!"
-                show={showCompletionMessage}
-                speed={80}
-                className="font-bold"
-                style={{ color: '#10b981' }}
-              />
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Start Learning Button */}
         <div className="flex justify-center mb-24">

@@ -73,8 +73,8 @@ export const swrConfig = {
 };
 
 // Custom hooks for different data types
-export const useDashboardData = () => {
-  return useSWR('/api/dashboard', fetcher, swrConfig.dashboard);
+export const useDashboardData = (shouldFetch: boolean = true) => {
+  return useSWR(shouldFetch ? '/api/dashboard' : null, fetcher, swrConfig.dashboard);
 };
 
 export const useProfileData = () => {
@@ -82,8 +82,8 @@ export const useProfileData = () => {
 };
 
 // Progress page specific hooks - optimized for learning session-based updates
-export const useAnalyticsData = () => {
-  return useSWR('/api/progress/analytics', fetcher, {
+export const useAnalyticsData = (shouldFetch: boolean = true) => {
+  return useSWR(shouldFetch ? '/api/progress/analytics' : null, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
     dedupingInterval: 12 * 60 * 60 * 1000, // 12 hours deduping (updated via mutate() on session completion)
@@ -93,8 +93,8 @@ export const useAnalyticsData = () => {
   });
 };
 
-export const useStrugglingWords = () => {
-  return useSWR('/api/progress/struggling-words', fetcher, {
+export const useStrugglingWords = (shouldFetch: boolean = true) => {
+  return useSWR(shouldFetch ? '/api/progress/struggling-words' : null, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
     dedupingInterval: 12 * 60 * 60 * 1000, // 12 hours deduping (updated via mutate() on session completion)
