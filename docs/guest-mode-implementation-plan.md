@@ -379,23 +379,31 @@ export async function POST(req: Request) {
 
 ---
 
-### Phase 3: データ移行実装（1日）
+### Phase 3: データ移行実装（1日） ✅ 完了
 
 **目標**: シームレスな登録体験
 
-- [ ] 新規登録時の処理
-  - [ ] `migrateGuestSession()` 呼び出し
-  - [ ] エラーハンドリング
-- [ ] ログイン時の処理
-  - [ ] 移行済みセッションのサーバー保存
-  - [ ] 成功メッセージ表示
-- [ ] Dashboard での移行完了通知
-  - [ ] クエリパラメータ `?migrated=true` のハンドリング
-  - [ ] トースト通知（オプション）
+- [x] 新規登録時の処理
+  - [x] `migrateGuestSession()` 呼び出し（signup/page.tsx）
+  - [x] エラーハンドリング（try-catch, 失敗時も正常フローへ）
+- [x] ログイン時の処理
+  - [x] 移行済みセッションのサーバー保存（signin/page.tsx）
+  - [x] `/api/sessions/complete` へのPOST処理
+  - [x] 成功後にlocalStorage削除とリダイレクト
+- [x] Dashboard での移行完了通知
+  - [x] クエリパラメータ `?migrated=true` のハンドリング
+  - [x] 緑色の成功バナー表示（5秒間自動消去）
+  - [x] Suspense境界でラップ（useSearchParams対応）
 
 **成果物**:
-- ゲスト→登録時にデータが保持される
-- ユーザー体験がスムーズ
+- ✅ ゲスト→登録→ログイン時にデータが自動保存される
+- ✅ ユーザー体験がスムーズ（移行完了の通知あり）
+- ✅ エラー時も正常動作（フォールバック処理）
+
+**実装ファイル**:
+- `src/app/auth/signup/page.tsx` - ゲストセッション移行処理
+- `src/app/auth/signin/page.tsx` - 移行済みセッションのサーバー保存
+- `src/app/dashboard/page.tsx` - 移行成功通知とSuspense対応
 
 ---
 
@@ -549,7 +557,8 @@ const guestRateLimits = {
 | 2025-12-15 | 初版作成 | Claude |
 | 2025-12-15 | Phase 1 完了（基盤整備） | Claude |
 | 2025-12-15 | Phase 2 完了（UI実装） | Claude |
+| 2025-12-15 | Phase 3 完了（データ移行実装） | Claude |
 
 ---
 
-**次のアクション**: Phase 3 の実装開始（データ移行実装 - signup/signin integration）
+**次のアクション**: Phase 4 の実装開始（ルーティング変更 - root → dashboard リダイレクト）

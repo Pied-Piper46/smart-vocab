@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { User } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import TypewriterText from '@/components/ui/TypewriterText';
@@ -98,10 +98,12 @@ const CheckMark = ({
 };
 
 
-export default function Dashboard() {
+function DashboardContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [showCompletionMessage, setShowCompletionMessage] = useState(false);
+  const [showMigrationSuccess, setShowMigrationSuccess] = useState(false);
   const isAuthenticated = !!session;
 
   // Use SWR for data fetching with caching (only for authenticated users)
@@ -109,6 +111,21 @@ export default function Dashboard() {
 
   const profile = dashboardData?.profile;
   const dailyProgress = dashboardData?.dailyProgress;
+
+  // Check for migration success parameter
+  useEffect(() => {
+    const migrated = searchParams.get('migrated');
+    if (migrated === 'true') {
+      setShowMigrationSuccess(true);
+      // Clear the query parameter after showing notification
+      const timer = setTimeout(() => {
+        setShowMigrationSuccess(false);
+        router.replace('/dashboard');
+      }, 5000); // Show for 5 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, router]);
 
   // Discard guest session when returning to dashboard
   useEffect(() => {
@@ -181,13 +198,31 @@ export default function Dashboard() {
   }
 
   return (
-    <div 
+    <div
       className="min-h-screen"
-      style={{ 
+      style={{
         background: 'linear-gradient(135deg, #f0f8f5 0%, #f8fcfa 100%)'
       }}
     >
       <div className="container mx-auto px-4 py-8">
+        {/* Migration Success Notification */}
+        {showMigrationSuccess && (
+          <div
+            className="mb-6 p-4 rounded-xl border-2 animate-fade-in"
+            style={{
+              backgroundColor: '#d1fae5',
+              borderColor: '#10b981'
+            }}
+          >
+            <p className="text-center font-semibold" style={{ color: '#059669' }}>
+              ✅ ゲストセッションのデータを保存しました！
+            </p>
+          </div>
+        )}
+
+        {/* Guest Mode Banner */}
+        {!isAuthenticated && <GuestModeBanner />}
+
         {/* Header */}
         <div className="flex items-center justify-between mb-36">
           <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#2C3538' }}>
@@ -210,9 +245,6 @@ export default function Dashboard() {
             )}
           </button>
         </div>
-
-        {/* Guest Mode Banner */}
-        {!isAuthenticated && <GuestModeBanner />}
 
         {/* Welcome Section */}
         <div className="text-center mb-12">
@@ -316,5 +348,13 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <DashboardContent />
+    </Suspense>
   );
 }

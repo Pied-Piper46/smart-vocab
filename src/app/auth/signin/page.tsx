@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { COLORS } from '@/styles/colors';
+import { loadSession, clearSession } from '@/lib/session-storage';
 
 function SignInForm() {
   const [email, setEmail] = useState('');
@@ -37,7 +38,41 @@ function SignInForm() {
       if (result?.error) {
         setError('メールアドレスまたはパスワードが正しくありません');
       } else if (result?.ok) {
-        router.push('/dashboard');
+        // Check if there's a migrated session from signup
+        const migratedSession = loadSession(true); // Load from authenticated key
+
+        if (migratedSession && migratedSession.answers.length > 0) {
+          console.log('✅ Found migrated session, saving to server...');
+
+          try {
+            // Save the migrated session to the server
+            const saveResponse = await fetch('/api/sessions/complete', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                wordsStudied: migratedSession.stats.wordsStudied,
+                answers: migratedSession.answers,
+              }),
+            });
+
+            if (saveResponse.ok) {
+              console.log('✅ Migrated session saved successfully');
+              clearSession(true); // Clear the migrated session
+              router.push('/dashboard?migrated=true');
+            } else {
+              console.error('❌ Failed to save migrated session');
+              router.push('/dashboard');
+            }
+          } catch (error) {
+            console.error('❌ Error saving migrated session:', error);
+            router.push('/dashboard');
+          }
+        } else {
+          // No migrated session, proceed normally
+          router.push('/dashboard');
+        }
       }
     } catch {
       setError('ログインに失敗しました');
