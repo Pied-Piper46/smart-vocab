@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useSession } from 'next-auth/react';
 import WordCard, { LearningMode } from './WordCard';
 import { fetchSessionWords, recordSessionCompletion, WordData, SessionAnswer, WordStatusChange } from '@/lib/api-client';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
@@ -9,7 +10,9 @@ import ExitConfirmationDialog from './ExitConfirmationDialog';
 import { mutate } from 'swr';
 import { calculateSessionProgressClient, type CurrentProgress, type ClientProgressResult } from '@/lib/client-progress-calculator';
 import type { MasteryStatus } from '@/lib/mastery';
-import { saveSession, loadSession, clearSession, hasSavedSession, addSessionAnswer } from '@/lib/session-resume';
+import { saveSession, loadSession, clearSession, hasSavedSession, addSessionAnswer, discardGuestSessionIfNeeded } from '@/lib/session-storage';
+import { COLORS } from '@/styles/colors';
+import { RefreshCw, Plus } from 'lucide-react';
 
 export interface SessionFeedback {
   totalWords: number;
@@ -18,12 +21,7 @@ export interface SessionFeedback {
   statusChanges: {
     upgrades: WordStatusChange[];
     downgrades: WordStatusChange[];
-    maintained: WordStatusChange[];
   };
-  totalUpgrades: number;
-  totalDowngrades: number;
-  newWordsLearned: number;
-  wordsReinforced: number;
 }
 
 interface SessionManagerProps {
@@ -42,6 +40,11 @@ type Word = WordData;
 export default function SessionManager({
   onSessionComplete
 }: SessionManagerProps) {
+  // ✨ Authentication state
+  const { data: session } = useSession();
+  const isAuthenticated = !!session;
+  const userId = session?.user?.id;
+
   const [sessionState, setSessionState] = useState<'loading' | 'active' | 'completed'>('loading');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [sessionWords, setSessionWords] = useState<Word[]>([]);
@@ -96,44 +99,54 @@ export default function SessionManager({
     setSessionFeedback(clientFeedback);
     console.log('🎉 Completion screen shown immediately with client results (0.1s)');
 
-    // ✨ Step 3: Background server processing (5-10s, non-blocking)
-    recordSessionCompletion(finalStats.wordsStudied, finalAnswers)
-      .then(async (serverResult) => {
-        console.log('✅ Server processing completed:', serverResult);
+    // ✨ Step 3: Background server processing (authenticated only)
+    if (isAuthenticated) {
+      // Authenticated: Save to server
+      recordSessionCompletion(finalStats.wordsStudied, finalAnswers)
+        .then(async (serverResult) => {
+          console.log('✅ Server processing completed:', serverResult);
 
-        // Generate server feedback
-        const serverFeedback = generateSessionFeedbackFromBatch(finalStats, serverResult.statusChanges);
+          // Generate server feedback
+          const serverFeedback = generateSessionFeedbackFromBatch(finalStats, serverResult.statusChanges);
 
-        // Check discrepancy and update if needed
-        if (hasDiscrepancy(clientFeedback, serverFeedback)) {
-          console.log('⚠️ Discrepancy detected between client and server results, updating...');
-          console.log('Client upgrades:', clientFeedback.totalUpgrades, 'Server upgrades:', serverFeedback.totalUpgrades);
-          console.log('Client downgrades:', clientFeedback.totalDowngrades, 'Server downgrades:', serverFeedback.totalDowngrades);
-          setSessionFeedback(serverFeedback);
-        } else {
-          console.log('✅ Client and server results match perfectly');
-        }
+          // Check discrepancy and update if needed
+          if (hasDiscrepancy(clientFeedback, serverFeedback)) {
+            console.log('⚠️ Discrepancy detected between client and server results, updating...');
+            console.log('Client upgrades:', clientFeedback.statusChanges.upgrades.length, 'Server upgrades:', serverFeedback.statusChanges.upgrades.length);
+            console.log('Client downgrades:', clientFeedback.statusChanges.downgrades.length, 'Server downgrades:', serverFeedback.statusChanges.downgrades.length);
+            setSessionFeedback(serverFeedback);
+          } else {
+            console.log('✅ Client and server results match perfectly');
+          }
 
-        // SWR Cache Invalidation
-        console.log('📋 Invalidating SWR cache for dashboard and progress data...');
-        await Promise.all([
-          mutate('/api/dashboard'),
-          mutate('/api/user/profile'),
-          mutate('/api/progress/analytics'),
-          mutate('/api/progress/struggling-words')
-        ]);
-        console.log('✅ SWR cache invalidated successfully');
+          // SWR Cache Invalidation
+          console.log('📋 Invalidating SWR cache for dashboard and progress data...');
+          await Promise.all([
+            mutate('/api/dashboard'),
+            mutate('/api/user/profile'),
+            mutate('/api/progress/analytics'),
+            mutate('/api/progress/struggling-words')
+          ]);
+          console.log('✅ SWR cache invalidated successfully');
 
-        onSessionComplete?.(finalStats, serverFeedback);
-      })
-      .catch(error => {
-        console.error('❌ Server processing failed:', error);
-        // Client feedback is already displayed, so user experience is not affected
-        // Error notification could be shown here (optional)
-      });
+          // Clear localStorage after successful server save
+          clearSession(isAuthenticated, userId);
+
+          onSessionComplete?.(finalStats, serverFeedback);
+        })
+        .catch(error => {
+          console.error('❌ Server processing failed:', error);
+          // Client feedback is already displayed, so user experience is not affected
+        });
+    } else {
+      // Guest: localStorage only (keep for potential signup)
+      console.log('✅ Guest session completed - kept in localStorage for potential signup');
+      // Don't clear session - keep for migration
+      onSessionComplete?.(finalStats, clientFeedback);
+    }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionWords, onSessionComplete]);
+  }, [sessionWords, onSessionComplete, isAuthenticated, userId]);
 
   // Generate session feedback from batch result
   const generateSessionFeedbackFromBatch = (stats: SessionStats, statusChanges: { upgrades: WordStatusChange[]; downgrades: WordStatusChange[]; maintained: WordStatusChange[]; }): SessionFeedback => {
@@ -141,11 +154,10 @@ export default function SessionManager({
       totalWords: stats.wordsStudied,
       correctAnswers: stats.wordsCorrect,
       accuracy: stats.wordsStudied > 0 ? (stats.wordsCorrect / stats.wordsStudied) * 100 : 0,
-      statusChanges,
-      totalUpgrades: statusChanges.upgrades.length,
-      totalDowngrades: statusChanges.downgrades.length,
-      newWordsLearned: statusChanges.upgrades.filter(c => c.from === 'new' && c.to === 'learning').length,
-      wordsReinforced: statusChanges.upgrades.filter(c => c.from === 'learning' && c.to === 'reviewing').length,
+      statusChanges: {
+        upgrades: statusChanges.upgrades,
+        downgrades: statusChanges.downgrades
+      }
     };
   };
 
@@ -203,11 +215,10 @@ export default function SessionManager({
       totalWords: stats.wordsStudied,
       correctAnswers: stats.wordsCorrect,
       accuracy: stats.wordsStudied > 0 ? (stats.wordsCorrect / stats.wordsStudied) * 100 : 0,
-      statusChanges: { upgrades, downgrades, maintained },
-      totalUpgrades: upgrades.length,
-      totalDowngrades: downgrades.length,
-      newWordsLearned: upgrades.filter(c => c.from === 'new' && c.to === 'learning').length,
-      wordsReinforced: upgrades.filter(c => c.from === 'learning' && c.to === 'reviewing').length,
+      statusChanges: {
+        upgrades,
+        downgrades
+      }
     };
   };
 
@@ -217,8 +228,8 @@ export default function SessionManager({
     serverFeedback: SessionFeedback
   ): boolean => {
     return (
-      clientFeedback.totalUpgrades !== serverFeedback.totalUpgrades ||
-      clientFeedback.totalDowngrades !== serverFeedback.totalDowngrades
+      clientFeedback.statusChanges.upgrades.length !== serverFeedback.statusChanges.upgrades.length ||
+      clientFeedback.statusChanges.downgrades.length !== serverFeedback.statusChanges.downgrades.length
     );
   };
 
@@ -252,7 +263,13 @@ export default function SessionManager({
     // Note: Progress is NOT saved to maintain data consistency
     // Reason: 1 session = 10 words fixed structure
     // Partial progress would break this constraint
-    // Session data is saved to localStorage for resume feature
+
+    // For guest users: clear localStorage to prevent incomplete data from being saved on login
+    // For authenticated users: keep localStorage for resume feature
+    if (!isAuthenticated) {
+      console.log('🗑️ Guest user exit - clearing incomplete session data');
+      clearSession(false);
+    }
 
     setShowExitDialog(false);
     window.location.href = '/dashboard';
@@ -264,7 +281,7 @@ export default function SessionManager({
 
   const handleResumeSession = () => {
     console.log('▶️ User chose to resume session');
-    const saved = loadSession();
+    const saved = loadSession(isAuthenticated, userId);
     if (!saved) {
       console.error('❌ Failed to load saved session');
       setShowResumeDialog(false);
@@ -291,7 +308,7 @@ export default function SessionManager({
 
   const handleDeclineResume = async () => {
     console.log('🆕 User chose to start new session');
-    clearSession();
+    clearSession(isAuthenticated, userId);
     setShowResumeDialog(false);
 
     // Load fresh session
@@ -309,25 +326,51 @@ export default function SessionManager({
 
   const loadSessionData = useCallback(async () => {
     try {
-      // Check if there's a saved session in localStorage
-      if (hasSavedSession()) {
-        console.log('💾 Found saved session in localStorage');
-        setShowResumeDialog(true);
-        return; // Wait for user decision
+      // Check for saved session (auth-specific key)
+      const savedSession = loadSession(isAuthenticated, userId);
+
+      if (savedSession) {
+        const isCompleted = savedSession.currentWordIndex >= savedSession.words.length;
+
+        if (isCompleted && !isAuthenticated) {
+          // Guest completed session - discard to start fresh
+          console.log('🗑️ Guest completed session found - discarding to start fresh');
+          clearSession(isAuthenticated, userId);
+          // Continue to load new session
+        } else if (!isCompleted) {
+          // Session in progress
+          if (isAuthenticated) {
+            // Authenticated: Show resume dialog
+            console.log('💾 Found in-progress session (authenticated)');
+            setShowResumeDialog(true);
+            return; // Wait for user decision
+          } else {
+            // Guest: Discard and start fresh (no resume for guests)
+            console.log('🗑️ Guest in-progress session found - discarding (no resume for guests)');
+            clearSession(isAuthenticated, userId);
+            // Continue to load new session
+          }
+        }
       }
 
-      // Load words from API (no difficulty parameter)
+      // Discard any previous guest session
+      if (!isAuthenticated) {
+        discardGuestSessionIfNeeded(isAuthenticated);
+      }
+
+      // Load new session words
       const words = await fetchSessionWords();
       setSessionWords(words);
 
       console.log('Loaded session data:', {
-        wordsCount: words.length
+        wordsCount: words.length,
+        isAuthenticated
       });
 
     } catch (error) {
       console.error('Failed to load session data:', error);
     }
-  }, []);
+  }, [isAuthenticated, userId]);
 
   // Load session data on mount
   useEffect(() => {
@@ -349,14 +392,14 @@ export default function SessionManager({
         wordsStudied: 0,
         wordsCorrect: 0,
       }
-    });
+    }, isAuthenticated, userId);
     console.log('💾 Initial session saved to localStorage');
 
     // Set random initial learning mode
-    const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
+    const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition'];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     setCurrentMode(randomMode);
-  }, [sessionId, sessionWords]);
+  }, [sessionId, sessionWords, isAuthenticated, userId]);
 
   // Auto start session when words are loaded
   useEffect(() => {
@@ -394,12 +437,12 @@ export default function SessionManager({
       addSessionAnswer(sessionAnswer, {
         wordsStudied: updatedStats.wordsStudied,
         wordsCorrect: updatedStats.wordsCorrect
-      });
+      }, isAuthenticated, userId);
       console.log('💾 Session progress auto-saved to localStorage');
 
       setCurrentWordIndex(prev => prev + 1);
       // Randomly select learning mode for variety
-      const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition', 'context_fill'];
+      const modes: LearningMode[] = ['eng_to_jpn', 'jpn_to_eng', 'audio_recognition'];
       const randomMode = modes[Math.floor(Math.random() * modes.length)];
       setCurrentMode(randomMode);
     } else {
@@ -414,17 +457,16 @@ export default function SessionManager({
       addSessionAnswer(sessionAnswer, {
         wordsStudied: finalWordsStudied,
         wordsCorrect: finalWordsCorrect
-      });
+      }, isAuthenticated, userId);
 
       // Load all answers from localStorage
-      const session = loadSession();
+      const session = loadSession(isAuthenticated, userId);
       const allAnswers = session?.answers || [];
       console.log('📝 Final answer included in batch:', sessionAnswer);
       console.log('📊 Complete batch for processing:', allAnswers);
 
-      // 🗑️ Clear localStorage as session is completing
-      clearSession();
-      console.log('🗑️ Cleared session from localStorage (session completing)');
+      // Note: clearSession is now handled in completeSessionWithFinalAnswer
+      // based on authentication status
 
       completeSessionWithFinalAnswer(finalWordsStudied, finalWordsCorrect, allAnswers);
     }
@@ -432,27 +474,34 @@ export default function SessionManager({
 
 
   const renderActive = () => (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-3xl mx-auto">
       {/* Header with Return Button */}
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={handleGoHome}
-          className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 transition-all duration-300 hover:scale-110"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:scale-105 border-2"
+          style={{
+            borderColor: '#6B7280',
+            color: '#6B7280',
+            backgroundColor: 'transparent'
+          }}
         >
-          ×
+          × 中断
         </button>
       </div>
 
       {/* Progress Bar */}
       <div className="mb-10">
-        <div className="flex justify-between items-center text-sm text-white/80 mb-3">
-          <span className="font-medium">学習進捗</span>
-          <span className="text-bold">{currentWordIndex + 1} / {sessionWords.length}</span>
+        <div className="text-right text-sm mb-3" style={{ color: '#2C3538' }}>
+          <span className="font-bold">{currentWordIndex + 1} / {sessionWords.length}</span>
         </div>
-        <div className="glass-progress rounded-full h-4">
+        <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
           <div 
-            className="glass-progress-fill h-full rounded-full transition-all duration-500"
-            style={{ width: `${(currentWordIndex / sessionWords.length) * 100}%` }}
+            className="h-full rounded-full transition-all duration-500 shadow-sm"
+            style={{ 
+              width: `${(currentWordIndex / sessionWords.length) * 100}%`,
+              backgroundColor: '#10b981'
+            }}
           />
         </div>
       </div>
@@ -469,10 +518,9 @@ export default function SessionManager({
       {/* Exit Confirmation Dialog */}
       <ExitConfirmationDialog
         isOpen={showExitDialog}
-        wordsStudied={currentWordIndex}
-        totalWords={sessionWords.length}
         onConfirmExit={handleConfirmExit}
         onCancel={handleCancelExit}
+        isAuthenticated={isAuthenticated}
       />
     </div>
   );
@@ -496,23 +544,44 @@ export default function SessionManager({
   // Resume confirmation dialog
   const renderResumeDialog = () => (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="glass-card p-8 max-w-md mx-4 rounded-2xl shadow-2xl">
-        <h3 className="text-2xl font-bold mb-4 text-white">セッション再開</h3>
-        <p className="text-white/80 mb-6">
-          前回のセッションが途中で終了しています。続きから再開しますか？
-        </p>
-        <div className="flex gap-3">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 scale-100 transition-all duration-300">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ backgroundColor: COLORS.accent }}>
+            <RefreshCw style={{ color: COLORS.primary }} size={32} />
+          </div>
+          <h3 className="text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
+            セッション再開
+          </h3>
+          <p className="text-sm" style={{ color: COLORS.textLight }}>
+            前回の続きから再開しますか？
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-4">
           <button
             onClick={handleResumeSession}
-            className="flex-1 glass-button py-3 px-6 rounded-xl font-semibold text-white hover:scale-105 transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold transition-all duration-100 hover:scale-105"
+            style={{
+              backgroundColor: COLORS.primary,
+              color: 'white'
+            }}
           >
-            続きから再開
+            <RefreshCw size={16} />
+            続きから
           </button>
           <button
             onClick={handleDeclineResume}
-            className="flex-1 bg-white/10 hover:bg-white/20 py-3 px-6 rounded-xl font-semibold text-white transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold transition-all duration-100 hover:scale-105 border-2"
+            style={{
+              borderColor: COLORS.textLight,
+              color: COLORS.textLight,
+              backgroundColor: 'transparent'
+            }}
           >
-            新しいセッション
+            <Plus size={16} />
+            新しく
           </button>
         </div>
       </div>

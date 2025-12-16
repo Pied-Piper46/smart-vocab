@@ -1,32 +1,130 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { User } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import TypewriterText from '@/components/ui/TypewriterText';
+import GuestModeBanner from '@/components/ui/GuestModeBanner';
 import { useDashboardData } from '@/lib/swr-config';
 import { sessionStorageCache } from '@/lib/dashboard-cache';
 
+const CheckMark = ({ 
+  isCompleted, 
+  animationDelay = 0,
+  size = 'md'
+}: {
+  isCompleted: boolean;
+  animationDelay?: number;
+  size?: 'sm' | 'md' | 'lg';
+}) => {
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [shouldFill, setShouldFill] = useState(false);
 
-export default function Dashboard() {
+  useEffect(() => {
+    if (isCompleted) {
+      // First animate the fill
+      const fillTimer = setTimeout(() => {
+        setShouldFill(true);
+      }, animationDelay);
+      
+      // Then animate the checkmark
+      const checkTimer = setTimeout(() => {
+        setShouldAnimate(true);
+      }, animationDelay + 200);
+      
+      return () => {
+        clearTimeout(fillTimer);
+        clearTimeout(checkTimer);
+      };
+    } else {
+      setShouldAnimate(false);
+      setShouldFill(false);
+    }
+  }, [isCompleted, animationDelay]);
+
+  const sizeClasses = {
+    sm: 'w-8 h-8',
+    md: 'w-12 h-12', 
+    lg: 'w-16 h-16'
+  };
+
+  const strokeWidth = {
+    sm: '3',
+    md: '4',
+    lg: '5'
+  };
+
+  const PRIMARY_COLOR = '#10b981';
+  const UNCOMPLETED_COLOR = '#e5e7eb';
+
+  return (
+    <div className={`${sizeClasses[size]} transition-all duration-300`}>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="w-full h-full"
+      >
+        {/* Background Circle - only show when completed */}
+        {shouldFill && (
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke={PRIMARY_COLOR}
+            strokeWidth="2"
+            fill={PRIMARY_COLOR}
+            className="transition-all duration-500"
+          />
+        )}
+        
+        {/* Checkmark Path */}
+        <path
+          d="M8 12l2.5 2.5L16 9"
+          stroke="white"
+          strokeWidth={strokeWidth[size]}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          strokeDasharray="20"
+          strokeDashoffset={shouldAnimate ? "0" : "20"}
+          className="transition-all duration-700 ease-out"
+        />
+      </svg>
+    </div>
+  );
+};
+
+
+function DashboardContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [showProgressAnimation, setShowProgressAnimation] = useState(false);
-  
-  // Use SWR for data fetching with caching
-  const { data: dashboardData, error, isLoading } = useDashboardData();
-  
+  const searchParams = useSearchParams();
+  const [showCompletionMessage, setShowCompletionMessage] = useState(false);
+  const [showMigrationSuccess, setShowMigrationSuccess] = useState(false);
+  const isAuthenticated = !!session;
+
+  // Use SWR for data fetching with caching (only for authenticated users)
+  const { data: dashboardData, error, isLoading } = useDashboardData(isAuthenticated);
+
   const profile = dashboardData?.profile;
   const dailyProgress = dashboardData?.dailyProgress;
 
-  // Redirect to signin if not authenticated
+  // Check for migration success parameter
   useEffect(() => {
-    if (status === 'loading') return; // Still loading
-    if (!session) {
-      router.push('/auth/signin');
+    const migrated = searchParams.get('migrated');
+    if (migrated === 'true') {
+      setShowMigrationSuccess(true);
+      // Clear the query parameter after showing notification
+      const timer = setTimeout(() => {
+        setShowMigrationSuccess(false);
+        router.replace('/dashboard');
+      }, 10000); // Show for 5 seconds
+
+      return () => clearTimeout(timer);
     }
-  }, [session, status, router]);
+  }, [searchParams, router]);
 
   // Handle SWR errors (e.g., authentication issues, user not found)
   useEffect(() => {
@@ -48,176 +146,253 @@ export default function Dashboard() {
     }
   }, [error, session]);
 
-  // Start progress bar animation after component mounts and data is loaded
-  useEffect(() => {
-    if (profile && dailyProgress && !isLoading) {
-      const welcomeTextLength = ('おかえりなさい、' + profile.name + 'さん').length;
-      const progressBarDelay = welcomeTextLength * 0.05 + 0.1 + 0.5; // Progress bar fade-in delay + extra time for animation start
-      
-      const timer = setTimeout(() => {
-        setShowProgressAnimation(true);
-      }, progressBarDelay * 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [profile, dailyProgress, isLoading]);
 
   // Cache data in sessionStorage for faster subsequent loads
   useEffect(() => {
-    if (dashboardData && !error) {
-      sessionStorageCache.set('dashboard-data', dashboardData);
+    if (dashboardData && !error && session?.user?.id) {
+      sessionStorageCache.set('dashboard-data', dashboardData, undefined, session.user.id);
     }
-  }, [dashboardData, error]);
+  }, [dashboardData, error, session]);
+
+  // Show completion message after all checkmarks have been animated
+  useEffect(() => {
+    if (dailyProgress && dailyProgress.sessionsToday >= 1) {
+      // Calculate when the last checkmark animation will complete
+      const lastCheckmarkIndex = dailyProgress.sessionsToday - 1;
+      const lastAnimationDelay = (lastCheckmarkIndex + 0.1) * 300; // matches the animationDelay in render
+      const animationDuration = 300 + 700; // fill animation (300ms) + checkmark animation (700ms)
+      const totalDelay = lastAnimationDelay + animationDuration + 200; // extra 200ms buffer
+      
+      const timer = setTimeout(() => {
+        setShowCompletionMessage(true);
+      }, totalDelay);
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowCompletionMessage(false);
+    }
+  }, [dailyProgress?.sessionsToday]);
 
 
-  // Show loading while checking authentication or fetching data
-  if (status === 'loading' || isLoading) {
+  // Show loading while checking authentication status
+  if (status === 'loading') {
     return <LoadingSpinner />;
   }
 
-  // Redirect to signin if not authenticated
-  if (!session) {
-    return null;
+  // Show loading while fetching data (authenticated users only)
+  if (isAuthenticated && isLoading) {
+    return <LoadingSpinner />;
   }
 
-  // If data is still loading or not available, show loading
-  if (!profile || !dailyProgress) {
+  // For authenticated users, wait for data
+  if (isAuthenticated && (!profile || !dailyProgress)) {
     return <LoadingSpinner />;
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-4 w-20 h-20 rounded-full bg-gradient-to-br from-blue-400/30 to-purple-400/30 blur-xl float-animation"></div>
-      <div className="absolute top-40 right-4 w-32 h-32 rounded-full bg-gradient-to-br from-pink-400/30 to-yellow-400/30 blur-xl float-animation" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-green-400/30 to-blue-400/30 blur-xl float-animation" style={{ animationDelay: '2s' }}></div>
-      
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        {/* Header */}
-        <div className="flex items-center mb-20 sm:mb-40">
-          {/* Left spacer - invisible but takes same space as profile button on desktop */}
-          <div className="hidden sm:flex flex-1 justify-start">
-            <div className="invisible flex items-center gap-3 p-3">
-              <div className="p-2 rounded-xl">
-                <User size={20} />
-              </div>
-              <div>
-                <p className="font-medium">placeholder</p>
-                <p className="text-sm">placeholder@email.com</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Title - centered on desktop, right-aligned on mobile */}
-          <div className="flex-1 sm:flex-none flex items-center justify-end sm:justify-center gap-2 sm:gap-2">
-            {/* <Brain className="text-white/80 w-8 h-8 sm:w-10 sm:h-10" />
-            <h1 className="text-white/80 text-3xl sm:text-4xl font-bold smart-vocab-title whitespace-nowrap ml-2">Smart Vocab</h1> */}
-          </div>
-          
-          {/* Right profile button */}
-          <div className="flex-1 sm:flex-1 flex justify-end ml-4">
-            <button
-              onClick={() => router.push('/progress')}
-              className="flex items-center gap-3 p-3 rounded-xl hover:scale-104 transition-all duration-300 text-left"
-            >
-              <User className="text-white/70 hover:text-white/80" size={30} />
-              <div className="hidden sm:block">
-                <p className="text-white/70 hover:text-white/80 font-bold">{session.user?.name}</p>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        {/* Welcome Header */}
-        <header className="text-center mb-15 sm:mb-5">
-          <h1 className="text-xl sm:text-2xl text-white/70 mb-2 whitespace-nowrap">
-            {/* Animated welcome text */}
-            <span className="inline-block">
-              {'おかえりなさい、'.split('').map((char, index) => (
-                <span
-                  key={index}
-                  className="inline-block animate-fade-in-up opacity-0"
-                  style={{
-                    animationDelay: `${index * 0.05}s`,
-                    animationFillMode: 'forwards'
-                  }}
-                >
-                  {char}
-                </span>
-              ))}
-              <span
-                className="inline-block animate-fade-in-up opacity-0"
-                style={{
-                  animationDelay: `${'おかえりなさい、'.length * 0.05}s`,
-                  animationFillMode: 'forwards'
-                }}
-              >
-                {profile.name}
-              </span>
-              {'さん'.split('').map((char, index) => (
-                <span
-                  key={index + 100}
-                  className="inline-block animate-fade-in-up opacity-0"
-                  style={{
-                    animationDelay: `${('おかえりなさい、'.length + 1 + index) * 0.05}s`,
-                    animationFillMode: 'forwards'
-                  }}
-                >
-                  {char}
-                </span>
-              ))}
-            </span>
-          </h1>
-        </header>
-
-        {/* Today's Progress */}
-        <div 
-          className="mb-10 sm:mb-15 opacity-0 animate-fade-in-up"
-          style={{
-            animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.3}s`,
-            animationFillMode: 'forwards'
-          }}
-        >
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-white/70">今日の進捗</span>
-              <span className="text-white/70">
-                {dailyProgress.wordsStudiedToday} / {dailyProgress.dailyGoal}語
-                {dailyProgress.isGoalReached && <span className="ml-2 text-green-400">✔︎</span>}
-              </span>
-            </div>
-            <div className="w-full bg-white/10 rounded-full h-3">
-              <div 
-                className="bg-gradient-to-r from-blue-400 to-purple-400 h-3 rounded-full transition-all duration-1000 ease-out" 
-                style={{ 
-                  width: showProgressAnimation ? `${dailyProgress.progressPercentage}%` : '0%' 
-                }}
-              ></div>
-            </div>
-            {dailyProgress.sessionsToday > 0 && (
-              <div className="text-center text-white/60 text-sm">
-                完了セッション数: {dailyProgress.sessionsToday} 回
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Start Learning Button */}
-        <div className="flex justify-center items-center">
-          <button
-            onClick={() => router.push('/session')}
-            className="inline-flex items-center justify-center gap-3 glass-light rounded-full px-12 py-5 hover:scale-105 hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-400/20 opacity-0 animate-fade-in-up"
+    <div
+      className="min-h-screen"
+      style={{
+        background: 'linear-gradient(135deg, #f0f8f5 0%, #f8fcfa 100%)'
+      }}
+    >
+      <div className="container mx-auto px-4 py-8">
+        {/* Migration Success Notification */}
+        {showMigrationSuccess && (
+          <div
+            className="mb-6 p-4 rounded-xl border-2"
             style={{
-              animationDelay: `${('おかえりなさい、' + profile.name + 'さん').length * 0.05 + 0.7}s`,
+              backgroundColor: '#d1fae5',
+              borderColor: '#10b981',
+              animation: 'slideInFromTop 0.6s ease-out, slideOutToTop 0.5s ease-in 10.0s forwards',
+              opacity: 0,
               animationFillMode: 'forwards'
             }}
           >
-            <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
-            <span className="text-lg text-white/80 font-medium">学習を開始する</span>
-            <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
+            <div className="flex items-center justify-center gap-3">
+              <div
+                className="flex w-6 h-6 rounded-full items-center justify-center"
+                style={{ backgroundColor: '#10b981' }}
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <p className="text-center test-xs md:text-base" style={{ color: '#059669' }}>
+                ゲストセッションのデータが<br className="sm:hidden" />正常に保存されました
+              </p>
+            </div>
+          </div>
+        )}
+
+        <style jsx>{`
+          @keyframes slideInFromTop {
+            from {
+              transform: translateY(-100%);
+              opacity: 0;
+            }
+            to {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+
+          @keyframes slideOutToTop {
+            from {
+              transform: translateY(0);
+              opacity: 1;
+            }
+            to {
+              transform: translateY(-100%);
+              opacity: 0;
+            }
+          }
+        `}</style>
+
+        {/* Guest Mode Banner */}
+        {!isAuthenticated && <GuestModeBanner />}
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-36">
+          <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#2C3538' }}>
+            Smart Vocab
+          </h1>
+          <button
+            onClick={() => router.push('/progress')}
+            className="flex items-center gap-3 p-3 rounded-sm hover:scale-104 transition-all duration-200"
+            style={{
+              backgroundColor: '#10b981',
+              color: 'white'
+            }}
+          >
+            <User className="w-6 h-6 md:w-9 md:h-9" />
+            {isAuthenticated && (
+              <div className="hidden sm:block">
+                <p className="font-bold text-left text-xl">{session.user.name}</p>
+                <p className="font-bold text-sm">{session.user?.email}</p>
+              </div>
+            )}
           </button>
+        </div>
+
+        {/* Welcome Section */}
+        <div className="text-center mb-12">
+          <h2
+            className="text-2xl md:text-4xl font-bold mb-4"
+            style={{ color: '#686b70ff' }}
+          >
+            おかえりなさい、{isAuthenticated ? session.user.name : 'ゲスト'}さん
+          </h2>
+        </div>
+
+        {/* Session Progress with Checkmarks (authenticated only) */}
+        {isAuthenticated && dailyProgress && (
+          <div className="text-center mb-8">
+            <div className="space-y-4">
+              {/* Checkmarks Progress */}
+              <div className="flex justify-center items-center gap-3 flex-wrap">
+                {Array.from({ length: Math.max(1, dailyProgress.sessionsToday) }, (_, index) => (
+                  <CheckMark
+                    key={index}
+                    isCompleted={index < dailyProgress.sessionsToday}
+                    animationDelay={(index + 0.1) * 450}
+                    size="md"
+                  />
+                ))}
+              </div>
+
+              {/* Message area - always reserve space */}
+              <div className="h-8 flex items-center justify-center">
+                <TypewriterText
+                  text="今日の目標は完了です...!"
+                  show={showCompletionMessage}
+                  speed={80}
+                  className="font-bold"
+                  style={{ color: '#10b981' }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Start Learning Button */}
+        <div className="flex justify-center mb-24">
+          <button
+            onClick={() => router.push('/session')}
+            className="px-8 py-4 rounded-full font-bold transition-all duration-200 hover:scale-105 active:scale-95 text-lg"
+            style={{
+              backgroundColor: '#10b981',
+              color: 'white'
+            }}
+          >
+            セッションを始める
+          </button>
+        </div>
+
+        {/* Flowing Word Cards */}
+        <div className="relative overflow-hidden bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <h3 className="text-xl font-bold mb-4" style={{ color: '#2C3538' }}>
+            今日の単語
+          </h3>
+          <div className="relative h-32 overflow-hidden">
+            <div className="flex animate-seamless-scroll space-x-4 absolute">
+              {(() => {
+                // Define base word list
+                const words = [
+                  { english: "accomplish", japanese: "達成する", phonetic: "/əˈkʌmplɪʃ/" },
+                  { english: "magnificent", japanese: "素晴らしい", phonetic: "/mæɡˈnɪfɪsənt/" },
+                  { english: "perseverance", japanese: "忍耐力", phonetic: "/ˌpɜːrsəˈvɪrəns/" },
+                  { english: "brilliant", japanese: "優秀な", phonetic: "/ˈbrɪljənt/" },
+                  { english: "curiosity", japanese: "好奇心", phonetic: "/ˌkjʊriˈɒsɪti/" },
+                  { english: "adventure", japanese: "冒険", phonetic: "/ədˈventʃər/" },
+                  { english: "knowledge", japanese: "知識", phonetic: "/ˈnɒlɪdʒ/" },
+                  { english: "discover", japanese: "発見する", phonetic: "/dɪˈskʌvər/" },
+                ];
+                
+                // Duplicate for seamless scrolling - this is a standard technique
+                const doubledWords = [...words, ...words];
+                
+                return doubledWords.map((word, index) => (
+                  <div 
+                    key={index}
+                    className="bg-gray-50 rounded-xl p-4 w-48 border flex-shrink-0"
+                    style={{ borderColor: '#f0f8f5' }}
+                  >
+                    <div className="text-center space-y-2">
+                      <h4 className="font-bold text-lg" style={{ color: '#2C3538' }}>
+                        {word.english}
+                      </h4>
+                      <p className="text-sm" style={{ color: '#6B7280' }}>
+                        {word.phonetic}
+                      </p>
+                      <p className="font-bold" style={{ color: '#10b981' }}>
+                        {word.japanese}
+                      </p>
+                    </div>
+                  </div>
+                ));
+              })()}
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <DashboardContent />
+    </Suspense>
   );
 }

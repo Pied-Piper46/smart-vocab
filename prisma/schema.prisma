@@ -19,6 +19,7 @@ model User {
   email          String   @unique
   emailVerified  DateTime?
   hashedPassword String?
+  image          String?
 
   // Relations
   progress      WordProgress[]

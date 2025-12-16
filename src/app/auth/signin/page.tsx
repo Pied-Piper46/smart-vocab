@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { COLORS } from '@/styles/colors';
+import { loadSession, clearSession, migrateGuestSession } from '@/lib/session-storage';
 
 function SignInForm() {
   const [email, setEmail] = useState('');
@@ -12,6 +14,7 @@ function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = useSession();
 
   // Check for error parameter in URL
   useEffect(() => {
@@ -36,7 +39,51 @@ function SignInForm() {
       if (result?.error) {
         setError('メールアドレスまたはパスワードが正しくありません');
       } else if (result?.ok) {
-        router.push('/dashboard');
+        // First, migrate guest session to authenticated key if exists
+        await migrateGuestSession();
+
+        // Wait for session to be established to get userId
+        // Use a small delay to ensure session is available
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Get userId from the newly established session
+        const userId = session?.user?.id;
+
+        // Check if there's a session to migrate (from guest or signup)
+        const sessionToMigrate = loadSession(true, userId);
+
+        if (sessionToMigrate && sessionToMigrate.answers.length > 0) {
+          console.log('✅ Found session to migrate, saving to server...');
+
+          try {
+            // Save the session to the server
+            const saveResponse = await fetch('/api/sessions/complete', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                wordsStudied: sessionToMigrate.stats.wordsStudied,
+                answers: sessionToMigrate.answers,
+              }),
+            });
+
+            if (saveResponse.ok) {
+              console.log('✅ Session saved successfully');
+              clearSession(true, userId); // Clear the migrated session
+              router.push('/dashboard?migrated=true');
+            } else {
+              console.error('❌ Failed to save session');
+              router.push('/dashboard');
+            }
+          } catch (error) {
+            console.error('❌ Error saving session:', error);
+            router.push('/dashboard');
+          }
+        } else {
+          // No session to migrate, proceed normally
+          router.push('/dashboard');
+        }
       }
     } catch {
       setError('ログインに失敗しました');
@@ -46,17 +93,41 @@ function SignInForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="glass-strong rounded-3xl p-10 w-full max-w-md">
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{
+        background: 'linear-gradient(135deg, #f0f8f5 0%, #f8fcfa 100%)'
+      }}
+    >
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 w-full max-w-md">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-white/80 mb-4 smart-vocab-title">Smart Vocab</h1>
-          <h2 className="text-2xl text-white/80 mb-2 font-bold">ログイン</h2>
-          <p className="text-sm text-white/80">アカウントにサインインしてください</p>
+          <h1
+            className="text-4xl font-bold mb-4"
+            style={{ color: COLORS.text }}
+          >
+            Smart Vocab
+          </h1>
+          <h2
+            className="text-2xl mb-2 font-bold"
+            style={{ color: COLORS.text }}
+          >
+            LOGIN
+          </h2>
+          <p
+            className="text-sm"
+            style={{ color: COLORS.textLight }}
+          >
+            アカウントにログインしてください
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium mb-2"
+              style={{ color: COLORS.text }}
+            >
               メールアドレス
             </label>
             <input
@@ -65,13 +136,30 @@ function SignInForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white placeholder-white/50"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none transition-all"
+              style={{
+                color: COLORS.text,
+                backgroundColor: COLORS.bgGray,
+                borderColor: COLORS.border
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = COLORS.primary;
+                e.target.style.boxShadow = `0 0 0 3px ${COLORS.primary}33`;
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = COLORS.border;
+                e.target.style.boxShadow = 'none';
+              }}
               placeholder="your.email@example.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium mb-2"
+              style={{ color: COLORS.text }}
+            >
               パスワード
             </label>
             <input
@@ -80,30 +168,73 @@ function SignInForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="glass-input w-full p-4 rounded-xl text-white mb-4"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none transition-all"
+              style={{
+                color: COLORS.text,
+                backgroundColor: COLORS.bgGray,
+                borderColor: COLORS.border
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = COLORS.primary;
+                e.target.style.boxShadow = `0 0 0 3px ${COLORS.primary}33`;
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = COLORS.border;
+                e.target.style.boxShadow = 'none';
+              }}
             />
           </div>
 
           {error && (
-            <div className="glass rounded-xl p-4 border-red-500/30">
-              <p className="text-red-200 text-sm text-center">{error}</p>
+            <div
+              className="rounded-xl p-4 border"
+              style={{
+                backgroundColor: '#fee2e2',
+                borderColor: '#fecaca'
+              }}
+            >
+              <p
+                className="text-sm text-center"
+                style={{ color: COLORS.error }}
+              >
+                {error}
+              </p>
             </div>
           )}
 
           <button
             type="submit"
             disabled={isLoading}
-            className="glass-light w-full py-4 rounded-xl text-white font-bold text-lg hover:scale-105 transition-all duration-300 disabled:opacity-50"
+            className="w-full py-4 rounded-full font-bold text-lg transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-85 disabled:cursor-not-allowed"
+            style={{
+              backgroundColor: COLORS.primary,
+              color: 'white'
+            }}
           >
-            {isLoading ? 'ログイン中...' : 'ログイン'}
+            {isLoading ? (
+              <span className="flex items-center justify-center gap-2">
+                ログイン中
+                <span className="flex gap-1">
+                  <span className="animate-pulse" style={{ animationDelay: '0ms' }}>.</span>
+                  <span className="animate-pulse" style={{ animationDelay: '150ms' }}>.</span>
+                  <span className="animate-pulse" style={{ animationDelay: '300ms' }}>.</span>
+                </span>
+              </span>
+            ) : (
+              'ログイン'
+            )}
           </button>
         </form>
 
         <div className="mt-8 text-center">
-          <p className="text-white/70">
+          <p style={{ color: COLORS.textLight }}>
             アカウントをお持ちでないですか？{' '}
-            <Link href="/auth/signup" className="text-blue-300 hover:text-blue-200 font-medium">
-              新規登録
+            <Link
+              href="/auth/signup"
+              className="font-medium hover:underline"
+              style={{ color: COLORS.primary }}
+            >
+              SIGNUP
             </Link>
           </p>
         </div>
