@@ -223,7 +223,7 @@ function SignInForm() {
               className="font-medium hover:underline"
               style={{ color: COLORS.primary }}
             >
-              SIGNUP→
+              SIGNUP
             </Link>
           </p>
         </div>

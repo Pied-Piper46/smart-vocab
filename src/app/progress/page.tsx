@@ -68,7 +68,7 @@ function LoginPromptOverlay() {
           className="w-full mt-4 text-sm transition-all duration-200 hover:underline"
           style={{ color: COLORS.textLight }}
         >
-          ← ゲストとして学習を続ける
+          ゲストとして学習を続ける
         </button>
       </div>
     </div>

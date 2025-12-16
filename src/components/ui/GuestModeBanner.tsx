@@ -29,11 +29,12 @@ export default function GuestModeBanner() {
           onClick={() => router.push('/auth/signup')}
           className="px-4 py-2 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-105"
           style={{
-            backgroundColor: COLORS.primary,
+            backgroundColor: '#f59e0b',
             color: 'white'
           }}
         >
-          登録して保存
+          <span className="hidden sm:inline">登録して保存する</span>
+          <span className="inline sm:hidden">保存</span>
         </button>
       </div>
     </div>

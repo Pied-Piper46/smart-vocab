@@ -276,7 +276,7 @@ export default function SignUpPage() {
               className="font-medium hover:underline bg-transparent border-none cursor-pointer"
               style={{ color: COLORS.primary }}
             >
-              LOGIN→
+              LOGIN
             </button>
           </p>
         </div>

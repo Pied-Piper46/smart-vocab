@@ -98,7 +98,7 @@ export default function SessionFeedbackComponent({
               >
                 <LogIn size={32} style={{ color: COLORS.primary }} />
               </div>
-              <h3 className="text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
+              <h3 className="text-lg md:text-2xl font-bold mb-2" style={{ color: COLORS.text }}>
                 学習結果を保存しますか？
               </h3>
               <p className="text-sm" style={{ color: COLORS.textLight }}>
@@ -204,7 +204,8 @@ export default function SessionFeedbackComponent({
             }}
           >
             <X size={20} />
-            保存せずに続ける
+            <span className="hidden sm:inline">保存せずに続ける</span>
+            <span className="inline sm:hidden">保存しない</span>
           </button>
           <button
             onClick={handleLoginAndSave}
@@ -215,7 +216,8 @@ export default function SessionFeedbackComponent({
             }}
           >
             <LogIn size={20} />
-            ログインして保存
+            <span className="hidden sm:inline">ログインして保存</span>
+            <span className="inline sm:hidden">保存</span>
           </button>
         </div>
       ) : (
