@@ -263,7 +263,13 @@ export default function SessionManager({
     // Note: Progress is NOT saved to maintain data consistency
     // Reason: 1 session = 10 words fixed structure
     // Partial progress would break this constraint
-    // Session data is saved to localStorage for resume feature
+
+    // For guest users: clear localStorage to prevent incomplete data from being saved on login
+    // For authenticated users: keep localStorage for resume feature
+    if (!isAuthenticated) {
+      console.log('🗑️ Guest user exit - clearing incomplete session data');
+      clearSession(false);
+    }
 
     setShowExitDialog(false);
     window.location.href = '/dashboard';

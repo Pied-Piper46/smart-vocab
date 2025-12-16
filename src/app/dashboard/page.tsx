@@ -9,7 +9,6 @@ import TypewriterText from '@/components/ui/TypewriterText';
 import GuestModeBanner from '@/components/ui/GuestModeBanner';
 import { useDashboardData } from '@/lib/swr-config';
 import { sessionStorageCache } from '@/lib/dashboard-cache';
-import { discardGuestSessionIfNeeded } from '@/lib/session-storage';
 
 const CheckMark = ({ 
   isCompleted, 
@@ -126,13 +125,6 @@ function DashboardContent() {
       return () => clearTimeout(timer);
     }
   }, [searchParams, router]);
-
-  // Discard guest session when returning to dashboard
-  useEffect(() => {
-    if (!isAuthenticated) {
-      discardGuestSessionIfNeeded(false);
-    }
-  }, [isAuthenticated]);
 
   // Handle SWR errors (e.g., authentication issues, user not found)
   useEffect(() => {

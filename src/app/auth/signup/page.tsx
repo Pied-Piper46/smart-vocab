@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { COLORS } from '@/styles/colors';
-import { migrateGuestSession } from '@/lib/session-storage';
 
 export default function SignUpPage() {
   const { data: session } = useSession();
@@ -69,16 +68,9 @@ export default function SignUpPage() {
       const data = await response.json();
 
       if (data.success) {
-        // Migrate guest session to authenticated key for future login
-        const migrated = await migrateGuestSession();
-
-        if (migrated) {
-          console.log('✅ Guest session migrated to authenticated key');
-          router.push('/auth/signin?message=アカウントが作成されました。ログインしてください。');
-        } else {
-          // No guest session to migrate, proceed normally
-          router.push('/auth/signin?message=アカウントが作成されました。ログインしてください。');
-        }
+        // Redirect to signin page
+        // Guest session migration will be handled on signin page
+        router.push('/auth/signin?message=アカウントが作成されました。ログインしてください。');
       } else {
         setError(data.error || 'アカウントの作成に失敗しました');
       }

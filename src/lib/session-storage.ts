@@ -10,6 +10,9 @@ import type { WordData } from '@/lib/api-client';
 const AUTH_SESSION_PREFIX = 'smart-vocab-session-resume';
 const GUEST_SESSION_KEY = 'smart-vocab-guest-session';
 
+// Guest session expiry time (24 hours in milliseconds)
+const GUEST_SESSION_EXPIRY = 24 * 60 * 60 * 1000;
+
 /**
  * Get storage key based on authentication status and user ID
  * For authenticated users, include userId to prevent cross-user data leakage
@@ -48,13 +51,30 @@ export function saveSession(session: SavedSession, isAuthenticated: boolean = tr
 
 /**
  * Load saved session from localStorage
+ * For guest sessions, check expiry and delete if expired
  */
 export function loadSession(isAuthenticated: boolean = true, userId?: string): SavedSession | null {
   try {
     const key = getStorageKey(isAuthenticated, userId);
     const saved = localStorage.getItem(key);
     if (!saved) return null;
-    return JSON.parse(saved) as SavedSession;
+
+    const session = JSON.parse(saved) as SavedSession;
+
+    // Check expiry for guest sessions only
+    if (!isAuthenticated) {
+      const sessionStartTime = new Date(session.startedAt).getTime();
+      const now = Date.now();
+      const sessionAge = now - sessionStartTime;
+
+      if (sessionAge > GUEST_SESSION_EXPIRY) {
+        console.log('🗑️ Guest session expired (older than 24 hours), removing...');
+        clearSession(false);
+        return null;
+      }
+    }
+
+    return session;
   } catch (error) {
     console.error('Failed to load session from localStorage:', error);
     return null;

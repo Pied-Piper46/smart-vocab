@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { COLORS } from '@/styles/colors';
-import { loadSession, clearSession } from '@/lib/session-storage';
+import { loadSession, clearSession, migrateGuestSession } from '@/lib/session-storage';
 
 function SignInForm() {
   const [email, setEmail] = useState('');
@@ -14,6 +14,7 @@ function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = useSession();
 
   // Check for error parameter in URL
   useEffect(() => {
@@ -38,39 +39,49 @@ function SignInForm() {
       if (result?.error) {
         setError('メールアドレスまたはパスワードが正しくありません');
       } else if (result?.ok) {
-        // Check if there's a migrated session from signup
-        const migratedSession = loadSession(true); // Load from authenticated key
+        // First, migrate guest session to authenticated key if exists
+        await migrateGuestSession();
 
-        if (migratedSession && migratedSession.answers.length > 0) {
-          console.log('✅ Found migrated session, saving to server...');
+        // Wait for session to be established to get userId
+        // Use a small delay to ensure session is available
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Get userId from the newly established session
+        const userId = session?.user?.id;
+
+        // Check if there's a session to migrate (from guest or signup)
+        const sessionToMigrate = loadSession(true, userId);
+
+        if (sessionToMigrate && sessionToMigrate.answers.length > 0) {
+          console.log('✅ Found session to migrate, saving to server...');
 
           try {
-            // Save the migrated session to the server
+            // Save the session to the server
             const saveResponse = await fetch('/api/sessions/complete', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                wordsStudied: migratedSession.stats.wordsStudied,
-                answers: migratedSession.answers,
+                wordsStudied: sessionToMigrate.stats.wordsStudied,
+                answers: sessionToMigrate.answers,
               }),
             });
 
             if (saveResponse.ok) {
-              console.log('✅ Migrated session saved successfully');
-              clearSession(true); // Clear the migrated session
+              console.log('✅ Session saved successfully');
+              clearSession(true, userId); // Clear the migrated session
               router.push('/dashboard?migrated=true');
             } else {
-              console.error('❌ Failed to save migrated session');
+              console.error('❌ Failed to save session');
               router.push('/dashboard');
             }
           } catch (error) {
-            console.error('❌ Error saving migrated session:', error);
+            console.error('❌ Error saving session:', error);
             router.push('/dashboard');
           }
         } else {
-          // No migrated session, proceed normally
+          // No session to migrate, proceed normally
           router.push('/dashboard');
         }
       }
