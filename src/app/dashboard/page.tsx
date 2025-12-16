@@ -120,7 +120,7 @@ function DashboardContent() {
       const timer = setTimeout(() => {
         setShowMigrationSuccess(false);
         router.replace('/dashboard');
-      }, 5000); // Show for 5 seconds
+      }, 10000); // Show for 5 seconds
 
       return () => clearTimeout(timer);
     }
@@ -200,17 +200,63 @@ function DashboardContent() {
         {/* Migration Success Notification */}
         {showMigrationSuccess && (
           <div
-            className="mb-6 p-4 rounded-xl border-2 animate-fade-in"
+            className="mb-6 p-4 rounded-xl border-2"
             style={{
               backgroundColor: '#d1fae5',
-              borderColor: '#10b981'
+              borderColor: '#10b981',
+              animation: 'slideInFromTop 0.6s ease-out, slideOutToTop 0.5s ease-in 10.0s forwards',
+              opacity: 0,
+              animationFillMode: 'forwards'
             }}
           >
-            <p className="text-center font-semibold" style={{ color: '#059669' }}>
-              ✅ ゲストセッションのデータを保存しました！
-            </p>
+            <div className="flex items-center justify-center gap-3">
+              <div
+                className="flex w-6 h-6 rounded-full items-center justify-center"
+                style={{ backgroundColor: '#10b981' }}
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <p className="text-center test-xs md:text-base" style={{ color: '#059669' }}>
+                ゲストセッションのデータが<br className="sm:hidden" />正常に保存されました
+              </p>
+            </div>
           </div>
         )}
+
+        <style jsx>{`
+          @keyframes slideInFromTop {
+            from {
+              transform: translateY(-100%);
+              opacity: 0;
+            }
+            to {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+
+          @keyframes slideOutToTop {
+            from {
+              transform: translateY(0);
+              opacity: 1;
+            }
+            to {
+              transform: translateY(-100%);
+              opacity: 0;
+            }
+          }
+        `}</style>
 
         {/* Guest Mode Banner */}
         {!isAuthenticated && <GuestModeBanner />}

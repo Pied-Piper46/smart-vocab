@@ -22,7 +22,6 @@ export default function SessionFeedbackComponent({
   onGoHome
 }: SessionFeedbackProps) {
   const [showMessage, setShowMessage] = useState(false);
-  const [showGuestPrompt, setShowGuestPrompt] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
   const isGuest = !session;
@@ -47,16 +46,6 @@ export default function SessionFeedbackComponent({
     return () => clearTimeout(timer);
   }, []);
 
-  // Show guest prompt for guest users
-  useEffect(() => {
-    if (isGuest) {
-      const timer = setTimeout(() => {
-        setShowGuestPrompt(true);
-      }, 1000); // Show prompt after feedback is displayed
-      return () => clearTimeout(timer);
-    }
-  }, [isGuest]);
-
   const handleLoginAndSave = () => {
     // Redirect to signin page, guest session will be migrated there
     router.push('/auth/signin');
@@ -65,7 +54,6 @@ export default function SessionFeedbackComponent({
   const handleContinueWithoutSaving = () => {
     // Delete guest session immediately
     clearSession(false);
-    setShowGuestPrompt(false);
     // Go back to home
     onGoHome();
   };
@@ -98,91 +86,11 @@ export default function SessionFeedbackComponent({
         </div>
       </div>
 
-      {/* Status Changes */}
-      <div className="space-y-4 mb-8">
-        {/* レベルアップした単語 */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h4 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: COLORS.text }}>
-            <TrendingUp style={{ color: COLORS.primary }} size={20} />
-            レベルアップした単語
-          </h4>
-          {feedback.statusChanges.upgrades.length > 0 ? (
-            <div className="space-y-3">
-              {feedback.statusChanges.upgrades.map((change, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between py-3 px-4 rounded-lg"
-                  style={{ backgroundColor: COLORS.accent }}
-                >
-                  <div>
-                    <div className="font-bold" style={{ color: COLORS.text }}>
-                      {change.english}
-                    </div>
-                    <div className="text-sm" style={{ color: COLORS.textLight }}>
-                      {change.japanese}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <StatusBadge status={change.from} size="sm" />
-                    <ArrowRight size={16} style={{ color: COLORS.textLight }} />
-                    <StatusBadge status={change.to} size="sm" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <div style={{ color: COLORS.textMuted }}>
-                レベルアップした単語はありません
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* レベルダウンした単語 */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h4 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: COLORS.text }}>
-            <TrendingDown style={{ color: COLORS.warning }} size={20} />
-            レベルダウンした単語
-          </h4>
-          {feedback.statusChanges.downgrades.length > 0 ? (
-            <div className="space-y-3">
-              {feedback.statusChanges.downgrades.map((change, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between py-3 px-4 rounded-lg"
-                  style={{ backgroundColor: COLORS.accent }}
-                >
-                  <div>
-                    <div className="font-bold" style={{ color: COLORS.text }}>
-                      {change.english}
-                    </div>
-                    <div className="text-sm" style={{ color: COLORS.textLight }}>
-                      {change.japanese}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <StatusBadge status={change.from} size="sm" />
-                    <ArrowRight size={16} style={{ color: COLORS.textLight }} />
-                    <StatusBadge status={change.to} size="sm" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <div style={{ color: COLORS.textMuted }}>
-                レベルダウンした単語はありません
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Guest User Login Prompt */}
-      {showGuestPrompt && isGuest && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full animate-fade-in">
+      {/* Conditional Content: Guest Prompt or Status Changes */}
+      {isGuest ? (
+        /* Guest User: Login Prompt Banner */
+        <div className="mb-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
             <div className="text-center mb-6">
               <div
                 className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
@@ -197,62 +105,147 @@ export default function SessionFeedbackComponent({
                 ログインすると、今回の学習結果を保存して進捗を管理できます
               </p>
             </div>
+          </div>
+        </div>
+      ) : (
+        /* Authenticated User: Status Changes */
+        <div className="space-y-4 mb-8">
+          {/* レベルアップした単語 */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h4 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: COLORS.text }}>
+              <TrendingUp style={{ color: COLORS.primary }} size={20} />
+              レベルアップした単語
+            </h4>
+            {feedback.statusChanges.upgrades.length > 0 ? (
+              <div className="space-y-3">
+                {feedback.statusChanges.upgrades.map((change, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between py-3 px-4 rounded-lg"
+                    style={{ backgroundColor: COLORS.accent }}
+                  >
+                    <div>
+                      <div className="font-bold" style={{ color: COLORS.text }}>
+                        {change.english}
+                      </div>
+                      <div className="text-sm" style={{ color: COLORS.textLight }}>
+                        {change.japanese}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <StatusBadge status={change.from} size="sm" />
+                      <ArrowRight size={16} style={{ color: COLORS.textLight }} />
+                      <StatusBadge status={change.to} size="sm" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div style={{ color: COLORS.textMuted }}>
+                  レベルアップした単語はありません
+                </div>
+              </div>
+            )}
+          </div>
 
-            <div className="space-y-3">
-              <button
-                onClick={handleLoginAndSave}
-                className="w-full py-4 rounded-full font-bold text-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
-                style={{
-                  backgroundColor: COLORS.primary,
-                  color: 'white'
-                }}
-              >
-                <LogIn size={20} />
-                ログインして保存
-              </button>
-              <button
-                onClick={handleContinueWithoutSaving}
-                className="w-full py-4 rounded-full font-semibold text-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2 border-2"
-                style={{
-                  borderColor: COLORS.border,
-                  color: COLORS.textLight,
-                  backgroundColor: 'transparent'
-                }}
-              >
-                <X size={20} />
-                保存せずに続ける
-              </button>
-            </div>
+          {/* レベルダウンした単語 */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h4 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: COLORS.text }}>
+              <TrendingDown style={{ color: COLORS.warning }} size={20} />
+              レベルダウンした単語
+            </h4>
+            {feedback.statusChanges.downgrades.length > 0 ? (
+              <div className="space-y-3">
+                {feedback.statusChanges.downgrades.map((change, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between py-3 px-4 rounded-lg"
+                    style={{ backgroundColor: COLORS.accent }}
+                  >
+                    <div>
+                      <div className="font-bold" style={{ color: COLORS.text }}>
+                        {change.english}
+                      </div>
+                      <div className="text-sm" style={{ color: COLORS.textLight }}>
+                        {change.japanese}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <StatusBadge status={change.from} size="sm" />
+                      <ArrowRight size={16} style={{ color: COLORS.textLight }} />
+                      <StatusBadge status={change.to} size="sm" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div style={{ color: COLORS.textMuted }}>
+                  レベルダウンした単語はありません
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
 
       {/* Action Buttons */}
-      <div className="flex justify-center gap-4 mb-20">
-        <button
-          onClick={onGoHome}
-          className="flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
-          style={{
-            borderColor: COLORS.primary,
-            color: COLORS.primary,
-            backgroundColor: 'transparent'
-          }}
-        >
-          <Home size={20} />
-          ホームへ
-        </button>
-        <button
-          onClick={onStartNewSession}
-          className="flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
-          style={{
-            backgroundColor: COLORS.primary,
-            color: 'white'
-          }}
-        >
-          <RefreshCw size={20} />
-          もう一度
-        </button>
-      </div>
+      {isGuest ? (
+        /* Guest User: Login Prompt Buttons */
+        <div className="flex justify-center gap-4 mb-20">
+          <button
+            onClick={handleContinueWithoutSaving}
+            className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
+            style={{
+              borderColor: COLORS.border,
+              color: COLORS.textLight,
+              backgroundColor: 'transparent'
+            }}
+          >
+            <X size={20} />
+            保存せずに続ける
+          </button>
+          <button
+            onClick={handleLoginAndSave}
+            className="flex items-center gap-2 px-8 py-3 rounded-full font-bold transition-all duration-200 hover:scale-105"
+            style={{
+              backgroundColor: COLORS.primary,
+              color: 'white'
+            }}
+          >
+            <LogIn size={20} />
+            ログインして保存
+          </button>
+        </div>
+      ) : (
+        /* Authenticated User: Standard Buttons */
+        <div className="flex justify-center gap-4 mb-20">
+          <button
+            onClick={onGoHome}
+            className="flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
+            style={{
+              borderColor: COLORS.primary,
+              color: COLORS.primary,
+              backgroundColor: 'transparent'
+            }}
+          >
+            <Home size={20} />
+            ホームへ
+          </button>
+          <button
+            onClick={onStartNewSession}
+            className="flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
+            style={{
+              backgroundColor: COLORS.primary,
+              color: 'white'
+            }}
+          >
+            <RefreshCw size={20} />
+            もう一度
+          </button>
+        </div>
+      )}
     </div>
   );
 }
