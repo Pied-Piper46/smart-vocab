@@ -258,7 +258,7 @@ export default function SignUpPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-4 rounded-full font-bold text-lg transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 rounded-full font-bold text-lg transition-all duration-200 hover:scale-102 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               backgroundColor: COLORS.primary,
               color: 'white'
@@ -273,7 +273,7 @@ export default function SignUpPage() {
             すでにアカウントをお持ちですか？{' '}
             <button
               onClick={handleLoginClick}
-              className="font-medium hover:underline bg-transparent border-none cursor-pointer"
+              className="font-medium underline bg-transparent border-none cursor-pointer"
               style={{ color: COLORS.primary }}
             >
               LOGIN

@@ -205,7 +205,7 @@ function SignInForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-4 rounded-full font-bold text-lg transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-85 disabled:cursor-not-allowed"
+            className="w-full py-4 rounded-full font-bold text-lg transition-all duration-200 hover:scale-102 active:scale-95 disabled:opacity-85 disabled:cursor-not-allowed"
             style={{
               backgroundColor: COLORS.primary,
               color: 'white'
@@ -231,7 +231,7 @@ function SignInForm() {
             アカウントをお持ちでないですか？{' '}
             <Link
               href="/auth/signup"
-              className="font-medium hover:underline"
+              className="font-medium underline hover:scale-102"
               style={{ color: COLORS.primary }}
             >
               SIGNUP

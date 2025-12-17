@@ -262,7 +262,7 @@ function DashboardContent() {
         {!isAuthenticated && <GuestModeBanner />}
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-36">
+        <div className="flex items-center justify-between mb-24 md:mb-36">
           <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#2C3538' }}>
             Smart Vocab
           </h1>

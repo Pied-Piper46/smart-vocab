@@ -50,14 +50,14 @@ function LoginPromptOverlay() {
         <div className="flex flex-col gap-3">
           <button
             onClick={() => router.push('/auth/signin')}
-            className="flex-1 py-3 rounded-full font-semibold border-2 transition-all duration-200 hover:scale-105"
+            className="flex-1 py-3 rounded-full font-semibold border-2 transition-all duration-200 hover:scale-102"
             style={{ borderColor: COLORS.primary, color: COLORS.primary }}
           >
             ログイン
           </button>
           <button
             onClick={() => router.push('/auth/signup')}
-            className="flex-1 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
+            className="flex-1 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-102"
             style={{ backgroundColor: COLORS.primary, color: 'white' }}
           >
             新規登録
@@ -65,7 +65,7 @@ function LoginPromptOverlay() {
         </div>
         <button
           onClick={() => router.push('/dashboard')}
-          className="w-full mt-4 text-sm transition-all duration-200 hover:underline"
+          className="w-full mt-4 text-sm transition-all duration-200 underline hover:scale-102"
           style={{ color: COLORS.textLight }}
         >
           ゲストとして学習を続ける
@@ -83,6 +83,18 @@ export default function ProgressPage() {
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [currentHistoryMonth, setCurrentHistoryMonth] = useState(new Date());
   const isAuthenticated = !!session;
+
+  // Prevent body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSidebarOpen]);
 
   // SWR hooks for efficient data fetching and caching (only for authenticated users)
   const { data: analytics, error: analyticsError, isLoading: isLoadingAnalytics } = useAnalyticsData(isAuthenticated);
@@ -237,9 +249,9 @@ export default function ProgressPage() {
         lg:w-80 lg:h-screen lg:bg-white lg:border-r lg:border-gray-100 lg:shadow-sm lg:rounded-none lg:left-0
         w-[calc(100%-6rem)] max-w-sm h-[calc(100vh-6rem)] top-20 left-4
         bg-white rounded-2xl shadow-2xl border border-gray-100
-        z-20 pt-6 lg:pt-8 flex flex-col overflow-y-auto
+        z-50 pt-6 lg:pt-8 flex flex-col
       `}>
-        <div className="p-6 flex-1 flex flex-col">
+        <div className="p-6 flex-1 flex flex-col overflow-y-auto">
           <nav className="space-y-2 flex-1">
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -293,8 +305,8 @@ export default function ProgressPage() {
 
       {/* Overlay for mobile */}
       {isSidebarOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/50 z-10"
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}

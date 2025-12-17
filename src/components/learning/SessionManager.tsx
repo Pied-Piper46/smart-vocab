@@ -12,7 +12,7 @@ import { calculateSessionProgressClient, type CurrentProgress, type ClientProgre
 import type { MasteryStatus } from '@/lib/mastery';
 import { saveSession, loadSession, clearSession, hasSavedSession, addSessionAnswer, discardGuestSessionIfNeeded } from '@/lib/session-storage';
 import { COLORS } from '@/styles/colors';
-import { RefreshCw, Plus } from 'lucide-react';
+import { RefreshCw, Plus, X } from 'lucide-react';
 
 export interface SessionFeedback {
   totalWords: number;
@@ -479,14 +479,15 @@ export default function SessionManager({
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={handleGoHome}
-          className="flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:scale-105 border-2"
+          className="flex items-center gap-1 p-1 sm:px-4 sm:py-2 text-sm rounded-full font-medium transition-all duration-200 hover:scale-105 border-2"
           style={{
             borderColor: '#6B7280',
             color: '#6B7280',
             backgroundColor: 'transparent'
           }}
         >
-          × 中断
+          <X size={16} />
+          <span className="hidden sm:inline">中断</span>
         </button>
       </div>
 
