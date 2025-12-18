@@ -44,7 +44,11 @@ export default function WordCard({ word, mode, onAnswer }: WordCardProps) {
 
   const renderStatusBadge = () => {
     const status = word.progress?.status || 'new';
-    return <StatusBadge status={status} />;
+    return (
+      <div className='mt-1.5'>
+        <StatusBadge status={status} />
+      </div>
+    )
   };
   
   const formatLastReview = (dateString: string) => {

@@ -243,15 +243,22 @@ export default function ProgressPage() {
 
       {/* Sidebar */}
       <div className={`
-        fixed lg:sticky lg:top-0 transition-all duration-300 ease-in-out
-        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-[calc(100%+3rem)]'}
+        fixed lg:sticky lg:top-0
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-[calc(100%+1rem)]'}
         lg:translate-x-0
-        lg:w-80 lg:h-screen lg:bg-white lg:border-r lg:border-gray-100 lg:shadow-sm lg:rounded-none lg:left-0
-        w-[calc(100%-6rem)] max-w-sm h-[calc(100vh-6rem)] top-20 left-4
-        bg-white rounded-2xl shadow-2xl border border-gray-100
-        z-50 pt-6 lg:pt-8 flex flex-col
+
+        top-20 bottom-20 left-4 right-auto lg:inset-y-0 lg:inset-x-0
+        w-[calc(100%-6rem)] max-w-sm lg:max-w-none lg:w-80
+
+        bg-white rounded-2xl lg:rounded-none
+        shadow-2xl lg:shadow-sm
+        border border-gray-100 lg:border-r lg:border-y-0 lg:border-l-0
+
+        z-50 lg:z-0
+        flex flex-col overflow-hidden
+        transition-transform duration-300 ease-in-out
       `}>
-        <div className="p-6 flex-1 flex flex-col overflow-y-auto">
+        <div className="px-6 py-8 flex-1 flex flex-col overflow-y-auto">
           <nav className="space-y-2 flex-1">
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -284,7 +291,7 @@ export default function ProgressPage() {
           <div className="space-y-2 pt-4 border-t border-gray-100">
             <button
               onClick={handleHomeClick}
-              className="w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-left hover:bg-gray-50"
+              className="w-full flex items-center gap-3 p-2 rounded-xl transition-all duration-200 text-left hover:bg-gray-50"
               style={{ color: COLORS.textLight }}
             >
               <Home size={20} />
@@ -293,7 +300,7 @@ export default function ProgressPage() {
 
             <button
               onClick={handleLogoutClick}
-              className="w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-left hover:bg-red-50"
+              className="w-full flex items-center gap-3 p-2 rounded-xl transition-all duration-200 text-left hover:bg-red-50"
               style={{ color: COLORS.error }}
             >
               <LogOut size={20} />
@@ -325,10 +332,10 @@ export default function ProgressPage() {
       {showLogoutDialog && (
         <>
           <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] transition-opacity duration-300"
             onClick={handleLogoutCancel}
           />
-          <div className="fixed inset-0 flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 flex items-center justify-center p-4 z-[70]">
             <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 scale-100 transition-all duration-300">
               <div className="text-center mb-6">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ backgroundColor: '#fee2e2' }}>

@@ -9,6 +9,7 @@ import { COLORS } from '@/styles/colors';
 import StatusBadge from '@/components/ui/StatusBadge';
 import TypewriterText from '@/components/ui/TypewriterText';
 import { clearSession } from '@/lib/session-storage';
+import { getMasteryDisplayInfo } from '@/lib/mastery';
 
 interface SessionFeedbackProps {
   feedback: SessionFeedback;
@@ -124,7 +125,7 @@ export default function SessionFeedbackComponent({
                     className="flex items-center justify-between py-3 px-4 rounded-lg"
                     style={{ backgroundColor: COLORS.accent }}
                   >
-                    <div>
+                    <div className="flex-1">
                       <div className="font-bold" style={{ color: COLORS.text }}>
                         {change.english}
                       </div>
@@ -132,7 +133,20 @@ export default function SessionFeedbackComponent({
                         {change.japanese}
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+
+                    {/* Mobile: Color dot + text */}
+                    <div className="flex sm:hidden items-center gap-1.5">
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: getMasteryDisplayInfo(change.to).color }}
+                      />
+                      <span className="text-xs font-bold" style={{ color: getMasteryDisplayInfo(change.to).color }}>
+                        {getMasteryDisplayInfo(change.to).label}
+                      </span>
+                    </div>
+
+                    {/* Desktop: Status badges */}
+                    <div className="hidden sm:flex items-center gap-2">
                       <StatusBadge status={change.from} size="sm" />
                       <ArrowRight size={16} style={{ color: COLORS.textLight }} />
                       <StatusBadge status={change.to} size="sm" />
@@ -163,7 +177,7 @@ export default function SessionFeedbackComponent({
                     className="flex items-center justify-between py-3 px-4 rounded-lg"
                     style={{ backgroundColor: COLORS.accent }}
                   >
-                    <div>
+                    <div className="flex-1">
                       <div className="font-bold" style={{ color: COLORS.text }}>
                         {change.english}
                       </div>
@@ -171,7 +185,20 @@ export default function SessionFeedbackComponent({
                         {change.japanese}
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+
+                    {/* Mobile: Color dot + text */}
+                    <div className="flex sm:hidden items-center gap-1.5">
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: getMasteryDisplayInfo(change.to).color }}
+                      />
+                      <span className="text-xs font-semibold" style={{ color: COLORS.text }}>
+                        {getMasteryDisplayInfo(change.to).label}
+                      </span>
+                    </div>
+
+                    {/* Desktop: Status badges */}
+                    <div className="hidden sm:flex items-center gap-2">
                       <StatusBadge status={change.from} size="sm" />
                       <ArrowRight size={16} style={{ color: COLORS.textLight }} />
                       <StatusBadge status={change.to} size="sm" />
@@ -196,7 +223,7 @@ export default function SessionFeedbackComponent({
         <div className="flex justify-center gap-4 mb-20">
           <button
             onClick={handleContinueWithoutSaving}
-            className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
+            className="flex items-center gap-2 p-3 sm:px-6 sm:py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
             style={{
               borderColor: COLORS.border,
               color: COLORS.textLight,
@@ -205,11 +232,10 @@ export default function SessionFeedbackComponent({
           >
             <X size={20} />
             <span className="hidden sm:inline">保存せずに続ける</span>
-            <span className="inline sm:hidden">保存しない</span>
           </button>
           <button
             onClick={handleLoginAndSave}
-            className="flex items-center gap-2 px-8 py-3 rounded-full font-bold transition-all duration-200 hover:scale-105"
+            className="flex items-center gap-2 p-3 sm:px-8 sm:py-3 rounded-full font-bold transition-all duration-200 hover:scale-105"
             style={{
               backgroundColor: COLORS.primary,
               color: 'white'
@@ -217,7 +243,6 @@ export default function SessionFeedbackComponent({
           >
             <LogIn size={20} />
             <span className="hidden sm:inline">ログインして保存</span>
-            <span className="inline sm:hidden">保存</span>
           </button>
         </div>
       ) : (
@@ -225,7 +250,7 @@ export default function SessionFeedbackComponent({
         <div className="flex justify-center gap-4 mb-20">
           <button
             onClick={onGoHome}
-            className="flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
+            className="flex items-center gap-2 p-3 sm:px-8 sm:py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
             style={{
               borderColor: COLORS.primary,
               color: COLORS.primary,
@@ -233,18 +258,18 @@ export default function SessionFeedbackComponent({
             }}
           >
             <Home size={20} />
-            ホームへ
+            <span className="hidden sm:inline">ホームへ</span>
           </button>
           <button
             onClick={onStartNewSession}
-            className="flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
+            className="flex items-center gap-2 p-3 sm:px-8 sm:py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
             style={{
               backgroundColor: COLORS.primary,
               color: 'white'
             }}
           >
             <RefreshCw size={20} />
-            もう一度
+            <span className="hidden sm:inline">もう一度</span>
           </button>
         </div>
       )}

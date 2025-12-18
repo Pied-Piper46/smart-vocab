@@ -59,26 +59,26 @@ export default function ExitConfirmationDialog({
           <div className="flex justify-center gap-4">
             <button
               onClick={onCancel}
-              className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105"
+              className="flex items-center gap-2 p-3 sm:px-6 sm:py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
               style={{
                 backgroundColor: COLORS.primary,
                 color: 'white'
               }}
             >
-              <Play size={16} />
-              継続
+              <Play size={20} />
+              <span className="hidden sm:inline">継続</span>
             </button>
             <button
               onClick={onConfirmExit}
-              className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
+              className="flex items-center gap-2 p-3 sm:px-6 sm:py-3 rounded-full font-semibold transition-all duration-200 hover:scale-105 border-2"
               style={{
                 borderColor: '#ef4444',
                 color: '#ef4444',
                 backgroundColor: 'transparent'
               }}
             >
-              <LogOut size={16} />
-              中断
+              <LogOut size={20} />
+              <span className="hidden sm:inline">中断</span>
             </button>
           </div>
         </div>
